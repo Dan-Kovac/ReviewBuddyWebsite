@@ -23,9 +23,9 @@ const caveat = Caveat({
   subsets: ["latin"],
 });
 
-const homeTitle = "Show Your Google Reviews on Your Website | ReviewBuddy for Tradies";
+const homeTitle = "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies";
 const homeDescription =
-  "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month inc. GST.";
+  "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.";
 
 export const ensureStatic = "navigation";
 

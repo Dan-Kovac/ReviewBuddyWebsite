@@ -75,6 +75,7 @@ export function DashboardAnnotations() {
           alt="Illustration of a review dashboard with a rating breakdown and review cards"
           width={1846}
           height={1134}
+          priority
           frame
           caption={false}
           asFigure={false}

@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { AppWindow, Clock3, Link2, Mail, MapPin, MessageSquare, QrCode, UserRound } from "lucide-react";
+import {
+  AppWindow,
+  Link2,
+  Mail,
+  MapPin,
+  MessageSquare,
+  QrCode,
+  Star,
+} from "lucide-react";
 import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
@@ -14,9 +22,9 @@ import { pageMetadata } from "@/lib/metadata";
 import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Show Your Google Reviews on Your Website | ReviewBuddy for Tradies",
+  title: "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies",
   description:
-    "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month inc. GST.",
+    "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.",
   path: "/",
 });
 
@@ -54,13 +62,25 @@ const cards = [
 ];
 
 const steps = [
-  { icon: UserRound, label: "Sign up" },
-  { icon: Clock3, label: "We set it up in 48 hours" },
-  { icon: MessageSquare, label: "Reviews roll in" },
+  {
+    icon: MessageSquare,
+    label: "Ask after the job",
+    detail: "By text, email or QR.",
+  },
+  {
+    icon: Star,
+    label: "Reviews come in",
+    detail: "From the customers you asked.",
+  },
+  {
+    icon: AppWindow,
+    label: "They show on your site",
+    detail: "Live within 48 hours, or that month is free.",
+  },
 ];
 
 const quietLink =
-  "hover-lift inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-5 text-base font-semibold text-ink";
+  "hover-lift inline-flex min-h-12 items-center justify-center rounded-full bg-[#ececec] px-6 text-base font-semibold text-ink";
 
 export default function HomePage() {
   const articles = publishedGuides();
@@ -68,54 +88,37 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={faqJsonLd(homeFaqs)} />
-      <section className="relative overflow-x-clip">
+      <section className="relative overflow-x-clip bg-soft">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-brand/25 blur-3xl"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(ellipse_at_top,rgba(56,182,255,0.12),transparent_68%)]"
         />
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
-          <div>
-            <p className="text-sm font-semibold tracking-wide text-muted">For Aussie tradies</p>
-            <h1 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
-              Show your Google reviews on your website
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-              ReviewBuddy puts a Google review widget on your website and sends
-              a text or email after each job so more customers leave one. Built
-              for Aussie tradies.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <TrialButton />
-              <Link href="/pricing" className={quietLink}>
-                See pricing
-              </Link>
-            </div>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-muted">
-              7 days free. Card taken at signup. Billing starts on day 8. Then {priceLabel}.
-            </p>
+        <div className="relative mx-auto w-full max-w-3xl px-4 pt-24 text-center sm:px-6 lg:pt-36">
+          <p className="text-sm font-semibold tracking-wide text-muted">For Aussie tradies</p>
+          <h1 className="mt-6 text-5xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl sm:leading-[1.02] lg:text-7xl">
+            Get chosen before they call.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-muted sm:text-xl">
+            Real Google reviews on your website and in search, so homeowners
+            trust you before they ring. Win the job on trust, not price.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <TrialButton className="px-6" />
+            <Link href="/pricing" className={quietLink}>
+              See pricing
+            </Link>
           </div>
-          <ProductShot
-            src="/images/hero.png"
-            alt="Illustration of review cards and a rating breakdown beside a website"
-            width={1116}
-            height={1130}
-            priority
-            float
-          />
+          <p className="mt-6 text-sm leading-6 text-muted">
+            7 days free. Card taken at signup. Billing starts on day 8. Then {priceLabel}.
+          </p>
+        </div>
+        <div className="rise relative mx-auto w-full max-w-6xl px-4 pt-20 pb-16 sm:px-6 lg:pt-28 lg:pb-24 xl:max-w-7xl">
+          <DashboardAnnotations />
         </div>
       </section>
 
-      <section className="relative overflow-x-clip">
-        <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:py-12 xl:max-w-7xl">
-          <p className="text-sm font-semibold tracking-wide text-muted">On your website</p>
-          <div className="mt-6">
-            <DashboardAnnotations />
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-soft">
-        <p className="mx-auto w-full max-w-6xl px-4 py-5 text-sm leading-6 text-muted sm:px-6">
+      <section className="border-y border-line bg-white">
+        <p className="mx-auto w-full max-w-6xl px-4 py-5 text-center text-sm leading-6 text-muted sm:px-6">
           Built for plumbers, electricians, builders, roofers, HVAC, and landscapers.{" "}
           <Link href="/google-reviews-for-plumbers" className="font-semibold text-ink underline">
             Google reviews for plumbers
@@ -124,101 +127,144 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section id="how-it-works" className="scroll-mt-24 border-b border-line">
-        <ol className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-3">
-          {steps.map((step, index) => (
-            <li key={step.label} className="flex items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand/15 text-ink">
-                <step.icon aria-hidden="true" className="size-5" />
-              </span>
-              <span>
-                <span className="block text-xs font-semibold tracking-wide text-muted">
-                  {index + 1}
-                </span>
-                <span className="block text-sm font-semibold text-ink">{step.label}</span>
-              </span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section>
-        <div className="rise mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-28">
-          <div>
-            <p className="text-sm font-semibold tracking-wide text-muted">Widgets</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              A Google review widget on your website
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-muted">
-              New Google reviews show on your site without you editing the page.
-              You also get a QR code for the van, the invoice, or the counter,
-              using the same Google review link.
-            </p>
-          </div>
-          <ProductShot
-            src="/images/find-the-best.png"
-            alt="Illustration of a review widget, a badge, and a phone"
-            width={995}
-            height={868}
-          />
-        </div>
-        <div className="rise mx-auto grid w-full max-w-6xl items-center gap-10 border-t border-line px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-28">
-          <div className="lg:order-2">
-            <p className="text-sm font-semibold tracking-wide text-muted">After every job</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              A text or email when the job is done
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-muted">
-              When the job is done, ReviewBuddy sends a review request by text
-              or email. You do not have to remember, and you do not have to
-              chase it. The message includes your Google review link.
-            </p>
-          </div>
-          <div className="lg:order-1">
-            <ProductShot
-              src="/images/request-review.png"
-              alt="Illustration of a review request on a phone"
-              width={474}
-              height={578}
-              sizes="(min-width: 1024px) 420px, 80vw"
-            />
-          </div>
-        </div>
-        <div className="rise mx-auto grid w-full max-w-6xl items-center gap-10 border-t border-line px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-28">
-          <div>
-            <p className="text-sm font-semibold tracking-wide text-muted">Why it matters</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Found in Google search and on your website
-            </h2>
-            <div className="mt-4 grid gap-4 text-lg leading-8 text-muted">
-              <p>
-                People look up a tradie in Google search and on Maps before they
-                call. Your reviews are part of what they see there.
-              </p>
-              <p>
-                Someone lands on your website and the reviews are already there.
-                That is when an enquiry is more likely to turn into a job.
-              </p>
-              <p>
-                You hear what the customer thought of the work, not just a paid
-                invoice and silence. Every customer can be asked. The request
-                is not kept for the happy ones.
+      <section className="bg-[linear-gradient(180deg,rgba(56,182,255,0.05),#ffffff_24%)]">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-24 sm:px-6 lg:gap-14 lg:py-32">
+          <article className="rise grid items-center gap-10 rounded-[32px] border border-line bg-white p-8 shadow-[0_24px_70px_-40px_rgba(26,26,26,0.28)] sm:p-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-muted">Trust</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+                Can I trust them?
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-muted">
+                A homeowner is letting a stranger into their house. Real Google
+                reviews, near the quote button, answer that before they ring.
               </p>
             </div>
-          </div>
-          <ProductShot
-            src="/images/hero.png"
-            alt="Illustration of review cards shown with a website"
-            width={1116}
-            height={1130}
-          />
+            <ProductShot
+              src="/images/hero.png"
+              alt="Illustration of review cards beside a website"
+              width={1116}
+              height={1130}
+            />
+          </article>
+
+          <article className="rise rounded-[32px] border border-line bg-white px-8 py-16 text-center shadow-[0_24px_70px_-40px_rgba(26,26,26,0.28)] sm:px-16 sm:py-24">
+            <p className="text-sm font-semibold tracking-wide text-muted">Value</p>
+            <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl">
+              Stop being the cheap quote. Be the one they trust.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
+              When the quotes sit side by side, the reviews are what set you
+              apart. Win the job on trust, not price.
+            </p>
+          </article>
+
+          <article className="rise grid items-center gap-10 rounded-[32px] border border-line bg-white p-8 shadow-[0_24px_70px_-40px_rgba(26,26,26,0.28)] sm:p-12 lg:grid-cols-2 lg:gap-16">
+            <div className="lg:order-2">
+              <p className="text-sm font-semibold tracking-wide text-muted">Local search</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+                Helps you get found
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-muted">
+                Fresh Google reviews help your Google Business Profile show up
+                when a homeowner nearby searches for a tradie. That helps you
+                get found.
+              </p>
+            </div>
+            <div className="lg:order-1">
+              <ProductShot
+                src="/images/find-the-best.png"
+                alt="Illustration of a review widget and a phone"
+                width={995}
+                height={868}
+              />
+            </div>
+          </article>
         </div>
       </section>
 
-      <section className="rise bg-soft">
-        <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+      <section id="how-it-works" className="scroll-mt-24 bg-soft">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:py-32">
+          <div>
+            <p className="text-sm font-semibold tracking-wide text-muted">How it works</p>
+            <h2 className="mt-3 max-w-xl text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+              After the job, the reviews do the rest
+            </h2>
+            <p className="mt-5 max-w-md text-lg leading-8 text-muted">
+              Every customer can be asked. The request is not kept for the happy ones.
+            </p>
+            <div className="mx-auto mt-12 max-w-xs lg:mx-0">
+              <ProductShot
+                src="/images/request-review.png"
+                alt="Illustration of a review request on a phone"
+                width={474}
+                height={578}
+                sizes="320px"
+              />
+            </div>
+          </div>
+          <ol className="grid gap-4">
+            {steps.map((step, index) => (
+              <li
+                key={step.label}
+                className="rise rounded-[28px] border border-line bg-white p-6 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.45)] sm:p-8"
+              >
+                <div className="flex items-start gap-5">
+                  <span className="text-sm font-semibold tracking-[0.14em] text-muted">
+                    0{index + 1}
+                  </span>
+                  <span>
+                    <span className="flex items-center gap-2 text-lg font-semibold text-ink">
+                      <step.icon aria-hidden="true" className="size-4" />
+                      {step.label}
+                    </span>
+                    <span className="mt-2 block text-base leading-7 text-muted">{step.detail}</span>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section id="pricing" className="rise scroll-mt-24">
+        <div className="mx-auto w-full max-w-3xl px-4 py-24 text-center sm:px-6 lg:py-32">
+          <p className="text-sm font-semibold tracking-wide text-muted">Pricing</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+            $75 a month
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-muted">
+            One public plan, called ReviewBuddy. {priceLabel}. 7 days free.
+            Built for a tradie with one location.
+          </p>
+          <div className="mx-auto mt-12 max-w-lg rounded-[32px] border border-line bg-white p-8 text-left shadow-[0_24px_70px_-40px_rgba(26,26,26,0.35)] sm:p-10">
+            <p className="text-sm font-semibold tracking-wide text-muted">ReviewBuddy</p>
+            <p className="mt-3 text-6xl font-semibold tracking-tight text-ink">$75</p>
+            <p className="mt-1 text-base text-muted">a month (inc. GST)</p>
+            <p className="mt-6 text-base leading-7 text-muted">
+              7 days free. Card taken at signup. Billing starts on day 8.
+            </p>
+            <p className="mt-3 text-base leading-7 text-muted">
+              Setup is normally {setupPrice}. It is included free until {setupDeadline}.
+            </p>
+            <p className="mt-3 text-base leading-7 text-muted">
+              If your reviews are not live on your site within 48 hours of us
+              getting access, that month is free.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <TrialButton />
+              <Link href="/pricing" className={quietLink}>
+                Full pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="rise border-t border-line bg-soft">
+        <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
           <p className="text-sm font-semibold tracking-wide text-muted">Included</p>
-          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          <h2 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             What you get
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
@@ -242,76 +288,51 @@ export default function HomePage() {
       </section>
 
       <section className="rise">
-        <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-sm font-semibold tracking-wide text-muted">Notes</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Guides</h2>
-              <p className="mt-3 max-w-xl text-lg leading-8 text-muted">
-                Short, practical notes for tradies. No invented numbers.
-              </p>
-            </div>
-            <Link href="/guides" className="font-semibold text-ink underline">
-              All guides
-            </Link>
+        <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold tracking-wide text-muted">Notes</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Guides</h2>
+            <p className="mt-4 text-lg leading-8 text-muted">
+              Short, practical notes for tradies. No invented numbers.
+            </p>
           </div>
           {articles.length > 0 ? (
-            <ul className="mt-10 grid gap-4 md:grid-cols-2">
+            <ul className="mt-12 grid gap-4 md:grid-cols-2">
               {articles.map((guide) => (
                 <li key={guide.slug}>
                   <Link
                     href={guidePath(guide.slug)}
-                    className="hover-lift flex h-full flex-col rounded-3xl border border-line bg-white p-6"
+                    className="hover-lift flex h-full flex-col rounded-[28px] border border-line bg-white p-8 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.45)]"
                   >
                     <p className="text-sm text-muted">{guide.dateLabel}</p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
                       {guide.title}
                     </h3>
                     <p className="mt-3 text-base leading-7 text-muted">{guide.description}</p>
-                    <p className="mt-6 text-sm font-semibold text-ink">Read the guide</p>
+                    <p className="mt-8 text-sm font-semibold text-ink">Read the guide</p>
                   </Link>
                 </li>
               ))}
             </ul>
-          ) : null}
-        </div>
-      </section>
-
-      <section id="pricing" className="rise scroll-mt-24 border-t border-line">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-28">
-          <div>
-            <p className="text-sm font-semibold tracking-wide text-muted">Pricing</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">One price</h2>
-            <p className="mt-4 text-lg leading-8 text-muted">
-              One public plan, called ReviewBuddy. {priceLabel}. Built for a
-              tradie with one location.
-            </p>
-            <p className="mt-4 text-base leading-7 text-muted">
-              Setup is normally {setupPrice}. It is included free until {setupDeadline}.
-            </p>
-            <p className="mt-4 text-base leading-7 text-muted">
-              If your reviews are not live on your site within 48 hours of us
-              getting access, that month is free.
-            </p>
-          </div>
-          <div className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_20px_50px_-36px_rgba(26,26,26,0.5)] sm:p-8">
-            <p className="text-sm font-semibold tracking-wide text-muted">ReviewBuddy</p>
-            <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">$75</p>
-            <p className="mt-1 text-base text-muted">a month (inc. GST)</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <TrialButton />
-              <Link href="/pricing" className={quietLink}>
-                Full pricing
-              </Link>
-            </div>
-          </div>
+          ) : (
+            <Link
+              href="/guides"
+              className="hover-lift mt-12 flex max-w-xl flex-col rounded-[28px] border border-line bg-soft p-8 sm:p-10"
+            >
+              <h3 className="text-2xl font-semibold tracking-tight text-ink">Browse the guides</h3>
+              <p className="mt-3 text-base leading-7 text-muted">
+                Notes on asking for Google reviews and showing them on your website.
+              </p>
+              <p className="mt-8 text-sm font-semibold text-ink">All guides</p>
+            </Link>
+          )}
         </div>
       </section>
 
       <section aria-labelledby="faq-heading" className="rise border-t border-line">
-        <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+        <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
           <p className="text-sm font-semibold tracking-wide text-muted">FAQ</p>
-          <h2 id="faq-heading" className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          <h2 id="faq-heading" className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             Questions tradies ask
           </h2>
           <div className="mt-8">
@@ -328,7 +349,7 @@ export default function HomePage() {
       </section>
 
       <CtaBand
-        title="Put your Google reviews on your website"
+        title="Get chosen before they call"
         body="Start the 7-day free trial. Card taken at signup. Billing starts on day 8."
       />
     </>
