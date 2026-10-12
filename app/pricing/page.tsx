@@ -3,6 +3,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { FeatureList } from "@/components/feature-list";
 import { JsonLd } from "@/components/json-ld";
+import { ProductShot } from "@/components/product-shot";
 import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
@@ -36,23 +37,37 @@ export default function PricingPage() {
     <>
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
-        <header className="border-b border-line">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
-            <p className="text-sm font-semibold tracking-wide text-muted">
-              One plan for tradies
-            </p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
-              ReviewBuddy pricing
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              {priceLabel}. 7 days free, then billing starts on day 8. 80 texts
-              a month, unlimited email, and your reviews on your site.
-            </p>
+        <header className="relative overflow-x-clip border-b border-line">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-10 right-0 h-64 w-64 rounded-full bg-brand/20 blur-3xl"
+          />
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-muted">
+                One plan for tradies
+              </p>
+              <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
+                ReviewBuddy pricing
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
+                {priceLabel}. 7 days free, then billing starts on day 8. 80 texts
+                a month, unlimited email, and your reviews on your site.
+              </p>
+            </div>
+            <ProductShot
+              src="/images/hero.png"
+              alt="Illustration of review cards and a rating breakdown beside a website"
+              width={1116}
+              height={1130}
+              priority
+              float
+            />
           </div>
         </header>
 
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="rounded-3xl border border-line bg-white p-6 sm:p-8">
+        <div className="rise mx-auto grid w-full max-w-6xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <section className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_20px_50px_-36px_rgba(26,26,26,0.45)] sm:p-8">
             <h2 className="text-sm font-semibold tracking-wide text-muted">
               ReviewBuddy
             </h2>
@@ -71,7 +86,7 @@ export default function PricingPage() {
           </section>
 
           <div className="grid gap-4 content-start">
-            <section className="rounded-3xl border border-line bg-white p-6">
+            <section className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.4)]">
               <h2 className="text-xl font-semibold text-ink">Trial and billing</h2>
               <ul className="mt-4 grid gap-2">
                 {billing.map((item) => (
@@ -100,20 +115,29 @@ export default function PricingPage() {
           </div>
         </div>
 
-        <section className="border-t border-line">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <section className="rise border-t border-line">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+            <ProductShot
+              src="/images/request-review.png"
+              alt="Illustration of a review request on a phone"
+              width={474}
+              height={578}
+              sizes="(min-width: 1024px) 380px, 80vw"
+            />
+            <div>
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Add-ons</h2>
             <p className="mt-3 max-w-2xl text-base leading-7 text-muted">
               Optional extras. Email us if you want one.
             </p>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {addOns.map((addOn) => (
-                <li key={addOn.name} className="rounded-3xl border border-line bg-white p-5">
+                <li key={addOn.name} className="hover-lift rounded-3xl border border-line bg-white p-5 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.4)]">
                   <h3 className="text-lg font-semibold text-ink">{addOn.name}</h3>
                   <p className="mt-2 text-base text-muted">{addOn.price}</p>
                 </li>
               ))}
             </ul>
+            </div>
           </div>
         </section>
 

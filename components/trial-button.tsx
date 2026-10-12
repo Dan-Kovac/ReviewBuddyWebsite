@@ -22,7 +22,7 @@ export function TrialButton({
     <button
       type="button"
       onClick={openTrial}
-      className={`inline-flex min-h-12 items-center justify-center rounded-full px-5 text-center text-base font-semibold transition-colors ${variants[variant]} ${className}`}
+      className={`hover-lift inline-flex min-h-12 items-center justify-center rounded-full px-5 text-center text-base font-semibold shadow-[0_10px_24px_-16px_rgba(26,26,26,0.65)] ${variants[variant]} ${className}`}
     >
       {children}
     </button>

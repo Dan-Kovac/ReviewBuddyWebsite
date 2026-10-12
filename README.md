@@ -11,7 +11,7 @@ This repository is the public site only. It does not deploy itself. Do not point
 - `/google-reviews-for-plumbers`
 - `/guides` landing page. Article routes are wired for MDX; none are published yet.
 
-The public Duda draft did not serve its files (the site returns “SITE NOT FOUND”), so the logo is an original blue-star wordmark and the product pictures are mockups drawn for this site. Colours are #38B6FF, #E5E5E5, white, and #1a1a1a. Headings are Inter. Body text is Work Sans.
+The Duda homepage returns “SITE NOT FOUND”. The logo and product pictures are Dan’s CDN files, saved in `public/images`. Colours are #38B6FF, #E5E5E5, white, and #1a1a1a. Headings are Inter. Body text is Work Sans.
 - `/privacy` and `/terms` are placeholders. TODO for Dan: replace them before launch.
 - `POST /api/lead` logs a trial request and returns success. TODO: write the lead to Notion.
 

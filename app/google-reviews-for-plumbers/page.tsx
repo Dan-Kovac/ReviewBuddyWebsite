@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { CtaBand } from "@/components/cta-band";
-import { DashboardPreview, QrPreview, RequestPreview } from "@/components/product-mocks";
+import { ProductShot } from "@/components/product-shot";
 import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
@@ -36,7 +36,11 @@ export default function PlumbersPage() {
     <>
       <JsonLd data={faqJsonLd(plumberFaqs)} />
       <article>
-        <header className="border-b border-line">
+        <header className="relative overflow-x-clip border-b border-line">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-10 right-0 h-64 w-64 rounded-full bg-brand/20 blur-3xl"
+          />
           <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
             <div>
               <p className="text-sm font-semibold tracking-wide text-muted">
@@ -64,7 +68,14 @@ export default function PlumbersPage() {
                 Then {priceLabel}.
               </p>
             </div>
-            <DashboardPreview />
+            <ProductShot
+              src="/images/hero.png"
+              alt="Illustration of review cards and a rating breakdown beside a website"
+              width={1116}
+              height={1130}
+              priority
+              float
+            />
           </div>
         </header>
 
@@ -78,7 +89,7 @@ export default function PlumbersPage() {
           </p>
           <ol className="mt-10 grid gap-6 lg:grid-cols-3">
             {steps.map((step, index) => (
-              <li key={step.title} className="rounded-3xl border border-line bg-white p-6">
+              <li key={step.title} className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.45)]">
                 <span className="inline-flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-ink">
                   {index + 1}
                 </span>
@@ -87,9 +98,20 @@ export default function PlumbersPage() {
               </li>
             ))}
           </ol>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <RequestPreview />
-            <QrPreview />
+          <div className="mt-10 grid items-center gap-8 md:grid-cols-2">
+            <ProductShot
+              src="/images/request-review.png"
+              alt="Illustration of a review request on a phone"
+              width={474}
+              height={578}
+              sizes="(min-width: 768px) 420px, 80vw"
+            />
+            <ProductShot
+              src="/images/find-the-best.png"
+              alt="Illustration of a review widget, a badge, and a phone"
+              width={995}
+              height={868}
+            />
           </div>
         </section>
 
