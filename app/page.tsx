@@ -80,7 +80,7 @@ const steps = [
 ];
 
 const quietLink =
-  "hover-lift inline-flex min-h-12 items-center justify-center rounded-full bg-[#ececec] px-6 text-base font-semibold text-ink";
+  "hover-lift inline-flex min-h-12 items-center justify-center rounded-full bg-[#e2e2e2] px-6 text-base font-semibold text-ink";
 
 export default function HomePage() {
   const articles = publishedGuides();
