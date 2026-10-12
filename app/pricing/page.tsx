@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { FeatureList } from "@/components/feature-list";
 import { JsonLd } from "@/components/json-ld";
@@ -37,10 +38,10 @@ export default function PricingPage() {
       <article>
         <header className="border-b border-line">
           <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:py-20">
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-pine">
+            <p className="text-sm font-semibold tracking-wide text-muted">
               One plan for tradies
             </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl">
+            <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
               ReviewBuddy pricing
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
@@ -51,8 +52,8 @@ export default function PricingPage() {
         </header>
 
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-pine">
+          <section className="rounded-3xl border border-line bg-white p-6 sm:p-8">
+            <h2 className="text-sm font-semibold tracking-wide text-muted">
               ReviewBuddy
             </h2>
             <p className="mt-4 text-5xl font-semibold tracking-tight text-ink">
@@ -72,12 +73,12 @@ export default function PricingPage() {
           </section>
 
           <div className="grid gap-4 content-start">
-            <section className="rounded-2xl border border-line bg-paper p-6">
+            <section className="rounded-3xl border border-line bg-white p-6">
               <h2 className="text-xl font-semibold text-ink">Trial and billing</h2>
               <ul className="mt-4 grid gap-2">
                 {billing.map((item) => (
                   <li key={item} className="flex gap-3 text-base leading-7 text-muted">
-                    <span aria-hidden="true" className="text-pine">
+                    <span aria-hidden="true" className="text-ink">
                       •
                     </span>
                     <span>{item}</span>
@@ -85,14 +86,14 @@ export default function PricingPage() {
                 ))}
               </ul>
             </section>
-            <section className="rounded-2xl border border-hi-vis bg-hi-vis/30 p-6">
+            <section className="rounded-2xl border border-brand bg-brand/15 p-6">
               <h2 className="text-xl font-semibold text-ink">Setup included for now</h2>
               <p className="mt-3 text-base leading-7 text-ink">
                 Setup is normally {setupPrice}. It is included free if you start
                 before {setupDeadline}.
               </p>
             </section>
-            <section className="rounded-2xl border border-line bg-paper p-6">
+            <section className="rounded-3xl border border-line bg-white p-6">
               <h2 className="text-xl font-semibold text-ink">48-hour promise</h2>
               <p className="mt-3 text-base leading-7 text-muted">
                 If your reviews are not live on your site within 48 hours of us
@@ -110,7 +111,7 @@ export default function PricingPage() {
             </p>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {addOns.map((addOn) => (
-                <li key={addOn.name} className="rounded-2xl border border-line bg-paper p-5">
+                <li key={addOn.name} className="rounded-3xl border border-line bg-white p-5">
                   <h3 className="text-lg font-semibold text-ink">{addOn.name}</h3>
                   <p className="mt-2 text-base text-muted">{addOn.price}</p>
                 </li>
@@ -119,7 +120,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section className="border-t border-line bg-paper">
+        <section className="border-t border-line bg-soft">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-14 sm:px-6 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">
@@ -150,7 +151,7 @@ export default function PricingPage() {
             </div>
             <p className="mt-8 text-base text-muted">
               Plumbing business?{" "}
-              <Link href="/google-reviews-for-plumbers" className="font-semibold text-pine underline">
+              <Link href="/google-reviews-for-plumbers" className="font-semibold text-ink underline">
                 Google reviews for plumbers
               </Link>
               .
@@ -158,6 +159,10 @@ export default function PricingPage() {
           </div>
         </section>
       </article>
+      <CtaBand
+        title="Start the 7-day free trial"
+        body="Card taken at signup. Billing starts on day 8. Then $75 + GST ($82.50 a month)."
+      />
     </>
   );
 }

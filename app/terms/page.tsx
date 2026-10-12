@@ -25,7 +25,7 @@ export default function TermsPage() {
         <p>
           Until Dan replaces this page, do not treat it as the terms. Questions
           can go to{" "}
-          <a className="font-semibold text-pine underline" href={`mailto:${contactEmail}`}>
+          <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>
             {contactEmail}
           </a>
           .

@@ -259,7 +259,7 @@ export function TrialForm() {
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="inline-flex min-h-12 items-center justify-center rounded-full bg-hi-vis px-5 text-base font-semibold text-ink hover:bg-hi-vis-deep disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand px-5 text-base font-semibold text-ink hover:bg-brand-deep disabled:opacity-60"
       >
         {submitting ? "Sending…" : "Start 7-day free trial"}
       </button>

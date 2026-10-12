@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
-import { QrPreview, TextPreview, WidgetPreview } from "@/components/illustrations";
+import { CtaBand } from "@/components/cta-band";
+import { DashboardPreview, QrPreview, RequestPreview } from "@/components/product-mocks";
 import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
@@ -38,10 +39,10 @@ export default function PlumbersPage() {
         <header className="border-b border-line">
           <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-pine">
+              <p className="text-sm font-semibold tracking-wide text-muted">
                 For plumbing tradies
               </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl">
+              <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
                 Google reviews for plumbers
               </h1>
               <p className="mt-5 text-lg leading-8 text-muted">
@@ -53,7 +54,7 @@ export default function PlumbersPage() {
                 <TrialButton />
                 <Link
                   href="/pricing"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-paper px-5 font-semibold text-ink"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-5 font-semibold text-ink"
                 >
                   See pricing
                 </Link>
@@ -63,7 +64,7 @@ export default function PlumbersPage() {
                 Then {priceLabel}.
               </p>
             </div>
-            <WidgetPreview />
+            <DashboardPreview />
           </div>
         </header>
 
@@ -77,8 +78,8 @@ export default function PlumbersPage() {
           </p>
           <ol className="mt-10 grid gap-6 lg:grid-cols-3">
             {steps.map((step, index) => (
-              <li key={step.title} className="rounded-2xl border border-line bg-paper p-5">
-                <span className="inline-flex size-10 items-center justify-center rounded-full bg-hi-vis font-semibold text-ink">
+              <li key={step.title} className="rounded-3xl border border-line bg-white p-6">
+                <span className="inline-flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-ink">
                   {index + 1}
                 </span>
                 <h3 className="mt-4 text-xl font-semibold text-ink">{step.title}</h3>
@@ -87,12 +88,12 @@ export default function PlumbersPage() {
             ))}
           </ol>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <TextPreview />
+            <RequestPreview />
             <QrPreview />
           </div>
         </section>
 
-        <section className="border-t border-line bg-paper">
+        <section className="border-t border-line bg-soft">
           <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">
@@ -111,7 +112,7 @@ export default function PlumbersPage() {
             </div>
             <div className="flex flex-col justify-end gap-4">
               <TrialButton className="w-full sm:w-fit" />
-              <Link href="/pricing" className="font-semibold text-pine underline">
+              <Link href="/pricing" className="font-semibold text-ink underline">
                 Full pricing
               </Link>
             </div>
@@ -129,6 +130,10 @@ export default function PlumbersPage() {
           </div>
         </section>
       </article>
+      <CtaBand
+        title="Put your plumbing reviews on the website"
+        body="7 days free. Card taken at signup. Billing starts on day 8."
+      />
     </>
   );
 }

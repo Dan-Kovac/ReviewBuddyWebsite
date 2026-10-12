@@ -11,7 +11,7 @@ export function organizationJsonLd() {
         name: siteName,
         url: siteUrl,
         email: contactEmail,
-        logo: `${siteUrl}/mark.svg`,
+        logo: `${siteUrl}/logo.svg`,
         areaServed: {
           "@type": "Country",
           name: "Australia",
@@ -23,7 +23,7 @@ export function organizationJsonLd() {
         name: siteName,
         url: siteUrl,
         email: contactEmail,
-        image: `${siteUrl}/mark.svg`,
+        image: `${siteUrl}/logo.svg`,
         parentOrganization: {
           "@id": `${siteUrl}/#organization`,
         },
@@ -46,7 +46,7 @@ export function organizationJsonLd() {
           "@type": "Brand",
           name: siteName,
         },
-        image: `${siteUrl}/mark.svg`,
+        image: `${siteUrl}/logo.svg`,
         offers: {
           "@type": "Offer",
           url: `${siteUrl}/pricing`,

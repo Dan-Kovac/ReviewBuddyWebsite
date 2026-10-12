@@ -10,13 +10,13 @@ export default function NotFound() {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <Link
           href="/"
-          className="inline-flex min-h-12 items-center justify-center rounded-full bg-hi-vis px-5 font-semibold text-ink"
+          className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand px-5 font-semibold text-ink"
         >
           Home
         </Link>
         <Link
           href="/pricing"
-          className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-paper px-5 font-semibold text-ink"
+          className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-5 font-semibold text-ink"
         >
           Pricing
         </Link>

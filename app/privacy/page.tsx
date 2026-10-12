@@ -26,7 +26,7 @@ export default function PrivacyPage() {
         <p>
           Until Dan replaces this page, do not treat it as the privacy policy.
           Questions can go to{" "}
-          <a className="font-semibold text-pine underline" href={`mailto:${contactEmail}`}>
+          <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>
             {contactEmail}
           </a>
           .

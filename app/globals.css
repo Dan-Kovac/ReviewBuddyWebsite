@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3efe6;
-  --foreground: #1c1915;
-  --paper: #fffdf8;
-  --ink: #1c1915;
-  --muted: #3f3a33;
-  --line: #e3dacb;
-  --hi-vis: #f5c400;
-  --hi-vis-deep: #e0b000;
-  --pine: #14332c;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --ink: #1a1a1a;
+  --muted: #4a4a4a;
+  --line: #e5e5e5;
+  --soft: #f6f6f6;
+  --brand: #38b6ff;
+  --brand-deep: #1aa3f0;
+  --paper: #ffffff;
   --danger: #8f2d2d;
   color-scheme: light;
 }
@@ -17,36 +17,43 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-hi-vis: var(--hi-vis);
-  --color-hi-vis-deep: var(--hi-vis-deep);
-  --color-pine: var(--pine);
+  --color-soft: var(--soft);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-paper: var(--paper);
   --color-danger: var(--danger);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-work-sans);
+  --font-heading: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Work Sans", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), Inter, Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background: var(--hi-vis);
+  background: var(--brand);
   color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--pine);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
 
 dialog::backdrop {
-  background: rgb(28 25 21 / 0.56);
+  background: rgb(26 26 26 / 0.48);
 }
 
 @media (prefers-reduced-motion: reduce) {

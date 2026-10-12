@@ -24,7 +24,7 @@ export const addOns = [
 ] as const;
 
 export const navLinks = [
-  { href: "/#how-it-works", label: "How it works" },
+  { href: "/guides", label: "Guides" },
   { href: "/pricing", label: "Pricing" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
 ] as const;

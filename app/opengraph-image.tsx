@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt =
-  "ReviewBuddy. Show your Google reviews on your website. For Australian tradies.";
+export const alt = "Review Buddy. Show your Google reviews on your website.";
 export const size = {
   width: 1200,
   height: 630,
@@ -18,21 +17,23 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#14332c",
-          color: "#fffdf8",
+          background: "#ffffff",
+          color: "#1a1a1a",
           padding: "72px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
-              width: 56,
-              height: 56,
-              borderRadius: 14,
-              background: "#f5c400",
+              width: 28,
+              height: 28,
+              background: "#38B6FF",
+              clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
             }}
           />
-          <div style={{ marginLeft: 20, fontSize: 32 }}>ReviewBuddy</div>
+          <div style={{ marginLeft: 16, fontSize: 28, letterSpacing: 3 }}>
+            REVIEW BUDDY
+          </div>
         </div>
         <div
           style={{
@@ -44,7 +45,7 @@ export default function OpenGraphImage() {
         >
           Show your Google reviews on your website
         </div>
-        <div style={{ display: "flex", fontSize: 28, color: "#f5c400" }}>
+        <div style={{ display: "flex", fontSize: 28, color: "#38B6FF" }}>
           For Aussie tradies. $75 + GST a month.
         </div>
       </div>
