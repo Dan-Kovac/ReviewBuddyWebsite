@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
+import { FeatureList } from "@/components/feature-list";
 import { JsonLd } from "@/components/json-ld";
 import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
@@ -59,13 +60,9 @@ export default function PricingPage() {
             </p>
             <p className="mt-2 text-lg text-muted">$82.50 a month</p>
             <h3 className="mt-8 text-base font-semibold text-ink">Included</h3>
-            <ul className="mt-3 grid gap-2">
-              {planIncludes.map((item) => (
-                <li key={item} className="text-base leading-7 text-ink">
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-4">
+              <FeatureList items={planIncludes} />
+            </div>
             <div className="mt-8">
               <TrialButton />
             </div>
@@ -79,8 +76,11 @@ export default function PricingPage() {
               <h2 className="text-xl font-semibold text-ink">Trial and billing</h2>
               <ul className="mt-4 grid gap-2">
                 {billing.map((item) => (
-                  <li key={item} className="text-base leading-7 text-muted">
-                    {item}
+                  <li key={item} className="flex gap-3 text-base leading-7 text-muted">
+                    <span aria-hidden="true" className="text-pine">
+                      •
+                    </span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
+import { FeatureList } from "@/components/feature-list";
 import { JsonLd } from "@/components/json-ld";
 import { QrPreview, TextPreview, WidgetPreview } from "@/components/illustrations";
 import { TrialButton } from "@/components/trial-button";
@@ -171,13 +172,9 @@ export default function HomePage() {
               $75 <span className="text-xl font-semibold">+ GST</span>
             </p>
             <p className="mt-1 text-base text-muted">$82.50 a month</p>
-            <ul className="mt-6 grid gap-2">
-              {planIncludes.map((item) => (
-                <li key={item} className="text-base text-ink">
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-6">
+              <FeatureList items={planIncludes} />
+            </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <TrialButton />
               <Link
