@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { publishedGuides } from "@/content/guides/registry";
+import { guidePath } from "@/lib/guides";
 import { siteUrl } from "@/lib/site";
 
 const paths = [
@@ -6,8 +8,7 @@ const paths = [
   "/pricing",
   "/google-reviews-for-plumbers",
   "/guides",
-  "/guides/how-to-get-more-google-reviews-as-a-tradie",
-  "/guides/how-to-show-google-reviews-on-your-website",
+  ...publishedGuides().map((guide) => guidePath(guide.slug)),
   "/privacy",
   "/terms",
 ];

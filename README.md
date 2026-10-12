@@ -9,7 +9,7 @@ This repository is the public site only. It does not deploy itself. Do not point
 - `/` home
 - `/pricing`
 - `/google-reviews-for-plumbers`
-- `/guides` and two starter articles
+- `/guides` landing page. Article routes are wired for MDX; none are published yet.
 
 The public Duda draft did not serve its files (the site returns “SITE NOT FOUND”), so the logo is an original blue-star wordmark and the product pictures are mockups drawn for this site. Colours are #38B6FF, #E5E5E5, white, and #1a1a1a. Headings are Inter. Body text is Work Sans.
 - `/privacy` and `/terms` are placeholders. TODO for Dan: replace them before launch.

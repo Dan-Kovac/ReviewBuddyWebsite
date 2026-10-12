@@ -10,7 +10,8 @@ import {
 } from "@/components/product-mocks";
 import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
-import { guidePath, guides } from "@/lib/guides";
+import { publishedGuides } from "@/content/guides/registry";
+import { guidePath } from "@/lib/guides";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site";
@@ -50,6 +51,8 @@ const cards = [
 ];
 
 export default function HomePage() {
+  const articles = publishedGuides();
+
   return (
     <>
       <JsonLd data={faqJsonLd(homeFaqs)} />
@@ -181,23 +184,25 @@ export default function HomePage() {
               All guides
             </Link>
           </div>
-          <ul className="mt-10 grid gap-4 md:grid-cols-2">
-            {guides.map((guide) => (
-              <li key={guide.slug}>
-                <Link
-                  href={guidePath(guide.slug)}
-                  className="flex h-full flex-col rounded-3xl border border-line bg-white p-6"
-                >
-                  <p className="text-sm text-muted">{guide.dateLabel}</p>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
-                    {guide.title}
-                  </h3>
-                  <p className="mt-3 text-base leading-7 text-muted">{guide.description}</p>
-                  <p className="mt-6 text-sm font-semibold text-ink">Read the guide</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {articles.length > 0 ? (
+            <ul className="mt-10 grid gap-4 md:grid-cols-2">
+              {articles.map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={guidePath(guide.slug)}
+                    className="flex h-full flex-col rounded-3xl border border-line bg-white p-6"
+                  >
+                    <p className="text-sm text-muted">{guide.dateLabel}</p>
+                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
+                      {guide.title}
+                    </h3>
+                    <p className="mt-3 text-base leading-7 text-muted">{guide.description}</p>
+                    <p className="mt-6 text-sm font-semibold text-ink">Read the guide</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </section>
 
