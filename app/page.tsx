@@ -3,6 +3,7 @@ import { AppWindow, Clock3, Link2, Mail, MapPin, MessageSquare, QrCode, UserRoun
 import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
+import { DashboardAnnotations } from "@/components/dashboard-annotations";
 import { ProductShot } from "@/components/product-shot";
 import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
@@ -104,6 +105,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative overflow-x-clip">
+        <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:py-12 xl:max-w-7xl">
+          <p className="text-sm font-semibold tracking-wide text-muted">On your website</p>
+          <div className="mt-6">
+            <DashboardAnnotations />
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-line bg-soft">
         <p className="mx-auto w-full max-w-6xl px-4 py-5 text-sm leading-6 text-muted sm:px-6">
           Built for plumbers, electricians, builders, roofers, HVAC, and landscapers.{" "}
@@ -130,22 +140,6 @@ export default function HomePage() {
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className="rise relative overflow-x-clip">
-        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
-          <p className="text-sm font-semibold tracking-wide text-muted">On your website</p>
-          <div className="mt-6">
-            <ProductShot
-              src="/images/reviews-breakdown.png"
-              alt="Illustration of a review dashboard with a rating breakdown and review cards"
-              width={1846}
-              height={1134}
-              frame
-              sizes="(min-width: 1152px) 1100px, 100vw"
-            />
-          </div>
-        </div>
       </section>
 
       <section>

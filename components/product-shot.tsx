@@ -10,6 +10,8 @@ export function ProductShot({
   priority = false,
   float = false,
   frame = false,
+  caption = true,
+  asFigure = true,
   sizes = "(min-width: 1024px) 560px, 100vw",
 }: {
   src: string;
@@ -19,6 +21,8 @@ export function ProductShot({
   priority?: boolean;
   float?: boolean;
   frame?: boolean;
+  caption?: boolean;
+  asFigure?: boolean;
   sizes?: string;
 }) {
   const image = (
@@ -34,8 +38,8 @@ export function ProductShot({
     />
   );
 
-  return (
-    <figure className="relative">
+  const body = (
+    <>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-4 -inset-y-6 -z-10 rounded-full bg-brand/25 blur-3xl"
@@ -55,7 +59,11 @@ export function ProductShot({
       ) : (
         <div className={float ? "float-card" : undefined}>{image}</div>
       )}
-      <figcaption className="mt-3 text-xs leading-5 text-muted">{note}</figcaption>
-    </figure>
+      {caption ? <figcaption className="mt-3 text-xs leading-5 text-muted">{note}</figcaption> : null}
+    </>
   );
+
+  if (!asFigure) return <div className="relative">{body}</div>;
+
+  return <figure className="relative">{body}</figure>;
 }

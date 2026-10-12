@@ -77,7 +77,12 @@ dialog::backdrop {
   }
 }
 
-.rise {
+.font-callout {
+  font-family: var(--font-caveat), "Segoe Print", cursive;
+}
+
+.rise,
+.callout-in {
   animation: rise 0.7s ease both;
   animation-timeline: view();
   animation-range: entry 0% cover 28%;
@@ -99,7 +104,8 @@ dialog::backdrop {
 }
 
 @supports not (animation-timeline: view()) {
-  .rise {
+  .rise,
+  .callout-in {
     animation-timeline: auto;
     animation-range: normal;
   }
@@ -111,6 +117,7 @@ dialog::backdrop {
   }
 
   .rise,
+  .callout-in,
   .float-card,
   .hover-lift {
     animation: none;
