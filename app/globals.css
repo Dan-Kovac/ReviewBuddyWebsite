@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3efe6;
+  --foreground: #1c1915;
+  --paper: #fffdf8;
+  --ink: #1c1915;
+  --muted: #3f3a33;
+  --line: #e3dacb;
+  --hi-vis: #f5c400;
+  --hi-vis-deep: #e0b000;
+  --pine: #14332c;
+  --danger: #8f2d2d;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-hi-vis: var(--hi-vis);
+  --color-hi-vis-deep: var(--hi-vis-deep);
+  --color-pine: var(--pine);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--hi-vis);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 3px;
+}
+
+dialog::backdrop {
+  background: rgb(28 25 21 / 0.56);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
