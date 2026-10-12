@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
-import { contactEmail, loginUrl } from "@/lib/site";
-
-const explore = [
-  { href: "/guides", label: "Guides" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/google-reviews-for-plumbers", label: "Plumbers" },
-];
+import { contactEmail, loginUrl, navLinks } from "@/lib/site";
 
 const account = [
   { href: loginUrl, label: "Log in", external: true },
@@ -28,7 +22,7 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer" className="grid content-start gap-1 text-sm">
           <p className="mb-2 text-xs font-semibold tracking-wide text-muted">Explore</p>
-          {explore.map((link) => (
+          {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="min-h-11 py-2 text-ink hover:underline">
               {link.label}
             </Link>

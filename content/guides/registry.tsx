@@ -8,5 +8,7 @@ import { guides, type Guide } from "@/lib/guides";
 export const guideArticles: Record<string, ComponentType> = {};
 
 export function publishedGuides(): Guide[] {
-  return guides.filter((guide) => guide.slug in guideArticles);
+  return guides
+    .filter((guide) => guide.slug in guideArticles)
+    .sort((a, b) => b.date.localeCompare(a.date));
 }

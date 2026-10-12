@@ -10,13 +10,14 @@ import {
 } from "lucide-react";
 import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
+import { GuideCards } from "@/components/guide-cards";
 import { JsonLd } from "@/components/json-ld";
 import { DashboardAnnotations } from "@/components/dashboard-annotations";
 import { ProductShot } from "@/components/product-shot";
 import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
 import { publishedGuides } from "@/content/guides/registry";
-import { guidePath } from "@/lib/guides";
+import { pillarGuideLink } from "@/lib/guides";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site";
@@ -82,8 +83,14 @@ const steps = [
 const quietLink =
   "hover-lift inline-flex min-h-12 items-center justify-center rounded-full bg-[#e2e2e2] px-6 text-base font-semibold text-ink";
 
+const pillarGuideClass =
+  "mt-6 inline-flex text-base font-semibold text-ink underline decoration-brand underline-offset-4";
+
 export default function HomePage() {
   const articles = publishedGuides();
+  const trustGuide = pillarGuideLink(articles, "trust");
+  const valueGuide = pillarGuideLink(articles, "value");
+  const foundGuide = pillarGuideLink(articles, "found");
 
   return (
     <>
@@ -139,6 +146,9 @@ export default function HomePage() {
                 A homeowner is letting a stranger into their house. Real Google
                 reviews, near the quote button, answer that before they ring.
               </p>
+              <Link href={trustGuide.href} className={pillarGuideClass}>
+                {trustGuide.label}
+              </Link>
             </div>
             <ProductShot
               src="/images/hero.png"
@@ -157,6 +167,9 @@ export default function HomePage() {
               When the quotes sit side by side, the reviews are what set you
               apart. Win the job on trust, not price.
             </p>
+            <Link href={valueGuide.href} className={pillarGuideClass}>
+              {valueGuide.label}
+            </Link>
           </article>
 
           <article className="rise grid items-center gap-10 rounded-[32px] border border-line bg-white p-8 shadow-[0_24px_70px_-40px_rgba(26,26,26,0.28)] sm:p-12 lg:grid-cols-2 lg:gap-16">
@@ -170,6 +183,9 @@ export default function HomePage() {
                 when a homeowner nearby searches for a tradie. That helps you
                 get found.
               </p>
+              <Link href={foundGuide.href} className={pillarGuideClass}>
+                {foundGuide.label}
+              </Link>
             </div>
             <div className="lg:order-1">
               <ProductShot
@@ -287,45 +303,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="rise">
+      <section aria-labelledby="latest-guides" className="rise">
         <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold tracking-wide text-muted">Notes</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Guides</h2>
-            <p className="mt-4 text-lg leading-8 text-muted">
-              Short, practical notes for tradies. No invented numbers.
-            </p>
-          </div>
-          {articles.length > 0 ? (
-            <ul className="mt-12 grid gap-4 md:grid-cols-2">
-              {articles.map((guide) => (
-                <li key={guide.slug}>
-                  <Link
-                    href={guidePath(guide.slug)}
-                    className="hover-lift flex h-full flex-col rounded-[28px] border border-line bg-white p-8 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.45)]"
-                  >
-                    <p className="text-sm text-muted">{guide.dateLabel}</p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
-                      {guide.title}
-                    </h3>
-                    <p className="mt-3 text-base leading-7 text-muted">{guide.description}</p>
-                    <p className="mt-8 text-sm font-semibold text-ink">Read the guide</p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <Link
-              href="/guides"
-              className="hover-lift mt-12 flex max-w-xl flex-col rounded-[28px] border border-line bg-soft p-8 sm:p-10"
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-ink">Browse the guides</h3>
-              <p className="mt-3 text-base leading-7 text-muted">
-                Notes on asking for Google reviews and showing them on your website.
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold tracking-wide text-muted">Guides</p>
+              <h2 id="latest-guides" className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+                Latest guides
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-muted">
+                Short, practical notes for tradies. No invented numbers.
               </p>
-              <p className="mt-8 text-sm font-semibold text-ink">All guides</p>
+            </div>
+            <Link href="/guides" className="text-base font-semibold text-ink underline decoration-brand underline-offset-4">
+              All guides
             </Link>
-          )}
+          </div>
+          <GuideCards guides={articles} emptyHref="/guides" />
         </div>
       </section>
 
