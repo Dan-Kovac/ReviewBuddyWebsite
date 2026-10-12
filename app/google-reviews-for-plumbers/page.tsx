@@ -7,7 +7,7 @@ import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { priceLabel, setupDeadline } from "@/lib/site";
+import { priceLabel, setupDeadline, setupPrice } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
@@ -105,7 +105,7 @@ export default function PlumbersPage() {
                 widget on your plumbing website. {priceLabel}.
               </p>
               <p className="mt-4 text-base leading-7 text-muted">
-                Setup is included free if you start before {setupDeadline}. If
+                Setup is normally {setupPrice}. It is included free until {setupDeadline}. If
                 your reviews are not live on your site within 48 hours of us
                 getting access, that month is free.
               </p>

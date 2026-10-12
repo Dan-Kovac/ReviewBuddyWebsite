@@ -19,7 +19,7 @@ import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site"
 export const metadata = pageMetadata({
   title: "Show Your Google Reviews on Your Website | ReviewBuddy for Tradies",
   description:
-    "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 + GST a month.",
+    "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month.",
   path: "/",
 });
 
@@ -215,8 +215,7 @@ export default function HomePage() {
               tradie with one location.
             </p>
             <p className="mt-4 text-base leading-7 text-muted">
-              Setup is normally {setupPrice}. It is included free if you start
-              before {setupDeadline}.
+              Setup is normally {setupPrice}. It is included free until {setupDeadline}.
             </p>
             <p className="mt-4 text-base leading-7 text-muted">
               If your reviews are not live on your site within 48 hours of us
@@ -225,10 +224,8 @@ export default function HomePage() {
           </div>
           <div className="rounded-3xl border border-line bg-white p-6 shadow-[0_20px_50px_-36px_rgba(26,26,26,0.5)] sm:p-8">
             <p className="text-sm font-semibold tracking-wide text-muted">ReviewBuddy</p>
-            <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">
-              $75 <span className="text-2xl">+ GST</span>
-            </p>
-            <p className="mt-1 text-base text-muted">$82.50 a month</p>
+            <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">$75</p>
+            <p className="mt-1 text-base text-muted">a month (inc. GST)</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <TrialButton />
               <Link

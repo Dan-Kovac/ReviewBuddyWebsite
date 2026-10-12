@@ -10,9 +10,9 @@ export const homeFaqs: Faq[] = [
       "Send your details and we set you up. We take a card at signup. You are not charged for the first 7 days. Billing starts on day 8. Cancel before then and you will not be billed.",
   },
   {
-    question: "What do I get for $75 + GST?",
+    question: "What do I get for $75 a month?",
     answer:
-      "One location, two team members, 80 texts a month, unlimited email review requests, a Google review widget on your site, and a Google review link plus a QR code. $75 + GST is $82.50 a month.",
+      "One location, two team members, 80 texts a month, unlimited email review requests, a Google review widget on your site, and a Google review link plus a QR code. $75 a month (inc. GST).",
   },
   {
     question: "When do reviews show on my website?",
@@ -22,7 +22,7 @@ export const homeFaqs: Faq[] = [
   {
     question: "Is setup extra?",
     answer:
-      "Setup is $300 + GST. It is included free if you start before 31 December 2026.",
+      "Setup is $330. It is included free until 31 December 2026.",
   },
   {
     question: "Can I cancel?",
@@ -54,7 +54,7 @@ export const pricingFaqs: Faq[] = [
   {
     question: "Is the setup fee included?",
     answer:
-      "Setup is normally $300 + GST. It is included free if you start before 31 December 2026.",
+      "Setup is normally $330. It is included free until 31 December 2026.",
   },
   {
     question: "Can I change or cancel?",
@@ -66,7 +66,7 @@ export const plumberFaqs: Faq[] = [
   {
     question: "Does this work on a plumbing website someone else built?",
     answer:
-      "Yes. We put the Google review widget on your site. A small website fix, if you need one, is $99 incl. GST.",
+      "Yes. We put the Google review widget on your site. A small website fix, if you need one, is $99.",
   },
   {
     question: "When does the review request go out?",
@@ -76,6 +76,6 @@ export const plumberFaqs: Faq[] = [
   {
     question: "What does it cost a plumbing tradie?",
     answer:
-      "One plan. $75 + GST ($82.50 a month). 7 days free. Card taken at signup. Billing starts on day 8. One location and two team members.",
+      "One plan. $75 a month (inc. GST). 7 days free. Card taken at signup. Billing starts on day 8. One location and two team members.",
   },
 ];

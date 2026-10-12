@@ -3,10 +3,9 @@ export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const loginUrl = "https://app.reviewbuddy.com.au/login";
 
-export const priceExGst = "$75";
-export const priceIncGst = "$82.50";
-export const priceLabel = "$75 + GST ($82.50 a month)";
-export const setupPrice = "$300 + GST";
+export const priceLabel = "$75 a month (inc. GST)";
+export const productPrice = "75.00";
+export const setupPrice = "$330";
 export const setupDeadline = "31 December 2026";
 
 export const planIncludes = [
@@ -19,8 +18,8 @@ export const planIncludes = [
 ] as const;
 
 export const addOns = [
-  { name: "100 extra texts", price: "$33 incl. GST" },
-  { name: "Small website fix", price: "$99 incl. GST" },
+  { name: "100 extra texts", price: "$33" },
+  { name: "Small website fix", price: "$99" },
 ] as const;
 
 export const navLinks = [

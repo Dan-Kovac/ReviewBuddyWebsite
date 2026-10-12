@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
           Show your Google reviews on your website
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#38B6FF" }}>
-          For Aussie tradies. $75 + GST a month.
+          For Aussie tradies. $75 a month (inc. GST).
         </div>
       </div>
     ),

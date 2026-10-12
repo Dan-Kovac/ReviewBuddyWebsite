@@ -17,7 +17,7 @@ import {
 } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy Pricing: $75 + GST a month | 7-Day Free Trial",
+  title: "ReviewBuddy Pricing: $75 a Month | 7-Day Free Trial",
   description:
     "One plan for tradies: 80 texts a month, unlimited email, and reviews on your site in 48 hours or that month is free. Setup included until 31 Dec 2026.",
   path: "/pricing",
@@ -56,10 +56,8 @@ export default function PricingPage() {
             <h2 className="text-sm font-semibold tracking-wide text-muted">
               ReviewBuddy
             </h2>
-            <p className="mt-4 text-5xl font-semibold tracking-tight text-ink">
-              $75 <span className="text-2xl">+ GST</span>
-            </p>
-            <p className="mt-2 text-lg text-muted">$82.50 a month</p>
+            <p className="mt-4 text-5xl font-semibold tracking-tight text-ink">$75</p>
+            <p className="mt-2 text-lg text-muted">a month (inc. GST)</p>
             <h3 className="mt-8 text-base font-semibold text-ink">Included</h3>
             <div className="mt-4">
               <FeatureList items={planIncludes} />
@@ -89,8 +87,7 @@ export default function PricingPage() {
             <section className="rounded-2xl border border-brand bg-brand/15 p-6">
               <h2 className="text-xl font-semibold text-ink">Setup included for now</h2>
               <p className="mt-3 text-base leading-7 text-ink">
-                Setup is normally {setupPrice}. It is included free if you start
-                before {setupDeadline}.
+                Setup is normally {setupPrice}. It is included free until {setupDeadline}.
               </p>
             </section>
             <section className="rounded-3xl border border-line bg-white p-6">
@@ -161,7 +158,7 @@ export default function PricingPage() {
       </article>
       <CtaBand
         title="Start the 7-day free trial"
-        body="Card taken at signup. Billing starts on day 8. Then $75 + GST ($82.50 a month)."
+        body="Card taken at signup. Billing starts on day 8. Then $75 a month (inc. GST)."
       />
     </>
   );
