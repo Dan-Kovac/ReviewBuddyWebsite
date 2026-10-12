@@ -20,7 +20,7 @@ const workSans = Work_Sans({
 
 const homeTitle = "Show Your Google Reviews on Your Website | ReviewBuddy for Tradies";
 const homeDescription =
-  "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month.";
+  "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month inc. GST.";
 
 export const ensureStatic = "navigation";
 

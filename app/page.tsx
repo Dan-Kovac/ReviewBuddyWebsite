@@ -19,7 +19,7 @@ import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site"
 export const metadata = pageMetadata({
   title: "Show Your Google Reviews on Your Website | ReviewBuddy for Tradies",
   description:
-    "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month.",
+    "Your Google reviews, live on your website, plus texts and emails that ask for more. Built for Aussie tradies. 7 days free, then $75 a month inc. GST.",
   path: "/",
 });
 

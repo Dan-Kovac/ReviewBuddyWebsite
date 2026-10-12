@@ -17,7 +17,7 @@ import {
 } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy Pricing: $75 a Month | 7-Day Free Trial",
+  title: "ReviewBuddy Pricing: $75 a month inc. GST | 7-Day Free Trial",
   description:
     "One plan for tradies: 80 texts a month, unlimited email, and reviews on your site in 48 hours or that month is free. Setup included until 31 Dec 2026.",
   path: "/pricing",
