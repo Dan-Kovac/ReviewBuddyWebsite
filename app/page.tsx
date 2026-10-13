@@ -69,14 +69,10 @@ function BeforeSite() {
           <SourceBadge>Google (48)</SourceBadge>
           <SourceBadge>Service Seeking (198)</SourceBadge>
         </div>
+        <p className="mt-4 text-sm leading-6 text-muted">Newest review on this page: 20 Oct 2025</p>
         <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
           Good and prompt service.
-          <footer className="mt-3 text-sm text-muted">Shiphrah E. · Google · 2025-10-20</footer>
-        </blockquote>
-        <blockquote className="mt-6 border-t border-line pt-6 text-base leading-7 text-ink">
-          Quick response, came same day, quality work. Steve and Nick treated the issue with urgency and care.
-          Communication was transparent.
-          <footer className="mt-3 text-sm text-muted">Anbin · Service Seeking · 2025-06-01</footer>
+          <footer className="mt-3 text-sm text-muted">Shiphrah E. · Google · 20 Oct 2025</footer>
         </blockquote>
       </div>
     </BrowserChrome>
@@ -107,16 +103,15 @@ function AfterWidget() {
         <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
           <SourceBadge>Google</SourceBadge>
           <p className="mt-3">
-            We called Kovele Plumbing in the morning with an exterior leak. After a quick chat and some photos sent
-            through, Steve provided us with a quote and arrived to complete the work by 1pm that same day. The
-            father-son duo are friendly, reasonably priced and complete works to a quality standard. Highly recommend.
+            Without question the best tradies I have ever used. Steve and Nick explain everything in laymans terms. I
+            cannot recommend them highly enough.
           </p>
-          <footer className="mt-3 text-sm text-muted">Leon Rozitis</footer>
+          <footer className="mt-3 text-sm text-muted">kevin leahy</footer>
         </blockquote>
         <blockquote className="mt-6 border-t border-line pt-6 text-base leading-7 text-ink">
           <SourceBadge>ServiceSeeking</SourceBadge>
           <p className="mt-3">Turned up on time. Job done perfectly</p>
-          <footer className="mt-3 text-sm text-muted">Jason</footer>
+          <footer className="mt-3 text-sm text-muted">Jason · 21 Aug 2026</footer>
         </blockquote>
       </div>
     </BrowserChrome>
@@ -156,8 +151,9 @@ export default function HomePage() {
             Win the job on trust, not price.
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            Kovele Plumbing had good reviews on Google and ServiceSeeking, but none of them showed on his own site.
-            Now they show there together, live, so customers can see why to book him.
+            Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
+            updating a year ago. Now they&apos;re live, so new jobs show up as they happen and customers can see why to
+            book him.
           </p>
           <figure className="mt-16">
             <div className="grid items-start gap-6 lg:grid-cols-2">
