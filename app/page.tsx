@@ -34,15 +34,15 @@ const wrap = "mx-auto w-full max-w-[1200px]";
 const secondary =
   "hover-lift inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-6 text-base font-semibold text-ink hover:bg-soft";
 
-function BrowserChrome({ children }: { children: ReactNode }) {
+function BrowserChrome({ url, children }: { url: string; children: ReactNode }) {
   return (
     <div className="overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_16px_40px_-28px_rgba(11,15,20,0.18)]">
       <div className="flex items-center gap-2 border-b border-line bg-soft px-4 py-3" aria-hidden="true">
         <span className="size-2.5 rounded-full bg-[#d5d8de]" />
         <span className="size-2.5 rounded-full bg-[#d5d8de]" />
         <span className="size-2.5 rounded-full bg-[#d5d8de]" />
-        <span className="ml-2 flex h-6 flex-1 items-center rounded-full bg-white px-3 text-xs text-muted">
-          northside-plumbing.example
+        <span className="ml-2 flex h-6 flex-1 items-center truncate rounded-full bg-white px-3 text-xs text-muted">
+          {url}
         </span>
       </div>
       {children}
@@ -50,29 +50,74 @@ function BrowserChrome({ children }: { children: ReactNode }) {
   );
 }
 
-function SiteMock({ live }: { live: boolean }) {
+function SourceBadge({ children }: { children: ReactNode }) {
   return (
-    <BrowserChrome>
+    <span className="inline-flex rounded-full border border-line bg-soft px-2.5 py-1 text-xs font-semibold text-ink">
+      {children}
+    </span>
+  );
+}
+
+function BeforeSite() {
+  return (
+    <BrowserChrome url="koveleplumbing.com.au/reviews">
       <div className="px-6 py-6 sm:px-8 sm:py-8">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-ink">Northside Plumbing Co</p>
-          <p className="rounded-full border border-line bg-white px-2.5 py-1 text-xs font-semibold tracking-wide text-ink">
-            Example
-          </p>
+        <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
+        <p className="mt-6 text-5xl font-bold leading-none text-ink">4.9</p>
+        <p className="mt-3 text-base leading-7 text-muted">Based on 246 reviews</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <SourceBadge>Google (48)</SourceBadge>
+          <SourceBadge>Service Seeking (198)</SourceBadge>
         </div>
-        <p className="mt-6 text-2xl font-bold leading-tight text-ink">Plumbing for local homes</p>
-        <div
-          className={`mt-8 rounded-[16px] border px-5 py-5 ${live ? "border-ink/15 bg-white" : "border-line bg-soft"}`}
-        >
-          <p className={`text-sm font-semibold ${live ? "text-ink" : "text-muted"}`}>Reviews</p>
-          <p className="mt-2 text-base leading-7 text-muted">
-            {live ? "Shown live on this website." : "Still showing reviews from last year."}
+        <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
+          Good and prompt service.
+          <footer className="mt-3 text-sm text-muted">Shiphrah E. · Google · 2025-10-20</footer>
+        </blockquote>
+        <blockquote className="mt-6 border-t border-line pt-6 text-base leading-7 text-ink">
+          Quick response, came same day, quality work. Steve and Nick treated the issue with urgency and care.
+          Communication was transparent.
+          <footer className="mt-3 text-sm text-muted">Anbin · Service Seeking · 2025-06-01</footer>
+        </blockquote>
+      </div>
+    </BrowserChrome>
+  );
+}
+
+function AfterWidget() {
+  return (
+    <BrowserChrome url="koveleplumbing.com.au">
+      <div className="px-6 py-6 sm:px-8 sm:py-8">
+        <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
+        <ul className="mt-6 grid gap-3">
+          <li className="flex flex-wrap items-baseline justify-between gap-2 rounded-[16px] border border-line px-4 py-4">
+            <SourceBadge>Google</SourceBadge>
+            <p className="text-base leading-7 text-ink">
+              <span className="text-2xl font-bold">4.8</span>
+              <span className="text-muted"> · 53 reviews</span>
+            </p>
+          </li>
+          <li className="flex flex-wrap items-baseline justify-between gap-2 rounded-[16px] border border-line px-4 py-4">
+            <SourceBadge>ServiceSeeking</SourceBadge>
+            <p className="text-base leading-7 text-ink">
+              <span className="text-2xl font-bold">4.9</span>
+              <span className="text-muted"> · 202 reviews</span>
+            </p>
+          </li>
+        </ul>
+        <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
+          <SourceBadge>Google</SourceBadge>
+          <p className="mt-3">
+            We called Kovele Plumbing in the morning with an exterior leak. After a quick chat and some photos sent
+            through, Steve provided us with a quote and arrived to complete the work by 1pm that same day. The
+            father-son duo are friendly, reasonably priced and complete works to a quality standard. Highly recommend.
           </p>
-          <div className="mt-4 grid gap-2" aria-hidden="true">
-            <span className={`h-3 rounded-full ${live ? "w-4/5 bg-[#d7dde3]" : "w-3/5 bg-[#e6e8eb]"}`} />
-            <span className={`h-3 rounded-full ${live ? "w-2/3 bg-[#d7dde3]" : "w-2/5 bg-[#e6e8eb]"}`} />
-          </div>
-        </div>
+          <footer className="mt-3 text-sm text-muted">Leon Rozitis</footer>
+        </blockquote>
+        <blockquote className="mt-6 border-t border-line pt-6 text-base leading-7 text-ink">
+          <SourceBadge>ServiceSeeking</SourceBadge>
+          <p className="mt-3">Turned up on time. Job done perfectly</p>
+          <footer className="mt-3 text-sm text-muted">Jason</footer>
+        </blockquote>
       </div>
     </BrowserChrome>
   );
@@ -108,22 +153,20 @@ export default function HomePage() {
       <section className={`bg-soft ${section}`}>
         <div className={wrap}>
           <h2 className="max-w-3xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            Old reviews cost you jobs.
+            All your reviews, one place, live on your site
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            A site still showing reviews from last year looks quiet. Live reviews show you&apos;re busy and trusted.
-          </p>
-          <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">Win the job on trust, not price.</p>
+          <div className="mt-16 grid items-start gap-6 lg:grid-cols-2">
             <figure>
-              <SiteMock live={false} />
+              <BeforeSite />
               <figcaption className="mt-4 text-sm leading-6 text-muted">
-                Before. Fictional example. Not a real business.
+                Before. Kovele Plumbing’s reviews page today.
               </figcaption>
             </figure>
             <figure>
-              <SiteMock live={true} />
+              <AfterWidget />
               <figcaption className="mt-4 text-sm leading-6 text-muted">
-                After. The same fictional example, with reviews on the site.
+                After. Google and ServiceSeeking, each with its own count and rating.
               </figcaption>
             </figure>
           </div>
