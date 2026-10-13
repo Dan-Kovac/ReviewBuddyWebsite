@@ -112,6 +112,73 @@ dialog::backdrop {
   }
 }
 
+@keyframes badge-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes star-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.badge-in {
+  animation: badge-in 0.55s ease both;
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.star-in {
+  animation: star-in 0.4s ease both;
+}
+
+.hero-wash {
+  background:
+    radial-gradient(880px 460px at 0% -8%, rgb(56 182 255 / 0.16), transparent 62%),
+    radial-gradient(640px 360px at 100% 0%, rgb(11 15 20 / 0.04), transparent 58%),
+    #fff;
+}
+
+.depth-card {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.8),
+    0 18px 44px -28px rgb(11 15 20 / 0.28);
+}
+
+.link-fade {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.link-fade:hover {
+  color: var(--brand-deep);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -120,7 +187,10 @@ dialog::backdrop {
   .rise,
   .callout-in,
   .float-card,
-  .hover-lift {
+  .hover-lift,
+  .badge-in,
+  .pulse-dot,
+  .star-in {
     animation: none;
     transition: none;
   }

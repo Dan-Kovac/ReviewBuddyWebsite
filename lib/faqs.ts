@@ -7,37 +7,30 @@ export type Faq = {
 
 export const homeFaqs: Faq[] = [
   {
-    question: "How does the 7-day free trial work?",
-    answer:
-      "Send your details and we set you up. We take a card at signup. You are not charged for the first 7 days. Billing starts on day 8. Cancel before then and you will not be billed.",
-  },
-  {
-    question: "What do I get for $75 a month?",
-    answer:
-      "One location, two team members, 80 texts a month, unlimited email review requests, a Google review widget on your site, and a Google review link plus a QR code. $75 a month (inc. GST).",
-  },
-  {
-    question: "When do reviews show on my website?",
-    answer:
-      "We put your Google reviews on your site. If they are not live within 48 hours of us getting access, that month is free.",
-  },
-  {
     question: "Is setup extra?",
     answer: `${setupOffer}.`,
+  },
+  {
+    question: "How does the 7-day free trial work?",
+    answer:
+      "We take a card at signup. You are not charged for the first 7 days. Billing starts on day 8. Cancel before then and you will not be billed.",
   },
   {
     question: "Can I cancel?",
     answer: "Yes. Cancel any time. Email us for any change.",
   },
   {
-    question: "I have more than one location.",
+    question: "How does the widget get on my site?",
     answer:
-      "The public plan is for one location. More than one location? Get in touch. We do not list a price for that here.",
+      "We set it up, add the widget and fix what we can see. If your reviews are not live in 48 hours, that month is free.",
   },
   {
-    question: "Who is ReviewBuddy for?",
-    answer:
-      "Australian trade businesses: plumbers, electricians, builders, roofers, HVAC, and landscapers. If you are a tradie with one location, this is the plan.",
+    question: "Do I need to be technical?",
+    answer: "No. We set it up, add the widget and fix what we can see.",
+  },
+  {
+    question: "What does ReviewBuddy cost?",
+    answer: "$75 a month, including GST.",
   },
 ];
 

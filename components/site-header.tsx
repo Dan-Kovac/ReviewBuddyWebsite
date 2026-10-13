@@ -11,13 +11,13 @@ export function SiteHeader() {
         <Logo />
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-ink">
+            <Link key={link.href} href={link.href} className="link-fade text-sm font-medium text-ink">
               {link.label}
             </Link>
           ))}
         </nav>
         <div className="hidden items-center gap-4 md:flex">
-          <a href={loginUrl} className="text-sm font-medium text-ink">
+          <a href={loginUrl} className="link-fade text-sm font-medium text-ink">
             Log in
           </a>
           <TrialButton variant="ink" />

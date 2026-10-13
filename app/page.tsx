@@ -1,9 +1,13 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { DashboardAnnotations } from "@/components/dashboard-annotations";
+import { FaqList } from "@/components/faq-list";
 import { GuideCards } from "@/components/guide-cards";
+import { JsonLd } from "@/components/json-ld";
 import { TrialButton } from "@/components/trial-button";
 import { publishedGuides } from "@/content/guides/registry";
+import { homeFaqs } from "@/lib/faqs";
+import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { addOns } from "@/lib/site";
 
@@ -58,6 +62,48 @@ function SourceBadge({ children }: { children: ReactNode }) {
   );
 }
 
+function Stars({ count }: { count: number }) {
+  return (
+    <span className="inline-flex gap-0.5" aria-label={`${count} out of 5 stars`}>
+      {Array.from({ length: 5 }, (_, index) => (
+        <svg
+          key={index}
+          viewBox="0 0 20 20"
+          className={`star-in size-3.5 ${index < count ? "fill-[#e0a106] text-[#e0a106]" : "fill-line text-line"}`}
+          style={{ animationDelay: `${index * 40}ms` }}
+          aria-hidden="true"
+        >
+          <path d="M10 1.8l2.1 4.5 4.9.7-3.5 3.4.8 4.9L10 13.1 5.7 15.3l.8-4.9L3 7l4.9-.7L10 1.8z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+function Initials({ name }: { name: string }) {
+  const letters = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+
+  return (
+    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[linear-gradient(180deg,#f7f9fb,#e8edf2)] text-sm font-bold text-ink shadow-[inset_0_0_0_1px_rgba(11,15,20,0.06)]" aria-hidden="true">
+      {letters}
+    </span>
+  );
+}
+
+function BlurredDate() {
+  return (
+    <>
+      <span className="inline-block h-2.5 w-16 rounded-full bg-line blur-[2px]" aria-hidden="true" />
+      <span className="sr-only">Calendar date was not on the public listing.</span>
+    </>
+  );
+}
+
 function BeforeSite() {
   return (
     <BrowserChrome url="koveleplumbing.com.au/reviews">
@@ -83,37 +129,72 @@ function BeforeSite() {
 function AfterWidget() {
   return (
     <BrowserChrome url="koveleplumbing.com.au">
-      <div className="px-6 py-6 sm:px-8 sm:py-8">
+      <div className="bg-[linear-gradient(180deg,rgba(56,182,255,0.08),transparent_88px)] px-5 py-6 sm:px-6">
         <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
-        <ul className="mt-6 grid gap-3">
-          <li className="flex flex-wrap items-baseline justify-between gap-2 rounded-[16px] border border-line px-4 py-4">
+        <ul className="mt-4 grid gap-2">
+          <li className="flex flex-wrap items-center justify-between gap-2 rounded-[16px] border border-line bg-white px-3 py-3 shadow-[0_10px_24px_-20px_rgba(11,15,20,0.45)]">
             <SourceBadge>Google</SourceBadge>
-            <p className="text-base leading-7 text-ink">
-              <span className="text-2xl font-bold">4.8</span>
+            <p className="text-sm leading-6 text-ink">
+              <span className="text-xl font-bold">4.8</span>
               <span className="text-muted"> · 53 reviews</span>
             </p>
           </li>
-          <li className="flex flex-wrap items-baseline justify-between gap-2 rounded-[16px] border border-line px-4 py-4">
+          <li className="flex flex-wrap items-center justify-between gap-2 rounded-[16px] border border-line bg-white px-3 py-3 shadow-[0_10px_24px_-20px_rgba(11,15,20,0.45)]">
             <SourceBadge>ServiceSeeking</SourceBadge>
-            <p className="text-base leading-7 text-ink">
-              <span className="text-2xl font-bold">4.9</span>
+            <p className="text-sm leading-6 text-ink">
+              <span className="text-xl font-bold">4.9</span>
               <span className="text-muted"> · 200 reviews</span>
             </p>
           </li>
         </ul>
-        <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
-          <SourceBadge>Google</SourceBadge>
-          <p className="mt-3">
-            Without question the best tradies I have ever used. Steve and Nick explain everything in laymans terms. I
-            cannot recommend them highly enough.
-          </p>
-          <footer className="mt-3 text-sm text-muted">kevin leahy</footer>
-        </blockquote>
-        <blockquote className="mt-6 border-t border-line pt-6 text-base leading-7 text-ink">
-          <SourceBadge>ServiceSeeking</SourceBadge>
-          <p className="mt-3">Turned up on time. Job done perfectly</p>
-          <footer className="mt-3 text-sm text-muted">Jason · 21 Aug 2026</footer>
-        </blockquote>
+        <ul className="mt-4 grid gap-3">
+          <li className="depth-card hover-lift rounded-[16px] border border-line bg-white p-4">
+            <div className="flex items-start gap-3">
+              <Initials name="kevin leahy" />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-ink">kevin leahy</p>
+                  <SourceBadge>Google</SourceBadge>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <Stars count={5} />
+                  <BlurredDate />
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-ink">
+              Without question the best tradies I have ever used. Steve and Nick explain everything in laymans terms. I
+              cannot recommend them highly enough.
+            </p>
+          </li>
+          <li className="depth-card hover-lift rounded-[16px] border border-line bg-white p-4">
+            <div className="flex items-start gap-3">
+              <Initials name="Jason" />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-ink">Jason</p>
+                  <SourceBadge>ServiceSeeking</SourceBadge>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <Stars count={5} />
+                  <p className="text-xs text-muted">21 Aug 2026</p>
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-ink">Turned up on time. Job done perfectly</p>
+          </li>
+          <li className="rounded-[16px] border border-dashed border-line bg-white/70 p-4" aria-hidden="true">
+            <div className="flex items-center gap-3">
+              <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" />
+              <span className="h-3 w-24 rounded-full bg-line blur-[2px]" />
+            </div>
+            <div className="mt-3 grid gap-2">
+              <span className="h-3 w-full rounded-full bg-line blur-[3px]" />
+              <span className="h-3 w-4/5 rounded-full bg-line blur-[3px]" />
+            </div>
+          </li>
+        </ul>
+        <p className="sr-only">One more review row is blurred because its words were not copied from a public page.</p>
       </div>
     </BrowserChrome>
   );
@@ -124,7 +205,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className={section}>
+      <section className={`hero-wash ${section}`}>
         <div className={wrap}>
           <div className="max-w-3xl">
             <h1 className="text-5xl font-bold leading-[1.05] text-ink sm:text-6xl lg:text-7xl">
@@ -133,12 +214,25 @@ export default function HomePage() {
             <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
               Fresh Google reviews, shown live on your website.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <TrialButton variant="ink" className="px-6" />
               <Link href="#how-it-works" className={secondary}>
                 See how it works
               </Link>
+              <p className="badge-in inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink shadow-[0_10px_24px_-18px_rgba(11,15,20,0.45)]">
+                <span className="pulse-dot size-2 rounded-full bg-brand" aria-hidden="true" />
+                48 hours or that month is free
+              </p>
             </div>
+            <ul aria-label="Review sources" className="mt-8 flex flex-wrap items-center gap-2">
+              <li className="text-xs font-semibold tracking-wide text-muted">Sources</li>
+              <li>
+                <SourceBadge>Google</SourceBadge>
+              </li>
+              <li>
+                <SourceBadge>ServiceSeeking</SourceBadge>
+              </li>
+            </ul>
           </div>
           <div className="rise mt-20 lg:mt-28">
             <DashboardAnnotations />
@@ -188,7 +282,7 @@ export default function HomePage() {
             {steps.map((step, index) => (
               <li
                 key={step.title}
-                className="hover-lift rounded-[20px] border border-line bg-white p-8 shadow-[0_16px_40px_-28px_rgba(11,15,20,0.16)]"
+                className="depth-card hover-lift rounded-[20px] border border-line bg-white p-8"
               >
                 <p className="text-sm font-semibold text-brand">0{index + 1}</p>
                 <h3 className="mt-4 text-2xl font-bold text-ink">{step.title}</h3>
@@ -201,7 +295,7 @@ export default function HomePage() {
 
       <section id="pricing" className={`bg-soft ${section}`}>
         <div className={wrap}>
-          <div className="hover-lift max-w-[560px] rounded-[20px] border border-line bg-white p-8 shadow-[0_16px_40px_-28px_rgba(11,15,20,0.18)] sm:p-10">
+          <div className="depth-card hover-lift max-w-[560px] rounded-[20px] border border-line bg-[linear-gradient(180deg,#fff,rgba(56,182,255,0.06))] p-8 sm:p-10">
             <h2 className="text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
               $75 a month, including GST.
             </h2>
@@ -242,6 +336,21 @@ export default function HomePage() {
           <GuideCards guides={articles} columns={3} emptyHref="/guides" />
         </div>
       </section>
+
+      <section aria-labelledby="questions" className={`bg-soft ${section}`}>
+        <div className={wrap}>
+          <h2 id="questions" className="max-w-2xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
+            Questions
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
+            Setup, the 7-day trial, and $75 a month including GST.
+          </p>
+          <div className="rise mt-16 max-w-3xl">
+            <FaqList faqs={homeFaqs} />
+          </div>
+        </div>
+      </section>
+      <JsonLd data={faqJsonLd(homeFaqs)} />
     </>
   );
 }
