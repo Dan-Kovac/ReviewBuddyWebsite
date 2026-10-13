@@ -152,13 +152,21 @@ export default function HomePage() {
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
             Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
-            updating a year ago. Now they&apos;re live, so new jobs show up as they happen and customers can see why to
-            book him.
+            updating a year ago. With ReviewBuddy they&apos;ll update live, so new jobs show up as they happen and
+            customers can see why to book him.
           </p>
           <figure className="mt-16">
             <div className="grid items-start gap-6 lg:grid-cols-2">
-              <BeforeSite />
-              <AfterWidget />
+              <div>
+                <p className="mb-3 hidden text-sm font-semibold invisible lg:block" aria-hidden="true">
+                  With ReviewBuddy
+                </p>
+                <BeforeSite />
+              </div>
+              <div>
+                <p className="mb-3 text-sm font-semibold text-ink">With ReviewBuddy</p>
+                <AfterWidget />
+              </div>
             </div>
             <figcaption className="mt-4 text-sm leading-6 text-muted">
               All your reviews in one place, live on your site.
