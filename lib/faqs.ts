@@ -1,3 +1,5 @@
+import { setupOffer } from "@/lib/site";
+
 export type Faq = {
   question: string;
   answer: string;
@@ -21,8 +23,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     question: "Is setup extra?",
-    answer:
-      "Setup is $330. It is included free until 31 December 2026.",
+    answer: `${setupOffer}.`,
   },
   {
     question: "Can I cancel?",
@@ -53,8 +54,7 @@ export const pricingFaqs: Faq[] = [
   },
   {
     question: "Is the setup fee included?",
-    answer:
-      "Setup is normally $330. It is included free until 31 December 2026.",
+    answer: `${setupOffer}.`,
   },
   {
     question: "Can I change or cancel?",

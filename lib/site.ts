@@ -5,8 +5,7 @@ export const loginUrl = "https://app.reviewbuddy.com.au/login";
 
 export const priceLabel = "$75 a month (inc. GST)";
 export const productPrice = "75.00";
-export const setupPrice = "$330";
-export const setupDeadline = "31 December 2026";
+export const setupOffer = "Free installation and setup, valued at $350 including GST";
 
 export const planIncludes = [
   "1 location",

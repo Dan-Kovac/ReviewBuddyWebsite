@@ -13,14 +13,13 @@ import {
   contactEmail,
   planIncludes,
   priceLabel,
-  setupDeadline,
-  setupPrice,
+  setupOffer,
 } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "ReviewBuddy Pricing: $75 a month inc. GST | 7-Day Free Trial",
   description:
-    "One plan for tradies: 80 texts a month, unlimited email, and reviews on your site in 48 hours or that month is free. Setup included until 31 Dec 2026.",
+    `One plan for tradies: 80 texts a month, unlimited email, and reviews on your site in 48 hours or that month is free. ${setupOffer}.`,
   path: "/pricing",
 });
 
@@ -100,9 +99,9 @@ export default function PricingPage() {
               </ul>
             </section>
             <section className="rounded-2xl border border-brand bg-brand/15 p-6">
-              <h2 className="text-xl font-semibold text-ink">Setup included for now</h2>
+              <h2 className="text-xl font-semibold text-ink">Installation and setup</h2>
               <p className="mt-3 text-base leading-7 text-ink">
-                Setup is normally {setupPrice}. It is included free until {setupDeadline}.
+                {setupOffer}.
               </p>
             </section>
             <section className="rounded-3xl border border-line bg-white p-6">

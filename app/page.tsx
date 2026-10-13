@@ -20,7 +20,7 @@ import { publishedGuides } from "@/content/guides/registry";
 import { pillarGuideLink } from "@/lib/guides";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { contactEmail, priceLabel, setupDeadline, setupPrice } from "@/lib/site";
+import { contactEmail, priceLabel, setupOffer } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies",
@@ -261,7 +261,7 @@ export default function HomePage() {
               7 days free. Card taken at signup. Billing starts on day 8.
             </p>
             <p className="mt-3 text-base leading-7 text-muted">
-              Setup is normally {setupPrice}. It is included free until {setupDeadline}.
+              {setupOffer}.
             </p>
             <p className="mt-3 text-base leading-7 text-muted">
               If your reviews are not live on your site within 48 hours of us
