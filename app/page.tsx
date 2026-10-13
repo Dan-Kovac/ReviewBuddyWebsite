@@ -54,7 +54,12 @@ function SiteMock({ live }: { live: boolean }) {
   return (
     <BrowserChrome>
       <div className="px-6 py-6 sm:px-8 sm:py-8">
-        <p className="text-sm font-semibold text-ink">Northside Plumbing Co</p>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm font-semibold text-ink">Northside Plumbing Co</p>
+          <p className="rounded-full border border-line bg-white px-2.5 py-1 text-xs font-semibold tracking-wide text-ink">
+            Example
+          </p>
+        </div>
         <p className="mt-6 text-2xl font-bold leading-tight text-ink">Plumbing for local homes</p>
         <div
           className={`mt-8 rounded-[16px] border px-5 py-5 ${live ? "border-ink/15 bg-white" : "border-line bg-soft"}`}
