@@ -6,7 +6,8 @@ import { GuideCards } from "@/components/guide-cards";
 import { JsonLd } from "@/components/json-ld";
 import { TrialButton } from "@/components/trial-button";
 import { publishedGuides } from "@/content/guides/registry";
-import { homeFaqs } from "@/lib/faqs";
+import { visibleHomeFaqs } from "@/lib/faqs";
+import { CARD_UPFRONT, SHOW_KOVELE } from "@/lib/flags";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { addOns } from "@/lib/site";
@@ -17,6 +18,8 @@ export const metadata = pageMetadata({
     "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.",
   path: "/",
 });
+
+const faqs = visibleHomeFaqs(CARD_UPFRONT);
 
 const steps = [
   {
@@ -200,6 +203,89 @@ function AfterWidget() {
   );
 }
 
+function ExampleLabel() {
+  return (
+    <p className="mb-3">
+      <span className="inline-flex rounded-full bg-ink px-2.5 py-1 text-xs font-semibold tracking-wide text-white">
+        Example
+      </span>
+    </p>
+  );
+}
+
+function BlurBar({ className }: { className: string }) {
+  return <span className={`block rounded-full bg-line blur-[2px] ${className}`} aria-hidden="true" />;
+}
+
+function ExampleBefore() {
+  return (
+    <div>
+      <ExampleLabel />
+      <BrowserChrome url="example.com/reviews">
+        <div className="px-6 py-6 sm:px-8 sm:py-8">
+          <BlurBar className="h-3 w-36" />
+          <div className="mt-6 flex flex-wrap gap-2">
+            <BlurBar className="h-7 w-24" />
+            <BlurBar className="h-7 w-32" />
+          </div>
+          <div className="mt-8 grid gap-2 border-t border-line pt-6">
+            <BlurBar className="h-3 w-full" />
+            <BlurBar className="h-3 w-11/12" />
+            <BlurBar className="h-3 w-8/12" />
+          </div>
+          <p className="sr-only">Example review text is hidden.</p>
+        </div>
+      </BrowserChrome>
+    </div>
+  );
+}
+
+function ExampleAfter() {
+  return (
+    <div>
+      <ExampleLabel />
+      <BrowserChrome url="example.com">
+        <div className="bg-[linear-gradient(180deg,rgba(56,182,255,0.08),transparent_88px)] px-5 py-6 sm:px-6">
+          <BlurBar className="h-3 w-36" />
+          <div className="mt-4 grid gap-2">
+            <div className="flex items-center justify-between rounded-[16px] border border-line bg-white px-3 py-3">
+              <BlurBar className="h-6 w-20" />
+              <BlurBar className="h-5 w-24" />
+            </div>
+            <div className="flex items-center justify-between rounded-[16px] border border-line bg-white px-3 py-3">
+              <BlurBar className="h-6 w-28" />
+              <BlurBar className="h-5 w-24" />
+            </div>
+          </div>
+          <div className="mt-4 grid gap-3">
+            <div className="rounded-[16px] border border-line bg-white p-4">
+              <div className="flex items-center gap-3">
+                <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" aria-hidden="true" />
+                <BlurBar className="h-3 w-28" />
+              </div>
+              <div className="mt-3 grid gap-2">
+                <BlurBar className="h-3 w-full" />
+                <BlurBar className="h-3 w-4/5" />
+              </div>
+            </div>
+            <div className="rounded-[16px] border border-dashed border-line bg-white/70 p-4">
+              <div className="flex items-center gap-3">
+                <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" aria-hidden="true" />
+                <BlurBar className="h-3 w-24" />
+              </div>
+              <div className="mt-3 grid gap-2">
+                <BlurBar className="h-3 w-full" />
+                <BlurBar className="h-3 w-3/5" />
+              </div>
+            </div>
+          </div>
+          <p className="sr-only">Example review text is hidden.</p>
+        </div>
+      </BrowserChrome>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const articles = publishedGuides().slice(0, 3);
 
@@ -246,22 +332,41 @@ export default function HomePage() {
             Win the job on trust, not price.
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
-            updating a year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they
-            happen and customers can see why to book him.
+            {SHOW_KOVELE ? (
+              <>
+                Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
+                updating a year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they
+                happen and customers can see why to book him.
+              </>
+            ) : (
+              <>
+                A tradie&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped updating a
+                year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they happen and
+                customers can see why to book him.
+              </>
+            )}
           </p>
           <figure className="mt-16">
             <div className="grid items-start gap-6 lg:grid-cols-2">
-              <div>
-                <p className="mb-3 hidden text-sm font-semibold invisible lg:block" aria-hidden="true">
-                  With ReviewBuddy
-                </p>
-                <BeforeSite />
-              </div>
-              <div>
-                <p className="mb-3 text-sm font-semibold text-ink">With ReviewBuddy</p>
-                <AfterWidget />
-              </div>
+              {SHOW_KOVELE ? (
+                <>
+                  <div>
+                    <p className="mb-3 hidden text-sm font-semibold invisible lg:block" aria-hidden="true">
+                      With ReviewBuddy
+                    </p>
+                    <BeforeSite />
+                  </div>
+                  <div>
+                    <p className="mb-3 text-sm font-semibold text-ink">With ReviewBuddy</p>
+                    <AfterWidget />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <ExampleBefore />
+                  <ExampleAfter />
+                </>
+              )}
             </div>
             <figcaption className="mt-4 text-sm leading-6 text-muted">
               All your reviews in one place, on your site.
@@ -346,11 +451,11 @@ export default function HomePage() {
             Setup, the 7-day trial, and $75 a month including GST.
           </p>
           <div className="rise mt-16 max-w-3xl">
-            <FaqList faqs={homeFaqs} />
+            <FaqList faqs={faqs} />
           </div>
         </div>
       </section>
-      <JsonLd data={faqJsonLd(homeFaqs)} />
+      <JsonLd data={faqJsonLd(faqs)} />
     </>
   );
 }

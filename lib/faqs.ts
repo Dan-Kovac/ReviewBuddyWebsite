@@ -5,6 +5,8 @@ export type Faq = {
   answer: string;
 };
 
+const cardUpfrontSentence = " We take your card when you sign up and only charge it if you keep going.";
+
 export const homeFaqs: Faq[] = [
   {
     question: "How fast is it set up?",
@@ -33,6 +35,15 @@ export const homeFaqs: Faq[] = [
     answer: "No. Every review comes from a real customer. We just make it easy for them to leave one.",
   },
 ];
+
+export function visibleHomeFaqs(cardUpfront: boolean): readonly Faq[] {
+  if (cardUpfront) return homeFaqs;
+  return homeFaqs.map((faq) =>
+    faq.question === "What does it cost?"
+      ? { ...faq, answer: faq.answer.replace(cardUpfrontSentence, "") }
+      : faq,
+  );
+}
 
 export const pricingFaqs: Faq[] = [
   {
