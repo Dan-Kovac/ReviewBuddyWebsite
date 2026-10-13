@@ -127,7 +127,7 @@ export default function PlumbersPage() {
                 widget on your plumbing website. {priceLabel}.
               </p>
               <p className="mt-4 text-base leading-7 text-muted">
-                {setupOffer}. If your reviews are not live on your site within 48
+                {setupOffer}. If your Google reviews are not live on your site within 48
                 hours of us getting access, that month is free.
               </p>
             </div>

@@ -107,7 +107,7 @@ export default function PricingPage() {
             <section className="rounded-3xl border border-line bg-white p-6">
               <h2 className="text-xl font-semibold text-ink">48-hour promise</h2>
               <p className="mt-3 text-base leading-7 text-muted">
-                If your reviews are not live on your site within 48 hours of us
+                If your Google reviews are not live on your site within 48 hours of us
                 getting access, that month is free.
               </p>
             </section>

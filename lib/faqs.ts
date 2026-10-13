@@ -7,30 +7,30 @@ export type Faq = {
 
 export const homeFaqs: Faq[] = [
   {
-    question: "Is setup extra?",
-    answer: `${setupOffer}.`,
+    question: "How fast is it set up?",
+    answer: "Your reviews are live on your site within 48 hours, or that month is free.",
   },
   {
-    question: "How does the 7-day free trial work?",
+    question: "What does it cost?",
     answer:
-      "We take a card at signup. You are not charged for the first 7 days. Billing starts on day 8. Cancel before then and you will not be billed.",
+      "$75 a month including GST. Your first 7 days are free. We take your card when you sign up and only charge it if you keep going. Cancel anytime before then and you pay nothing. Setup is included, valued at $350 including GST.",
   },
   {
     question: "Can I cancel?",
-    answer: "Yes. Cancel any time. Email us for any change.",
+    answer: "Yes, anytime.",
   },
   {
-    question: "How does the widget get on my site?",
+    question: "Do I need a new website?",
+    answer: "No. We add the widget to your current site and fix small things we can see on your site.",
+  },
+  {
+    question: "Which reviews show?",
     answer:
-      "We set it up, add the widget and fix what we can see. If your reviews are not live in 48 hours, that month is free.",
+      "Your Google reviews, plus reviews from platforms like ServiceSeeking, each labelled by where they came from.",
   },
   {
-    question: "Do I need to be technical?",
-    answer: "No. We set it up, add the widget and fix what we can see.",
-  },
-  {
-    question: "What does ReviewBuddy cost?",
-    answer: "$75 a month, including GST.",
+    question: "Do you write reviews for me?",
+    answer: "No. Every review comes from a real customer. We just make it easy for them to leave one.",
   },
 ];
 
@@ -43,7 +43,7 @@ export const pricingFaqs: Faq[] = [
   {
     question: "What if my reviews are not on the site within 48 hours?",
     answer:
-      "If your reviews are not live on your site within 48 hours of us getting access, that month is free.",
+      "If your Google reviews are not live on your site within 48 hours of us getting access, that month is free.",
   },
   {
     question: "Is the setup fee included?",

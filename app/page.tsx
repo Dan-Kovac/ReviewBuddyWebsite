@@ -247,8 +247,8 @@ export default function HomePage() {
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
             Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
-            updating a year ago. With ReviewBuddy they&apos;ll update live, so new jobs show up as they happen and
-            customers can see why to book him.
+            updating a year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they
+            happen and customers can see why to book him.
           </p>
           <figure className="mt-16">
             <div className="grid items-start gap-6 lg:grid-cols-2">
@@ -264,7 +264,7 @@ export default function HomePage() {
               </div>
             </div>
             <figcaption className="mt-4 text-sm leading-6 text-muted">
-              All your reviews in one place, live on your site.
+              All your reviews in one place, on your site.
             </figcaption>
           </figure>
         </div>
@@ -273,10 +273,10 @@ export default function HomePage() {
       <section id="how-it-works" className={`scroll-mt-24 ${section}`}>
         <div className={wrap}>
           <h2 className="max-w-2xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            Live in 48 hours.
+            Google reviews, live in 48 hours.
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            We set it up, add the widget and fix what we can see. If your reviews aren&apos;t live in 48 hours, that month is free.
+            We set it up, add the widget and fix what we can see. If your Google reviews aren&apos;t live in 48 hours, that month is free.
           </p>
           <ol className="mt-16 grid gap-6 lg:grid-cols-3">
             {steps.map((step, index) => (
