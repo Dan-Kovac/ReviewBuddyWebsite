@@ -63,16 +63,17 @@ function BeforeSite() {
     <BrowserChrome url="koveleplumbing.com.au/reviews">
       <div className="px-6 py-6 sm:px-8 sm:py-8">
         <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
-        <p className="mt-6 text-5xl font-bold leading-none text-ink">4.9</p>
-        <p className="mt-3 text-base leading-7 text-muted">Based on 246 reviews</p>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-wrap gap-2">
           <SourceBadge>Google (48)</SourceBadge>
           <SourceBadge>Service Seeking (198)</SourceBadge>
         </div>
-        <p className="mt-4 text-sm leading-6 text-muted">Newest review on this page: 20 Oct 2025</p>
+        <p className="mt-4 text-sm leading-6 text-muted">Newest review: 15 Oct 2025</p>
         <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
-          Good and prompt service.
-          <footer className="mt-3 text-sm text-muted">Shiphrah E. · Google · 20 Oct 2025</footer>
+          What a wonderful duo, father and son! Extremely competent and kind! Got a gas heater removed at a reasonable
+          price and on such short notice. He kindly replaced a shower head for me at no extra cost too while he was
+          there! Steve didn&apos;t stop there. He returned to the property to drop off a replacement part. What a
+          service! Highly recommend.
+          <footer className="mt-3 text-sm text-muted">YC C. · Google · 15 Oct 2025</footer>
         </blockquote>
       </div>
     </BrowserChrome>
@@ -96,7 +97,7 @@ function AfterWidget() {
             <SourceBadge>ServiceSeeking</SourceBadge>
             <p className="text-base leading-7 text-ink">
               <span className="text-2xl font-bold">4.9</span>
-              <span className="text-muted"> · 202 reviews</span>
+              <span className="text-muted"> · 200 reviews</span>
             </p>
           </li>
         </ul>
