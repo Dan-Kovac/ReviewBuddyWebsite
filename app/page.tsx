@@ -153,23 +153,21 @@ export default function HomePage() {
       <section className={`bg-soft ${section}`}>
         <div className={wrap}>
           <h2 className="max-w-3xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            All your reviews, one place, live on your site
+            Win the job on trust, not price.
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">Win the job on trust, not price.</p>
-          <div className="mt-16 grid items-start gap-6 lg:grid-cols-2">
-            <figure>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
+            Kovele Plumbing had good reviews on Google and ServiceSeeking, but none of them showed on his own site.
+            Now they show there together, live, so customers can see why to book him.
+          </p>
+          <figure className="mt-16">
+            <div className="grid items-start gap-6 lg:grid-cols-2">
               <BeforeSite />
-              <figcaption className="mt-4 text-sm leading-6 text-muted">
-                Before. Kovele Plumbing’s reviews page today.
-              </figcaption>
-            </figure>
-            <figure>
               <AfterWidget />
-              <figcaption className="mt-4 text-sm leading-6 text-muted">
-                After. Google and ServiceSeeking, each with its own count and rating.
-              </figcaption>
-            </figure>
-          </div>
+            </div>
+            <figcaption className="mt-4 text-sm leading-6 text-muted">
+              All your reviews in one place, live on your site.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
