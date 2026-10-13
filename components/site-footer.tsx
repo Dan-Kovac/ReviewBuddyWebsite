@@ -12,7 +12,7 @@ const account = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-soft">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_1fr]">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_1fr]">
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-sm leading-6 text-muted">
@@ -44,7 +44,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-line bg-white">
-        <p className="mx-auto w-full max-w-6xl px-4 py-4 text-sm text-muted sm:px-6">
+        <p className="mx-auto w-full max-w-[1200px] px-4 py-4 text-sm text-muted sm:px-6">
           © 2026 ReviewBuddy
         </p>
       </div>

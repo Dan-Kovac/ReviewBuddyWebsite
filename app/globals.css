@@ -2,11 +2,11 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1a1a1a;
-  --ink: #1a1a1a;
-  --muted: #4a4a4a;
-  --line: #e5e5e5;
-  --soft: #f6f6f6;
+  --foreground: #0b0f14;
+  --ink: #0b0f14;
+  --muted: #5c6570;
+  --line: #e6e8eb;
+  --soft: #f4f6f8;
   --brand: #38b6ff;
   --brand-deep: #1aa3f0;
   --paper: #ffffff;
@@ -40,6 +40,7 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading), Inter, Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 ::selection {

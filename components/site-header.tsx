@@ -7,7 +7,7 @@ import { loginUrl, navLinks } from "@/lib/site";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Logo />
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
@@ -20,14 +20,14 @@ export function SiteHeader() {
           <a href={loginUrl} className="text-sm font-medium text-ink">
             Log in
           </a>
-          <TrialButton />
+          <TrialButton variant="ink" />
         </div>
         <div className="md:hidden">
           <MobileNav />
         </div>
       </div>
-      <div className="mx-auto w-full max-w-6xl px-4 pb-3 md:hidden sm:px-6">
-        <TrialButton className="w-full" />
+      <div className="mx-auto w-full max-w-[1200px] px-4 pb-3 md:hidden sm:px-6">
+        <TrialButton variant="ink" className="w-full" />
       </div>
     </header>
   );

@@ -42,17 +42,17 @@ export function ProductShot({
     <>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-4 -inset-y-6 -z-10 rounded-full bg-brand/25 blur-3xl"
+        className="pointer-events-none absolute inset-x-4 -inset-y-6 -z-10 rounded-full bg-brand/10 blur-3xl"
       />
       {frame ? (
-        <div className="overflow-hidden rounded-[28px] border border-line bg-white shadow-[0_30px_80px_-36px_rgba(26,26,26,0.55)]">
+        <div className="overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_20px_50px_-32px_rgba(11,15,20,0.28)]">
           <div className="flex items-center gap-2 border-b border-line bg-soft px-4 py-3" aria-hidden="true">
             <span className="size-2.5 rounded-full bg-[#d0d0d0]" />
             <span className="size-2.5 rounded-full bg-[#d0d0d0]" />
             <span className="size-2.5 rounded-full bg-[#d0d0d0]" />
             <span className="ml-2 h-6 flex-1 rounded-full bg-white" />
           </div>
-          <div className="bg-[radial-gradient(circle_at_top,_rgba(56,182,255,0.16),_transparent_55%)] p-3 sm:p-6">
+          <div className="bg-soft p-3 sm:p-6">
             {image}
           </div>
         </div>
