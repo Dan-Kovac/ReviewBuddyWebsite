@@ -10,7 +10,7 @@ import { visibleHomeFaqs } from "@/lib/faqs";
 import { CARD_UPFRONT, SHOW_KOVELE } from "@/lib/flags";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { addOns } from "@/lib/site";
+import { addOns, productPrice } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies",
@@ -38,8 +38,7 @@ const steps = [
 
 const section = "px-4 py-[72px] sm:px-6 lg:py-32";
 const wrap = "mx-auto w-full max-w-[1200px]";
-const secondary =
-  "hover-lift inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-6 text-base font-semibold text-ink hover:bg-soft";
+const heroPrice = `$${Number(productPrice)} a month, including GST. Cancel anytime.`;
 
 function BrowserChrome({ url, children }: { url: string; children: ReactNode }) {
   return (
@@ -293,35 +292,39 @@ export default function HomePage() {
     <>
       <section className={`hero-wash ${section}`}>
         <div className={wrap}>
-          <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold leading-[1.05] text-ink sm:text-6xl lg:text-7xl">
-              Get chosen before they call.
+          <div className="mx-auto flex max-w-[760px] flex-col items-center text-center">
+            <h1 className="text-balance text-[clamp(2.5rem,8vw,4.5rem)] font-extrabold leading-[1.05] text-ink">
+              Get chosen before they <span className="underline decoration-brand decoration-[3px] underline-offset-[0.12em]">call.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-              Fresh Google reviews, shown live on your website.
+            <p className="mt-5 max-w-[36rem] text-lg leading-8 text-muted">
+              More Google reviews from your real customers, shown live on your website.
             </p>
-            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <TrialButton variant="ink" className="px-6" />
-              <Link href="#how-it-works" className={secondary}>
-                See how it works
-              </Link>
-              <p className="badge-in inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink shadow-[0_10px_24px_-18px_rgba(11,15,20,0.45)]">
-                <span className="pulse-dot size-2 rounded-full bg-brand" aria-hidden="true" />
-                48 hours or that month is free
-              </p>
+            <div className="mt-8 w-full sm:w-auto">
+              <TrialButton variant="ink" className="w-full px-6 sm:w-auto">
+                Start your 7-day free trial
+              </TrialButton>
             </div>
-            <ul aria-label="Review sources" className="mt-8 flex flex-wrap items-center gap-2">
-              <li className="text-xs font-semibold tracking-wide text-muted">Sources</li>
-              <li>
-                <SourceBadge>Google</SourceBadge>
-              </li>
-              <li>
-                <SourceBadge>ServiceSeeking</SourceBadge>
-              </li>
-            </ul>
+            <p className="mt-4 max-w-full text-balance rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold leading-5 text-ink shadow-[0_10px_24px_-18px_rgba(11,15,20,0.35)]">
+              Google reviews live in 48 hours, or that month is free.
+            </p>
+            <p className="mt-3 text-sm leading-6 text-muted">{heroPrice}</p>
+            <article className="mt-8 w-full max-w-sm rounded-[20px] border border-line bg-white p-4 text-left shadow-[0_16px_40px_-28px_rgba(11,15,20,0.28)]">
+              <p className="text-xs font-semibold tracking-wide text-muted">Example</p>
+              <p className="mt-2 text-sm font-semibold text-ink">Harbour Electrical</p>
+              <p className="mt-2 text-sm leading-6 text-ink">
+                Sorted the switchboard the same afternoon. Clear about the work before they started.
+              </p>
+              <p className="mt-3 text-xs text-muted">Sam T. · Google</p>
+            </article>
           </div>
-          <div className="rise mt-20 lg:mt-28">
-            <DashboardAnnotations />
+          <div className="hero-fade relative mt-12 w-full lg:mt-16">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-[8%] top-6 h-40 rounded-full bg-brand/25 blur-3xl"
+            />
+            <div className="relative">
+              <DashboardAnnotations />
+            </div>
           </div>
         </div>
       </section>
