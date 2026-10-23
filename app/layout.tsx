@@ -25,7 +25,7 @@ const caveat = Caveat({
 
 const homeTitle = "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies";
 const homeDescription =
-  "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.";
+  "Get chosen on trust, not price. Ask for Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.";
 
 export const ensureStatic = "navigation";
 
@@ -78,7 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </TrialProvider>
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            The trial form needs JavaScript. Email hello@reviewbuddy.com.au with
+            The sign up form needs JavaScript. Email hello@reviewbuddy.com.au with
             your name, business, mobile, and website.
           </p>
         </noscript>

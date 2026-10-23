@@ -7,16 +7,15 @@ const paths = [
   "",
   "/pricing",
   "/google-reviews-for-plumbers",
-  "/guides",
-  ...publishedGuides().map((guide) => guidePath(guide.slug)),
   "/privacy",
   "/terms",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-10-12");
+  const lastModified = new Date("2026-10-23");
+  const guidePaths = publishedGuides().map((guide) => guidePath(guide.slug));
 
-  return paths.map((path) => ({
+  return [...paths, ...guidePaths].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified,
     changeFrequency: path === "" ? "weekly" : "monthly",

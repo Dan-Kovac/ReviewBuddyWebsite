@@ -1,5 +1,5 @@
 import type { Faq } from "@/lib/faqs";
-import { contactEmail, productPrice, siteName, siteUrl } from "@/lib/site";
+import { contactEmail, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
   return {
@@ -41,28 +41,28 @@ export function organizationJsonLd() {
         "@id": `${siteUrl}/#product`,
         name: siteName,
         description:
-          "ReviewBuddy asks customers for a Google review by text or email and shows those reviews on your website. For Australian trade businesses. $75 a month (inc. GST).",
+          "ReviewBuddy helps Australian tradies get more Google reviews and shows them live on their website.",
         brand: {
           "@type": "Brand",
           name: siteName,
         },
         image: `${siteUrl}/logo.svg`,
-        offers: {
+        offers: plans.map((plan) => ({
           "@type": "Offer",
           url: `${siteUrl}/pricing`,
-          price: productPrice,
+          name: `ReviewBuddy ${plan.name}`,
+          price: plan.price.toFixed(2),
           priceCurrency: "AUD",
           availability: "https://schema.org/InStock",
-          description:
-            "$75 a month (inc. GST). 7 days free. Card taken at signup. Billing starts on day 8.",
+          description: plan.offerDescription,
           priceSpecification: {
             "@type": "UnitPriceSpecification",
-            price: productPrice,
+            price: plan.price.toFixed(2),
             priceCurrency: "AUD",
             unitText: "MONTH",
             valueAddedTaxIncluded: true,
           },
-        },
+        })),
       },
     ],
   };

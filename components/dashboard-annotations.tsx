@@ -1,20 +1,22 @@
-import { ProductShot } from "@/components/product-shot";
+import {
+  ExampleFrame,
+  GoogleChip,
+  WireBar,
+  WireCard,
+} from "@/components/example";
 
-const note = "Product illustration. Names and numbers in the picture are examples.";
+const note =
+  "Example only. Not a real business or review.";
 
-const leftCallouts = [
+const callouts = [
   "Show reviews on your website",
   "Updates when a new one comes in",
-  "Set up in 48 hours",
+  "Google review link and QR code",
 ];
 
-const rightCallouts = ["Text or email after the job", "Google review link and QR"];
+const tilts = [-2, 1.4, -1.2];
 
-const callouts = [...leftCallouts, ...rightCallouts];
-
-const tilts = [-2, 1.4, -1.2, 1.8, -1.6];
-
-function SketchArrow({ flip = false, variant = 0 }: { flip?: boolean; variant?: number }) {
+function SketchArrow({ variant = 0 }: { variant?: number }) {
   const shaft = [
     "M6 22 C 24 8, 46 30, 68 14",
     "M4 16 C 26 28, 44 6, 70 18",
@@ -25,7 +27,7 @@ function SketchArrow({ flip = false, variant = 0 }: { flip?: boolean; variant?: 
   return (
     <svg
       viewBox="0 0 80 34"
-      className={`h-8 w-16 shrink-0 text-ink ${flip ? "-scale-x-100" : ""}`}
+      className="h-8 w-16 shrink-0 text-ink"
       aria-hidden="true"
     >
       <path d={shaft} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
@@ -34,62 +36,51 @@ function SketchArrow({ flip = false, variant = 0 }: { flip?: boolean; variant?: 
   );
 }
 
-function Callout({
-  text,
-  index,
-  point,
-}: {
-  text: string;
-  index: number;
-  point: "left" | "right" | "list";
-}) {
-  return (
-    <li
-      className="callout-in flex items-center gap-1"
-      style={{ animationRange: `entry ${4 + index * 6}% cover ${22 + index * 6}%` }}
-    >
-      {point === "right" ? <SketchArrow flip variant={index} /> : null}
-      {point === "list" ? <SketchArrow variant={index} /> : null}
-      <span className="font-callout text-[1.65rem] leading-none text-ink" style={{ rotate: `${tilts[index % tilts.length]}deg` }}>
-        {text}
-        <svg className="mt-0.5 h-2 w-full text-brand" viewBox="0 0 120 8" aria-hidden="true">
-          <path d="M2 5 C 28 2, 70 8, 118 3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-        </svg>
-      </span>
-      {point === "left" ? <SketchArrow variant={index} /> : null}
-    </li>
-  );
-}
-
+/** Generic Example hero picture: a tradie website with the live reviews widget. */
 export function DashboardAnnotations() {
   return (
     <figure>
-      <div className="xl:grid xl:grid-cols-[14rem_minmax(0,1fr)_14rem] xl:items-stretch xl:gap-2">
-        <ul className="hidden xl:flex xl:h-full xl:flex-col xl:justify-between xl:py-10">
-          {leftCallouts.map((text, index) => (
-            <Callout key={text} text={text} index={index} point="left" />
-          ))}
-        </ul>
-        <ProductShot
-          src="/images/reviews-breakdown.png"
-          alt="Illustration of a review dashboard with a rating breakdown and review cards"
-          width={1846}
-          height={1134}
-          priority
-          frame
-          caption={false}
-          asFigure={false}
-          sizes="(min-width: 1280px) 920px, 100vw"
-        />
-        <ul className="hidden xl:flex xl:h-full xl:flex-col xl:justify-between xl:py-16">
-          {rightCallouts.map((text, index) => (
-            <Callout key={text} text={text} index={index + leftCallouts.length} point="right" />
-          ))}
-        </ul>
-      </div>
-      <ul className="mt-6 grid gap-4 xl:hidden">
+      <ExampleFrame url="yourtradesite.com.au">
+        <div className="bg-[linear-gradient(180deg,rgba(56,182,255,0.08),transparent_88px)] p-5 sm:p-8">
+          <WireBar className="h-4 w-40" />
+          <WireBar className="mt-2 h-3 w-24" />
+          <div className="mt-6 grid gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-[16px] border border-line bg-white px-3 py-3">
+              <GoogleChip />
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink">
+                Live
+                <span className="pulse-dot size-2 rounded-full bg-brand" aria-hidden="true" />
+              </span>
+            </div>
+            {[0, 1].map((index) => (
+              <WireCard key={index}>
+                <div className="flex items-center gap-3">
+                  <span className="size-10 shrink-0 rounded-full bg-[#e6e8eb]" aria-hidden="true" />
+                  <WireBar className="h-3 w-28" />
+                </div>
+                <div className="mt-3 grid gap-2">
+                  <WireBar className="h-3 w-full" />
+                  <WireBar className="h-3 w-4/5" />
+                </div>
+              </WireCard>
+            ))}
+          </div>
+        </div>
+      </ExampleFrame>
+      <ul className="mt-6 grid gap-4 sm:grid-cols-3">
         {callouts.map((text, index) => (
-          <Callout key={text} text={text} index={index} point="list" />
+          <li key={text} className="flex items-center gap-1">
+            {index === 0 ? null : <SketchArrow variant={index} />}
+            <span
+              className="font-callout text-[1.65rem] leading-none text-ink"
+              style={{ rotate: `${tilts[index % tilts.length]}deg` }}
+            >
+              {text}
+              <svg className="mt-0.5 h-2 w-full text-brand" viewBox="0 0 120 8" aria-hidden="true">
+                <path d="M2 5 C 28 2, 70 8, 118 3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+              </svg>
+            </span>
+          </li>
         ))}
       </ul>
       <figcaption className="mt-4 text-xs leading-5 text-muted">{note}</figcaption>

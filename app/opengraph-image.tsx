@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
           Get chosen before they call.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#38B6FF" }}>
-          For Aussie tradies. $75 a month (inc. GST).
+          For Aussie tradies. Plans from $49 a month (inc. GST).
         </div>
       </div>
     ),

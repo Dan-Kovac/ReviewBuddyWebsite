@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   attributionFromParams,
   honeypotFilled,
   leadFields,
+  planChoices,
   parseLead,
   type LeadErrors,
+  type PlanChoice,
 } from "@/lib/lead";
-import { contactEmail } from "@/lib/site";
+import { contactEmail, plans } from "@/lib/site";
 
 function AttributionFields() {
   const params = useSearchParams();
@@ -92,21 +94,42 @@ const fieldIds: Record<string, string> = {
   mobile: "lead-mobile",
   email: "lead-email",
   website: "lead-website",
+  plan: "lead-plan",
 };
 
-export function TrialForm() {
+const starterPlan = plans.find((plan) => plan.id === "starter")!;
+const growthPlan = plans.find((plan) => plan.id === "growth")!;
+
+const planLabels: Record<PlanChoice, string> = {
+  starter: `${starterPlan.name}, $${starterPlan.price} a month`,
+  growth: `${growthPlan.name}, $${growthPlan.price} a month (recommended)`,
+  unsure: "Not sure yet",
+};
+
+export function TrialForm({
+  initialPlan,
+}: {
+  initialPlan?: "starter" | "growth";
+}) {
   const [errors, setErrors] = useState<LeadErrors>({});
   const [formError, setFormError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [plan, setPlan] = useState<PlanChoice>(initialPlan ?? "growth");
+
+  // The dialog stays mounted, so a plan chosen on a card must update the form.
+  useEffect(() => {
+    if (initialPlan) {
+      setPlan(initialPlan);
+    }
+  }, [initialPlan]);
 
   if (sent) {
     return (
       <div role="status" className="py-2">
         <p className="text-xl font-semibold text-ink">Request sent</p>
         <p className="mt-3 text-base leading-7 text-muted">
-          Thanks. We have your details and will be in touch to start the 7-day
-          trial. Card taken at signup. Billing starts on day 8.
+          Thanks. We have your details and will be in touch to get you set up.
         </p>
       </div>
     );
@@ -128,7 +151,7 @@ export function TrialForm() {
           return;
         }
 
-        const parsed = parseLead(payload);
+        const parsed = parseLead({ ...payload, plan });
         if (!parsed.ok) {
           setErrors(parsed.errors);
           const firstField = Object.keys(parsed.errors)[0];
@@ -173,6 +196,35 @@ export function TrialForm() {
         }
       }}
     >
+      <fieldset>
+        <legend className="block text-sm font-semibold text-ink">
+          Which plan?<span aria-hidden="true"> *</span>
+        </legend>
+        <div className="mt-2 grid gap-2">
+          {planChoices.map((choice, index) => (
+            <label
+              key={choice}
+              htmlFor={index === 0 ? "lead-plan" : `lead-plan-${choice}`}
+              className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 text-base ${
+                plan === choice
+                  ? "border-brand bg-brand/10 font-semibold text-ink"
+                  : "border-line bg-white text-ink"
+              }`}
+            >
+              <input
+                id={index === 0 ? "lead-plan" : `lead-plan-${choice}`}
+                type="radio"
+                name={leadFields.plan}
+                value={choice}
+                checked={plan === choice}
+                onChange={() => setPlan(choice)}
+                className="size-4 accent-[#38b6ff]"
+              />
+              <span>{planLabels[choice]}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
       <p className="text-sm text-muted">
         Required fields are marked with an asterisk.
       </p>
@@ -259,13 +311,13 @@ export function TrialForm() {
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand px-5 text-base font-semibold text-ink hover:bg-brand-deep disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white hover:bg-black disabled:opacity-60"
       >
-        {submitting ? "Sending…" : "Start 7-day free trial"}
+        {submitting ? "Sending…" : "Send my details"}
       </button>
       <p className="text-sm leading-6 text-muted">
-        7 days free. Card taken at signup. Billing starts on day 8. This sends
-        a trial request. We will be in touch to set it up.
+        This sends us your details. We will be in touch to set it up. Cancel
+        anytime.
       </p>
     </form>
   );

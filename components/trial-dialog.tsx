@@ -7,11 +7,13 @@ export function TrialDialog({
   dialogRef,
   open,
   titleId,
+  plan,
   onClose,
 }: {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   open: boolean;
   titleId: string;
+  plan?: "starter" | "growth";
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -20,7 +22,7 @@ export function TrialDialog({
     }
 
     const frame = window.requestAnimationFrame(() => {
-      document.getElementById("lead-name")?.focus();
+      document.getElementById("lead-plan")?.focus();
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -42,10 +44,10 @@ export function TrialDialog({
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h2 id={titleId} className="text-2xl font-semibold tracking-tight text-ink">
-              Start your 7-day free trial
+              Get started with ReviewBuddy
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Tell us about the business. We will get in touch to set it up.
+              Tell us about the business and pick a plan. We will get in touch to set it up.
             </p>
           </div>
           <button
@@ -57,7 +59,7 @@ export function TrialDialog({
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <TrialForm />
+        <TrialForm initialPlan={plan} />
       </div>
     </dialog>
   );
