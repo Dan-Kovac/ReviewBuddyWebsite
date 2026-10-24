@@ -44,10 +44,10 @@ export function TrialDialog({
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h2 id={titleId} className="text-2xl font-semibold tracking-tight text-ink">
-              Get started with ReviewBuddy
+              Start your 7-day free trial
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Tell us about the business and pick a plan. We will get in touch to set it up.
+              Tell us about the business and pick a plan. Setup is free and you can cancel anytime. We will get in touch to set it up.
             </p>
           </div>
           <button

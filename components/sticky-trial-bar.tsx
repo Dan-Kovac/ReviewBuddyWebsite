@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTrial } from "@/components/trial-provider";
+import { CTA_LABEL } from "@/lib/site";
 
 /**
  * Sticky bottom trial bar on phones. Appears once the hero button leaves view,
@@ -48,7 +49,7 @@ export function StickyTrialBar() {
           onClick={() => openTrial()}
           className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white"
         >
-          Get started
+          {CTA_LABEL}
         </button>
       </div>
     </div>

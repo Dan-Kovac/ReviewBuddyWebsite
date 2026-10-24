@@ -51,7 +51,7 @@ export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: bool
           ? "bg-brand text-ink hover:bg-brand-deep"
           : "border-2 border-ink bg-white text-ink hover:bg-soft"}`}
       >
-        Get started with {plan.name}
+        Start free trial on {plan.name}
       </button>
       {!compact ? (
         <p className={`mt-4 text-sm leading-6 ${featured ? "text-muted-on-dark" : "text-muted"}`}>
