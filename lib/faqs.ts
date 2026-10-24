@@ -5,9 +5,14 @@ export type Faq = {
 
 export const homeFaqs: Faq[] = [
   {
+    question: "Is there a free trial?",
+    answer:
+      "Yes. You get a 7-day free trial and free setup, and you can cancel anytime. We set it up to bring in new reviews in your first week.",
+  },
+  {
     question: "What does it cost?",
     answer:
-      "Starter is $49 a month and Growth is $75 a month. Both include GST, are billed monthly and can be cancelled anytime. Setup is included.",
+      "Starter is $49 a month and Growth is $75 a month. Both include GST, are billed monthly and can be cancelled anytime. Setup is free, and your first 7 days are free.",
   },
   {
     question: "What is the difference between Starter and Growth?",
@@ -42,12 +47,18 @@ export const homeFaqs: Faq[] = [
 
 export const pricingFaqs: Faq[] = [
   {
+    question: "Is there a free trial?",
+    answer:
+      "Yes. Both plans start with a 7-day free trial and free setup. Cancel anytime.",
+  },
+  {
     question: "When do I pay?",
-    answer: "Plans are billed monthly. Cancel anytime.",
+    answer:
+      "Plans are billed monthly once your free trial is over. Cancel anytime.",
   },
   {
     question: "Is setup included?",
-    answer: "Yes. Setup is included on both plans.",
+    answer: "Yes. Setup is free and included on both plans.",
   },
   {
     question: "Do prices include GST?",

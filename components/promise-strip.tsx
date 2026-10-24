@@ -1,9 +1,9 @@
 const items = [
+  "7-day free trial",
+  "Free setup",
   "Live reviews widget on your website",
-  "Updates when a new review comes in",
   "Google review link and QR code",
-  "Setup included",
-  "Email follow ups to keep reviews coming (Growth)",
+  "Cancel anytime",
 ];
 
 export function PromiseStrip() {

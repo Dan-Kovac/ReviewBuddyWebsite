@@ -1,4 +1,5 @@
 import { TrialButton } from "@/components/trial-button";
+import { CTA_LABEL } from "@/lib/site";
 
 export function CtaBand({ title, body }: { title: string; body: string }) {
   return (
@@ -10,7 +11,7 @@ export function CtaBand({ title, body }: { title: string; body: string }) {
           </h2>
           <p className="mt-3 max-w-xl text-base leading-7 text-ink">{body}</p>
         </div>
-        <TrialButton variant="ink" />
+        <TrialButton variant="ink">{CTA_LABEL}</TrialButton>
       </div>
     </section>
   );
