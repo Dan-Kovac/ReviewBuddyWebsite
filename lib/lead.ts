@@ -13,6 +13,9 @@ export const leadFields = {
 } as const;
 
 /** The plan the visitor picked in the sign up form. */
+/** Source value the free review breakdown form sends, so the CRM can tell it apart. */
+export const BREAKDOWN_SOURCE = "breakdown_request";
+
 export const planChoices = ["starter", "growth", "unsure"] as const;
 
 export type PlanChoice = (typeof planChoices)[number];
@@ -105,7 +108,14 @@ export function parseLead(
   if (!lead.businessName) {
     errors.businessName = "Enter your business name.";
   }
-  if (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15) {
+  // A breakdown request only needs an email. A mobile is optional there, but
+  // must still look right when given.
+  const mobileOptional = lead.source === BREAKDOWN_SOURCE;
+  const mobileGiven = lead.mobile.length > 0;
+  if (
+    (!mobileOptional || mobileGiven) &&
+    (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15)
+  ) {
     errors.mobile = "Enter a mobile number we can text or call.";
   }
   if (!emailPattern.test(lead.email)) {

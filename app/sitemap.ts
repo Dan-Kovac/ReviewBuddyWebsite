@@ -6,6 +6,7 @@ import { siteUrl } from "@/lib/site";
 const paths = [
   "",
   "/pricing",
+  "/free-review-breakdown",
   "/google-reviews-for-plumbers",
   "/privacy",
   "/terms",
