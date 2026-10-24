@@ -8,7 +8,7 @@ const variants = {
 };
 
 export function TrialButton({
-  children = "Get started",
+  children = "Start free trial",
   className = "",
   variant = "brand",
   plan,

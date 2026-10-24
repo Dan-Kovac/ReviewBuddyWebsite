@@ -7,17 +7,18 @@ import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { contactEmail, plans } from "@/lib/site";
+import { CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "ReviewBuddy Pricing: Starter $49, Growth $75 a month inc. GST",
   description:
-    "Two plans for tradies. Starter puts your Google reviews live on your website. Growth adds email follow ups and re-engages past customers. Setup included. Cancel anytime.",
+    "Two plans for tradies, both with a 7-day free trial and free setup. Starter puts your Google reviews live on your website. Growth adds email follow ups and re-engages past customers. Cancel anytime.",
   path: "/pricing",
 });
 
 const billing = [
-  "Billed monthly",
+  "7-day free trial on both plans",
+  "Billed monthly after your trial",
   "Prices include GST",
   "Cancel anytime",
   "Email us for any change",
@@ -41,6 +42,9 @@ export default function PricingPage() {
               Starter puts your Google reviews live on your website. Growth keeps
               them coming and reaches your past customers. Prices include GST.
               Cancel anytime.
+            </p>
+            <p className="mt-4 inline-flex rounded-full bg-brand px-4 py-2 text-base font-semibold text-ink">
+              {TRIAL_LINE}
             </p>
           </div>
         </header>
@@ -162,7 +166,7 @@ export default function PricingPage() {
                 and we will work out what suits.
               </p>
             </div>
-            <TrialButton variant="ink">Get started</TrialButton>
+            <TrialButton variant="ink">{CTA_LABEL}</TrialButton>
           </div>
         </section>
 
@@ -183,8 +187,8 @@ export default function PricingPage() {
         </section>
       </article>
       <CtaBand
-        title="Get your reviews working for you."
-        body={`Starter from $${starter.price} a month, Growth $${growth.price}. Including GST. Cancel anytime.`}
+        title="Start your 7-day free trial."
+        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
       />
     </>
   );

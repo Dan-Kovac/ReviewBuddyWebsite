@@ -2,6 +2,10 @@ export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const contactPhone = "0411 701 078";
+/** tel: links must not contain spaces. */
+export const contactPhoneHref = "tel:+61411701078";
+/** Dan has not supplied the ABN. Shown as an obvious placeholder until he does. */
+export const abnPlaceholder = "[ABN to be added before launch]";
 export const loginUrl = "https://app.reviewbuddy.com.au/login";
 
 export type PlanId = "starter" | "growth";
@@ -76,16 +80,22 @@ export function planById(id: PlanId): Plan {
 export const lowestPrice = Math.min(...plans.map((plan) => plan.price));
 
 /**
- * Copy switches. The 7 day trial, the 48 hour guarantee and the $350 setup
- * value are not confirmed for the two plan offer, so they stay off. Dan flips
- * them on once he confirms the rules behind each one.
+ * Copy switches. The 7 day free trial, free setup, first week results and
+ * cancel anytime are confirmed by Dan (24 October 2026). The 48 hour guarantee
+ * is not adopted, so GUARANTEE_BADGE stays empty. Whether the trial takes a
+ * card up front is still Dan's call: CARD_UPFRONT in lib/flags.ts stays false
+ * and no copy mentions a card either way.
  */
-export const CTA_LABEL = "Get started";
+export const CTA_LABEL = "Start free trial";
+export const TRIAL_LINE = "7-day free trial. Free setup. Cancel anytime.";
 export const SETUP_LINE = "Setup included.";
-export const TRIAL_LINE = "";
+/** Dan values the setup at $500 or more. Dan to confirm this public wording. */
+export const SETUP_VALUE_LINE = "Free setup worth $500";
+export const FIRST_WEEK_LINE = "Set up to bring in new reviews in your first week.";
 export const GUARANTEE_BADGE = "";
 
 export const navLinks = [
   { href: "/pricing", label: "Pricing" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
+  { href: "/free-review-breakdown", label: "Free breakdown" },
 ] as const;

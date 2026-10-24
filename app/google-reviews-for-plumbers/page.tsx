@@ -7,12 +7,12 @@ import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { CTA_LABEL, plans } from "@/lib/site";
+import { CTA_LABEL, TRIAL_LINE, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
   description:
-    "Get more Google reviews after every plumbing job and show them live on your plumbing website. Starter $49, Growth $75 a month inc. GST. Setup included.",
+    "Get more Google reviews after every plumbing job and show them on your website with your Service Seeking and hipages reviews. Starter $49, Growth $75 a month inc. GST.",
   path: "/google-reviews-for-plumbers",
 });
 
@@ -30,7 +30,7 @@ const steps = [
   },
   {
     title: "The review shows on your plumbing website",
-    body: "We set it up. The live reviews widget sits on your site, so the next person who finds you can read the reviews there, not only on Google.",
+    body: "We set it up. The live reviews widget sits on your site, so the next person who finds you can read the reviews there, not only on Google. Reviews from other sites plumbers use, like Service Seeking and hipages, sit in the same widget when you connect them.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function PlumbersPage() {
           <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
             <div>
               <p className="text-sm font-semibold tracking-wide text-muted">For plumbing tradies</p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
+              <h1 className="mt-4 text-[clamp(2.4rem,8vw,4.5rem)] font-extrabold leading-[1.02] text-balance text-ink">
                 Google reviews for plumbers
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
@@ -61,7 +61,7 @@ export default function PlumbersPage() {
                 </Link>
               </div>
               <p className="mt-4 text-sm leading-6 text-muted">
-                Plans from ${starter.price} a month (inc. GST). Cancel anytime.
+                {TRIAL_LINE} Then plans from ${starter.price} a month (inc. GST).
               </p>
             </div>
             <ProductShot
@@ -70,7 +70,7 @@ export default function PlumbersPage() {
               width={1116}
               height={1130}
               priority
-              float
+              sizes="(min-width: 1024px) 480px, 92vw"
             />
           </div>
         </header>
@@ -83,30 +83,30 @@ export default function PlumbersPage() {
             A plumber does not have time to message every customer from the van.
             Ask while the job is fresh, and let the follow ups do the rest.
           </p>
-          <ol className="mt-10 grid gap-6 lg:grid-cols-3">
+          <ol className="mt-12 grid lg:grid-cols-3 lg:gap-8">
             {steps.map((step, index) => (
-              <li key={step.title} className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.45)]">
-                <span className="inline-flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-ink">
-                  {index + 1}
-                </span>
-                <h3 className="mt-4 text-xl font-semibold text-ink">{step.title}</h3>
+              <li key={step.title} className="step-row border-t-2 border-ink py-7">
+                <span className="step-num text-6xl font-extrabold leading-none text-brand-text">0{index + 1}</span>
+                <h3 className="mt-4 text-xl font-bold text-ink">{step.title}</h3>
                 <p className="mt-2 text-base leading-7 text-muted">{step.body}</p>
               </li>
             ))}
           </ol>
-          <div className="mt-10 grid items-center gap-8 md:grid-cols-2">
+          <div className="mt-14 grid items-center gap-8 md:grid-cols-[0.8fr_1.2fr]">
             <ProductShot
               src="/images/request-review.png"
-              alt="Illustration of a review request on a phone"
+              alt="Review Buddy sample: a feedback request form that sends a rating request to a customer"
               width={474}
               height={578}
-              sizes="(min-width: 768px) 420px, 80vw"
+              sizes="(min-width: 768px) 360px, 92vw"
             />
             <ProductShot
               src="/images/find-the-best.png"
-              alt="Illustration of a review widget, a badge, and a phone"
+              alt="Review Buddy sample: a Google review card with a rating request and Google, Facebook and review site badges"
               width={995}
               height={868}
+              tone="soft"
+              sizes="(min-width: 768px) 560px, 92vw"
             />
           </div>
         </section>
@@ -150,8 +150,8 @@ export default function PlumbersPage() {
               </div>
             </div>
             <div className="flex flex-col justify-end gap-4">
-              <TrialButton plan="starter" className="w-full sm:w-fit">Start with Starter</TrialButton>
-              <TrialButton plan="growth" variant="ink" className="w-full sm:w-fit">Choose Growth</TrialButton>
+              <TrialButton plan="starter" className="w-full sm:w-fit">Start free trial on Starter</TrialButton>
+              <TrialButton plan="growth" variant="ink" className="w-full sm:w-fit">Start free trial on Growth</TrialButton>
               <Link href="/pricing" className="font-semibold text-ink underline">
                 Full pricing
               </Link>
@@ -172,7 +172,7 @@ export default function PlumbersPage() {
       </article>
       <CtaBand
         title="Put your plumbing reviews on the website"
-        body={`Starter from $${starter.price} a month, Growth $${growth.price}. Cancel anytime.`}
+        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
       />
     </>
   );

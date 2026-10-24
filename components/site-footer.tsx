@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
-import { contactEmail, contactPhone, loginUrl, navLinks } from "@/lib/site";
+import {
+  abnPlaceholder,
+  contactEmail,
+  contactPhone,
+  contactPhoneHref,
+  loginUrl,
+  navLinks,
+} from "@/lib/site";
 
 const legal = [
   { href: "/privacy", label: "Privacy" },
@@ -55,15 +62,15 @@ export function SiteFooter() {
             <div className="flex items-center justify-between gap-4">
               <dt className="text-white/85">Phone</dt>
               <dd>
-                <a href={`tel:+61${contactPhone.replace(/^0/, "")}`} className="text-white/85 underline-offset-4 hover:text-white hover:underline">
+                <a href={contactPhoneHref} className="text-white/85 underline-offset-4 hover:text-white hover:underline">
                   {contactPhone}
                 </a>
               </dd>
             </div>
             <div className="flex items-center justify-between gap-4">
               <dt className="text-white/85">ABN</dt>
-              {/* TODO: Dan to supply ABN. Shown as muted text until then, never a TODO tag. */}
-              <dd className="text-white/50">ABN to be added</dd>
+              {/* TODO: Dan to supply ABN. An obvious placeholder until then, so it cannot be mistaken for a real number. */}
+              <dd className="text-white/50">{abnPlaceholder}</dd>
             </div>
           </dl>
         </div>
@@ -71,7 +78,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <p className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-5 text-sm text-white/60 sm:px-6">
           <span>© 2026 ReviewBuddy</span>
-          <span className="text-white/50">ABN to be added</span>
+          <span className="text-white/50">{abnPlaceholder}</span>
         </p>
       </div>
     </footer>

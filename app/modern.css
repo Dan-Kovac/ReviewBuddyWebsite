@@ -1,0 +1,63 @@
+/* Modern landing finish. Loaded after globals.css, so it refines the shared hero wash. */
+
+.hero-wash {
+  background:
+    radial-gradient(900px 480px at 88% -10%, rgb(56 182 255 / 0.22), transparent 66%),
+    radial-gradient(600px 360px at -8% 110%, rgb(56 182 255 / 0.10), transparent 70%),
+    #fff;
+}
+
+/* Confident page headings on the pricing, plumbers and free breakdown headers. */
+header.hero-wash h1 {
+  font-size: clamp(2.4rem, 8vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+}
+
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lift-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.lift-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand);
+  box-shadow: 0 28px 56px -32px rgb(11 15 20 / 0.35);
+}
+
+.step-row .step-num {
+  transition: color 0.25s ease;
+}
+
+.step-row:hover .step-num {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .lift-card,
+  .lift-card:hover {
+    transform: none;
+    transition: none;
+  }
+}

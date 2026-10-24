@@ -30,7 +30,7 @@ function AttributionFields() {
   );
 }
 
-function Field({
+export function Field({
   id,
   label,
   name,
@@ -129,7 +129,7 @@ export function TrialForm({
       <div role="status" className="py-2">
         <p className="text-xl font-semibold text-ink">Request sent</p>
         <p className="mt-3 text-base leading-7 text-muted">
-          Thanks. We have your details and will be in touch to get you set up.
+          Thanks. We have your details and will be in touch to start your 7-day free trial and set everything up for free.
         </p>
       </div>
     );
@@ -316,8 +316,9 @@ export function TrialForm({
         {submitting ? "Sending…" : "Send my details"}
       </button>
       <p className="text-sm leading-6 text-muted">
-        This sends us your details. We will be in touch to set it up. Cancel
-        anytime.
+        This sends us your details. We will be in touch to start your 7-day free
+        trial and set it up for free. Cancel anytime. See our{" "}
+        <a href="/privacy" className="underline">privacy policy</a>.
       </p>
     </form>
   );
