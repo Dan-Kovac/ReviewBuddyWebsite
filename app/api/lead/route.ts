@@ -1,4 +1,6 @@
 import { honeypotFilled, parseLead } from "@/lib/lead";
+import { saveSignup, sendSignupAlert } from "@/lib/signups";
+import { after } from "next/server";
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
@@ -35,8 +37,14 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, errors: parsed.errors }, { status: 400 });
   }
 
-  // TODO: write this lead to Notion. For now we only log it.
-  console.log(JSON.stringify({ event: "trial_lead", lead: parsed.lead }));
+  const saved = await saveSignup(parsed.lead);
+  if (!saved.ok) {
+    // Not saved, so tell the visitor. The form shows "We could not send that".
+    return Response.json({ ok: false, error: "Could not save" }, { status: 500 });
+  }
+
+  // Email alert runs after the response so a slow mail service never delays the visitor.
+  after(() => sendSignupAlert(parsed.lead, saved.id));
 
   return Response.json({ ok: true });
 }
