@@ -12,7 +12,7 @@ import { CTA_LABEL, TRIAL_LINE, plans } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
   description:
-    "Get more Google reviews after every plumbing job and show them live on your plumbing website. Starter $49, Growth $75 a month inc. GST. Setup included.",
+    "Get more Google reviews after every plumbing job and show them on your website with your Service Seeking and hipages reviews. Starter $49, Growth $75 a month inc. GST.",
   path: "/google-reviews-for-plumbers",
 });
 
@@ -30,7 +30,7 @@ const steps = [
   },
   {
     title: "The review shows on your plumbing website",
-    body: "We set it up. The live reviews widget sits on your site, so the next person who finds you can read the reviews there, not only on Google.",
+    body: "We set it up. The live reviews widget sits on your site, so the next person who finds you can read the reviews there, not only on Google. Reviews from other sites plumbers use, like Service Seeking and hipages, sit in the same widget when you connect them.",
   },
 ];
 
