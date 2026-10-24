@@ -1,21 +1,21 @@
+import { FIRST_WEEK_LINE, SETUP_VALUE_LINE } from "@/lib/site";
+
 const items = [
   "7-day free trial",
-  "Free setup",
-  "Live reviews widget on your website",
-  "Google review link and QR code",
+  SETUP_VALUE_LINE,
+  FIRST_WEEK_LINE,
   "Cancel anytime",
 ];
 
+/** The confirmed offer as a dark full-width band. Copy lives in lib/site.ts. */
 export function PromiseStrip() {
   return (
-    <section aria-label="What you get" className="bg-ink py-5 lg:py-7">
-      <ul className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-x-6 gap-y-2 px-4 sm:grid-cols-2 sm:px-6 lg:flex lg:items-center lg:justify-center lg:gap-8">
-        {items.map((item) => (
-          <li key={item} className="flex items-center gap-2 text-base text-white">
-            <svg viewBox="0 0 20 20" className="size-4 shrink-0 fill-brand" aria-hidden="true">
-              <path d="M10 1.8l2.1 4.5 4.9.7-3.5 3.4.8 4.9L10 13.1 5.7 15.3l.8-4.9L3 7l4.9-.7L10 1.8z" />
-            </svg>
-            <span>{item}</span>
+    <section aria-label="What you get when you start" className="bg-ink text-white">
+      <ul className="mx-auto grid w-full max-w-[1200px] gap-x-8 gap-y-6 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:py-12">
+        {items.map((item, index) => (
+          <li key={item} className="border-t border-white/20 pt-4">
+            <p className="text-sm font-semibold tracking-wide text-brand">0{index + 1}</p>
+            <p className="mt-2 text-lg font-semibold leading-7">{item}</p>
           </li>
         ))}
       </ul>

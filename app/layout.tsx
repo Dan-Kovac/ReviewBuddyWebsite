@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Inter, Work_Sans } from "next/font/google";
+import { Inter, Work_Sans } from "next/font/google";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -7,6 +7,7 @@ import { TrialProvider } from "@/components/trial-provider";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
+import "./modern.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,11 +16,6 @@ const inter = Inter({
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
-  subsets: ["latin"],
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -61,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`${inter.variable} ${workSans.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />

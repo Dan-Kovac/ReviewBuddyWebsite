@@ -10,7 +10,7 @@ export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: bool
   return (
     <section
       id={plan.id}
-      className={`scroll-mt-24 hover-lift relative flex flex-col rounded-[24px] border p-8 ${featured
+      className={`scroll-mt-24 lift-card relative flex flex-col rounded-[24px] border p-8 ${featured
         ? "border-brand bg-ink text-white shadow-[0_24px_60px_-24px_rgba(56,182,255,0.55)]"
         : "border-line bg-white text-ink shadow-[0_16px_40px_-32px_rgba(11,15,20,0.4)]"}`}
     >
@@ -31,15 +31,13 @@ export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: bool
           a month, including GST
         </span>
       </p>
-      <ul className="mt-6 grid gap-3">
+      <ul className={`mt-6 divide-y ${featured ? "divide-white/15" : "divide-line"}`}>
         {plan.includes.map((item) => (
-          <li key={item} className={`flex gap-3 text-base leading-7 ${featured ? "text-white" : "text-ink"}`}>
+          <li key={item} className={`flex gap-3 py-3 text-base leading-7 ${featured ? "text-white" : "text-ink"}`}>
             <span
               aria-hidden="true"
-              className={`mt-1.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${featured ? "bg-brand text-ink" : "bg-brand-text text-white"}`}
-            >
-              ✓
-            </span>
+              className={`mt-3 h-0.5 w-4 shrink-0 rounded-full ${featured ? "bg-brand" : "bg-brand-text"}`}
+            />
             <span>{item}</span>
           </li>
         ))}
