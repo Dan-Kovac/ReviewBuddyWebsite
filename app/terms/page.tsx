@@ -1,34 +1,140 @@
-import { LegalTodo } from "@/components/legal-todo";
+import { LegalDraftNotice } from "@/components/legal-draft-notice";
+import { LEGAL_DRAFT } from "@/lib/flags";
 import { pageMetadata } from "@/lib/metadata";
-import { contactEmail, priceLabel, siteName } from "@/lib/site";
+import { abnPlaceholder, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Terms of use | ReviewBuddy",
-  description: "Terms of use for ReviewBuddy. The finished terms are still being written.",
+  description:
+    "The terms for using the ReviewBuddy website and service: the free trial, plans, billing, cancelling and what we do and do not promise.",
   path: "/terms",
+  noindex: LEGAL_DRAFT,
 });
 
+const h2 = "mt-10 text-2xl font-semibold tracking-tight text-ink";
+const link = "font-semibold text-ink underline";
+
 export default function TermsPage() {
+  const starter = plans.find((plan) => plan.id === "starter")!;
+  const growth = plans.find((plan) => plan.id === "growth")!;
+
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6 md:py-20">
-      {/* TODO for Dan: replace this terms placeholder with the real terms. */}
       <h1 className="text-4xl font-semibold tracking-tight text-ink">Terms of use</h1>
-      <div className="mt-6">
-        <LegalTodo document="terms of use" />
-      </div>
-      <div className="mt-8 grid gap-4 text-base leading-7 text-muted">
+      <p className="mt-3 text-sm text-muted">Last updated: [date to be set when approved]</p>
+      <LegalDraftNotice />
+
+      <div className="mt-6 grid gap-4 text-base leading-7 text-muted">
         <p>
-          {siteName} will set out the customer terms here, including the 7-day
-          trial, card taken at signup, billing from day 8, and the public price
-          of {priceLabel}.
+          These terms apply to your use of the ReviewBuddy website and service.
+          By starting a trial or using the service, you agree to them. If you
+          do not agree, please do not use it.
         </p>
+
+        <h2 className={h2}>Who we are</h2>
         <p>
-          Until Dan replaces this page, do not treat it as the terms. Questions
-          can go to{" "}
-          <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>
+          ReviewBuddy, trading as ReviewBuddy. [Legal or trading name of the
+          operator, to be confirmed.] ABN: {abnPlaceholder}. Contact:{" "}
+          <a className={link} href={`mailto:${contactEmail}`}>
             {contactEmail}
           </a>
           .
+        </p>
+
+        <h2 className={h2}>The service</h2>
+        <p>
+          ReviewBuddy helps your business ask customers for Google reviews and
+          shows your Google reviews on your website. Starter gives you a Google
+          review link and QR code and a live reviews widget. Growth adds email
+          sequences that keep asking customers for reviews, and a way to reach
+          past leads and customers. We set the service up for you.
+        </p>
+
+        <h2 className={h2}>Free trial</h2>
+        <p>
+          New customers get a 7-day free trial and free setup. You can cancel
+          at any time during the trial and you will not be charged for it.
+          [Dan to confirm: whether a card is needed to start the trial, and
+          what happens at the end of day 7.]
+        </p>
+
+        <h2 className={h2}>Plans, prices and billing</h2>
+        <p>
+          After your trial, {starter.name} is ${starter.price} a month and{" "}
+          {growth.name} is ${growth.price} a month. Prices are in Australian
+          dollars and include GST. Plans are billed monthly in advance. If our
+          prices change, we will tell you before the change applies to you.
+        </p>
+
+        <h2 className={h2}>Cancelling</h2>
+        <p>
+          You can cancel at any time by emailing{" "}
+          <a className={link} href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
+          . There is no lock-in contract. Cancelling stops future billing. [Dan
+          to confirm: whether the current month is refunded, and how soon after
+          the request the service stops.]
+        </p>
+
+        <h2 className={h2}>What we do not promise</h2>
+        <p>
+          We set up the service to help you get more Google reviews, and we aim
+          for new reviews in your first week. We cannot promise a particular
+          number of reviews or a particular rating. Reviews are written by your
+          real customers, and we never write or buy reviews for you. Google and
+          other platforms control how reviews are shown, and may change their
+          rules.
+        </p>
+
+        <h2 className={h2}>Your responsibilities</h2>
+        <ul className="grid gap-2 pl-5 [&>li]:list-disc">
+          <li>Give us accurate details and keep them up to date.</li>
+          <li>Only ask real customers for real reviews, and follow Google&apos;s review policies.</li>
+          <li>
+            If you upload past customers or leads, make sure you are allowed to
+            contact them, and that your messages follow the Spam Act 2003 and
+            the Privacy Act 1988.
+          </li>
+          <li>Do not misuse the service or try to break it.</li>
+        </ul>
+
+        <h2 className={h2}>Third party services</h2>
+        <p>
+          ReviewBuddy relies on other services, including Google, our hosting
+          and email providers, and the platform that runs your widget and
+          review requests. We are not responsible for outages or changes in
+          services we do not control, but we will work to fix problems we can
+          fix.
+        </p>
+
+        <h2 className={h2}>Our liability</h2>
+        <p>
+          Nothing in these terms limits your rights under the Australian
+          Consumer Law, which cannot be excluded. To the extent the law
+          allows, we are not liable for indirect or consequential loss, such as
+          lost profit or lost work. [This clause must be checked by a lawyer.]
+        </p>
+
+        <h2 className={h2}>Privacy</h2>
+        <p>
+          How we handle your personal information is set out in our{" "}
+          <a className={link} href="/privacy">
+            privacy policy
+          </a>
+          .
+        </p>
+
+        <h2 className={h2}>Changes to these terms</h2>
+        <p>
+          We may update these terms. The date at the top shows when they last
+          changed. If a change affects you in a material way, we will tell you.
+        </p>
+
+        <h2 className={h2}>Governing law</h2>
+        <p>
+          These terms are governed by the laws of Victoria, Australia. [Dan to
+          confirm the state.]
         </p>
       </div>
     </article>

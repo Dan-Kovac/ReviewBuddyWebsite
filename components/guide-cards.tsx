@@ -23,33 +23,7 @@ export function GuideCards({
   columns?: 2 | 3;
 }) {
   if (guides.length === 0) {
-    const body = (
-      <>
-        <Cover />
-        <div className="flex flex-1 flex-col p-7 sm:p-8">
-          <h3 className="text-2xl font-bold text-ink">Guides coming soon</h3>
-          <p className="mt-3 text-base leading-7 text-muted">
-            Practical notes for tradies, on asking for Google reviews and showing them on your
-            website.
-          </p>
-          {emptyHref ? <p className="mt-8 text-sm font-semibold text-ink">See the guides</p> : null}
-        </div>
-      </>
-    );
-
-    return (
-      <ul className={`mt-16 grid gap-6 ${columns === 3 ? "lg:grid-cols-3" : "md:grid-cols-2"}`}>
-        <li>
-          {emptyHref ? (
-            <Link href={emptyHref} className={card}>
-              {body}
-            </Link>
-          ) : (
-            <div className={card}>{body}</div>
-          )}
-        </li>
-      </ul>
-    );
+    return null;
   }
 
   return (

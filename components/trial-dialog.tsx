@@ -7,11 +7,13 @@ export function TrialDialog({
   dialogRef,
   open,
   titleId,
+  plan,
   onClose,
 }: {
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   open: boolean;
   titleId: string;
+  plan?: "starter" | "growth";
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -20,7 +22,7 @@ export function TrialDialog({
     }
 
     const frame = window.requestAnimationFrame(() => {
-      document.getElementById("lead-name")?.focus();
+      document.getElementById("lead-plan")?.focus();
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -45,7 +47,7 @@ export function TrialDialog({
               Start your 7-day free trial
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Tell us about the business. We will get in touch to set it up.
+              Tell us about the business and pick a plan. Setup is free and you can cancel anytime. We will get in touch to set it up.
             </p>
           </div>
           <button
@@ -57,7 +59,7 @@ export function TrialDialog({
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <TrialForm />
+        <TrialForm initialPlan={plan} />
       </div>
     </dialog>
   );

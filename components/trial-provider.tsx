@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useId,
   useRef,
   useState,
@@ -11,7 +12,7 @@ import {
 import { TrialDialog } from "@/components/trial-dialog";
 
 type TrialContextValue = {
-  openTrial: () => void;
+  openTrial: (plan?: "starter" | "growth") => void;
 };
 
 const TrialContext = createContext<TrialContextValue | null>(null);
@@ -20,13 +21,15 @@ export function TrialProvider({ children }: { children: React.ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
   const [open, setOpen] = useState(false);
+  const [plan, setPlan] = useState<"starter" | "growth" | undefined>(undefined);
 
-  const openTrial = useCallback(() => {
+  const openTrial = useCallback((chosen?: "starter" | "growth") => {
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) {
       return;
     }
 
+    setPlan(chosen);
     dialog.showModal();
     setOpen(true);
   }, []);
@@ -43,6 +46,7 @@ export function TrialProvider({ children }: { children: React.ReactNode }) {
         dialogRef={dialogRef}
         open={open}
         titleId={titleId}
+        plan={plan}
         onClose={closeTrial}
       />
     </TrialContext.Provider>

@@ -1,464 +1,310 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
-import { DashboardAnnotations } from "@/components/dashboard-annotations";
 import { FaqList } from "@/components/faq-list";
-import { GuideCards } from "@/components/guide-cards";
 import { JsonLd } from "@/components/json-ld";
+import { PlanPair } from "@/components/plan-pair";
+import { PromiseStrip } from "@/components/promise-strip";
+import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
-import { publishedGuides } from "@/content/guides/registry";
-import { visibleHomeFaqs } from "@/lib/faqs";
-import { CARD_UPFRONT, SHOW_KOVELE } from "@/lib/flags";
+import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { addOns, productPrice } from "@/lib/site";
+import { ProductShot } from "@/components/product-shot";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
+import { ProofBlock } from "@/components/proof-block";
+import { PlatformScreen } from "@/components/platform-screen";
+import { CTA_LABEL, SETUP_LINE, TRIAL_LINE, lowestPrice, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies",
+  title: "Get More Google Reviews | ReviewBuddy for Tradies",
   description:
-    "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.",
+    "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.",
   path: "/",
 });
-
-const faqs = visibleHomeFaqs(CARD_UPFRONT);
 
 const steps = [
   {
     title: "Ask after the job",
-    detail: "By text, email or QR. Every customer can be asked.",
+    detail:
+      "Share your Google review link or QR code when the job is done. On Growth, email follow ups keep asking for you.",
   },
   {
     title: "Reviews come in",
-    detail: "On Google, from the customers you asked.",
+    detail: "On Google from the customers you asked, and on the other review sites you connect, like Service Seeking or hipages.",
   },
   {
     title: "They show on your site",
-    detail: "The widget updates when a new review comes in.",
+    detail: "One widget shows them together. It updates when a new Google review comes in.",
   },
 ];
 
-const section = "px-4 py-[72px] sm:px-6 lg:py-32";
+const platformNames = ["Google", "Facebook", "Service Seeking", "hipages", "Airtasker", "Houzz", "and more"];
+
 const wrap = "mx-auto w-full max-w-[1200px]";
-const heroPrice = `$${Number(productPrice)} a month, including GST. Cancel anytime.`;
+const pad = "px-4 sm:px-6";
+const starterPlan = plans.find((plan) => plan.id === "starter")!;
+const growthPlan = plans.find((plan) => plan.id === "growth")!;
+const finalBandLine = `${TRIAL_LINE} Then Starter is $${starterPlan.price} a month or Growth is $${growthPlan.price}, including GST.`;
 
-function BrowserChrome({ url, children }: { url: string; children: ReactNode }) {
-  return (
-    <div className="overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_16px_40px_-28px_rgba(11,15,20,0.18)]">
-      <div className="flex items-center gap-2 border-b border-line bg-soft px-4 py-3" aria-hidden="true">
-        <span className="size-2.5 rounded-full bg-[#d5d8de]" />
-        <span className="size-2.5 rounded-full bg-[#d5d8de]" />
-        <span className="size-2.5 rounded-full bg-[#d5d8de]" />
-        <span className="ml-2 flex h-6 flex-1 items-center truncate rounded-full bg-white px-3 text-xs text-muted">
-          {url}
-        </span>
-      </div>
-      {children}
-    </div>
-  );
-}
+const facts = [
+  "Updates when a new review comes in",
+  "Matches your site",
+  "Works on phones",
+];
 
-function SourceBadge({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex rounded-full border border-line bg-soft px-2.5 py-1 text-xs font-semibold text-ink">
-      {children}
-    </span>
-  );
-}
-
-function Stars({ count }: { count: number }) {
-  return (
-    <span className="inline-flex gap-0.5" aria-label={`${count} out of 5 stars`}>
-      {Array.from({ length: 5 }, (_, index) => (
-        <svg
-          key={index}
-          viewBox="0 0 20 20"
-          className={`star-in size-3.5 ${index < count ? "fill-[#e0a106] text-[#e0a106]" : "fill-line text-line"}`}
-          style={{ animationDelay: `${index * 40}ms` }}
-          aria-hidden="true"
-        >
-          <path d="M10 1.8l2.1 4.5 4.9.7-3.5 3.4.8 4.9L10 13.1 5.7 15.3l.8-4.9L3 7l4.9-.7L10 1.8z" />
-        </svg>
-      ))}
-    </span>
-  );
-}
-
-function Initials({ name }: { name: string }) {
-  const letters = name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-
-  return (
-    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[linear-gradient(180deg,#f7f9fb,#e8edf2)] text-sm font-bold text-ink shadow-[inset_0_0_0_1px_rgba(11,15,20,0.06)]" aria-hidden="true">
-      {letters}
-    </span>
-  );
-}
-
-function BlurredDate() {
-  return (
-    <>
-      <span className="inline-block h-2.5 w-16 rounded-full bg-line blur-[2px]" aria-hidden="true" />
-      <span className="sr-only">Calendar date was not on the public listing.</span>
-    </>
-  );
-}
-
-function BeforeSite() {
-  return (
-    <BrowserChrome url="koveleplumbing.com.au/reviews">
-      <div className="px-6 py-6 sm:px-8 sm:py-8">
-        <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          <SourceBadge>Google (48)</SourceBadge>
-          <SourceBadge>Service Seeking (198)</SourceBadge>
-        </div>
-        <p className="mt-4 text-sm leading-6 text-muted">Newest review: 15 Oct 2025</p>
-        <blockquote className="mt-8 border-t border-line pt-6 text-base leading-7 text-ink">
-          What a wonderful duo, father and son! Extremely competent and kind! Got a gas heater removed at a reasonable
-          price and on such short notice. He kindly replaced a shower head for me at no extra cost too while he was
-          there! Steve didn&apos;t stop there. He returned to the property to drop off a replacement part. What a
-          service! Highly recommend.
-          <footer className="mt-3 text-sm text-muted">YC C. · Google · 15 Oct 2025</footer>
-        </blockquote>
-      </div>
-    </BrowserChrome>
-  );
-}
-
-function AfterWidget() {
-  return (
-    <BrowserChrome url="koveleplumbing.com.au">
-      <div className="bg-[linear-gradient(180deg,rgba(56,182,255,0.08),transparent_88px)] px-5 py-6 sm:px-6">
-        <p className="text-sm font-semibold text-ink">Kovele Plumbing</p>
-        <ul className="mt-4 grid gap-2">
-          <li className="flex flex-wrap items-center justify-between gap-2 rounded-[16px] border border-line bg-white px-3 py-3 shadow-[0_10px_24px_-20px_rgba(11,15,20,0.45)]">
-            <SourceBadge>Google</SourceBadge>
-            <p className="text-sm leading-6 text-ink">
-              <span className="text-xl font-bold">4.8</span>
-              <span className="text-muted"> · 53 reviews</span>
-            </p>
-          </li>
-          <li className="flex flex-wrap items-center justify-between gap-2 rounded-[16px] border border-line bg-white px-3 py-3 shadow-[0_10px_24px_-20px_rgba(11,15,20,0.45)]">
-            <SourceBadge>ServiceSeeking</SourceBadge>
-            <p className="text-sm leading-6 text-ink">
-              <span className="text-xl font-bold">4.9</span>
-              <span className="text-muted"> · 200 reviews</span>
-            </p>
-          </li>
-        </ul>
-        <ul className="mt-4 grid gap-3">
-          <li className="depth-card hover-lift rounded-[16px] border border-line bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Initials name="kevin leahy" />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-semibold text-ink">kevin leahy</p>
-                  <SourceBadge>Google</SourceBadge>
-                </div>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <Stars count={5} />
-                  <BlurredDate />
-                </div>
-              </div>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-ink">
-              Without question the best tradies I have ever used. Steve and Nick explain everything in laymans terms. I
-              cannot recommend them highly enough.
-            </p>
-          </li>
-          <li className="depth-card hover-lift rounded-[16px] border border-line bg-white p-4">
-            <div className="flex items-start gap-3">
-              <Initials name="Jason" />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-semibold text-ink">Jason</p>
-                  <SourceBadge>ServiceSeeking</SourceBadge>
-                </div>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <Stars count={5} />
-                  <p className="text-xs text-muted">21 Aug 2026</p>
-                </div>
-              </div>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-ink">Turned up on time. Job done perfectly</p>
-          </li>
-          <li className="rounded-[16px] border border-dashed border-line bg-white/70 p-4" aria-hidden="true">
-            <div className="flex items-center gap-3">
-              <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" />
-              <span className="h-3 w-24 rounded-full bg-line blur-[2px]" />
-            </div>
-            <div className="mt-3 grid gap-2">
-              <span className="h-3 w-full rounded-full bg-line blur-[3px]" />
-              <span className="h-3 w-4/5 rounded-full bg-line blur-[3px]" />
-            </div>
-          </li>
-        </ul>
-        <p className="sr-only">One more review row is blurred because its words were not copied from a public page.</p>
-      </div>
-    </BrowserChrome>
-  );
-}
-
-function ExampleLabel() {
-  return (
-    <p className="mb-3">
-      <span className="inline-flex rounded-full bg-ink px-2.5 py-1 text-xs font-semibold tracking-wide text-white">
-        Example
-      </span>
-    </p>
-  );
-}
-
-function BlurBar({ className }: { className: string }) {
-  return <span className={`block rounded-full bg-line blur-[2px] ${className}`} aria-hidden="true" />;
-}
-
-function ExampleBefore() {
-  return (
-    <div>
-      <ExampleLabel />
-      <BrowserChrome url="example.com/reviews">
-        <div className="px-6 py-6 sm:px-8 sm:py-8">
-          <BlurBar className="h-3 w-36" />
-          <div className="mt-6 flex flex-wrap gap-2">
-            <BlurBar className="h-7 w-24" />
-            <BlurBar className="h-7 w-32" />
-          </div>
-          <div className="mt-8 grid gap-2 border-t border-line pt-6">
-            <BlurBar className="h-3 w-full" />
-            <BlurBar className="h-3 w-11/12" />
-            <BlurBar className="h-3 w-8/12" />
-          </div>
-          <p className="sr-only">Example review text is hidden.</p>
-        </div>
-      </BrowserChrome>
-    </div>
-  );
-}
-
-function ExampleAfter() {
-  return (
-    <div>
-      <ExampleLabel />
-      <BrowserChrome url="example.com">
-        <div className="bg-[linear-gradient(180deg,rgba(56,182,255,0.08),transparent_88px)] px-5 py-6 sm:px-6">
-          <BlurBar className="h-3 w-36" />
-          <div className="mt-4 grid gap-2">
-            <div className="flex items-center justify-between rounded-[16px] border border-line bg-white px-3 py-3">
-              <BlurBar className="h-6 w-20" />
-              <BlurBar className="h-5 w-24" />
-            </div>
-            <div className="flex items-center justify-between rounded-[16px] border border-line bg-white px-3 py-3">
-              <BlurBar className="h-6 w-28" />
-              <BlurBar className="h-5 w-24" />
-            </div>
-          </div>
-          <div className="mt-4 grid gap-3">
-            <div className="rounded-[16px] border border-line bg-white p-4">
-              <div className="flex items-center gap-3">
-                <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" aria-hidden="true" />
-                <BlurBar className="h-3 w-28" />
-              </div>
-              <div className="mt-3 grid gap-2">
-                <BlurBar className="h-3 w-full" />
-                <BlurBar className="h-3 w-4/5" />
-              </div>
-            </div>
-            <div className="rounded-[16px] border border-dashed border-line bg-white/70 p-4">
-              <div className="flex items-center gap-3">
-                <span className="size-10 shrink-0 rounded-full bg-line blur-[2px]" aria-hidden="true" />
-                <BlurBar className="h-3 w-24" />
-              </div>
-              <div className="mt-3 grid gap-2">
-                <BlurBar className="h-3 w-full" />
-                <BlurBar className="h-3 w-3/5" />
-              </div>
-            </div>
-          </div>
-          <p className="sr-only">Example review text is hidden.</p>
-        </div>
-      </BrowserChrome>
-    </div>
-  );
-}
+const pastCustomerSteps = [
+  "Export your past customers. We show you how.",
+  "Import them by CSV.",
+  "Email sequences keep asking, so you do not have to.",
+];
 
 export default function HomePage() {
-  const articles = publishedGuides().slice(0, 3);
-
   return (
     <>
-      <section className={`hero-wash ${section}`}>
-        <div className={wrap}>
-          <div className="mx-auto flex max-w-[760px] flex-col items-center text-center">
-            <h1 className="text-balance text-[clamp(2.5rem,8vw,4.5rem)] font-extrabold leading-[1.05] text-ink">
-              Get chosen before they <span className="underline decoration-brand decoration-[3px] underline-offset-[0.12em]">call.</span>
-            </h1>
-            <p className="mt-5 max-w-[36rem] text-lg leading-8 text-muted">
-              More Google reviews from your real customers, shown live on your website.
+      <RevealOnScroll />
+      <section className="hero-wash overflow-hidden">
+        <div className={`${wrap} ${pad} grid gap-10 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-24`}>
+          <div>
+            <p className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
+              <span aria-hidden="true" className="h-0.5 w-8 rounded-full bg-brand" />
+              Google reviews for tradies
             </p>
-            <div className="mt-8 w-full sm:w-auto">
-              <TrialButton variant="ink" className="w-full px-6 sm:w-auto">
-                Start your 7-day free trial
+            <h1 className="mt-4 text-balance text-[clamp(2.6rem,9.5vw,5.25rem)] font-extrabold leading-[1] text-ink">
+              Get chosen before they <span className="text-brand-text">call.</span>
+            </h1>
+            <p className="mt-5 max-w-[34rem] text-lg leading-8 text-muted">
+              More Google reviews from your real customers, shown with your other review sites in one widget on your website.
+            </p>
+            <div className="mt-7 w-full sm:w-auto" data-hero-cta="">
+              <TrialButton variant="ink" className="w-full px-8 sm:w-auto">
+                {CTA_LABEL}
               </TrialButton>
             </div>
-            <p className="mt-4 max-w-full text-balance rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold leading-5 text-ink shadow-[0_10px_24px_-18px_rgba(11,15,20,0.35)]">
-              Google reviews live in 48 hours, or that month is free.
+            <p className="mt-4 text-base font-semibold leading-6 text-ink">{TRIAL_LINE}</p>
+            <p className="mt-6 text-sm leading-6 text-muted">
+              After your trial, plans start at ${lowestPrice} a month, including GST.{" "}
+              <Link href="/pricing" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
+                See plans and pricing
+              </Link>
             </p>
-            <p className="mt-3 text-sm leading-6 text-muted">{heroPrice}</p>
-            <article className="mt-8 w-full max-w-sm rounded-[20px] border border-line bg-white p-4 text-left shadow-[0_16px_40px_-28px_rgba(11,15,20,0.28)]">
-              <p className="text-xs font-semibold tracking-wide text-muted">Example</p>
-              <p className="mt-2 text-sm font-semibold text-ink">Harbour Electrical</p>
-              <p className="mt-2 text-sm leading-6 text-ink">
-                Sorted the switchboard the same afternoon. Clear about the work before they started.
-              </p>
-              <p className="mt-3 text-xs text-muted">Sam T. · Google</p>
-            </article>
+            <p className="mt-2 text-sm leading-6 text-muted">
+              Not ready to start?{" "}
+              <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
+                Get a free review breakdown first
+              </Link>
+            </p>
           </div>
-          <div className="hero-fade relative mt-12 w-full lg:mt-16">
+          <div className="relative">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-[8%] top-6 h-40 rounded-full bg-brand/25 blur-3xl"
+              className="absolute -right-6 -top-6 hidden size-40 rounded-full bg-brand/30 blur-2xl lg:block"
             />
-            <div className="relative">
-              <DashboardAnnotations />
-            </div>
+            <ProductShot
+              src="/images/hero.png"
+              alt="Review Buddy sample: a five star Google review card, a rating request and a 4.5 average rating breakdown"
+              width={1116}
+              height={1130}
+              priority
+              sizes="(min-width: 1024px) 520px, 92vw"
+            />
           </div>
         </div>
       </section>
 
-      <section className={`bg-soft ${section}`}>
+      <section aria-labelledby="platform-screen" className={`bg-soft ${pad} py-14 lg:py-20`}>
         <div className={wrap}>
-          <h2 className="max-w-3xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            Win the job on trust, not price.
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            {SHOW_KOVELE ? (
-              <>
-                Kovele Plumbing&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped
-                updating a year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they
-                happen and customers can see why to book him.
-              </>
-            ) : (
-              <>
-                A tradie&apos;s site showed his Google and ServiceSeeking reviews together, but they stopped updating a
-                year ago. With ReviewBuddy, his Google reviews will update live, so new jobs show up as they happen and
-                customers can see why to book him.
-              </>
-            )}
-          </p>
-          <figure className="mt-16">
-            <div className="grid items-start gap-6 lg:grid-cols-2">
-              {SHOW_KOVELE ? (
-                <>
-                  <div>
-                    <p className="mb-3 hidden text-sm font-semibold invisible lg:block" aria-hidden="true">
-                      With ReviewBuddy
-                    </p>
-                    <BeforeSite />
-                  </div>
-                  <div>
-                    <p className="mb-3 text-sm font-semibold text-ink">With ReviewBuddy</p>
-                    <AfterWidget />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <ExampleBefore />
-                  <ExampleAfter />
-                </>
-              )}
-            </div>
-            <figcaption className="mt-4 text-sm leading-6 text-muted">
-              All your reviews in one place, on your site.
-            </figcaption>
-          </figure>
+          <div data-reveal="" className="max-w-3xl">
+            <h2 id="platform-screen" className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              Your review sites, together in one view.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-muted">
+              Google, Service Seeking, hipages and more. Reviews from the sites you connect sit together in one widget on your website. This is the review platform we build on, with notes on what it does.
+            </p>
+          </div>
+          <div data-reveal="" className="mt-8 lg:mt-10">
+            <PlatformScreen />
+          </div>
+          <div data-reveal="" className="mt-6">
+            <p className="text-sm font-semibold text-ink">Review sites you can bring together</p>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-base leading-7 text-muted">
+              {platformNames.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+            <p className="mt-2 text-xs leading-5 text-muted">
+              Names show where reviews can come from. They do not mean any of these sites endorses Review Buddy.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section id="how-it-works" className={`scroll-mt-24 ${section}`}>
+      <PromiseStrip />
+
+      <ProofBlock />
+
+      <section className={`${pad} py-20 lg:py-32`}>
         <div className={wrap}>
-          <h2 className="max-w-2xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            Google reviews, live in 48 hours.
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            We set it up, add the widget and fix what we can see. If your Google reviews aren&apos;t live in 48 hours, that month is free.
-          </p>
-          <ol className="mt-16 grid gap-6 lg:grid-cols-3">
+          <div data-reveal="" className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-20">
+            <div>
+              <h2 className="text-balance text-[clamp(2.25rem,7vw,4.75rem)] font-extrabold leading-[1.02] text-ink">
+                Win the job on <span className="text-brand-text">trust,</span> not price.
+              </h2>
+              <p className="mt-8 max-w-xl border-l-4 border-brand pl-5 text-lg leading-8 text-muted">
+                Before someone calls, they check your Google reviews, then they look at your website. Reviews copied in by hand go stale the day you stop updating them. With ReviewBuddy the widget on your site updates when a new Google review comes in, so the next customer sees how you really work.
+              </p>
+            </div>
+            <ProductShot
+              src="/images/find-the-best.png"
+              alt="Review Buddy sample: a Google review card with a rating request and Google, Facebook and review site badges"
+              width={995}
+              height={868}
+              tone="soft"
+              sizes="(min-width: 1024px) 420px, 92vw"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className={`scroll-mt-24 bg-soft ${pad} py-20 lg:py-32`}>
+        <div className={`${wrap} grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20`}>
+          <div data-reveal="" className="lg:sticky lg:top-28 lg:self-start">
+            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              All your reviews in one place, on your site.
+            </h2>
+            <p className="mt-5 max-w-md text-lg leading-8 text-muted">
+              We set it up and add the widget to your site.
+            </p>
+            <div className="mt-8 max-w-[320px]">
+              <ProductShot
+                src="/images/request-review.png"
+                alt="Review Buddy sample: a feedback request form that sends a rating request to a customer"
+                width={474}
+                height={578}
+                tone="tint"
+                sizes="320px"
+              />
+            </div>
+          </div>
+          <ol className="grid">
             {steps.map((step, index) => (
               <li
                 key={step.title}
-                className="depth-card hover-lift rounded-[20px] border border-line bg-white p-8"
+                data-reveal=""
+                className="step-row grid grid-cols-[4.5rem_1fr] gap-x-4 border-t-2 border-ink py-8 sm:grid-cols-[6rem_1fr] sm:gap-x-6 lg:grid-cols-[8.5rem_1fr] lg:gap-x-8"
               >
-                <p className="text-sm font-semibold text-brand">0{index + 1}</p>
-                <h3 className="mt-4 text-2xl font-bold text-ink">{step.title}</h3>
-                <p className="mt-3 text-base leading-7 text-muted">{step.detail}</p>
+                <span className="step-num text-[clamp(3rem,7vw,5.5rem)] font-extrabold leading-none text-brand-text">
+                  0{index + 1}
+                </span>
+                <div className="pt-1 lg:pt-3">
+                  <h3 className="text-2xl font-bold text-ink">{step.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-muted">{step.detail}</p>
+                </div>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section id="pricing" className={`bg-soft ${section}`}>
+      <section className={`bg-ink ${pad} py-20 text-white lg:py-32`}>
         <div className={wrap}>
-          <div className="depth-card hover-lift max-w-[560px] rounded-[20px] border border-line bg-[linear-gradient(180deg,#fff,rgba(56,182,255,0.06))] p-8 sm:p-10">
-            <h2 className="text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-              $75 a month, including GST.
+          <div data-reveal="" className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
+            <h2 className="text-balance text-[clamp(2rem,6vw,3.75rem)] font-extrabold leading-[1.04]">
+              Every review, one screen.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-muted">
-              Setup included, valued at $350 including GST. First 7 days free, cancel anytime.
+            <p className="max-w-xl text-lg leading-8 text-muted-on-dark">
+              Search your reviews, see where each one came from and keep track of every location from one dashboard.
             </p>
-            <h3 className="mt-10 text-base font-bold text-ink">Add-ons</h3>
-            <ul className="mt-4 grid gap-3">
-              {addOns.map((addOn) => (
-                <li key={addOn.name} className="flex items-baseline justify-between gap-4 text-base leading-7">
-                  <span className="text-ink">{addOn.name}</span>
-                  <span className="text-muted">{addOn.price}</span>
-                </li>
-              ))}
-            </ul>
+          </div>
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-[20px] bg-white/15 sm:grid-cols-3">
+            {facts.map((fact) => (
+              <li key={fact} className="bg-ink px-6 py-6 text-lg font-semibold leading-7 text-white">
+                {fact}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className={`${pad} py-20 lg:py-32`}>
+        <div className={`${wrap} grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20`}>
+          <div data-reveal="">
+            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              You have already done the hard part.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
+              Your past customers already know your work. On Growth, we show you how to export them from the software you already use and import them by CSV. Then email sequences ask them for a review, and bring past leads back into the conversation.
+            </p>
             <div className="mt-8">
-              <TrialButton variant="ink" className="px-6" />
+              <Link
+                href="/pricing#growth"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-ink bg-white px-6 font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
+              >
+                See the Growth plan
+              </Link>
             </div>
           </div>
+          <ol data-reveal="" className="grid content-center">
+            {pastCustomerSteps.map((item, index) => (
+              <li key={item} className="flex items-baseline gap-5 border-t border-line py-6 last:border-b">
+                <span className="text-sm font-bold text-brand-text">0{index + 1}</span>
+                <span className="text-xl font-semibold leading-8 text-ink">{item}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section aria-labelledby="latest-guides" className={section}>
+      <section id="pricing" className={`scroll-mt-24 bg-brand-tint ${pad} py-20 lg:py-32`}>
         <div className={wrap}>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div className="max-w-2xl">
-              <h2 id="latest-guides" className="text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-                Simple guides for busier tradies.
-              </h2>
-              <p className="mt-5 text-lg leading-8 text-muted">
-                Practical help for getting more reviews.
-              </p>
-            </div>
-            <Link href="/guides" className="text-base font-semibold text-ink underline decoration-brand underline-offset-4">
-              All guides
+          <div data-reveal="" className="max-w-2xl">
+            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              Two plans. Pick the one that fits.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-muted">
+              Prices include GST. Monthly. Cancel anytime. {SETUP_LINE}
+            </p>
+          </div>
+          <div data-reveal="" className="mt-14">
+            <PlanPair />
+          </div>
+          <p className="mt-10 text-base text-muted">
+            <Link href="/pricing" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
+              Compare the plans in full
             </Link>
-          </div>
-          <GuideCards guides={articles} columns={3} emptyHref="/guides" />
+          </p>
         </div>
       </section>
 
-      <section aria-labelledby="questions" className={`bg-soft ${section}`}>
-        <div className={wrap}>
-          <h2 id="questions" className="max-w-2xl text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
-            Questions
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            Setup, the 7-day trial, and $75 a month including GST.
-          </p>
-          <div className="rise mt-16 max-w-3xl">
-            <FaqList faqs={faqs} />
+      <section aria-labelledby="questions" className={`${pad} py-20 lg:py-32`}>
+        <div className={`${wrap} grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20`}>
+          <div data-reveal="">
+            <h2 id="questions" className="text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              Questions
+            </h2>
+            <p className="mt-5 max-w-sm text-lg leading-8 text-muted">
+              Plans, setup and how it works.
+            </p>
+          </div>
+          <div data-reveal="">
+            <FaqList faqs={homeFaqs} />
           </div>
         </div>
       </section>
-      <JsonLd data={faqJsonLd(faqs)} />
+
+      <section className={`bg-brand ${pad} py-16 lg:py-24`}>
+        <div className={`${wrap} flex flex-col gap-8 md:flex-row md:items-end md:justify-between`}>
+          <div>
+            <h2 className="max-w-2xl text-balance text-[clamp(2.25rem,6vw,4rem)] font-extrabold leading-[1.02] text-ink">
+              Start your 7-day free trial.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-ink">{finalBandLine}</p>
+          </div>
+          <TrialButton variant="ink" className="px-8">
+            {CTA_LABEL}
+          </TrialButton>
+        </div>
+      </section>
+      <StickyTrialBar />
+      <JsonLd data={faqJsonLd(homeFaqs)} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { MobileNav } from "@/components/mobile-nav";
 import { TrialButton } from "@/components/trial-button";
-import { loginUrl, navLinks } from "@/lib/site";
+import { CTA_LABEL, loginUrl, navLinks } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -20,14 +20,11 @@ export function SiteHeader() {
           <a href={loginUrl} className="link-fade text-sm font-medium text-ink">
             Log in
           </a>
-          <TrialButton variant="ink" />
+          <TrialButton variant="ink">{CTA_LABEL}</TrialButton>
         </div>
         <div className="md:hidden">
           <MobileNav />
         </div>
-      </div>
-      <div className="mx-auto w-full max-w-[1200px] px-4 pb-3 md:hidden sm:px-6">
-        <TrialButton variant="ink" className="w-full" />
       </div>
     </header>
   );

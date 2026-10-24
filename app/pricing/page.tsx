@@ -1,170 +1,177 @@
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
-import { FeatureList } from "@/components/feature-list";
 import { JsonLd } from "@/components/json-ld";
-import { ProductShot } from "@/components/product-shot";
+import { PlanPair } from "@/components/plan-pair";
 import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import {
-  addOns,
-  contactEmail,
-  planIncludes,
-  priceLabel,
-  setupOffer,
-} from "@/lib/site";
+import { CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy Pricing: $75 a month inc. GST | 7-Day Free Trial",
+  title: "ReviewBuddy Pricing: Starter $49, Growth $75 a month inc. GST",
   description:
-    `One plan for tradies: 80 texts a month, unlimited email, and reviews on your site in 48 hours or that month is free. ${setupOffer}.`,
+    "Two plans for tradies, both with a 7-day free trial and free setup. Starter puts your Google reviews live on your website. Growth adds email follow ups and re-engages past customers. Cancel anytime.",
   path: "/pricing",
 });
 
 const billing = [
-  "7 days free",
-  "Card taken at signup",
-  "Billing starts on day 8",
-  "Cancel any time",
+  "7-day free trial on both plans",
+  "Billed monthly after your trial",
+  "Prices include GST",
+  "Cancel anytime",
   "Email us for any change",
 ];
 
 export default function PricingPage() {
+  const starter = plans.find((plan) => plan.id === "starter")!;
+  const growth = plans.find((plan) => plan.id === "growth")!;
+
   return (
     <>
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
-        <header className="relative overflow-x-clip border-b border-line">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-10 right-0 h-64 w-64 rounded-full bg-brand/20 blur-3xl"
-          />
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
-            <div>
-              <p className="text-sm font-semibold tracking-wide text-muted">
-                One plan for tradies
-              </p>
-              <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
-                ReviewBuddy pricing
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-                {priceLabel}. 7 days free, then billing starts on day 8. 80 texts
-                a month, unlimited email, and your reviews on your site.
-              </p>
-            </div>
-            <ProductShot
-              src="/images/hero.png"
-              alt="Illustration of review cards and a rating breakdown beside a website"
-              width={1116}
-              height={1130}
-              priority
-              float
-            />
+        <header className="hero-wash border-b border-line">
+          <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:py-20">
+            <p className="text-sm font-semibold tracking-wide text-muted">Two plans for tradies</p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-ink sm:text-6xl sm:leading-[1.05]">
+              ReviewBuddy pricing
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
+              Starter puts your Google reviews live on your website. Growth keeps
+              them coming and reaches your past customers. Prices include GST.
+              Cancel anytime.
+            </p>
+            <p className="mt-4 inline-flex rounded-full bg-brand px-4 py-2 text-base font-semibold text-ink">
+              {TRIAL_LINE}
+            </p>
           </div>
         </header>
 
-        <div className="rise mx-auto grid w-full max-w-6xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_20px_50px_-36px_rgba(26,26,26,0.45)] sm:p-8">
-            <h2 className="text-sm font-semibold tracking-wide text-muted">
-              ReviewBuddy
-            </h2>
-            <p className="mt-4 text-5xl font-semibold tracking-tight text-ink">$75</p>
-            <p className="mt-2 text-lg text-muted">a month (inc. GST)</p>
-            <h3 className="mt-8 text-base font-semibold text-ink">Included</h3>
-            <div className="mt-4">
-              <FeatureList items={planIncludes} />
+        <div className="bg-brand-tint px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto w-full max-w-[1100px]">
+            <div className="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+              <PlanPair compact />
             </div>
-            <div className="mt-8">
-              <TrialButton />
-            </div>
-            <p className="mt-4 text-sm leading-6 text-muted">
-              7 days free. Card taken at signup. Billing starts on day 8.
-            </p>
-          </section>
+            <p className="mt-8 text-center text-base text-muted">Cancel anytime.</p>
+          </div>
+        </div>
 
-          <div className="grid gap-4 content-start">
-            <section className="hover-lift rounded-3xl border border-line bg-white p-6 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.4)]">
-              <h2 className="text-xl font-semibold text-ink">Trial and billing</h2>
-              <ul className="mt-4 grid gap-2">
+        <section className="px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto w-full max-w-[1100px]">
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">Compare the plans</h2>
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-line bg-white">
+              <table className="w-full min-w-[560px] border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-line bg-soft">
+                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
+                      Plan
+                    </th>
+                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
+                      Starter
+                    </th>
+                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
+                      Growth <span className="ml-1 rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-ink">Recommended</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line text-base">
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Price</th>
+                    <td className="px-4 py-4 text-ink">{starter.priceLabel}</td>
+                    <td className="px-4 py-4 text-ink">{growth.priceLabel}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Google review link and QR code</th>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Live reviews widget on your website</th>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Setup</th>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Email sequences that keep asking customers for reviews</th>
+                    <td className="px-4 py-4 text-muted">Not included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Re-engage past leads and customers</th>
+                    <td className="px-4 py-4 text-muted">Not included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Help exporting past customers and importing by CSV</th>
+                    <td className="px-4 py-4 text-muted">Not included</td>
+                    <td className="px-4 py-4 text-ink">Included</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Cancel anytime</th>
+                    <td className="px-4 py-4 text-ink">Yes</td>
+                    <td className="px-4 py-4 text-ink">Yes</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto grid w-full max-w-[1100px] gap-10 lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight text-ink">Not sure which plan?</h2>
+              <p className="mt-4 text-base leading-7 text-muted">
+                Start with Starter if you only want your reviews on your website.
+                Choose Growth if you want email follow ups and want to ask the
+                customers you have already worked for. You can also pick &quot;Not
+                sure yet&quot; in the sign up form and we will talk it through.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight text-ink">Setup is done for you</h2>
+              <p className="mt-4 text-base leading-7 text-muted">
+                Setup is included on both plans. We add the live reviews widget
+                to your website and set up your Google review link and QR code.
+              </p>
+              <ul className="mt-6 grid gap-2">
                 {billing.map((item) => (
                   <li key={item} className="flex gap-3 text-base leading-7 text-muted">
-                    <span aria-hidden="true" className="text-ink">
-                      •
-                    </span>
+                    <span aria-hidden="true" className="text-ink">•</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-            </section>
-            <section className="rounded-2xl border border-brand bg-brand/15 p-6">
-              <h2 className="text-xl font-semibold text-ink">Installation and setup</h2>
-              <p className="mt-3 text-base leading-7 text-ink">
-                {setupOffer}.
-              </p>
-            </section>
-            <section className="rounded-3xl border border-line bg-white p-6">
-              <h2 className="text-xl font-semibold text-ink">48-hour promise</h2>
-              <p className="mt-3 text-base leading-7 text-muted">
-                If your Google reviews are not live on your site within 48 hours of us
-                getting access, that month is free.
-              </p>
-            </section>
-          </div>
-        </div>
-
-        <section className="rise border-t border-line">
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
-            <ProductShot
-              src="/images/request-review.png"
-              alt="Illustration of a review request on a phone"
-              width={474}
-              height={578}
-              sizes="(min-width: 1024px) 380px, 80vw"
-            />
-            <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Add-ons</h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-muted">
-              Optional extras. Email us if you want one.
-            </p>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-              {addOns.map((addOn) => (
-                <li key={addOn.name} className="hover-lift rounded-3xl border border-line bg-white p-5 shadow-[0_16px_40px_-32px_rgba(26,26,26,0.4)]">
-                  <h3 className="text-lg font-semibold text-ink">{addOn.name}</h3>
-                  <p className="mt-2 text-base text-muted">{addOn.price}</p>
-                </li>
-              ))}
-            </ul>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-line bg-soft">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-14 sm:px-6 md:flex-row md:items-center md:justify-between">
+        <section className="px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">
-                More than one location?
+                Running more than one location?
               </h2>
               <p className="mt-3 max-w-xl text-base leading-7 text-muted">
-                More than one location? Get in touch. There is no public price
-                for that.
+                Email us at{" "}
+                <a href={`mailto:${contactEmail}`} className="font-semibold text-ink underline">
+                  {contactEmail}
+                </a>{" "}
+                and we will work out what suits.
               </p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <TrialButton>Get in touch</TrialButton>
-              <a
-                href={`mailto:${contactEmail}`}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-line px-5 font-semibold text-ink"
-              >
-                Email us
-              </a>
-            </div>
+            <TrialButton variant="ink">{CTA_LABEL}</TrialButton>
           </div>
         </section>
 
-        <section className="border-t border-line">
-          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+        <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto w-full max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Pricing questions</h2>
             <div className="mt-8">
               <FaqList faqs={pricingFaqs} />
@@ -180,8 +187,8 @@ export default function PricingPage() {
         </section>
       </article>
       <CtaBand
-        title="Start the 7-day free trial"
-        body="Card taken at signup. Billing starts on day 8. Then $75 a month (inc. GST)."
+        title="Start your 7-day free trial."
+        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
       />
     </>
   );

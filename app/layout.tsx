@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Inter, Work_Sans } from "next/font/google";
+import { Inter, Work_Sans } from "next/font/google";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -7,6 +7,7 @@ import { TrialProvider } from "@/components/trial-provider";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
+import "./modern.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,14 +19,9 @@ const workSans = Work_Sans({
   subsets: ["latin"],
 });
 
-const caveat = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-});
-
-const homeTitle = "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies";
+const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
 const homeDescription =
-  "Get chosen on trust, not price. Ask for Google reviews after every job by text, email or QR, and show them on your site. 7 days free, then $75 a month inc. GST.";
+  "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.";
 
 export const ensureStatic = "navigation";
 
@@ -47,11 +43,13 @@ export const metadata: Metadata = {
     siteName: "ReviewBuddy",
     locale: "en_AU",
     type: "website",
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: homeTitle,
     description: homeDescription,
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 
@@ -59,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`${inter.variable} ${workSans.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />
@@ -78,7 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </TrialProvider>
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            The trial form needs JavaScript. Email hello@reviewbuddy.com.au with
+            The sign up form needs JavaScript. Email hello@reviewbuddy.com.au with
             your name, business, mobile, and website.
           </p>
         </noscript>

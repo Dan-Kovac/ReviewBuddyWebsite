@@ -1,4 +1,5 @@
 export const leadFields = {
+  plan: "plan",
   name: "name",
   businessName: "businessName",
   mobile: "mobile",
@@ -11,7 +12,16 @@ export const leadFields = {
   honeypot: "company_fax",
 } as const;
 
+/** The plan the visitor picked in the sign up form. */
+/** Source value the free review breakdown form sends, so the CRM can tell it apart. */
+export const BREAKDOWN_SOURCE = "breakdown_request";
+
+export const planChoices = ["starter", "growth", "unsure"] as const;
+
+export type PlanChoice = (typeof planChoices)[number];
+
 export type Lead = {
+  plan: PlanChoice;
   name: string;
   businessName: string;
   mobile: string;
@@ -28,6 +38,7 @@ export type LeadField = keyof Lead;
 export type LeadErrors = Partial<Record<LeadField, string>>;
 
 const limits = {
+  plan: 16,
   name: 120,
   businessName: 160,
   mobile: 30,
@@ -47,6 +58,13 @@ function readString(value: unknown, max: number): string {
   }
 
   return value.trim().slice(0, max);
+}
+
+function readPlan(value: unknown): PlanChoice {
+  const plan = readString(value, limits.plan);
+  return (planChoices as readonly string[]).includes(plan)
+    ? (plan as PlanChoice)
+    : "growth";
 }
 
 export function attributionFromParams(params: {
@@ -69,6 +87,7 @@ export function parseLead(
     input && typeof input === "object" ? (input as Record<string, unknown>) : {};
 
   const lead: Lead = {
+    plan: readPlan(record.plan),
     name: readString(record.name, limits.name),
     businessName: readString(record.businessName, limits.businessName),
     mobile: readString(record.mobile, limits.mobile),
@@ -89,7 +108,14 @@ export function parseLead(
   if (!lead.businessName) {
     errors.businessName = "Enter your business name.";
   }
-  if (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15) {
+  // A breakdown request only needs an email. A mobile is optional there, but
+  // must still look right when given.
+  const mobileOptional = lead.source === BREAKDOWN_SOURCE;
+  const mobileGiven = lead.mobile.length > 0;
+  if (
+    (!mobileOptional || mobileGiven) &&
+    (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15)
+  ) {
     errors.mobile = "Enter a mobile number we can text or call.";
   }
   if (!emailPattern.test(lead.email)) {
