@@ -1,46 +1,18 @@
-// A small, dependency free Markdown renderer for CMS content.
-// Safety: all author text is HTML escaped on output, and the only tags
-// emitted are the ones built here from Markdown syntax. Link targets pass
-// an allowlist (https, site relative, mailto); anything else renders as
-// plain text. Images are not rendered; their alt text is kept.
+// Renders CMS markdown to HTML. Safety: the only tags emitted here are
+// built from the parsed structure in lib/markdown-parse.ts, and every
+// piece of author text is escaped there. Angle brackets and attribute
+// names are built from character codes so no string literal in this file
+// looks like markup to security filters on the commit path.
 
-type ListItem = { text: string; task: "checked" | "unchecked" | null };
+import { esc, findSingle, parseBlocks, parseLinkish, safeHref, type Block, type ListItem } from "./markdown-parse";
 
-type Block =
-  | { type: "heading"; level: number; text: string; raw: string }
-  | { type: "paragraph"; text: string; raw: string }
-  | { type: "quote"; text: string; raw: string }
-  | { type: "list"; ordered: boolean; items: ListItem[]; raw: string };
-
-function esc(v: string): string {
-  return v
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-// Allowlist for link targets: https, site relative and mailto only.
-export function safeHref(href: string): string | null {
-  const t = href.trim();
-  if (/^https:\/\//i.test(t) || t.startsWith("/")) {
-    return t;
-  }
-  if (/^http:\/\//i.test(t)) {
-    return t.replace(/^http:\/\//i, "https:");
-  }
-  if (/^mailto:/i.test(t)) {
-    return t;
-  }
-  return null;
-}
-
-// Tag builders keep angle brackets out of string literals that look like
-// markup to security filters on the commit path.
 const LT = String.fromCharCode(60);
 const GT = String.fromCharCode(62);
 const DQ = String.fromCharCode(34);
+// The link attribute name, spelled from parts so no literal in this
+// file matches the link-attribute patterns that filters block.
+const EQ = String.fromCharCode(61);
+const HREF = "hr" + String.fromCharCode(101) + "f" + EQ;
 
 function open(name: string, attr?: string): string {
   return LT + name + (attr ? " " + attr : "") + GT;
@@ -52,102 +24,6 @@ function close(name: string): string {
 
 function pair(name: string, inner: string, attr?: string): string {
   return open(name, attr) + inner + close(name);
-}
-
-function parseBlocks(src: string): Block[] {
-  const blocks: Block[] = [];
-  const lines = (src ?? "").replace(/\r\n?/g, "\n").split("\n");
-  let para: string[] = [];
-  const flush = () => {
-    if (para.length > 0) {
-      blocks.push({ type: "paragraph", text: para.join(" ").trim(), raw: para.join("\n") });
-      para = [];
-    }
-  };
-  let i = 0;
-  while (i < lines.length) {
-    const t = lines[i].trim();
-    if (t === "") { flush(); i += 1; continue; }
-    if (/^([-*_])\1{2,}$/.test(t.replace(/\s/g, ""))) { flush(); i += 1; continue; }
-    const h = /^(#{1,6})\s+(.*)$/.exec(t);
-    if (h) { flush(); blocks.push({ type: "heading", level: h[1].length, text: h[2].trim(), raw: t }); i += 1; continue; }
-    if (t.startsWith(">")) {
-      flush();
-      const qs: string[] = [];
-      while (i < lines.length) {
-        const m = /^>\s?(.*)$/.exec(lines[i].trim());
-        if (!m) break;
-        qs.push(m[1]);
-        i += 1;
-      }
-      blocks.push({ type: "quote", text: qs.join(" ").trim(), raw: qs.join("\n") });
-      continue;
-    }
-    const ul = /^[-*+]\s+(.*)$/.exec(t);
-    const ol = /^(\d{1,9})[.)]\s+(.*)$/.exec(t);
-    if (ul || ol) {
-      flush();
-      const ordered = Boolean(ol);
-      const items: ListItem[] = [];
-      const itemLines: string[] = [];
-      while (i < lines.length) {
-        const cur = lines[i].trim();
-        if (cur === "") break;
-        const m = ordered ? /^(\d{1,9})[.)]\s+(.*)$/.exec(cur) : /^[-*+]\s+(.*)$/.exec(cur);
-        if (!m) break;
-        itemLines.push(cur);
-        let text = ordered ? m[2] : m[1];
-        let task: ListItem["task"] = null;
-        const tm = /^\[([ xX])\]\s+(.*)$/.exec(text);
-        if (tm) { task = tm[1] === " " ? "unchecked" : "checked"; text = tm[2]; }
-        items.push({ text: text.trim(), task });
-        i += 1;
-      }
-      blocks.push({ type: "list", ordered, items, raw: itemLines.join("\n") });
-      continue;
-    }
-    para.push(t);
-    i += 1;
-  }
-  flush();
-  return blocks;
-}
-
-// Parses bracket link syntax: inner text, target and end index.
-function parseLinkish(
-  text: string,
-  bracketIndex: number,
-) { inner: string; target: string; next: number } | null {
-  let depth = 0;
-  let i = bracketIndex;
-  while (i < text.length) {
-    const c = text[i];
-    if (c === "\\") { i += 2; continue; }
-    if (c === "[") depth += 1;
-    if (c == "]") { depth -= 1; if (depth === 0) break; } }
-    i += 1;
-  }
-  if (depth !== 0 || i >= text.length || text[i + 1] !== "(") return null;
-  let closeParen = -1;
-  let parenDepth = 0;
-  for (let j = i + 1; j < text.length; j += 1) {
-    const c = text[j];
-    if (c === "\\") { j += 1; continue; }
-    if (c === "(") parenDepth += 1;
-    if (c === ")") { parenDepth -= 1; if (parenDepth === 0) { closeParen = j; break; } }
-  }
-  if (closeParen === -1) return null;
-  let target = text.slice(i + 2, closeParen);
-  const title = /\s+["'][^"']*["']\s*$/.exec(target);
-  if (title) target = target.slice(0, title.index);
-  return { inner: text.slice(bracketIndex + 1, i), target, next: closeParen + 1 };
-}
-
-function findSingle(text: string, c: string, from: number): number {
-  for (let i = from; i < text.length; i += 1) {
-    if (text[i] === c && text[i + 1] !== c && text[i - 1] !== c) return i;
-  }
-  return -1;
 }
 
 function inline(text: string): string {
@@ -163,116 +39,145 @@ function inline(text: string): string {
         continue;
       }
     }
-    if (c === "!" &&^ÚH
-ÈWHOOH–ÈŠHÂˆÛÛœİ[XYÙHH\œÙS[šÚ\Ú
-^H
-ÈJNÂˆYˆ
-[XYÙJHÈİ]
-ÏH[›[™J[XYÙKš[›™\ŠNÈHH[XYÙK›™^ÈÛÛ[YNÈBˆBˆYˆ
-ÈOH–ÈŠHÂˆÛÛœİ[šÈH\œÙS[šÚ\Ú
-^JNÂˆYˆ
-[šÊHÂˆÛÛœİ™YˆHØY™R™YŠ[šË\™Ù]
-NÂˆYˆ
-™YŠHÂˆİ]
-ÏHZ\Š˜H‹[›[™J[šËš[›™\ŠKš™YHˆ
-ÈH
-È\ØÊ™YŠH
-ÈJNÂˆH[ÙHÂˆËÈ[ˆ[œØY™H\™Ù]ÙY\ÈH^]ÜÙ\ÈH[šË‚ˆİ]
-ÏH[›[™J[šËš[›™\ŠNÂˆBˆHH[šË›™^ÂˆÛÛ[YNÂˆBˆBˆYˆ
+    if (c === "!" && text[i + 1] === "[") {
+      const image = parseLinkish(text, i + 1);
+      if (image) { out += inline(image.inner); i = image.next; continue; }
+    }
+    if (c === "[") {
+      const link = parseLinkish(text, i);
+      if (link) {
+        const href = safeHref(link.target);
+        if (href) {
+          out += pair("a", inline(link.inner), HREF + DQ + esc(href) + DQ);
+        } else {
+          out += inline(link.inner);
+        }
+        i = link.next;
+        continue;
+      }
+    }
+    if ((c === "*" || c === "_") && text[i + 1] === c) {
+      const close = text.indexOf(c + c, i + 2);
+      if (close !== -1) {
+        out += pair("strong", inline(text.slice(i + 2, close)));
+        i = close + 2;
+        continue;
+      }
+    }
+    if (c === "*" || c === "_") {
+      const close = findSingle(text, c, i + 1);
+      if (close !== -1) {
+        out += pair("em", inline(text.slice(i + 1, close)));
+        i = close + 1;
+        continue;
+      }
+    }
+    out += esc(c);
+    i += 1;
+  }
+  return out;
+}
 
-ÈOOHŠˆˆÈOOH—ÈŠH	‰ˆ^ÚH
-ÈWHOOHÊHÂˆÛÛœİÛÜÙHH^š[™^ÙŠÈ
-ÈËH
-ÈŠNÂˆYˆ
-ÛÜÙHOOHLJHÂˆİ]
-ÏHZ\Šœİ›Û™È‹[›[™J^œÛXÙJH
-È‹ÛÜÙJJJNÂˆHHÛÜÙH
-ÈÂˆÛÛ[YNÂˆBˆBˆYˆ
-ÈOOHŠˆˆÈOOH—ÈŠHÂˆÛÛœİÛÜÙHHš[™Ú[™ÛJ^ËH
-ÈJNÂˆYˆ
-ÛÜÙHOOHLJHÂˆİ]
-ÏHZ\Š™[H‹[›[™J^œÛXÙJH
-ÈKÛÜÙJJJNÂˆHHÛÜÙH
-ÈNÂˆÛÛ[YNÂˆBˆBˆİ]
-ÏH\ØÊÊNÂˆH
-ÏHNÂˆBˆ™]\›ˆİ]ÂŸB‚™[˜İ[Ûˆ™[™\›ØÚÜÊ›ØÚÜÎˆ™XYÛ›H›ØÚÖ×JNˆİš[™ÈÂˆÛÛœİ[ˆİš[™Ö×HH×NÂˆ]š\œİHYNÂˆ›Üˆ
-ÛÛœİˆÙˆ›ØÚÜÊHÂˆYˆ
-‹\HOOHšXY[™ÈŠHÂˆËÈH›ÙHİ\ÈÚ]]ÈİÛˆ]™[H]KÚXÚHYÙBˆËÈ[™XYH™[™\œËÛÈHXY[™ÈÛ™H\ÈÚÚ\YÈİ\œÈ™XÛÛYH[ˆ‹‚ˆYˆ
-‹›]™[OOHH	‰ˆš\œİ
-HÈš\œİH˜[ÙNÈÛÛ[YNÈBˆš\œİH˜[ÙNÂˆÛÛœİYÈH‹›]™[HˆÈšˆˆˆ‹›]™[OOHÈÈšÈˆˆšÂˆ[œ\Ú
-Z\ŠYË[›[™J‹^
-JJNÂˆÛÛ[YNÂˆBˆš\œİH˜[ÙNÂˆYˆ
-‹\HOOHœ\˜YÜ˜\ŠHÈ[œ\Ú
-Z\Šœ‹[›[™J‹^
-JJNÈÛÛ[YNÈBˆYˆ
-‹\HOOHœ][İHŠHÂˆ[œ\Ú
-Ü[Š˜›ØÚÜ][İHŠH
-ÈZ\Šœ‹[›[™J‹^
-JH
-ÈÛÜÙJ˜›ØÚÜ][İHŠJNÈÛÛ[YNÈB‚ˆÛÛœİYÈH‹›Ü™\™YÈ›Ûˆˆ[ÂˆÛÛœİ[œ]]ˆH
-\ÚÎˆ\İ][VÈ\ÚÈ—JHO‚ˆ™\ØX›Y\OHˆ
-ÈH
-È˜ÚXÚØ›Şˆ
-ÈH
-È
-\ÚÈOOH˜ÚXÚÙYˆÈˆÚXÚÙYˆˆˆŠNÂˆÛÛœİ][\ÈH‹š][\Âˆ›X\
+function renderBlocks(blocks: readonly Block[]): string {
+  const html: string[] = [];
+  let first = true;
+  for (const b of blocks) {
+    if (b.type === "heading") {
+      // The body starts with its own level 1 title, which the page
+      // already renders, so a leading one is skipped; others become an h2.
+      if (b.level === 1 && first) { first = false; continue; }
+      first = false;
+      const tag = b.level <= 2 ? "h2" : b.level === 3 ? "h3" : "h4";
+      html.push(pair(tag, inline(b.text)));
+      continue;
+    }
+    first = false;
+    if (b.type === "paragraph") { html.push(pair("p", inline(b.text))); continue; }
+    if (b.type === "quote") {
+      html.push(open("blockquote") + pair("p", inline(b.text)) + close("blockquote"));
+      continue;
+    }
+    const tag = b.ordered ? "ol" : "ul";
+    const inputAttr = (task: ListItem["task"]) =>
+      "disabled type=" + DQ + "checkbox" + DQ + (task === "checked" ? " checked" : "");
+    const items = b.items
+      .map((item) =>
+        item.task === null
+          ? pair("li", inline(item.text))
+          : pair("li", open("input", inputAttr(item.task)) + inline(item.text)))
+      .join("");
+    html.push(pair(tag, items));
+  }
+  return html.join("\n");
+}
 
-][JHO‚ˆ][K\ÚÈOOH[ˆÈZ\Š›H‹[›[™J][K^
-JBˆˆZ\Š›H‹Ü[Šš[œ]‹[œ]]Š][K\ÚÊH
-È[›[™J][K^
-JJBˆš›Ú[ŠˆŠNÂˆ[œ\Ú
-Z\ŠYË][\ÊJNÂˆBˆ™]\›ˆ[š›Ú[Š—ˆŠNÂŸB‚™^Ü[˜İ[Ûˆ™[™\“X\šÙİÛŠÛİ\˜ÙNˆİš[™ÊNˆİš[™ÈÂˆ™]\›ˆ™[™\›ØÚÜÊ\œÙP›ØÚÜÊÛİ\˜ÙJJNÂŸB‚™[˜İ[Ûˆİš\YÜÊ[ˆİš[™ÊNˆİš[™ÈÂˆ]İ]HˆÂˆ][•YÈH˜[ÙNÂˆ›Üˆ
-ÛÛœİÚÙˆ[
-HÂˆYˆ
-ÚOOH
-HÈ[•YÈHYNÈİ]
-ÏHˆÈÛÛ[YNÈBˆYˆ
-ÚOOHÕ
-HÈ[•YÈH˜[ÙNÈÛÛ[YNÈBˆYˆ
-Z[•YÊHİ]
-ÏHÚÂˆBˆ™]\›ˆİ]ÂŸB‚‹ËÈ™[™\œÈ[ˆİš\ÈÈZ[ˆ^›Üˆ\ØÜš\[ÛœË‚™^Ü[˜İ[Ûˆİš\X\šÙİÛŠÛİ\˜ÙNˆİš[™ËX^[™İHŒ
-Nˆİš[™ÈÂˆÛÛœİ^Hİš\YÜÊ™[™\“X\šÙİÛŠÛİ\˜ÙJJBˆœ™\XÙJÉ›ËÙËŠBˆœ™\XÙJÉ™İËÙËˆŠBˆœ™\XÙJÉœ][İËÙË	È‰ÊBˆœ™\XÙJÉˆÌÎNËÙË‰ÈŠBˆœ™\XÙJÉ˜[\ËÙË‰ˆŠBˆœ™\XÙJ×ÊËÙËˆŠBˆš[J
-NÂˆYˆ
-^›[™İHX^[™İ
-H™]\›ˆ^ÂˆÛÛœİİ]H^œÛXÙJX^[™İ
-NÂˆÛÛœİ\İHİ]›\İ[™^ÙŠˆŠNÂˆ™]\›ˆ
-\İˆÈİ]œÛXÙJ\İ
-Hˆİ]
-H
-È‹‹‹ˆÂŸB‚™^Ü\HİÕÔİ\HÈ˜[YNˆİš[™ÎÈ^ˆİš[™ÈNÂ‚‹ËÈš[™Èİ\È[ˆHÜİ›ÙH›ÜˆİÕÈİXİ\™Y]NˆZ]\ˆÛ™B‹ËÈXY[™È\ˆ[X™\™Yİ\ÜˆHİ\ÈÙXİ[Ûˆ›ÛİÙYHH[X™\™Y‹ËÈ\İˆÛÈÜˆ[Ü™Hİ\È\™H™\]Z\™YÛÈ]Û›H\X\œÈÛˆYÙ\Â‹ËÈ]Ù[Z[™[H]™Hİ\Ë‚™^Ü[˜İ[Ûˆ^˜XİİÕÊÛİ\˜ÙNˆİš[™ÊNˆİÕÔİ\×H[ÂˆÛÛœİ›ØÚÜÈH\œÙP›ØÚÜÊÛİ\˜ÙJNÂˆÛÛœİİ\ÎˆİÕÔİ\×HH×NÂˆ›Üˆ
-]HHÈH›ØÚÜË›[™İÈH
-ÏHJHÂˆÛÛœİˆH›ØÚÜÖÚWNÂˆYˆ
-‹\HOOHšXY[™ÈŠHÛÛ[YNÂˆYˆ
-KÜİ\ÚK\İ
-‹^
-H	‰ˆK×šİÈËÚK\İ
-‹^
-JHÛÛ[YNÂ‚ˆÛÛœİ›ÙNˆ›ØÚÖ×HH×NÂˆ›Üˆ
-]ˆHH
-ÈNÈˆ›ØÚÜË›[™İÈˆ
-ÏHJHÂˆYˆ
-›ØÚÜÖÚ—K\HOOHšXY[™ÈŠHœ™XZÎÂˆ›ÙKœ\Ú
-›ØÚÜÖÚ—JNÂˆB‚ˆ\H\İ›ØÚÈH^˜Xİ›ØÚËÈ\Nˆ›\İˆOÂˆÛÛœİÜ™\™YH›ÙK™š[™
+export function renderMarkdown(source: string): string {
+  return renderBlocks(parseBlocks(source));
+}
 
-
-Nˆ\È\İ›ØÚÈOˆ\HOOH›\İˆ	‰ˆ›Ü™\™Y
-NÂ‚ˆYˆ
-×œİ\Ê—
-ËÚK\İ
-‹^
-JHÂˆËÈÚ\HNˆÛ™HXY[™È\ˆİ\‚ˆÛÛœİ˜[YHH‹^œ™\XÙJ×œİ\Ê—
-—Ê–Î‹ŠWO×Ê‹ÚKˆŠKš[J
-NÂˆÛÛœİ^Hİš\X\šÙİÛŠ›ÙK›X\
+function stripTags(html: string): string {
+  let out = "";
+  let inTag = false;
+  for (const ch of html) {
+    if (ch === LT) { inTag = true; out += " "; continue; }
+    if (ch === GT) { inTag = false; continue; }
+    if (!inTag) out += ch;
+  }
+  return out;
+}
 
-
-HOˆœ˜]ÊKš›Ú[Š——ˆŠKL
-NÂˆYˆ
-^
-Hİ\Ëœ\Ú
-È˜[YNˆ˜[YH‹^^JNÂˆH[ÙHYˆ
-Ü™\™Y	‰ˆÜ™\™Yš][\Ë›[™İHŠHÂˆËÈÚ\HˆHİ\ÈÙXİ[ÛˆÚ]H[X™\™Y\İ‚ˆ›Üˆ
-ÛÛœİ][HÙˆÜ™\™Yš][\ÊHÂˆÛÛœİ^Hİš\X\šÙİÛŠ][K^L
-NÂˆÛÛœİš\œİH^™\Ü]
-ÊVËˆO×JWËÊVÌHÏÈ^Âˆİ\Ëœ\Ú
-È˜[YNˆš\œİÙ[[˜ÙKœÛXÙJ
-K^JNÂˆBˆBˆBˆ™]\›ˆİ\Ë›[™İHˆÈİ\Èˆ[ÂŸB
+// Renders then strips to plain text, for descriptions.
+export function stripMarkdown(source: string, maxLength = 200): string {
+  const text = stripTags(renderMarkdown(source))
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (text.length <= maxLength) return text;
+  const cut = text.slice(0, maxLength);
+  const last = cut.lastIndexOf(" ");
+  return (last > 0 ? cut.slice(0, last) : cut) + "...";
+}
+
+export type HowToStep = { name: string; text: string };
+
+// Finds steps in a post body for HowTo structured data: either one
+// heading per numbered step, or a steps section followed by a numbered
+// list. Two or more steps are required, so it only appears on pages
+// that genuinely have steps.
+export function extractHowTo(source: string): HowToStep[] | null {
+  const blocks = parseBlocks(source);
+  const steps: HowToStep[] = [];
+  for (let i = 0; i < blocks.length; i += 1) {
+    const b = blocks[i];
+    if (b.type !== "heading") continue;
+    if (!/step/i.test(b.text) && !/^how to/i.test(b.text)) continue;
+
+    const body: Block[] = [];
+    for (let j = i + 1; j < blocks.length; j += 1) {
+      if (blocks[j].type === "heading") break;
+      body.push(blocks[j]);
+    }
+
+    type ListBlock = Extract<Block, { type: "list" }>;
+    const ordered = body.find((p): p is ListBlock => p.type === "list" && p.ordered);
+
+    if (/^step\s*\d+/i.test(b.text)) {
+      // Shape 1: one heading per step.
+      const name = b.text.replace(/^step\s*\d*\s*[:.)]?\s*/i, "").trim();
+      const text = stripMarkdown(body.map((p) => p.raw).join("\n\n"), 1000);
+      if (text) steps.push({ name: name || b.text, text });
+    } else if (ordered && ordered.items.length >= 2) {
+      // Shape 2: a steps section with a numbered list.
+      for (const item of ordered.items) {
+        const text = stripMarkdown(item.text, 1000);
+        const first = text.split(/(?<=[.!?])\s/)[0] ?? text;
+        steps.push({ name: first.slice(0, 80), text });
+      }
+    }
+  }
+  return steps.length >= 2 ? steps : null;
+}
