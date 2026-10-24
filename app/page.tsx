@@ -11,12 +11,14 @@ import { WidgetDemo } from "@/components/widget-demo";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { CTA_LABEL, SETUP_LINE, lowestPrice, plans } from "@/lib/site";
+import { OfferList } from "@/components/offer-list";
+import { ProofBlock } from "@/components/proof-block";
+import { CTA_LABEL, SETUP_LINE, TRIAL_LINE, lowestPrice, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies",
+  title: "Get More Google Reviews | ReviewBuddy for Tradies",
   description:
-    "Get chosen on trust, not price. Ask for Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.",
+    "Start a 7-day free trial with free setup. Get more Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.",
   path: "/",
 });
 
@@ -40,7 +42,7 @@ const section = "px-4 py-[72px] sm:px-6 lg:py-32";
 const wrap = "mx-auto w-full max-w-[1200px]";
 const starterPlan = plans.find((plan) => plan.id === "starter")!;
 const growthPlan = plans.find((plan) => plan.id === "growth")!;
-const finalBandLine = `Starter from $${starterPlan.price} a month, Growth $${growthPlan.price}. Including GST. Cancel anytime.`;
+const finalBandLine = `${TRIAL_LINE} Then Starter is $${starterPlan.price} a month or Growth is $${growthPlan.price}, including GST.`;
 
 export default function HomePage() {
   return (
@@ -59,13 +61,19 @@ export default function HomePage() {
                 {CTA_LABEL}
               </TrialButton>
             </div>
-            <p className="mt-3 text-sm leading-6 text-muted">
+            <p className="mt-3 text-base font-semibold leading-6 text-ink">{TRIAL_LINE}</p>
+            <OfferList className="mt-5" />
+            <p className="mt-5 text-sm leading-6 text-muted">
+              After your trial, plans start at ${lowestPrice} a month, including GST.{" "}
               <Link href="/pricing" className="font-semibold text-ink underline decoration-brand underline-offset-4">
                 See plans and pricing
               </Link>
             </p>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              Plans from ${lowestPrice} a month, including GST. Cancel anytime.
+            <p className="mt-2 text-sm leading-6 text-muted">
+              Not ready to start?{" "}
+              <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand underline-offset-4">
+                Get a free review breakdown first
+              </Link>
             </p>
             <article className="mt-8 w-full max-w-sm rounded-[20px] border border-line bg-white p-4 text-left shadow-[0_16px_40px_-28px_rgba(11,15,20,0.28)]">
               <p className="text-xs font-semibold tracking-wide text-muted">Example</p>
@@ -97,6 +105,8 @@ export default function HomePage() {
       </section>
 
       <PromiseStrip />
+
+      <ProofBlock />
 
       <section className={`bg-soft ${section}`}>
         <div className={wrap}>
@@ -303,7 +313,7 @@ export default function HomePage() {
       <section className="bg-brand px-4 py-14 sm:px-6 lg:py-20">
         <div className="mx-auto flex max-w-[1200px] flex-col items-center gap-6 text-center">
           <h2 className="max-w-2xl text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-            Get your reviews working for you.
+            Start your 7-day free trial.
           </h2>
           <p className="max-w-2xl text-base leading-7 text-ink">
             {finalBandLine}
