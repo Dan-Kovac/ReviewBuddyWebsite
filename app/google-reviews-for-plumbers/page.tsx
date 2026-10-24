@@ -7,7 +7,7 @@ import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { CTA_LABEL, plans } from "@/lib/site";
+import { CTA_LABEL, TRIAL_LINE, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
@@ -61,7 +61,7 @@ export default function PlumbersPage() {
                 </Link>
               </div>
               <p className="mt-4 text-sm leading-6 text-muted">
-                Plans from ${starter.price} a month (inc. GST). Cancel anytime.
+                {TRIAL_LINE} Then plans from ${starter.price} a month (inc. GST).
               </p>
             </div>
             <ProductShot
@@ -150,8 +150,8 @@ export default function PlumbersPage() {
               </div>
             </div>
             <div className="flex flex-col justify-end gap-4">
-              <TrialButton plan="starter" className="w-full sm:w-fit">Start with Starter</TrialButton>
-              <TrialButton plan="growth" variant="ink" className="w-full sm:w-fit">Choose Growth</TrialButton>
+              <TrialButton plan="starter" className="w-full sm:w-fit">Start free trial on Starter</TrialButton>
+              <TrialButton plan="growth" variant="ink" className="w-full sm:w-fit">Start free trial on Growth</TrialButton>
               <Link href="/pricing" className="font-semibold text-ink underline">
                 Full pricing
               </Link>
@@ -172,7 +172,7 @@ export default function PlumbersPage() {
       </article>
       <CtaBand
         title="Put your plumbing reviews on the website"
-        body={`Starter from $${starter.price} a month, Growth $${growth.price}. Cancel anytime.`}
+        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
       />
     </>
   );
