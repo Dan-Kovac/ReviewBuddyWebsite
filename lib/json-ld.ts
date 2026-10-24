@@ -18,25 +18,6 @@ export function organizationJsonLd() {
         },
       },
       {
-        "@type": "LocalBusiness",
-        "@id": `${siteUrl}/#localbusiness`,
-        name: siteName,
-        url: siteUrl,
-        email: contactEmail,
-        image: `${siteUrl}/logo.svg`,
-        parentOrganization: {
-          "@id": `${siteUrl}/#organization`,
-        },
-        areaServed: {
-          "@type": "Country",
-          name: "Australia",
-        },
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "AU",
-        },
-      },
-      {
         "@type": "Product",
         "@id": `${siteUrl}/#product`,
         name: siteName,
