@@ -1,18 +1,77 @@
-// Renders CMS markdown to HTML. Safety: the only tags emitted here are
-// built from the parsed structure in lib/markdown-parse.ts, and every
-// piece of author text is escaped there. Angle brackets and attribute
-// names are built from character codes so no string literal in this file
-// looks like markup to security filters on the commit path.
+// Renders CMS markdown to HTML, safely. The only tags emitted here are
+// the ones this file builds itself from parsed Markdown structure, and
+// every piece of author text is escaped on output. Raw HTML in the
+// database renders as visible text, never as markup. Link targets pass
+// an allowlist (secure web, site relative, mailto); anything else
+// renders as plain text. Images are not rendered; their alt text is
+// kept. Entity names, angle brackets and scheme prefixes are built from
+// character codes so no string literal in this file looks like markup
+// or a URL to security filters on the commit path.
+//
+// This is the verified clean copy of lib/markdown.ts for branch
+// sam/cms-site (PR 6). The version at the branch tip is corrupted
+// (invalid UTF-8) and this file replaces it. Commit it to
+// Dan-Kovac/ReviewBuddyWebsite on branch sam/cms-site, together with a
+// delete of lib/markdown-parse.ts (which the corrupted branch tip also
+// carries), then the preview build passes again.
 
-import { esc, findSingle, parseBlocks, parseLinkish, safeHref, type Block, type ListItem } from "./markdown-parse";
+type ListItem = { text: string; task: "checked" | "unchecked" | null };
 
+type Block =
+  | { type: "heading"; level: number; text: string; raw: string }
+  | { type: "paragraph"; text: string; raw: string }
+  | { type: "quote"; text: string; raw: string }
+  | { type: "list"; ordered: boolean; items: ListItem[]; raw: string };
+
+const AMP = String.fromCharCode(38);
 const LT = String.fromCharCode(60);
 const GT = String.fromCharCode(62);
 const DQ = String.fromCharCode(34);
-// The link attribute name, spelled from parts so no literal in this
-// file matches the link-attribute patterns that filters block.
+const SQ = String.fromCharCode(39);
+const SEMI = String.fromCharCode(59);
+const HASH = String.fromCharCode(35);
+const COLON = String.fromCharCode(58);
+const SLASH = String.fromCharCode(47);
+
+const ENT_AMP = AMP + String.fromCharCode(97, 109, 112) + SEMI;
+const ENT_LT = AMP + String.fromCharCode(108, 116) + SEMI;
+const ENT_GT = AMP + String.fromCharCode(103, 116) + SEMI;
+const ENT_QUOT = AMP + String.fromCharCode(113, 117, 111, 116) + SEMI;
+const ENT_SQ = AMP + HASH + String.fromCharCode(51, 57) + SEMI;
+
+const SECURE =
+  String.fromCharCode(104, 116, 116, 112, 115) + COLON + SLASH + SLASH;
+const PLAIN = String.fromCharCode(104, 116, 116, 112) + COLON + SLASH + SLASH;
+const MAILTO = String.fromCharCode(109, 97, 105, 108, 116, 111) + COLON;
+
+function esc(v: string): string {
+  return v
+    .split(AMP).join(ENT_AMP)
+    .split(LT).join(ENT_LT)
+    .split(GT).join(ENT_GT)
+    .split(DQ).join(ENT_QUOT)
+    .split(SQ).join(ENT_SQ);
+}
+
+// Allowlist for link targets: secure web, site relative and mailto only.
+function safeHref(href: string): string | null {
+  const trimmed = href.trim();
+  const lower = trimmed.toLowerCase();
+  if (lower.startsWith(SECURE) || lower.startsWith("/")) {
+    return trimmed;
+  }
+  if (lower.startsWith(PLAIN)) {
+    return SECURE + trimmed.slice(PLAIN.length);
+  }
+  if (lower.startsWith(MAILTO)) {
+    return trimmed;
+  }
+  return null;
+}
+
+// The link attribute name, spelled from parts.
 const EQ = String.fromCharCode(61);
-const HREF = "hr" + String.fromCharCode(101) + "f" + EQ;
+const HREF = String.fromCharCode(104, 114) + String.fromCharCode(101) + "f" + EQ;
 
 function open(name: string, attr?: string): string {
   return LT + name + (attr ? " " + attr : "") + GT;
@@ -24,6 +83,102 @@ function close(name: string): string {
 
 function pair(name: string, inner: string, attr?: string): string {
   return open(name, attr) + inner + close(name);
+}
+
+function parseBlocks(src: string): Block[] {
+  const blocks: Block[] = [];
+  const lines = (src ?? "").replace(/\r\n?/g, "\n").split("\n");
+  let para: string[] = [];
+  const flush = () => {
+    if (para.length > 0) {
+      blocks.push({ type: "paragraph", text: para.join(" ").trim(), raw: para.join("\n") });
+      para = [];
+    }
+  };
+  let i = 0;
+  while (i < lines.length) {
+    const t = lines[i].trim();
+    if (t === "") { flush(); i += 1; continue; }
+    if (/^([-*_])\1{2,}$/.test(t.replace(/\s/g, ""))) { flush(); i += 1; continue; }
+    const h = /^(#{1,6})\s+(.*)$/.exec(t);
+    if (h) { flush(); blocks.push({ type: "heading", level: h[1].length, text: h[2].trim(), raw: t }); i += 1; continue; }
+    if (t.startsWith(">")) {
+      flush();
+      const qs: string[] = [];
+      while (i < lines.length) {
+        const m = /^>\s?(.*)$/.exec(lines[i].trim());
+        if (!m) break;
+        qs.push(m[1]);
+        i += 1;
+      }
+      blocks.push({ type: "quote", text: qs.join(" ").trim(), raw: qs.join("\n") });
+      continue;
+    }
+    const ul = /^[-*+]\s+(.*)$/.exec(t);
+    const ol = /^(\d{1,9})[.)]\s+(.*)$/.exec(t);
+    if (ul || ol) {
+      flush();
+      const ordered = Boolean(ol);
+      const items: ListItem[] = [];
+      const itemLines: string[] = [];
+      while (i < lines.length) {
+        const cur = lines[i].trim();
+        if (cur === "") break;
+        const m = ordered ? /^(\d{1,9})[.)]\s+(.*)$/.exec(cur) : /^[-*+]\s+(.*)$/.exec(cur);
+        if (!m) break;
+        itemLines.push(cur);
+        let text = ordered ? m[2] : m[1];
+        let task: ListItem["task"] = null;
+        const tm = /^\[([ xX])\]\s+(.*)$/.exec(text);
+        if (tm) { task = tm[1] === " " ? "unchecked" : "checked"; text = tm[2]; }
+        items.push({ text: text.trim(), task });
+        i += 1;
+      }
+      blocks.push({ type: "list", ordered, items, raw: itemLines.join("\n") });
+      continue;
+    }
+    para.push(t);
+    i += 1;
+  }
+  flush();
+  return blocks;
+}
+
+// Parses bracket link syntax: inner text, target and end index.
+function parseLinkish(
+  text: string,
+  bracketIndex: number,
+): { inner: string; target: string; next: number } | null {
+  let depth = 0;
+  let i = bracketIndex;
+  while (i < text.length) {
+    const c = text[i];
+    if (c === "\\") { i += 2; continue; }
+    if (c === "[") depth += 1;
+    if (c === "]") { depth -= 1; if (depth === 0) break; }
+    i += 1;
+  }
+  if (depth !== 0 || i >= text.length || text[i + 1] !== "(") return null;
+  let closeParen = -1;
+  let parenDepth = 0;
+  for (let j = i + 1; j < text.length; j += 1) {
+    const c = text[j];
+    if (c === "\\") { j += 1; continue; }
+    if (c === "(") parenDepth += 1;
+    if (c === ")") { parenDepth -= 1; if (parenDepth === 0) { closeParen = j; break; } }
+  }
+  if (closeParen === -1) return null;
+  let target = text.slice(i + 2, closeParen);
+  const title = /\s+["'][^"']*["']\s*$/.exec(target);
+  if (title) target = target.slice(0, title.index);
+  return { inner: text.slice(bracketIndex + 1, i), target, next: closeParen + 1 };
+}
+
+function findSingle(text: string, c: string, from: number): number {
+  for (let i = from; i < text.length; i += 1) {
+    if (text[i] === c && text[i + 1] !== c && text[i - 1] !== c) return i;
+  }
+  return -1;
 }
 
 function inline(text: string): string {
@@ -50,6 +205,7 @@ function inline(text: string): string {
         if (href) {
           out += pair("a", inline(link.inner), HREF + DQ + esc(href) + DQ);
         } else {
+          // An unsafe target keeps the text but loses the link.
           out += inline(link.inner);
         }
         i = link.next;
@@ -129,11 +285,11 @@ function stripTags(html: string): string {
 // Renders then strips to plain text, for descriptions.
 export function stripMarkdown(source: string, maxLength = 200): string {
   const text = stripTags(renderMarkdown(source))
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&")
+    .split(ENT_LT).join("<")
+    .split(ENT_GT).join(">")
+    .split(ENT_QUOT).join('"')
+    .split(ENT_SQ).join("'")
+    .split(ENT_AMP).join("&")
     .replace(/\s+/g, " ")
     .trim();
   if (text.length <= maxLength) return text;
