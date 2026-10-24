@@ -21,7 +21,7 @@ const workSans = Work_Sans({
 
 const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
 const homeDescription =
-  "Start a 7-day free trial with free setup. Get more Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.";
+  "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.";
 
 export const ensureStatic = "navigation";
 
