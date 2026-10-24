@@ -30,6 +30,16 @@ export const homeFaqs: Faq[] = [
       "Setup is included. We add the live reviews widget to your website and set up your Google review link and QR code.",
   },
   {
+    question: "Can I show reviews from Service Seeking and Google together?",
+    answer:
+      "Yes. The widget can show reviews from the review sites you connect, Google and Service Seeking among them, together in one place on your website. Google is where our review link and QR code send new reviews.",
+  },
+  {
+    question: "Which review sites can you pull from?",
+    answer:
+      "The platform behind ReviewBuddy supports more than 60 review sites. For tradies that includes Google, Facebook, Service Seeking, hipages, Airtasker and Houzz. Email us the ones you use and we will tell you what can be connected.",
+  },
+  {
     question: "Can I cancel?",
     answer: "Yes, anytime.",
   },
@@ -68,6 +78,11 @@ export const pricingFaqs: Faq[] = [
     question: "Can I cancel?",
     answer: "Yes, anytime. Email us for any change.",
   },
+  {
+    question: "Can the widget show Service Seeking and Google reviews together?",
+    answer:
+      "The widget can show reviews from the review sites you connect, Google and Service Seeking among them, together in one place. Email us the sites you use and we will tell you what can be connected.",
+  },
 ];
 
 export const plumberFaqs: Faq[] = [
@@ -75,6 +90,11 @@ export const plumberFaqs: Faq[] = [
     question: "When do I ask for a review?",
     answer:
       "After the job, while the customer still remembers you. Share your Google review link, or put the QR code on your invoice or van. On Growth, email sequences can ask for you.",
+  },
+  {
+    question: "Can I show my Service Seeking and Google reviews together?",
+    answer:
+      "Yes. The widget can show reviews from the review sites you connect, such as Google, Service Seeking and hipages, together in one place on your plumbing website. Email us the ones you use and we will tell you what can be connected.",
   },
   {
     question: "What does it cost a plumber?",
