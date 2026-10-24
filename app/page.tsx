@@ -11,6 +11,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { ProductShot } from "@/components/product-shot";
 import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { ProofBlock } from "@/components/proof-block";
+import { PlatformScreen } from "@/components/platform-screen";
 import { CTA_LABEL, SETUP_LINE, TRIAL_LINE, lowestPrice, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -107,6 +108,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section aria-labelledby="platform-screen" className={`bg-soft ${pad} py-14 lg:py-20`}>
+        <div className={wrap}>
+          <div data-reveal="" className="max-w-3xl">
+            <h2 id="platform-screen" className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
+              See what the platform behind Review Buddy can do.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-muted">
+              This is the review platform we build on, with notes on what it does.
+            </p>
+          </div>
+          <div data-reveal="" className="mt-8 lg:mt-10">
+            <PlatformScreen />
+          </div>
+        </div>
+      </section>
+
       <PromiseStrip />
 
       <ProofBlock />
@@ -183,17 +200,6 @@ export default function HomePage() {
             <p className="max-w-xl text-lg leading-8 text-muted-on-dark">
               Search your reviews, see where each one came from and keep track of every location from one dashboard.
             </p>
-          </div>
-          <div data-reveal="" className="mt-12">
-            <ProductShot
-              src="/images/reviews-breakdown.png"
-              alt="Review Buddy dashboard sample: a table of reviews from Google and other sites with ratings, dates and respond buttons"
-              width={1846}
-              height={1134}
-              tone="dark"
-              captionTone="dark"
-              sizes="(min-width: 1200px) 1100px, 94vw"
-            />
           </div>
           <ul className="mt-12 grid gap-px overflow-hidden rounded-[20px] bg-white/15 sm:grid-cols-3">
             {facts.map((fact) => (
