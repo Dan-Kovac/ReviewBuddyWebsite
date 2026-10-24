@@ -23,9 +23,9 @@ const caveat = Caveat({
   subsets: ["latin"],
 });
 
-const homeTitle = "Get More Google Reviews and Show Them on Your Website | ReviewBuddy for Tradies";
+const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
 const homeDescription =
-  "Get chosen on trust, not price. Ask for Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.";
+  "Start a 7-day free trial with free setup. Get more Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.";
 
 export const ensureStatic = "navigation";
 
@@ -47,11 +47,13 @@ export const metadata: Metadata = {
     siteName: "ReviewBuddy",
     locale: "en_AU",
     type: "website",
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: homeTitle,
     description: homeDescription,
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 
