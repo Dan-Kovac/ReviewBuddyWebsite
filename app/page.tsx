@@ -17,7 +17,7 @@ import { CTA_LABEL, SETUP_LINE, TRIAL_LINE, lowestPrice, plans } from "@/lib/sit
 export const metadata = pageMetadata({
   title: "Get More Google Reviews | ReviewBuddy for Tradies",
   description:
-    "Start a 7-day free trial with free setup. Get more Google reviews after every job and show them live on your website. Plans from $49 a month inc. GST. Cancel anytime.",
+    "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.",
   path: "/",
 });
 
@@ -29,13 +29,15 @@ const steps = [
   },
   {
     title: "Reviews come in",
-    detail: "On Google, from the customers you asked.",
+    detail: "On Google from the customers you asked, and on the other review sites you connect, like Service Seeking or hipages.",
   },
   {
     title: "They show on your site",
-    detail: "The widget updates when a new review comes in.",
+    detail: "One widget shows them together. It updates when a new Google review comes in.",
   },
 ];
+
+const platformNames = ["Google", "Facebook", "Service Seeking", "hipages", "Airtasker", "Houzz", "and more"];
 
 const wrap = "mx-auto w-full max-w-[1200px]";
 const pad = "px-4 sm:px-6";
@@ -70,7 +72,7 @@ export default function HomePage() {
               Get chosen before they <span className="text-brand-text">call.</span>
             </h1>
             <p className="mt-5 max-w-[34rem] text-lg leading-8 text-muted">
-              More Google reviews from your real customers, shown live on your website.
+              More Google reviews from your real customers, shown with your other review sites in one widget on your website.
             </p>
             <div className="mt-7 w-full sm:w-auto" data-hero-cta="">
               <TrialButton variant="ink" className="w-full px-8 sm:w-auto">
@@ -112,14 +114,25 @@ export default function HomePage() {
         <div className={wrap}>
           <div data-reveal="" className="max-w-3xl">
             <h2 id="platform-screen" className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              See what the platform behind Review Buddy can do.
+              Your review sites, together in one view.
             </h2>
             <p className="mt-4 text-lg leading-8 text-muted">
-              This is the review platform we build on, with notes on what it does.
+              Google, Service Seeking, hipages and more. Reviews from the sites you connect sit together in one widget on your website. This is the review platform we build on, with notes on what it does.
             </p>
           </div>
           <div data-reveal="" className="mt-8 lg:mt-10">
             <PlatformScreen />
+          </div>
+          <div data-reveal="" className="mt-6">
+            <p className="text-sm font-semibold text-ink">Review sites you can bring together</p>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-base leading-7 text-muted">
+              {platformNames.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+            <p className="mt-2 text-xs leading-5 text-muted">
+              Names show where reviews can come from. They do not mean any of these sites endorses Review Buddy.
+            </p>
           </div>
         </div>
       </section>
