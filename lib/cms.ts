@@ -52,7 +52,6 @@ export type ContentPost = {
 };
 
 const REVALIDATE_SECONDS = 300;
-
 function cmsConfig() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -61,7 +60,6 @@ function cmsConfig() {
   }
   return { url: url.replace(/\/$/, ""), key };
 }
-
 async function supabaseSelect<T>(
   table: string,
   query: string,
@@ -101,7 +99,6 @@ async function supabaseSelect<T>(
     return null;
   }
 }
-
 export async function getCategories(kind: CmsKind): Promise<ContentCategory[]> {
   "use cache";
   cacheLife({ stale: 300, revalidate: REVALIDATE_SECONDS, expire: 3600 });
@@ -112,7 +109,6 @@ export async function getCategories(kind: CmsKind): Promise<ContentCategory[]> {
   ].join("&"));
   return rows ?? [];
 }
-
 export async function getPublishedPosts(kind: CmsKind): Promise<ContentPost[]> {
   "use cache";
   cacheLife({ stale: 300, revalidate: REVALIDATE_SECONDS, expire: 3600 });
@@ -137,7 +133,6 @@ export async function getPublishedPosts(kind: CmsKind): Promise<ContentPost[]> {
       Date.parse(row.published_at) <= now,
   );
 }
-
 export async function getPostBySlug(
   kind: CmsKind,
   slug: string,
