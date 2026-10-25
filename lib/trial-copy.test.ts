@@ -81,6 +81,18 @@ test("published trial copy does not promise a card, a reminder email, or Stripe"
   }
   assert.equal(copy.includes("no card needed"), true);
   assert.match(copy, /review requests and syncing stop/);
+  assert.match(copy, /add a card in the app/);
+  assert.equal(copy.includes("add a card any time"), false);
+  assert.equal(copy.includes("usually means another paid tool"), false);
+});
+
+test("the home FAQ hedges Service Seeking the same way as the plumbers FAQ", () => {
+  const home = homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer;
+  const plumber = plumberFaqs.find((faq) => faq.question.includes("Service Seeking"))!.answer;
+  assert.match(home, /Service Seeking can show in your widget if it connects\./);
+  assert.match(home, /Email me the sites you use and I'll check\./);
+  assert.match(plumber, /if they connect/);
+  assert.match(plumber, /Email me the sites you use and I'll check\./);
 });
 
 test("plans no longer carry the stale Stripe product ids", () => {

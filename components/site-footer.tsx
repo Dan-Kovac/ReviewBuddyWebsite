@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { LEGAL_DRAFT } from "@/lib/flags";
 import {
   FOOTER_LINE,
-  abnPlaceholder,
+  confirmedAbnDisplay,
   contactEmail,
   contactPhone,
   contactPhoneHref,
@@ -10,10 +11,14 @@ import {
   navLinks,
 } from "@/lib/site";
 
-const legal = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-];
+const legal = LEGAL_DRAFT
+  ? []
+  : [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ];
+
+const abn = confirmedAbnDisplay();
 
 export function SiteFooter() {
   return (
@@ -68,11 +73,12 @@ export function SiteFooter() {
                 </a>
               </dd>
             </div>
-            <div className="flex items-center justify-between gap-4">
-              <dt className="text-white/85">ABN</dt>
-              {/* TODO: Dan to supply ABN. An obvious placeholder until then, so it cannot be mistaken for a real number. */}
-              <dd className="text-white/50">{abnPlaceholder}</dd>
-            </div>
+            {abn ? (
+              <div className="flex items-center justify-between gap-4">
+                <dt className="text-white/85">ABN</dt>
+                <dd className="text-white/85">{abn}</dd>
+              </div>
+            ) : null}
           </dl>
         </div>
       </div>

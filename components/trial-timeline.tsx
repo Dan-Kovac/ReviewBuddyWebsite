@@ -11,7 +11,7 @@ const steps = [
   {
     label: "Day 8, no card",
     detail:
-      "Your account pauses. Review requests and syncing stop, and you pay nothing. Add a card any time and you pick up where you left off.",
+      "Your account pauses. Review requests and syncing stop, and you pay nothing. Add a card in the app and you pick up where you left off.",
   },
 ];
 

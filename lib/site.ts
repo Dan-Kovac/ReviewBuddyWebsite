@@ -1,6 +1,8 @@
+import { abn, confirmedAbnDisplay } from "./abn";
 import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags";
 import { BILLING_LINE, PRICING_SUB, resolveTrialLine } from "./trial-copy";
 
+export { abn, confirmedAbnDisplay };
 export { BILLING_LINE, PRICING_SUB, resolveTrialLine };
 export { NO_CARD_TRIAL_LINE } from "./trial-copy";
 
@@ -10,6 +12,7 @@ export {
   defaultStarterSignupUrl,
   loginUrl,
   pricingSectionHref,
+  pricingSectionLink,
   resolveLoginUrl,
   resolveSignupHref,
   signupHref,
@@ -21,10 +24,6 @@ export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const contactPhone = "0411 701 078";
 export const contactPhoneHref = "tel:+61411701078";
-/**
- * The ABN in the copy draft is unconfirmed. Shown as an obvious placeholder
- * until Dan confirms it. Do not publish a guessed number.
- */
 export const abnPlaceholder = "[ABN to be added before launch]";
 
 export type PlanId = "starter" | "growth";

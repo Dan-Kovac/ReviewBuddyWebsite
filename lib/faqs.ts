@@ -27,12 +27,12 @@ export const homeFaqs: Faq[] = [
   {
     question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five), and showing Google and Service Seeking together usually means another paid tool, two widgets, or a developer.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Service Seeking can show in your widget if it connects. Email me the sites you use and I'll check.",
   },
   {
     question: "Do I need a card to start?",
     answer:
-      "No. It's a 7-day free trial, no card needed. If you're happy, add a card before day 8 to keep going and your plan starts. If you don't, your account pauses: review requests and syncing stop. Add a card in the app later and you pick up where you left off.",
+      "No. It's a 7-day free trial, no card needed. If you're happy, add a card before day 8 to keep going and your plan starts. If you don't, your account pauses: review requests and syncing stop. Add a card in the app and you pick up where you left off.",
   },
   {
     question: "Will my customers actually leave a review?",

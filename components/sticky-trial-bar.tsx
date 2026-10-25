@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, pricingSectionHref } from "@/lib/site";
+import { usePathname } from "next/navigation";
+import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, pricingSectionLink } from "@/lib/site";
 
 /**
  * Sticky bottom bar on phones. Appears once the hero button leaves view,
  * and hides while the pricing block is on screen.
  */
 export function StickyTrialBar() {
+  const pathname = usePathname();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export function StickyTrialBar() {
       <div className="flex items-center gap-3 border-t border-line bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <p className="min-w-0 flex-1 text-sm font-semibold leading-5 text-ink">{STICKY_TRIAL_TEXT}</p>
         <a
-          href={pricingSectionHref}
+          href={pricingSectionLink(pathname)}
           data-cta="pricing"
           data-location="sticky"
           className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-ink px-4 text-center text-base font-semibold text-white"

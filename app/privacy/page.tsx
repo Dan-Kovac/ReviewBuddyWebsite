@@ -1,5 +1,7 @@
+import { notFound } from "next/navigation";
 import { LegalDraftNotice } from "@/components/legal-draft-notice";
 import { LEGAL_DRAFT } from "@/lib/flags";
+import { legalPagesPublic } from "@/lib/legal-pages";
 import { pageMetadata } from "@/lib/metadata";
 import { abnPlaceholder, contactEmail } from "@/lib/site";
 
@@ -15,6 +17,9 @@ const h2 = "mt-10 text-2xl font-semibold tracking-tight text-ink";
 const link = "font-semibold text-ink underline";
 
 export default function PrivacyPage() {
+  if (!legalPagesPublic(LEGAL_DRAFT, process.env.VERCEL_ENV)) {
+    notFound();
+  }
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6 md:py-20">
       <h1 className="text-4xl font-semibold tracking-tight text-ink">Privacy policy</h1>
@@ -80,7 +85,7 @@ export default function PrivacyPage() {
 
         <h2 className={h2}>Marketing messages</h2>
         <p>
-          We send commercial emails and text messages only where you have
+          We send commercial emails only where you have
           agreed, or where the Spam Act allows it, for example to a business
           address published for business enquiries about something relevant to
           that business. Every commercial message names us as the sender,

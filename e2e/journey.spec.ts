@@ -51,7 +51,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   );
   await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
   await expect(page.getByText("No card to start. No contract. No notice period.").first()).toBeVisible();
-  await expect(page.getByText("200 of 200 free setups left").first()).toBeVisible();
+  await expect(page.getByText(/free setups left/)).toHaveCount(0);
   await expect(page.getByText("0411 701 078").first()).toBeVisible();
   await expect(page.locator("a[href^='tel:']").first()).toBeVisible();
   await expect(page.getByText(/Free until/)).toHaveCount(0);
@@ -130,7 +130,14 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/day 5/i)).toHaveCount(0);
   await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
-  await expect(page.locator("[data-cta='pricing']").first()).toHaveAttribute("href", pricingSectionHref);
+  await expect(page.getByText("Add a card in the app and you pick up where you left off.").first()).toBeVisible();
+  await expect(page.getByText("Add a card any time")).toHaveCount(0);
+  await expect(page.locator("#pricing")).toHaveCount(1);
+  const pricingPageCtas = page.locator("[data-cta='pricing']");
+  expect(await pricingPageCtas.count()).toBeGreaterThan(0);
+  for (let index = 0; index < (await pricingPageCtas.count()); index += 1) {
+    await expect(pricingPageCtas.nth(index)).toHaveAttribute("href", "#pricing");
+  }
   await shot(page, "04-pricing-page");
 
   await page.goto("/blog");
@@ -208,4 +215,74 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
   expect(login.status(), loginUrl).toBeLessThan(400);
 
   expect(problems, problems.join("\n")).toEqual([]);
+});
+
+test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.getByText(/free setups left/)).toHaveCount(0);
+  await expect(page.getByRole("contentinfo").getByText("ABN")).toHaveCount(0);
+  await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);
+  await expect(page.getByText("44 108 955 374")).toHaveCount(0);
+  await expect(page.getByRole("contentinfo").getByRole("link", { name: "Privacy" })).toHaveCount(0);
+  await expect(page.getByRole("contentinfo").getByRole("link", { name: "Terms" })).toHaveCount(0);
+  await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
+
+  await page.getByText("What if I want to stop using ReviewBuddy?").click();
+  await expect(page.getByText("Service Seeking can show in your widget if it connects.")).toBeVisible();
+  await expect(page.getByText("Email me the sites you use and I'll check.")).toBeVisible();
+
+  for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
+    await page.goto(path);
+    await expect(page.locator("#pricing")).toHaveCount(1);
+    const links = page.locator("[data-cta='pricing']");
+    expect(await links.count()).toBeGreaterThan(0);
+    for (let index = 0; index < (await links.count()); index += 1) {
+      await expect(links.nth(index)).toHaveAttribute("href", "#pricing");
+    }
+  }
+  await page.goto("/pricing");
+  await page.locator("[data-location='pricing-locations']").click();
+  await expect(page).toHaveURL(/\/pricing#pricing$/);
+  await expect(page.locator("#pricing")).toBeInViewport();
+
+  await page.goto("/terms");
+  await expect(
+    page.getByText(
+      "Starter gives you a review link where customers pick the site, a QR code, and a widget that shows your reviews on your website.",
+    ),
+  ).toBeVisible();
+  await expect(page.getByText("ongoing coaching")).toHaveCount(0);
+  await expect(page.getByText(/first week/)).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();
+
+  await page.goto("/privacy");
+  await expect(page.getByText("text messages")).toHaveCount(0);
+
+  await page.goto("/free-review-breakdown");
+  await expect(page.getByText(/plain-English/)).toBeVisible();
+
+  await page.goto("/welcome");
+  await expect(page.getByRole("link", { name: "Try it free for 7 days" })).toHaveCount(0);
+  if (test.info().project.name === "mobile") {
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(
+      page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: "Try it free for 7 days" }),
+    ).toHaveCount(0);
+  }
+
+  const missing = await page.goto("/this-page-does-not-exist");
+  expect(missing?.status()).toBe(404);
+  await expect(page).toHaveTitle("Page not found | ReviewBuddy");
+
+  if (test.info().project.name === "desktop") {
+    const sitemap = await request.get("/sitemap.xml");
+    expect(sitemap.status()).toBe(200);
+    const xml = await sitemap.text();
+    expect(xml).not.toContain("/privacy");
+    expect(xml).not.toContain("/terms");
+    const llms = await request.get("/llms.txt");
+    const text = await llms.text();
+    expect(text).not.toContain("/privacy");
+    expect(text).not.toContain("/terms");
+  }
 });

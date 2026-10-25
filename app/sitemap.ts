@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { publishedGuides } from "@/content/guides/registry";
+import { LEGAL_DRAFT } from "@/lib/flags";
 import { guidePath } from "@/lib/guides";
 import { getPublishedPosts } from "@/lib/cms";
 import { siteUrl } from "@/lib/site";
@@ -11,8 +12,7 @@ const paths = [
   "/google-reviews-for-plumbers",
   "/help",
   "/help/cancelling",
-  "/privacy",
-  "/terms",
+  ...(LEGAL_DRAFT ? [] : ["/privacy", "/terms"]),
 ];
 
 const staticLastModified = new Date("2026-10-25");

@@ -7,7 +7,7 @@
 - Gives each business one review link and a QR code. The customer picks the review site, such as Google or Facebook.
 - Shows reviews on the business's own website, with the rating and review count. They update when a new one comes in.
 - Growth plan: an automatic review request after each job, one polite reminder, and past customers asked too.
-- Free setup. The site shows how many of the next 200 setups are left, from a real count.
+- Free setup. When a live Stripe count is available, the site shows how many of the next 200 setups are left. If that count cannot be read, the line is hidden.
 
 ## Offer and prices
 
@@ -26,8 +26,6 @@
 - [Help](https://reviewbuddy.com.au/help): help guides, including how to cancel
 - [Free review breakdown](https://reviewbuddy.com.au/free-review-breakdown): request a free look at where a business stands on Google
 - [Google reviews for plumbers](https://reviewbuddy.com.au/google-reviews-for-plumbers): how it works for plumbing businesses
-- [Privacy](https://reviewbuddy.com.au/privacy): draft
-- [Terms](https://reviewbuddy.com.au/terms): draft
 
 ## Contact
 

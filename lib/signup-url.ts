@@ -26,6 +26,13 @@ export const defaultLoginUrl = "https://1qbx.app.embedmyreviews.com/login";
 /** Home pricing block. General trial buttons go here, not straight to a plan. */
 export const pricingSectionHref = "/#pricing";
 
+const pagesWithPricing = new Set(["/pricing", "/google-reviews-for-plumbers"]);
+
+/** On a page that already has a pricing section, stay there. Everywhere else, go to the home section. */
+export function pricingSectionLink(pathname: string): string {
+  return pagesWithPricing.has(pathname) ? "#pricing" : pricingSectionHref;
+}
+
 export type SignupPlan = "starter" | "growth";
 
 export type SignupEnv = {

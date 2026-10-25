@@ -4,6 +4,7 @@ import {
   defaultGrowthSignupUrl,
   defaultLoginUrl,
   defaultStarterSignupUrl,
+  pricingSectionLink,
   resolveLoginUrl,
   resolveSignupHref,
 } from "./signup-url.ts";
@@ -39,6 +40,13 @@ test("blank or unsafe env values fall back to the app registration URL", () => {
     resolveSignupHref("starter", { starter: "javascript:alert(1)" }),
     defaultStarterSignupUrl,
   );
+});
+
+test("pages that already show pricing keep the trial link on that page", () => {
+  assert.equal(pricingSectionLink("/"), "/#pricing");
+  assert.equal(pricingSectionLink("/pricing"), "#pricing");
+  assert.equal(pricingSectionLink("/google-reviews-for-plumbers"), "#pricing");
+  assert.equal(pricingSectionLink("/welcome"), "/#pricing");
 });
 
 test("login defaults to Embed My Reviews and can be overridden", () => {

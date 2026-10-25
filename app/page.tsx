@@ -215,7 +215,7 @@ export default function HomePage() {
             ))}
           </ol>
           <p className="mt-6 max-w-3xl text-sm leading-6 text-muted">
-            Every review comes from a real customer. We never write reviews, offer incentives, or filter out unhappy customers. That&apos;s Google&apos;s rules and Australian consumer law.
+            Every review comes from a real customer. We never write reviews, offer incentives, or filter out unhappy customers. Those are Google&apos;s rules and Australian consumer law.
           </p>
         </div>
       </section>

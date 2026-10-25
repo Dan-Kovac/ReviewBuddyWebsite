@@ -1,5 +1,7 @@
+import { notFound } from "next/navigation";
 import { LegalDraftNotice } from "@/components/legal-draft-notice";
 import { LEGAL_DRAFT } from "@/lib/flags";
+import { legalPagesPublic } from "@/lib/legal-pages";
 import { pageMetadata } from "@/lib/metadata";
 import { abnPlaceholder, contactEmail, plans } from "@/lib/site";
 
@@ -15,6 +17,9 @@ const h2 = "mt-10 text-2xl font-semibold tracking-tight text-ink";
 const link = "font-semibold text-ink underline";
 
 export default function TermsPage() {
+  if (!legalPagesPublic(LEGAL_DRAFT, process.env.VERCEL_ENV)) {
+    notFound();
+  }
   const starter = plans.find((plan) => plan.id === "starter")!;
   const growth = plans.find((plan) => plan.id === "growth")!;
 
@@ -45,11 +50,10 @@ export default function TermsPage() {
         <p>
           ReviewBuddy helps your business ask customers for Google reviews and
           shows those reviews, with the other review sites you connect, in one
-          view on your website. Starter gives you a direct Google review link
-          and QR code, and shows your Google reviews on your website. Growth adds
-          automatic review-request emails with one polite reminder, loads your
-          past-customer list, and includes ongoing coaching. Setup is done for
-          you.
+          view on your website. Starter gives you a review link where customers
+          pick the site, a QR code, and a widget that shows your reviews on your
+          website. Growth adds automatic review-request emails with one polite
+          reminder, and loads your past-customer list. Setup is done for you.
         </p>
 
         <h2 className={h2}>Free trial</h2>
@@ -58,7 +62,7 @@ export default function TermsPage() {
           card is needed to start. You register in the app and get 7 days of
           full access. Add a card before day 8 to keep going. If you do not add
           a card, the account pauses: review requests and syncing stop until you
-          add a card in the app. Adding a card picks up where you left off.
+          add a card in the app. Adding a card in the app picks up where you left off.
         </p>
 
         <h2 className={h2}>Plans, prices and billing</h2>
@@ -85,8 +89,7 @@ export default function TermsPage() {
 
         <h2 className={h2}>What we do not promise</h2>
         <p>
-          We set up the service to help you get more Google reviews, and we aim
-          for new reviews in your first week. We cannot promise a particular
+          We set up the service to help you get more Google reviews. We cannot promise a particular
           number of reviews or a particular rating. Reviews are written by your
           real customers, and we never write or buy reviews for you. Google and
           other platforms control how reviews are shown, and may change their
@@ -105,7 +108,7 @@ export default function TermsPage() {
           <li>Do not misuse the service or try to break it.</li>
         </ul>
 
-        <h2 className={h2}>Third party services</h2>
+        <h2 className={h2}>Third-party services</h2>
         <p>
           ReviewBuddy relies on other services, including Google, our hosting
           and email providers, and the platform that shows your reviews and

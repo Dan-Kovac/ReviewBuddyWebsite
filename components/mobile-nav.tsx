@@ -66,11 +66,13 @@ export function MobileNav() {
                 Log in
               </a>
             </li>
-            <li className="pt-2">
-              <TrialButton variant="ink" location="mobile-nav" className="w-full">
-                {CTA_LABEL}
-              </TrialButton>
-            </li>
+            {pathname === "/welcome" ? null : (
+              <li className="pt-2">
+                <TrialButton variant="ink" location="mobile-nav" className="w-full">
+                  {CTA_LABEL}
+                </TrialButton>
+              </li>
+            )}
           </ul>
         </nav>
       ) : null}
