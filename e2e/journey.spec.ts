@@ -124,6 +124,9 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans. Both set up for you.");
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
   await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
+  await expect(
+    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going."),
+  ).toBeVisible();
   await expect(page.getByText("billing page in your account").first()).toBeVisible();
   await expect(page.getByText("Day 0")).toBeVisible();
   await expect(page.getByText("Day 8, no card")).toBeVisible();
@@ -142,11 +145,17 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
 
   await page.goto("/blog");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("More reviews, more jobs");
+  await expect(page.getByText("Plain-English guides")).toBeVisible();
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /Plain-English guides/);
   await expect(page.getByText("New articles are on the way")).toBeVisible();
   await shot(page, "05-blog");
 
   await page.goto("/help");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Help guides");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "How to cancel, and how to reach us.",
+  );
   await expect(page.getByRole("link", { name: "How to cancel" })).toBeVisible();
   await shot(page, "06-help");
 

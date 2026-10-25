@@ -10,7 +10,7 @@ import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { pricingIntro, pricingPageTitle } from "@/lib/gst";
-import { BILLING_LINE, CTA_LABEL, contactEmail, plans } from "@/lib/site";
+import { BILLING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: pricingPageTitle(),
@@ -117,7 +117,8 @@ export default function PricingPage() {
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
               {pricingIntro()}
             </p>
-            <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
+            <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{TRIAL_LINE}</p>
+            <p className="mt-2 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
             <SpotsLeft />
           </div>
         </header>

@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Blog | ReviewBuddy",
   description:
-    "Plain English guides on getting more Google reviews, handling the bad ones and showing reviews on your website. Written for Australian tradies.",
+    "Plain-English guides on getting more Google reviews, handling the bad ones and showing reviews on your website. Written for Australian tradies.",
   path: "/blog",
 });
 
@@ -49,7 +49,7 @@ async function BlogIndex() {
         More reviews, more jobs
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-        Plain English guides on getting more Google reviews, handling the
+        Plain-English guides on getting more Google reviews, handling the
         bad ones and showing them off on your website.
       </p>
       {orderedNames.length === 0 ? (

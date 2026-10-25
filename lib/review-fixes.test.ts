@@ -27,6 +27,9 @@ test("published pages use the reviewed spellings and the real legal entity", () 
   const breakdown = readFileSync(new URL("../app/free-review-breakdown/page.tsx", import.meta.url), "utf8");
   const llms = readFileSync(new URL("../public/llms.txt", import.meta.url), "utf8");
   const footer = readFileSync(new URL("../components/site-footer.tsx", import.meta.url), "utf8");
+  const blog = readFileSync(new URL("../app/blog/page.tsx", import.meta.url), "utf8");
+  const help = readFileSync(new URL("../app/help/page.tsx", import.meta.url), "utf8");
+  const pricing = readFileSync(new URL("../app/pricing/page.tsx", import.meta.url), "utf8");
 
   assert.match(
     terms,
@@ -53,4 +56,11 @@ test("published pages use the reviewed spellings and the real legal entity", () 
   assert.match(llms, /\/privacy/);
   assert.match(llms, /\/terms/);
   assert.match(footer, /confirmedAbnDisplay/);
+  assert.match(blog, /Plain-English guides/);
+  assert.equal(blog.includes("Plain English"), false);
+  assert.match(help, /How to cancel, and how to reach us\./);
+  assert.equal(help.includes("Answers on setup"), false);
+  const trialAt = pricing.indexOf("{TRIAL_LINE}");
+  const billingAt = pricing.indexOf("{BILLING_LINE}");
+  assert.ok(trialAt > 0 && trialAt < billingAt);
 });
