@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
-import { contactPhone, contactPhoneHref } from "@/lib/site";
+import { contactEmail } from "@/lib/site";
 
 /**
  * TODO(Dan): replace founderNote with 3 or 4 sentences in your own words
@@ -41,8 +41,8 @@ export function FounderNote() {
           </div>
         ) : null}
         <p className="text-base font-semibold text-ink">
-          <a href={contactPhoneHref} className="underline decoration-brand decoration-2 underline-offset-4">
-            {contactPhone}
+          <a href={`mailto:${contactEmail}`} className="underline decoration-brand decoration-2 underline-offset-4">
+            {contactEmail}
           </a>
         </p>
       </div>

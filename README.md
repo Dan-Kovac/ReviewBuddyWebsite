@@ -26,7 +26,13 @@ Start my free trial goes to the pricing section (`/#pricing`). Try Starter free 
 
 The site builds and renders with no `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` or `LEAD_ALERT_FROM`. Those are not required. Blog and help stay empty without Supabase, and they stay out of the nav and the sitemap until a post is published. The breakdown form returns 503 and shows an email fallback when Supabase is missing. If `RESEND_API_KEY` is set, a saved lead also sends an alert. Set `LEAD_ALERT_FROM` to a verified sender.
 
-Public contact: `hello@reviewbuddy.com.au` and `0411 701 078` in `lib/site.ts`. Confirm both are meant to be public.
+Public contact is email only: `hello@reviewbuddy.com.au`. Dan's mobile number is not on the site.
+
+Free setup spots (`/api/spots` and the bar near the hero and pricing):
+
+- `STRIPE_SECRET_KEY` counts active and trialing subscriptions on Starter `price_1UUJke2VeLXnEu5vfFWYnp0Y` and Growth `price_1UUJlp2VeLXnEu5vB6hQdpL0`. The key stays on the server.
+- `CLAIMED_SETUPS` is a whole number used only when `STRIPE_SECRET_KEY` is unset. It defaults to 0.
+- The count is cached for about 10 minutes. If Stripe cannot be read, the bar is hidden. It never invents a number.
 
 ## Develop
 

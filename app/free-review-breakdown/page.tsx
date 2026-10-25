@@ -54,7 +54,7 @@ export default function FreeReviewBreakdownPage() {
               </ul>
               <h2 className="mt-12 text-3xl font-semibold tracking-tight text-ink">If you want to go further</h2>
               <p className="mt-4 text-base leading-7 text-muted">
-                {TRIAL_LINE} Setup includes your Google review link, QR code and a widget matched to your site.
+                {TRIAL_LINE} Setup includes a link and QR code, and your Google reviews on your website.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <TrialButton variant="ink" location="breakdown-aside">

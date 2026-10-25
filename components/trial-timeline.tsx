@@ -1,6 +1,6 @@
 const steps = [
   { label: "Today", detail: "Start your trial" },
-  { label: "Day 1 to 2", detail: "We set it all up" },
+  { label: "Day 5", detail: "We set it all up" },
   { label: "Day 7", detail: "First payment, or cancel by email" },
 ];
 

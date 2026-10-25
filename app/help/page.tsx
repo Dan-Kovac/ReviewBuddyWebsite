@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Help | ReviewBuddy",
   description:
-    "Answers to the questions our clients ask: setting up your review link and widget, asking customers for reviews, billing and cancelling.",
+    "Answers on setup, asking customers for reviews, billing and cancelling.",
   path: "/help",
 });
 

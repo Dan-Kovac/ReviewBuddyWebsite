@@ -46,7 +46,7 @@ export default function TermsPage() {
           ReviewBuddy helps your business ask customers for Google reviews and
           shows those reviews, with the other review sites you connect, in one
           view on your website. Starter gives you a direct Google review link
-          and QR code and a review widget matched to your site. Growth adds
+          and QR code, and shows your Google reviews on your website. Growth adds
           automatic review-request emails with one polite reminder, loads your
           past-customer list, and includes ongoing coaching. Setup is done for
           you.
@@ -105,7 +105,7 @@ export default function TermsPage() {
         <h2 className={h2}>Third party services</h2>
         <p>
           ReviewBuddy relies on other services, including Google, our hosting
-          and email providers, and the platform that runs your widget and
+          and email providers, and the platform that shows your reviews and
           review requests. We are not responsible for outages or changes in
           services we do not control, but we will work to fix problems we can
           fix.

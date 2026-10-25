@@ -3,12 +3,13 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
+import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { BOTH_PLANS_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, contactPhone, contactPhoneHref, plans } from "@/lib/site";
+import { BOTH_PLANS_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "ReviewBuddy pricing",
@@ -17,15 +18,15 @@ export const metadata = pageMetadata({
 });
 
 const comparisonRows = [
-  ["Google review link and QR code", "Included", "Included"],
-  ["Review widget matched to your site", "Included", "Included"],
+  ["A link and QR code to ask for a Google review", "Included", "Included"],
+  ["Your best Google reviews on your website", "Included", "Included"],
   ["Free setup", "Included", "Included"],
   ["Weekly tip from me", "Included", "Included"],
   ["Free for 7 days", "Included", "Included"],
-  ["Review request emails", "Not included", "Included"],
-  ["One reminder", "Not included", "Included"],
+  ["Emails that ask for a review", "Not included", "Included"],
+  ["One reminder, then we stop", "Not included", "Included"],
   ["Past customers loaded in", "Not included", "Included"],
-  ["Ongoing coaching", "Not included", "Included"],
+  ["Help along the way", "Not included", "Included"],
 ] as const;
 
 function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: string; growth: string }) {
@@ -36,8 +37,8 @@ function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: s
       <div className="mt-8 grid gap-4 sm:hidden">
         {(
           [
-            ["Growth", 2],
             ["Starter", 1],
+            ["Growth", 2],
           ] as const
         ).map(([name, column]) => (
           <section key={name} className="rounded-[10px] border border-line bg-white p-4">
@@ -114,6 +115,7 @@ export default function PricingPage() {
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">Two plans. No lock-in. Setup&apos;s on us.</p>
             <p className="mt-3 max-w-2xl text-base leading-7 text-muted">{BOTH_PLANS_LINE}</p>
             <p className="mt-4 text-base font-semibold text-ink">{TRIAL_LINE}</p>
+            <SpotsLeft />
           </div>
         </header>
 
@@ -134,9 +136,9 @@ export default function PricingPage() {
           <div className="mx-auto w-full max-w-[720px]">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Not sure which plan</h2>
             <p className="mt-4 text-lg leading-8 text-ink">
-              Not sure? Text me on{" "}
-              <a href={contactPhoneHref} className="font-semibold underline">
-                {contactPhone}
+              Not sure? Email{" "}
+              <a href={`mailto:${contactEmail}`} className="font-semibold underline">
+                {contactEmail}
               </a>{" "}
               and I&apos;ll tell you straight which one suits.
             </p>

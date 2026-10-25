@@ -3,8 +3,6 @@ import { Logo } from "@/components/logo";
 import {
   abnPlaceholder,
   contactEmail,
-  contactPhone,
-  contactPhoneHref,
   loginUrl,
   navLinks,
 } from "@/lib/site";
@@ -57,14 +55,6 @@ export function SiteFooter() {
               <dd>
                 <a href={`mailto:${contactEmail}`} className="text-white/85 underline-offset-4 hover:text-white hover:underline">
                   {contactEmail}
-                </a>
-              </dd>
-            </div>
-            <div className="flex items-center justify-between gap-4">
-              <dt className="text-white/85">Phone</dt>
-              <dd>
-                <a href={contactPhoneHref} className="text-white/85 underline-offset-4 hover:text-white hover:underline">
-                  {contactPhone}
                 </a>
               </dd>
             </div>

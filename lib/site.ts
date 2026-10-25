@@ -15,9 +15,6 @@ export type { SignupEnv } from "./signup-url";
 export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
-export const contactPhone = "0411 701 078";
-/** tel: links must not contain spaces. */
-export const contactPhoneHref = "tel:+61411701078";
 /** Dan has not supplied the ABN. Shown as an obvious placeholder until he does. */
 export const abnPlaceholder = "[ABN to be added before launch]";
 
@@ -42,8 +39,9 @@ export type Plan = {
   /** Wording for the product structured data offer. */
   offerDescription: string;
   /**
-   * Stripe ids for the lead record and later checkout work.
-   * The site never calls Stripe.
+   * Older Stripe product and price ids kept for reference.
+   * Checkout uses the payment links in lib/signup-url.ts.
+   * The spots count uses the current price ids in lib/setup-spots.ts.
    */
   stripeProductId: string;
   stripePriceId: string;
@@ -59,15 +57,14 @@ export const plans: readonly Plan[] = [
     weekly: "About $11 a week",
     priceLabel: "$49 a month, GST incl.",
     tagline: "For tradies who'll ask in person.",
-    subHeading:
-      "A direct Google review link and QR code, and a review widget on your site matched to its look. Free done-for-you setup.",
+    subHeading: "A Google review link and QR code. Your reviews show on your website. We set it up.",
     includes: [
-      "Direct Google review link and QR code",
-      "Review widget on your site, matched to its look",
-      "Free setup",
+      "A link and QR code to ask for a Google review",
+      "Your best Google reviews show on your website",
+      "We set it up for you",
     ],
     offerDescription:
-      "$49 a month, GST included. A Google review link, a QR code, a review widget matched to your site, and free setup.",
+      "$49 a month, GST included. A link and QR code to ask for a Google review, and those reviews show on your website. Setup is included.",
     stripeProductId: "prod_VUZxrvOPaIxAFn",
     stripePriceId: "price_1UTanI2VeLXnEu5vqJZEWtU9",
   },
@@ -80,18 +77,17 @@ export const plans: readonly Plan[] = [
     weekly: "About $17 a week",
     priceLabel: "$75 a month, GST incl.",
     tagline: "For tradies who'd rather we did the asking.",
-    subHeading:
-      "Everything in Starter, plus automatic review-request emails with one polite reminder, your past-customer list loaded, and ongoing coaching.",
+    subHeading: "Everything in Starter. We email your customers and load your past customers.",
     recommended: true,
     includes: [
       "Everything in Starter",
-      "Review request emails",
-      "One reminder",
-      "Past customers loaded in",
-      "Ongoing coaching",
+      "We email customers to ask for a review",
+      "One reminder, then we stop",
+      "Your past customers loaded in",
+      "I help you along the way",
     ],
     offerDescription:
-      "$75 a month, GST included. Everything in Starter, plus review request emails, one reminder, past customers loaded in, and ongoing coaching.",
+      "$75 a month, GST included. Everything in Starter, plus emails that ask your customers for a review and your past customers loaded in.",
     stripeProductId: "prod_VUZx7ZiwpbyODv",
     stripePriceId: "price_1UTanI2VeLXnEu5vFjqFXp0U",
   },

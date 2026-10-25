@@ -105,7 +105,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             Embed My Reviews, which hosts trial sign-up and runs the review
-            link, widget and review-request emails
+            link, the reviews on your website, and review-request emails
           </li>
           <li>
             [Dan to confirm the payment provider named on the Embed My Reviews

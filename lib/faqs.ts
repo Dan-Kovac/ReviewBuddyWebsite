@@ -16,7 +16,7 @@ export const homeFaqs: Faq[] = [
   {
     question: "What's the difference between Starter and Growth?",
     answer:
-      "Starter is for tradies who'll ask in person. You get a Google review link, a QR code and a widget on your site. Growth is for tradies who'd rather we did the asking. We email your customers and load your past customers in.",
+      "Starter is for tradies who'll ask in person. You get a link and a QR code, and your reviews show on your site. Growth is for tradies who'd rather we did the asking. We email your customers and load your past customers.",
   },
   {
     question: "Which plan should I choose?",
@@ -74,7 +74,7 @@ export const pricingFaqs: Faq[] = [
   {
     question: "Do I need a website?",
     answer:
-      "You can start without one. Starter still gives you a Google review link and a QR code. The widget needs a page to sit on.",
+      "You can start without one. You still get a Google review link and a QR code. Showing the reviews on a page needs a website.",
   },
   {
     question: "Will you spam my customers?",
@@ -107,7 +107,7 @@ export const plumberFaqs: Faq[] = [
   {
     question: "Can I show Service Seeking and Google together?",
     answer:
-      "Yes. One widget can show Google, Service Seeking and hipages on your plumbing site. Email me the sites you use.",
+      "Yes. Google reviews can sit on your plumbing site with Service Seeking and hipages. Email me the sites you use.",
   },
   {
     question: "What does it cost a plumber?",

@@ -31,7 +31,7 @@ const steps = [
   },
   {
     title: "It shows on your website",
-    body: "We set the widget up. Reviews from Google, Service Seeking and hipages can sit in the same box.",
+    body: "We put your Google reviews on your website. Service Seeking and hipages can sit there too.",
   },
 ];
 
@@ -131,10 +131,10 @@ export default function PlumbersPage() {
               <h2 className="text-3xl font-semibold tracking-tight text-ink">Same two plans</h2>
               <div className="mt-6 grid gap-4 text-base leading-7 text-muted">
                 <p>
-                  <strong className="text-ink">Starter, {starter.priceAmount} a month.</strong> A Google review link, a QR code and a widget on your plumbing site. Setup&apos;s included.
+                  <strong className="text-ink">Starter, {starter.priceAmount} a month.</strong> A link and QR code to ask for a Google review. Those reviews show on your plumbing site. Setup&apos;s included.
                 </p>
                 <p>
-                  <strong className="text-ink">Growth, {growth.priceAmount} a month.</strong> Everything in Starter, plus we email your customers and load past jobs in.
+                  <strong className="text-ink">Growth, {growth.priceAmount} a month.</strong> Everything in Starter. We email your customers and load past jobs in.
                 </p>
                 <p>{TRIAL_LINE} You also get a weekly tip from me.</p>
               </div>

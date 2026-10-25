@@ -6,14 +6,14 @@ import { PlanPair } from "@/components/plan-pair";
 import { PlatformScreen } from "@/components/platform-screen";
 import { ProductShot } from "@/components/product-shot";
 import { ProofBlock } from "@/components/proof-block";
+import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
-import { TrialReassurance } from "@/components/trial-reassurance";
 import { TrialTimeline } from "@/components/trial-timeline";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { BOTH_PLANS_LINE, CTA_LABEL, contactPhone, contactPhoneHref } from "@/lib/site";
+import { BOTH_PLANS_LINE, CTA_LABEL, TRIAL_LINE, contactEmail } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Get More Google Reviews | ReviewBuddy for Tradies",
@@ -25,15 +25,15 @@ export const metadata = pageMetadata({
 const steps = [
   {
     title: "Ask after the job",
-    detail: "Share your Google review link or QR code when the job's done. On Growth, we send the email for you.",
+    detail: "Share your Google review link or QR code when the job's done. On Growth, we email them for you.",
   },
   {
     title: "Reviews come in",
     detail: "They land on Google, and on the other sites you already use.",
   },
   {
-    title: "One box on your site",
-    detail: "We add a widget that matches your site. It updates when a new review comes in.",
+    title: "They show on your website",
+    detail: "Your best Google reviews show on your website. They update when a new one comes in.",
   },
 ];
 
@@ -60,11 +60,12 @@ export default function HomePage() {
                 {CTA_LABEL}
               </TrialButton>
             </div>
-            <TrialReassurance />
+            <SpotsLeft />
+            <p className="mt-4 text-base font-semibold leading-6 text-ink">{TRIAL_LINE}</p>
             <p className="mt-2 text-base leading-7 text-ink">
-              Questions first? Call or text Dan on{" "}
-              <a href={contactPhoneHref} className="font-semibold underline decoration-brand decoration-2 underline-offset-4">
-                {contactPhone}
+              Questions first? Email{" "}
+              <a href={`mailto:${contactEmail}`} className="font-semibold underline decoration-brand decoration-2 underline-offset-4">
+                {contactEmail}
               </a>
               .
             </p>
@@ -149,7 +150,7 @@ export default function HomePage() {
             <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
               How it works
             </h2>
-            <p className="mt-5 max-w-md text-lg leading-8 text-muted">We set it up and add the widget to your site.</p>
+            <p className="mt-5 max-w-md text-lg leading-8 text-muted">We set it up and put your reviews on your site.</p>
             <div className="mt-8 max-w-[320px]">
               <ProductShot
                 src="/images/request-review.png"
@@ -201,6 +202,7 @@ export default function HomePage() {
               Most tradies start on Growth
             </h2>
             <p className="mt-5 text-lg leading-8 text-muted">{BOTH_PLANS_LINE}</p>
+            <SpotsLeft />
           </div>
           <div className="mt-14">
             <PlanPair location="home-plans" />
@@ -220,9 +222,9 @@ export default function HomePage() {
               Fair questions
             </h2>
             <p className="mt-5 max-w-sm text-lg leading-8 text-muted">
-              Ask me anything else on{" "}
-              <a href={contactPhoneHref} className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
-                {contactPhone}
+              Ask me anything else at{" "}
+              <a href={`mailto:${contactEmail}`} className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
+                {contactEmail}
               </a>
               .
             </p>

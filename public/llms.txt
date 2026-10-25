@@ -5,10 +5,10 @@
 ## What it does
 
 - Gives each business a direct Google review link and QR code to share after every job.
-- Brings reviews from the other review sites a business connects, such as Service Seeking and hipages, together with Google in one widget.
-- Puts a review widget on the business website, matched to the site's look. It updates when a new review comes in.
-- Growth plan: automatic review-request emails with one polite reminder, the past-customer list loaded, and ongoing coaching.
-- Both plans include a weekly note with one simple thing to do.
+- Brings reviews from the other sites a business connects, such as Service Seeking and hipages, together with Google.
+- Shows a business's best Google reviews on its own website. They update when a new review comes in.
+- Growth plan: emails that ask customers for a review, one reminder, past customers loaded in, and a weekly tip.
+- Free setup for the next 200 clients. The site shows how many spots are left from a real count.
 
 ## Offer and prices
 

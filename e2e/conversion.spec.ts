@@ -10,9 +10,27 @@ test("pricing cards sit side by side at 1440", async ({ page }) => {
   expect(growth).toBeTruthy();
   expect(starter).toBeTruthy();
   expect(Math.abs(growth!.y - starter!.y)).toBeLessThan(40);
-  expect(growth!.x).toBeLessThan(starter!.x);
-  expect(growth!.width).toBeGreaterThan(starter!.width + 40);
-  expect(growth!.width + starter!.width).toBeGreaterThan(800);
+  expect(starter!.x).toBeLessThan(growth!.x);
+  expect(Math.abs(starter!.width - growth!.width)).toBeLessThan(4);
+  expect(Math.abs(starter!.height - growth!.height)).toBeLessThan(4);
+  await expect(page.getByRole("link", { name: "Try Growth free" })).toBeVisible();
+  await expect(page.locator("#growth").getByText("Recommended")).toBeVisible();
+});
+
+test("starter stacks above growth on a phone", async ({ page }) => {
+  test.skip(test.info().project.name !== "mobile", "phone width only");
+  await page.goto("/pricing");
+  const growth = await page.locator("#growth").boundingBox();
+  const starter = await page.locator("#starter").boundingBox();
+  expect(starter!.y).toBeLessThan(growth!.y!);
+});
+
+test("spots route returns the real configured count", async ({ request }) => {
+  test.skip(test.info().project.name !== "desktop", "once");
+  const response = await request.get("/api/spots");
+  expect(response.status()).toBe(200);
+  const body = (await response.json()) as { claimed: number; total: number; remaining: number };
+  expect(body).toEqual({ claimed: 0, total: 200, remaining: 200 });
 });
 
 test("breakdown form posts and can show the trial step", async ({ page }) => {

@@ -50,6 +50,11 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText("About $11 a week").first()).toBeVisible();
   await expect(page.getByText("About $17 a week").first()).toBeVisible();
   await expect(page.getByText("Cancel with one email").first()).toBeVisible();
+  await expect(page.getByText("Day 5")).toBeVisible();
+  await expect(page.getByText("200 of 200 free setups left").first()).toBeVisible();
+  await expect(page.getByText("0411 701 078")).toHaveCount(0);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
+  await expect(page.getByText(/Free until/)).toHaveCount(0);
   await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
   await expect(page.getByText(/no card/i)).toHaveCount(0);
