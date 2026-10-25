@@ -38,15 +38,15 @@ export default function OpenGraphImage() {
         <div
           style={{
             display: "flex",
-            fontSize: 68,
+            fontSize: 56,
             lineHeight: 1.05,
             maxWidth: 920,
           }}
         >
-          Get chosen before they call.
+          Win their trust before they pick up the phone.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#1a1a1a" }}>
-          Plans from $49 a month, GST included.
+          Free for 7 days, no card needed. From $49 a month, GST included.
         </div>
       </div>
     ),

@@ -8,23 +8,37 @@ import {
   resolveSignupHref,
 } from "./signup-url.ts";
 
-test("plan trials use the Stripe payment links", () => {
+test("plan trials go to Embed My Reviews registration, with no Stripe step", () => {
   assert.equal(
     defaultStarterSignupUrl,
-    "https://buy.stripe.com/6oU9AM0d0g0V2va2Ue6c000",
+    "https://1qbx.app.embedmyreviews.com/register?plan=5",
   );
   assert.equal(
     defaultGrowthSignupUrl,
-    "https://buy.stripe.com/bJe8wIaRE8yt1r69iC6c001",
+    "https://1qbx.app.embedmyreviews.com/register?plan=6",
   );
   assert.equal(resolveSignupHref("starter", {}), defaultStarterSignupUrl);
   assert.equal(resolveSignupHref("growth", {}), defaultGrowthSignupUrl);
+  assert.equal(defaultStarterSignupUrl.includes("stripe"), false);
+  assert.equal(defaultGrowthSignupUrl.includes("stripe"), false);
 });
 
 test("a per-plan env URL replaces that plan only", () => {
-  const starter = "https://buy.stripe.com/test_starter";
+  const starter = "https://example.com/register?plan=starter";
   assert.equal(resolveSignupHref("starter", { starter }), starter);
   assert.equal(resolveSignupHref("growth", { starter }), defaultGrowthSignupUrl);
+
+  const growth = "https://example.com/register?plan=growth";
+  assert.equal(resolveSignupHref("growth", { growth }), growth);
+  assert.equal(resolveSignupHref("starter", { growth }), defaultStarterSignupUrl);
+});
+
+test("blank or unsafe env values fall back to the app registration URL", () => {
+  assert.equal(resolveSignupHref("starter", { starter: "  " }), defaultStarterSignupUrl);
+  assert.equal(
+    resolveSignupHref("starter", { starter: "javascript:alert(1)" }),
+    defaultStarterSignupUrl,
+  );
 });
 
 test("login defaults to Embed My Reviews and can be overridden", () => {

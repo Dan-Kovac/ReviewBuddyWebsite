@@ -13,7 +13,7 @@ test("pricing cards sit side by side at 1440", async ({ page }) => {
   expect(starter!.x).toBeLessThan(growth!.x);
   expect(Math.abs(starter!.width - growth!.width)).toBeLessThan(4);
   expect(Math.abs(starter!.height - growth!.height)).toBeLessThan(4);
-  await expect(page.getByRole("link", { name: "Try Growth free" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toBeVisible();
   await expect(page.locator("#growth").getByText("Recommended")).toBeVisible();
 });
 
@@ -48,7 +48,10 @@ test("breakdown form posts and can show the trial step", async ({ page }) => {
   await page.goto("/free-review-breakdown");
   await page.getByLabel("Business name and suburb").fill("Lee Plumbing, Richmond");
   await page.getByLabel("Email").fill("sam@example.com");
-  await page.getByRole("button", { name: "Send me my free breakdown" }).click();
+  await page.getByRole("button", { name: "Send me my breakdown" }).click();
   await expect(page.getByRole("status")).toContainText("Got it");
-  await expect(page.getByRole("link", { name: "Start your trial" })).toHaveAttribute("href", "/#pricing");
+  await expect(page.getByRole("status").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
+    "href",
+    "/#pricing",
+  );
 });

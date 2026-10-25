@@ -1,3 +1,4 @@
+import { breakdownAlertSubject, breakdownAlertText } from "@/lib/breakdown-alert";
 import { BREAKDOWN_SOURCE, honeypotFilled, parseBreakdown, type BreakdownLead } from "@/lib/lead";
 import { contactEmail } from "@/lib/site";
 
@@ -64,16 +65,8 @@ async function sendAlert(lead: BreakdownLead) {
       body: JSON.stringify({
         from,
         to: [to],
-        subject: "New review breakdown request",
-        text: [
-          `Business: ${lead.businessName}`,
-          `Email: ${lead.email}`,
-          `Mobile: ${lead.mobile || "not given"}`,
-          `Source: ${lead.source}`,
-          lead.source_post ? `Campaign: ${lead.source_post}` : "",
-        ]
-          .filter(Boolean)
-          .join("\n"),
+        subject: breakdownAlertSubject,
+        text: breakdownAlertText(lead),
       }),
     });
   } catch {

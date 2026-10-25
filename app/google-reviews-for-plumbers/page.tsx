@@ -1,37 +1,38 @@
 import Link from "next/link";
-import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
+import { PlanPair } from "@/components/plan-pair";
 import { ProductShot } from "@/components/product-shot";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { CTA_LABEL, TRIAL_LINE, plans } from "@/lib/site";
+import { CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
   description:
-    "Google reviews for plumbers, shown on your website. Starter is $49 a month. Growth is $75 a month. GST included.",
+    "More Google reviews after every plumbing job, shown on your website too. Set up for you. Free for 7 days, no card needed.",
   path: "/google-reviews-for-plumbers",
 });
 
-const starter = plans.find((plan) => plan.id === "starter")!;
-const growth = plans.find((plan) => plan.id === "growth")!;
-
 const steps = [
   {
-    title: "The job's finished",
-    body: "When you pack up, share your Google review link while they still remember you turned up.",
+    title: "The job's done.",
+    body: "A burst pipe, a blocked drain, a new hot water unit.",
   },
   {
-    title: "They've got an easy way to review you",
-    body: "Hand over the link, or put the QR code on the invoice or the side of the van.",
+    title: "They get the link.",
+    body: "On the invoice, by email after the job, or the QR code on the van. On Growth, the email sends itself with one reminder.",
   },
   {
-    title: "It shows on your website",
-    body: "We put your Google reviews on your website. Service Seeking and hipages can sit there too.",
+    title: "They pick where to review.",
+    body: "Google, Facebook, or your other sites.",
+  },
+  {
+    title: "It shows on your website.",
+    body: "The next person who finds you sees it there as well as on Google.",
   },
 ];
 
@@ -43,26 +44,20 @@ export default function PlumbersPage() {
         <header className="hero-wash border-b border-line">
           <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
             <div>
-              <p className="text-sm font-semibold text-muted">For plumbing tradies</p>
-              <h1 className="mt-4 text-balance text-[clamp(2.4rem,8vw,4.5rem)] font-extrabold leading-[1.02] text-ink">
-                Google reviews for plumbers
+              <p className="text-sm font-semibold text-muted">For plumbers</p>
+              <h1 className="mt-4 text-balance text-[clamp(2.4rem,7vw,4.25rem)] font-extrabold leading-[1.02] text-ink">
+                When the hot water dies, they ring the plumber they trust.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-                People read your Google reviews, then they look at your website. We help you get more reviews after the job and show them on your site.
+                At 7am with a cold shower, nobody reads ten websites. They look at the reviews and ring the plumber who looks reliable. ReviewBuddy helps that be you.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-cta="">
+              <div className="mt-8" data-hero-cta="">
                 <TrialButton variant="ink" location="plumbers-hero">
                   {CTA_LABEL}
                 </TrialButton>
-                <Link
-                  href="/pricing"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-white px-5 font-semibold text-ink"
-                >
-                  Compare plans
-                </Link>
               </div>
-              <p className="mt-4 text-sm leading-6 text-muted">
-                {TRIAL_LINE} Then Starter is {starter.priceAmount} a month or Growth is {growth.priceAmount} a month.
+              <p className="mt-4 text-sm font-semibold leading-6 text-ink">
+                {TRIAL_LINE} Then from $49 a month, GST included.
               </p>
             </div>
             <ProductShot
@@ -78,12 +73,12 @@ export default function PlumbersPage() {
 
         <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
           <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Ask while the job&apos;s still fresh
+            Ask while they&apos;re still relieved
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
-            You don&apos;t have time to message every customer from the van. Ask before you leave.
+            The best time to ask is when the water&apos;s back on and they&apos;re grateful. The worst time is a week later when they&apos;ve moved on. Most plumbers mean to ask, then the next job starts.
           </p>
-          <ol className="mt-12 grid lg:grid-cols-3 lg:gap-8">
+          <ol className="mt-12 grid gap-0 lg:grid-cols-2 lg:gap-x-8">
             {steps.map((step, index) => (
               <li key={step.title} className="border-t-2 border-ink py-7">
                 <span className="text-sm font-bold text-brand-text">{index + 1}</span>
@@ -92,64 +87,28 @@ export default function PlumbersPage() {
               </li>
             ))}
           </ol>
-          <div className="mt-14 grid items-center gap-8 md:grid-cols-2">
-            <ProductShot
-              src="/images/request-review.png"
-              alt="Sample review request sent to a customer"
-              width={474}
-              height={578}
-              sizes="(min-width: 768px) 360px, 92vw"
-            />
-            <ProductShot
-              src="/images/find-the-best.png"
-              alt="Sample review cards from Google and other sites"
-              width={995}
-              height={868}
-              tone="soft"
-              sizes="(min-width: 768px) 560px, 92vw"
-            />
-          </div>
         </section>
 
         <section className="border-t border-line bg-soft">
           <div className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Past jobs count too</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">Last year&apos;s customers count too</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
-              Plenty of past customers never got asked. On Growth, send us the list. We&apos;ll load it and ask them, with one reminder.
-            </p>
-            <p className="mt-4">
-              <Link href="/pricing#growth" className="font-semibold text-ink underline">
-                See the Growth plan
-              </Link>
+              Hot water jobs, blocked drains, bathroom renos. Most of those customers were happy and never got asked. On Growth, send me a list and they&apos;ll get asked too.
             </p>
           </div>
         </section>
 
-        <section id="pricing" className="scroll-mt-24 border-t border-line">
-          <div className="mx-auto grid w-full max-w-[1200px] gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-ink">Same two plans</h2>
-              <div className="mt-6 grid gap-4 text-base leading-7 text-muted">
-                <p>
-                  <strong className="text-ink">Starter, {starter.priceAmount} a month.</strong> A link and QR code to ask for a Google review. Those reviews show on your plumbing site. Setup&apos;s included.
-                </p>
-                <p>
-                  <strong className="text-ink">Growth, {growth.priceAmount} a month.</strong> Everything in Starter. We email your customers and load past jobs in.
-                </p>
-                <p>{TRIAL_LINE} You also get a weekly tip from me.</p>
-              </div>
+        <section id="pricing" className="scroll-mt-24 border-t border-line bg-brand-tint">
+          <div className="mx-auto w-full max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans. Both set up for you.</h2>
+            <div className="mt-10">
+              <PlanPair location="plumbers-plans" />
             </div>
-            <div className="flex flex-col justify-end gap-4">
-              <TrialButton plan="starter" location="plumbers-starter" className="w-full sm:w-fit">
-                Try Starter free
-              </TrialButton>
-              <TrialButton plan="growth" location="plumbers-growth" variant="ink" className="w-full sm:w-fit">
-                Try Growth free
-              </TrialButton>
+            <p className="mt-8">
               <Link href="/pricing" className="font-semibold text-ink underline">
                 Full pricing
               </Link>
-            </div>
+            </p>
           </div>
         </section>
 
@@ -162,11 +121,21 @@ export default function PlumbersPage() {
           </div>
         </section>
       </article>
-      <CtaBand
-        title="Put your plumbing reviews on your website"
-        body={`Then Starter is ${starter.priceAmount} a month or Growth is ${growth.priceAmount} a month.`}
-        location="plumbers-band"
-      />
+      <section className="bg-brand">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-16 sm:px-6 md:flex-row md:items-end md:justify-between md:py-24">
+          <div>
+            <h2 className="max-w-2xl text-[clamp(2rem,5.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+              Build the trust before they call.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-ink">
+              Free for 7 days. No card needed. I&apos;ll set it up for you.
+            </p>
+          </div>
+          <TrialButton variant="ink" location="plumbers-band" className="px-8">
+            {CTA_LABEL}
+          </TrialButton>
+        </div>
+      </section>
       <StickyTrialBar />
     </>
   );

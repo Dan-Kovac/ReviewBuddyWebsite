@@ -36,7 +36,7 @@ export function BreakdownForm() {
         <p className="mt-3 text-base leading-7 text-muted">I&apos;ll email your breakdown.</p>
         <div className="mt-6">
           <TrialButton variant="ink" location="breakdown-success">
-            Start your trial
+            Try it free for 7 days
           </TrialButton>
         </div>
       </div>
@@ -161,10 +161,11 @@ export function BreakdownForm() {
         disabled={pending}
         className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white hover:bg-black disabled:opacity-60"
       >
-        {pending ? "Sending" : "Send me my free breakdown"}
+        {pending ? "Sending" : "Send me my breakdown"}
       </button>
       <p className="text-sm leading-6 text-muted">
-        See our <a href="/privacy" className="underline">privacy policy</a>.
+        This sends your details so I can email the breakdown. If it can&apos;t be saved, you&apos;ll be asked to email {contactEmail}. See our{" "}
+        <a href="/privacy" className="underline">privacy policy</a>.
       </p>
     </form>
   );

@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import {
+  FOOTER_LINE,
   abnPlaceholder,
   contactEmail,
+  contactPhone,
+  contactPhoneHref,
   loginUrl,
   navLinks,
 } from "@/lib/site";
@@ -19,9 +22,8 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">
-            Google reviews for Aussie tradies.
+            {FOOTER_LINE}
           </p>
-          {/* TODO(Dan): confirm a public line such as "Run by Dan Kovac in Melbourne." Do not publish a city until you do. */}
         </div>
         <nav aria-label="Footer" className="grid content-start gap-1 text-sm">
           <p className="mb-2 text-xs font-semibold tracking-wide text-white/50">Explore</p>
@@ -50,6 +52,14 @@ export function SiteFooter() {
         <div>
           <p className="mb-3 text-xs font-semibold tracking-wide text-white/50">Contact</p>
           <dl className="grid gap-3 text-sm">
+            <div className="flex items-center justify-between gap-4">
+              <dt className="text-white/85">Phone</dt>
+              <dd>
+                <a href={contactPhoneHref} className="text-white/85 underline-offset-4 hover:text-white hover:underline">
+                  {contactPhone}
+                </a>
+              </dd>
+            </div>
             <div className="flex items-center justify-between gap-4">
               <dt className="text-white/85">Email</dt>
               <dd>

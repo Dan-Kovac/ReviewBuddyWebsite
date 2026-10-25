@@ -9,6 +9,8 @@ const paths = [
   "/pricing",
   "/free-review-breakdown",
   "/google-reviews-for-plumbers",
+  "/help",
+  "/help/cancelling",
   "/privacy",
   "/terms",
 ];
@@ -25,7 +27,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const indexPaths = [
     ...paths,
     ...(blogPosts.length > 0 ? ["/blog"] : []),
-    ...(helpDocs.length > 0 ? ["/help"] : []),
   ];
 
   const staticEntries = [...indexPaths, ...guidePaths].map((path) => ({

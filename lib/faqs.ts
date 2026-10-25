@@ -5,118 +5,114 @@ export type Faq = {
 
 export const homeFaqs: Faq[] = [
   {
-    question: "Is there a free trial?",
-    answer: "Yes. It's free for 7 days. Cancel with one email.",
-  },
-  {
-    question: "What does it cost?",
+    question: "What do more reviews do for my website and my calls?",
     answer:
-      "Starter is $49 a month. Growth is $75 a month. GST is included. Both come with free setup and a weekly tip from me.",
+      "Two things. On Google, reviews are part of how you rank. Google says \"more reviews and positive ratings can help your business's local ranking.\" So more people find you. Then on your website, they turn visits into calls. 54% of people visit a business's website after reading positive reviews, and local search experts rank a high Google rating as the top thing that turns a search into a customer. When they land on your site and see your reviews there too, there's one less reason to keep looking. Sources: Google Business Profile Help. BrightLocal Local Consumer Review Survey 2026 (US). Whitespark Local Search Ranking Factors 2026 (expert survey).",
   },
   {
-    question: "What's the difference between Starter and Growth?",
+    question: "Why do reviews matter right now?",
     answer:
-      "Starter is for tradies who'll ask in person. You get a link and a QR code, and your reviews show on your site. Growth is for tradies who'd rather we did the asking. We email your customers and load your past customers.",
+      "Because people are more careful with their money. A quarter of households are putting repairs off, so when they do spend, they want to know who they're letting in. 86% of homeowners on hipages check reviews before hiring. And they want recent ones. 74% of people only care about reviews from the last three months. So a steady flow matters more than a pile from years ago. People are also starting to ask AI tools like ChatGPT for a tradie. Those tools look at your Google profile, review sites and your website. Nobody can promise they'll recommend you, but reviews on more than one site give them more to go on. Sources: Finder via realestate.com.au, July 2026. hipages survey, March 2025. BrightLocal 2026 (US). BrightLocal AI Visibility Study, September 2026 (US).",
   },
   {
-    question: "Which plan should I choose?",
-    answer: "Most tradies start on Growth. Pick Starter if you'll ask people yourself.",
-  },
-  {
-    question: "Do you take a card up front?",
+    question: "My competitor has more reviews than me. Why does that matter?",
     answer:
-      "Yes. Your card is taken when you start, so the trial can roll on if you stay. Cancel with one email.",
+      "Because people compare. 47% of people won't use a business with fewer than 20 reviews, and 31% only use businesses rated 4.5 stars or more. If they're choosing between you and someone with four times the reviews, you're starting behind before they've heard your voice. The good news is it's catchable. Recent reviews count most, so a steady flow from now on can close the gap faster than you'd think. Source: BrightLocal Local Consumer Review Survey 2026 (US, 1,002 adults).",
   },
   {
-    question: "Can I show Service Seeking and Google together?",
+    question: "What if a customer wasn't happy?",
     answer:
-      "Yes. Connect the sites you already use. They show up together in one box on your website.",
+      "They can still leave a public review. Every customer gets the same link and the same choice of sites, whatever they thought of the job. Google's rules require that, and so does Australian consumer law. On the same page there's an optional box to tell you privately instead. If something wasn't right, you hear about it straight away and can ring them and fix it. Plenty of people would rather do that than post about it. And if a 3-star review does land, reply to it calmly. Google says a mix of reviews often looks more trustworthy than a perfect score.",
   },
   {
-    question: "Which review sites can you pull from?",
+    question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "Google, Facebook, Service Seeking, hipages and plenty more. Email me the ones you use and I'll tell you what we can connect.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five), and showing Google and Service Seeking together usually means another paid tool, two widgets, or a developer.",
   },
   {
-    question: "Can I cancel?",
-    answer: "Yes. There's no lock-in. Email me and I'll cancel it.",
+    question: "Do I need a card to start?",
+    answer:
+      "No. It's a 7-day free trial, no card needed. If you're happy, add a card before day 8 to keep going and your plan starts. If you don't, your account pauses: review requests and syncing stop. Add a card in the app later and you pick up where you left off.",
+  },
+  {
+    question: "Will my customers actually leave a review?",
+    answer:
+      "Not all of them, and nobody can promise a number. But most people who skip a review do it because nobody asked or it was a hassle. ReviewBuddy fixes both: everyone gets asked, and the link takes them straight to your review sites. They'll still need to be signed in to Google to leave a Google review, and most people's phones already are.",
+  },
+  {
+    question: "Is this allowed by Google?",
+    answer:
+      "Yes. Google encourages businesses to ask for reviews and gives you a link and QR code to do it. What it doesn't allow is paying for reviews, fake reviews, pressuring people on the spot, or only asking the customers you think are happy. ReviewBuddy asks everyone the same way.",
+  },
+  {
+    question: "Can my team ask in person?",
+    answer:
+      "Yes, as a friendly invitation. Something like \"If you've got a minute later, we'd really appreciate a review. The link's on your invoice.\" Don't stand over them or ask them to do it there and then. Google doesn't allow that.",
+  },
+  {
+    question: "How much of my time does it take?",
+    answer:
+      "About as long as it takes to give me access to your Google profile and website. I do the setup. On Growth, the asking happens without you.",
+  },
+  {
+    question: "Do I need to touch my website?",
+    answer: "No. I add the widget for you.",
   },
   {
     question: "Do you write reviews for me?",
-    answer: "No. Every review comes from a real customer. We just make it easy to leave one.",
+    answer: "No. Never. Every review comes from a real customer.",
   },
   {
-    question: "How do I ask past customers?",
+    question: "Which plan should I pick?",
     answer:
-      "On Growth, send us a list of past customers. We'll load it and ask them, with one reminder.",
+      "If you'll reliably hand over the link or QR code after every job, Starter is enough. If you know it'll slip when you're flat out, Growth does the asking for you.",
+  },
+  {
+    question: "I've got more than one location.",
+    answer: "Email hello@reviewbuddy.com.au and we'll work out what suits.",
   },
 ];
 
-/**
- * Pricing objections. Two answers stay out of the page until Dan confirms them:
- *
- * TODO(Dan): "When is my card charged?"
- * Confirm whether Stripe charges at the end of day 7 or during the trial,
- * and whether the trial-ending reminder email is on. Do not publish an answer before that.
- *
- * TODO(Dan): "How long does setup take?"
- * Confirm the turnaround and what you need from the tradie. Do not publish a number of days before that.
- */
 export const pricingFaqs: Faq[] = [
   {
-    question: "Is there a lock-in contract?",
-    answer: "No. You're month to month. Cancel with one email.",
+    question: "Do I need a card to start?",
+    answer: homeFaqs.find((faq) => faq.question === "Do I need a card to start?")!.answer,
   },
   {
-    question: "What if I get a bad review?",
-    answer: "We help you reply well. We never hide or filter reviews.",
+    question: "What if I want to stop?",
+    answer: homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer,
   },
   {
-    question: "Do I need a website?",
-    answer:
-      "You can start without one. You still get a Google review link and a QR code. Showing the reviews on a page needs a website.",
+    question: "Which plan should I pick?",
+    answer: homeFaqs.find((faq) => faq.question === "Which plan should I pick?")!.answer,
   },
   {
-    question: "Will you spam my customers?",
-    answer: "One email and one reminder, that's it.",
-  },
-  {
-    question: "Can I change plans?",
-    answer: "Yes. Email me and I'll move you. You're not locked in.",
-  },
-  {
-    question: "Is there a free trial?",
-    answer: "Yes. It's free for 7 days. Your card is taken to start it. Cancel with one email.",
+    question: "I've got more than one location.",
+    answer: homeFaqs.find((faq) => faq.question === "I've got more than one location.")!.answer,
   },
   {
     question: "Do prices include GST?",
-    answer: "Yes. $49 and $75 are the monthly prices, GST included.",
-  },
-  {
-    question: "Is setup included?",
-    answer: "Yes. I set both plans up for you.",
+    answer: "Yes. $49 and $75 are in AUD and include GST.",
   },
 ];
 
 export const plumberFaqs: Faq[] = [
   {
-    question: "When do I ask for a review?",
-    answer:
-      "After the job, while they still remember you. Share your Google review link, or put the QR code on the invoice. On Growth, we email them for you.",
+    question: "When's the best time to ask?",
+    answer: "Straight after the job, while they remember you fixed it. Growth handles the timing for you.",
   },
   {
-    question: "Can I show Service Seeking and Google together?",
+    question: "I'm on Service Seeking and hipages too. Can those reviews show?",
     answer:
-      "Yes. Google reviews can sit on your plumbing site with Service Seeking and hipages. Email me the sites you use.",
-  },
-  {
-    question: "What does it cost a plumber?",
-    answer:
-      "Starter is $49 a month. Growth is $75 a month. GST is included. Both include free setup and a weekly tip. Cancel with one email.",
+      "They can show in your widget if they connect. Email me the sites you use and I'll check.",
   },
   {
     question: "Can I ask customers from last year?",
+    answer: "On Growth, yes.",
+  },
+  {
+    question: "What does it cost?",
     answer:
-      "On Growth, yes. Send us a list of past customers. We'll load it and ask them, with one reminder.",
+      "$49 or $75 a month, GST included, after a 7-day free trial with no card needed. Add a card before day 8 to keep going.",
   },
 ];

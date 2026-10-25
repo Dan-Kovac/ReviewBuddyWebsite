@@ -46,18 +46,22 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   const project = test.info().project.name;
 
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Get chosen before they call");
-  await expect(page.getByText("About $11 a week").first()).toBeVisible();
-  await expect(page.getByText("About $17 a week").first()).toBeVisible();
-  await expect(page.getByText("Cancel with one email").first()).toBeVisible();
-  await expect(page.getByText("Day 5")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "Win their trust before they pick up the phone",
+  );
+  await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
+  await expect(page.getByText("No card to start. No contract. No notice period.").first()).toBeVisible();
   await expect(page.getByText("200 of 200 free setups left").first()).toBeVisible();
-  await expect(page.getByText("0411 701 078")).toHaveCount(0);
-  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
+  await expect(page.getByText("0411 701 078").first()).toBeVisible();
+  await expect(page.locator("a[href^='tel:']").first()).toBeVisible();
   await expect(page.getByText(/Free until/)).toHaveCount(0);
   await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
+  await expect(page.getByText("Cancel with one email")).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await expect(page.getByText(/card up front/i)).toHaveCount(0);
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
-  await expect(page.getByText(/no card/i)).toHaveCount(0);
+  await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
 
   const logins = page.getByRole("link", { name: "Log in" });
@@ -79,7 +83,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(menu.getByRole("link", { name: "Start my free trial" })).toHaveAttribute("href", pricingSectionHref);
+    await expect(menu.getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute("href", pricingSectionHref);
     await shot(page, "02-menu");
     await page.getByRole("button", { name: "Close menu" }).click();
   } else {
@@ -87,7 +91,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await expect(nav.getByRole("link", { name: "Pricing" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
     await expect(nav.getByRole("link", { name: "Blog" })).toHaveCount(0);
-    await expect(page.getByRole("banner").getByRole("link", { name: "Start my free trial" })).toHaveAttribute(
+    await expect(page.getByRole("banner").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
       "href",
       pricingSectionHref,
     );
@@ -117,9 +121,15 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   }
 
   await page.goto("/pricing");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("ReviewBuddy pricing");
-  await expect(page.getByRole("link", { name: "Try Starter free" })).toHaveAttribute("href", starterSignup);
-  await expect(page.getByRole("link", { name: "Try Growth free" })).toHaveAttribute("href", growthSignup);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans. Both set up for you.");
+  await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
+  await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
+  await expect(page.getByText("billing page in your account").first()).toBeVisible();
+  await expect(page.getByText("Day 0")).toBeVisible();
+  await expect(page.getByText("Day 8, no card")).toBeVisible();
+  await expect(page.getByText(/day 5/i)).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
   await expect(page.locator("[data-cta='pricing']").first()).toHaveAttribute("href", pricingSectionHref);
   await shot(page, "04-pricing-page");
 
@@ -130,14 +140,22 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
 
   await page.goto("/help");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Help guides");
-  await expect(page.getByText("Help guides are being prepared")).toBeVisible();
+  await expect(page.getByRole("link", { name: "How to cancel" })).toBeVisible();
   await shot(page, "06-help");
+
+  await page.goto("/help/cancelling");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("How to cancel");
+  await expect(page.getByText("the billing page in your account").first()).toBeVisible();
+  await expect(page.getByText("not by replying to an email")).toBeVisible();
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await shot(page, "06b-cancel-help");
 
   await page.goto("/free-review-breakdown");
   const posted = page.waitForResponse((response) => response.url().includes("/api/breakdown") && response.request().method() === "POST");
   await page.getByLabel("Business name and suburb").fill("Lee Plumbing, Richmond");
   await page.getByLabel("Email").fill("sam@example.com");
-  await page.getByRole("button", { name: "Send me my free breakdown" }).click();
+  await page.getByRole("button", { name: "Send me my breakdown" }).click();
   const response = await posted;
   expect(response.status()).toBe(503);
   await expect(page.getByRole("status")).toContainText("hello@reviewbuddy.com.au");

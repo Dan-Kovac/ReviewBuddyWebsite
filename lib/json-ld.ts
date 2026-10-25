@@ -1,5 +1,5 @@
 import type { Faq } from "@/lib/faqs";
-import { contactEmail, plans, siteName, siteUrl } from "@/lib/site";
+import { contactEmail, contactPhone, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
   return {
@@ -11,6 +11,7 @@ export function organizationJsonLd() {
         name: siteName,
         url: siteUrl,
         email: contactEmail,
+        telephone: contactPhone,
         logo: `${siteUrl}/logo.svg`,
         areaServed: {
           "@type": "Country",
@@ -22,7 +23,7 @@ export function organizationJsonLd() {
         "@id": `${siteUrl}/#product`,
         name: siteName,
         description:
-          "ReviewBuddy helps Australian tradies get more Google reviews and shows them live on their website.",
+          "ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. Free for 7 days, no card needed.",
         brand: {
           "@type": "Brand",
           name: siteName,

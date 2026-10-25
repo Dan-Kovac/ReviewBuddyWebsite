@@ -1,18 +1,18 @@
 /**
- * Keep both flags false. The code that sat behind them (the Kovele Plumbing
- * example and the card-at-signup sentence) has been removed; these stay so the
- * switch positions are explicit while Dan decides what comes back.
+ * SHOW_KOVELE stays false until Dan supplies a real, approved Kovele Plumbing
+ * screenshot, results and quote. Do not publish invented numbers.
  */
 export const SHOW_KOVELE = false;
 
-/** The 7-day trial takes a card up front on the Embed My Reviews sign-up page. */
-export const CARD_UPFRONT = true;
+/**
+ * The 7-day trial does not take a card. People register in the app.
+ * Keep this false. Card-up-front wording is not published.
+ */
+export const CARD_UPFRONT = false;
 
 /**
- * TODO(Dan): confirm two Stripe settings before turning this on.
- * 1. The card is charged at the end of the trial, not on day one.
- * 2. Stripe's trial-ending reminder email is switched on.
- * While this is false, the site does not say we'll email before the charge.
+ * Day-5 and day-7 add-a-card reminder emails are unconfirmed with Embed My
+ * Reviews. Keep this false so the site does not promise those emails.
  */
 export const TRIAL_REMINDER = false;
 

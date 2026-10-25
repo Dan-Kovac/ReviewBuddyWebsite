@@ -54,30 +54,33 @@ export default function TermsPage() {
 
         <h2 className={h2}>Free trial</h2>
         <p>
-          New customers get a 7-day free trial and free done-for-you setup. Your
-          card is taken up front on the Embed My Reviews sign-up page. You can
-          cancel any time. [Dan to confirm: whether the card is charged during
-          the 7 days, or only if the plan continues after day 7.]
+          New customers get a 7-day free trial and free done-for-you setup. No
+          card is needed to start. You register in the app and get 7 days of
+          full access. Add a card before day 8 to keep going. If you do not add
+          a card, the account pauses: review requests and syncing stop until you
+          add a card in the app. Adding a card picks up where you left off.
         </p>
 
         <h2 className={h2}>Plans, prices and billing</h2>
         <p>
           {starter.name} is {starter.priceLabel} and {growth.name} is{" "}
           {growth.priceLabel}. Prices are in Australian dollars and include GST.
-          [Dan to confirm the billing cycle shown on the Embed My Reviews
-          checkout.] If our prices change, we will tell you before the change
-          applies to you.
+          Plans are billed monthly. If our prices change, we will tell you
+          before the change applies to you.
         </p>
 
         <h2 className={h2}>Cancelling</h2>
         <p>
-          You can cancel at any time by emailing{" "}
+          You can cancel any time from the billing page in your account. There
+          is no contract and no notice period. You keep access until the end of
+          the billing period. Your reviews stay on Google and the other sites,
+          because they are yours. We cannot promise that the ReviewBuddy review
+          link or the widget on your website will keep working after the account
+          ends. Questions can still come to{" "}
           <a className={link} href={`mailto:${contactEmail}`}>
             {contactEmail}
           </a>
-          . There is no lock-in contract. Cancelling stops future billing. [Dan
-          to confirm: whether the current month is refunded, and how soon after
-          the request the service stops.]
+          . Cancelling itself is not done by email.
         </p>
 
         <h2 className={h2}>What we do not promise</h2>

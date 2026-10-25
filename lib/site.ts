@@ -1,4 +1,8 @@
-import { TRIAL_REMINDER } from "./flags";
+import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags";
+import { BILLING_LINE, PRICING_SUB, resolveTrialLine } from "./trial-copy";
+
+export { BILLING_LINE, PRICING_SUB, resolveTrialLine };
+export { NO_CARD_TRIAL_LINE } from "./trial-copy";
 
 export {
   defaultGrowthSignupUrl,
@@ -15,7 +19,12 @@ export type { SignupEnv } from "./signup-url";
 export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
-/** Dan has not supplied the ABN. Shown as an obvious placeholder until he does. */
+export const contactPhone = "0411 701 078";
+export const contactPhoneHref = "tel:+61411701078";
+/**
+ * The ABN in the copy draft is unconfirmed. Shown as an obvious placeholder
+ * until Dan confirms it. Do not publish a guessed number.
+ */
 export const abnPlaceholder = "[ABN to be added before launch]";
 
 export type PlanId = "starter" | "growth";
@@ -28,8 +37,6 @@ export type Plan = {
   priceAmount: string;
   /** Small line under the figure. */
   pricePeriod: string;
-  /** Weekly anchor under the monthly price. */
-  weekly: string;
   /** Full price phrase for schema and pages that need one line. */
   priceLabel: string;
   tagline: string;
@@ -38,13 +45,6 @@ export type Plan = {
   recommended?: boolean;
   /** Wording for the product structured data offer. */
   offerDescription: string;
-  /**
-   * Older Stripe product and price ids kept for reference.
-   * Checkout uses the payment links in lib/signup-url.ts.
-   * The spots count uses the current price ids in lib/setup-spots.ts.
-   */
-  stripeProductId: string;
-  stripePriceId: string;
 };
 
 export const plans: readonly Plan[] = [
@@ -53,43 +53,36 @@ export const plans: readonly Plan[] = [
     name: "Starter",
     price: 49,
     priceAmount: "$49",
-    pricePeriod: "a month, GST incl.",
-    weekly: "About $11 a week",
-    priceLabel: "$49 a month, GST incl.",
-    tagline: "For tradies who'll ask in person.",
-    subHeading: "A Google review link and QR code. Your reviews show on your website. We set it up.",
+    pricePeriod: "a month",
+    priceLabel: "$49 a month, AUD, GST included",
+    tagline: "You do the asking. We make it easy.",
+    subHeading: "Your review link, QR code and a review widget on your website. I set it up for you.",
     includes: [
-      "A link and QR code to ask for a Google review",
-      "Your best Google reviews show on your website",
-      "We set it up for you",
+      "Your review link and QR code",
+      "A review widget on your website, matched to your site",
+      "Free setup",
+      "A short weekly email with one thing to do",
     ],
     offerDescription:
-      "$49 a month, GST included. A link and QR code to ask for a Google review, and those reviews show on your website. Setup is included.",
-    stripeProductId: "prod_VUZxrvOPaIxAFn",
-    stripePriceId: "price_1UTanI2VeLXnEu5vqJZEWtU9",
+      "$49 a month, AUD, GST included. Your review link, QR code and a review widget on your website. Setup is free.",
   },
   {
     id: "growth",
     name: "Growth",
     price: 75,
     priceAmount: "$75",
-    pricePeriod: "a month, GST incl.",
-    weekly: "About $17 a week",
-    priceLabel: "$75 a month, GST incl.",
-    tagline: "For tradies who'd rather we did the asking.",
-    subHeading: "Everything in Starter. We email your customers and load your past customers.",
+    pricePeriod: "a month",
+    priceLabel: "$75 a month, AUD, GST included",
+    tagline: "The asking happens without you.",
+    subHeading: "Everything in Starter, plus we ask your customers and your past customers.",
     recommended: true,
     includes: [
       "Everything in Starter",
-      "We email customers to ask for a review",
-      "One reminder, then we stop",
-      "Your past customers loaded in",
-      "I help you along the way",
+      "An automatic review request after each job, with one polite reminder",
+      "Your past customers asked too",
     ],
     offerDescription:
-      "$75 a month, GST included. Everything in Starter, plus emails that ask your customers for a review and your past customers loaded in.",
-    stripeProductId: "prod_VUZx7ZiwpbyODv",
-    stripePriceId: "price_1UTanI2VeLXnEu5vFjqFXp0U",
+      "$75 a month, AUD, GST included. Everything in Starter, plus an automatic review request after each job, one polite reminder, and your past customers asked too.",
   },
 ];
 
@@ -101,19 +94,18 @@ export function planById(id: PlanId): Plan {
   return found;
 }
 
-/**
- * Settled offer. No setup-value claim and no "no card needed" claim.
- * TRIAL_REMINDER stays false until Dan confirms the Stripe reminder email.
- */
-export const CTA_LABEL = "Start my free trial";
-export const TRIAL_LINE = TRIAL_REMINDER
-  ? "Free for 7 days. We'll email you before you're charged. Cancel with one email."
-  : "Free for 7 days. Cancel with one email.";
-export const SETUP_LINE = "Free setup.";
+export const TRIAL_LINE = resolveTrialLine(CARD_UPFRONT, TRIAL_REMINDER);
+
+export const SETUP_LINE = "I set it all up for you, free.";
 export const BOTH_PLANS_LINE =
-  "Both plans come with free setup and a weekly tip from me. No lock-in.";
+  "Both plans come with free setup, a short weekly email with one thing to do, and no contract.";
+export const PLAN_FOOT_LINE = "No card to start. No contract. No notice period.";
+export const CTA_LABEL = "Try it free for 7 days";
+export const STICKY_TRIAL_TEXT = "7-day free trial, no card needed.";
+export const STICKY_CTA_LABEL = "Try it free";
+export const FOOTER_LINE =
+  "More reviews, more trust, more calls. For Australian tradies. Made in Melbourne by Roadmap Labs.";
 export const GUARANTEE_BADGE = "";
-export const STICKY_CTA_LABEL = "Start free trial · from $49/mo";
 
 export const navLinks = [
   { href: "/pricing", label: "Pricing" },

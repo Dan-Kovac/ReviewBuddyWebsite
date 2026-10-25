@@ -22,9 +22,9 @@ const workSans = Work_Sans({
   weight: ["400", "600"],
 });
 
-const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
+const homeTitle = "More Google Reviews for Tradies | ReviewBuddy";
 const homeDescription =
-  "We help tradies get more Google reviews, then put them on their website. Plans from $49 a month, GST included.";
+  "More Google reviews for Australian tradies, shown on your website too. Free for 7 days, no card needed. From $49 a month, GST included.";
 
 export const ensureStatic = "navigation";
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCategories, getPublishedPosts, toCards, type PostCard } from "@/lib/cms";
+import { builtInHelp } from "@/lib/help-guides";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -57,6 +58,24 @@ async function HelpIndex() {
         Short, plain answers to the things our clients ask about. If your
         question isn&apos;t here, email hello@reviewbuddy.com.au.
       </p>
+      <section aria-labelledby="help-account">
+        <h2 id="help-account" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Your account
+        </h2>
+        <ul className="mt-6 grid gap-4">
+          {builtInHelp.map((guide) => (
+            <li key={guide.slug}>
+              <Link
+                href={`/help/${guide.slug}`}
+                className="hover-lift block rounded-[16px] border border-line bg-white p-5"
+              >
+                <p className="text-lg font-semibold text-ink">{guide.title}</p>
+                <p className="mt-1 text-sm leading-6 text-muted">{guide.excerpt}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
       {cards.length === 0 ? (
         <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
           {EMPTY_MESSAGE}

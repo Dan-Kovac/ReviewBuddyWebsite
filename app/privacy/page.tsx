@@ -41,8 +41,10 @@ export default function PrivacyPage() {
         <p>
           Trial sign-up is collected on the Embed My Reviews sign-up page, not
           stored by this website. The free review breakdown form on this site
-          does not save what you type. The next step is an email you send to us,
-          and that email can include:
+          asks for your business name and suburb, your email, and a mobile
+          number if you add one. We use those details to send the breakdown.
+          If the form cannot be saved, we ask you to email us instead. A saved
+          request can include:
         </p>
         <ul className="grid gap-2 pl-5 [&>li]:list-disc">
           <li>your name</li>
@@ -128,9 +130,10 @@ export default function PrivacyPage() {
 
         <h2 className={h2}>Security and how long we keep it</h2>
         <p>
-          This marketing site does not store trial sign-ups or the breakdown
-          form. Details you email us, and details you enter on the Embed My
-          Reviews sign-up page, are handled by us and that platform. We keep
+          This marketing site does not store trial sign-ups. The breakdown form
+          stores a request when our database is configured, and otherwise asks
+          you to email us. Details you email us, and details you enter on the
+          Embed My Reviews sign-up page, are handled by us and that platform. We keep
           personal information only as long as we need it
           for the purposes above or the law requires, then delete or
           de-identify it. [Retention periods to be confirmed.] No online

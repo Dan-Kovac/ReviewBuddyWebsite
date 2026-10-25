@@ -1,4 +1,4 @@
-import { pricingSectionHref, signupHref, type PlanId } from "@/lib/site";
+import { CTA_LABEL, pricingSectionHref, signupHref, type PlanId } from "@/lib/site";
 
 const variants = {
   brand: "bg-brand text-ink hover:bg-brand-deep",
@@ -7,8 +7,9 @@ const variants = {
 };
 
 /**
- * With a plan, this leaves for that plan's Stripe payment link.
- * Without a plan, this goes to the pricing section so the visitor picks one.
+ * With a plan, this leaves for that plan's Embed My Reviews registration.
+ * There is no Stripe step. Without a plan, this goes to the pricing section
+ * so the visitor picks Starter or Growth first.
  */
 export function TrialButton({
   children,
@@ -32,7 +33,7 @@ export function TrialButton({
       data-location={location}
       className={`inline-flex min-h-12 items-center justify-center rounded-full px-5 text-center text-base font-semibold ${variants[variant]} ${className}`}
     >
-      {children ?? (plan ? "Try this plan free" : "Start my free trial")}
+      {children ?? (plan ? "Try this plan free for 7 days" : CTA_LABEL)}
     </a>
   );
 }
