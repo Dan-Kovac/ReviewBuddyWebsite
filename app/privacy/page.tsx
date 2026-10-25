@@ -38,15 +38,19 @@ export default function PrivacyPage() {
         </p>
 
         <h2 className={h2}>What we collect</h2>
-        <p>When you fill in a form on this website, we collect:</p>
+        <p>
+          Trial sign-up is collected on the Embed My Reviews sign-up page, not
+          stored by this website. The free review breakdown form on this site
+          does not save what you type. The next step is an email you send to us,
+          and that email can include:
+        </p>
         <ul className="grid gap-2 pl-5 [&>li]:list-disc">
           <li>your name</li>
           <li>your business name</li>
-          <li>your mobile number (optional on the free review breakdown form)</li>
+          <li>your mobile number, if you add it</li>
           <li>your email address</li>
           <li>your website or Google Business Profile link</li>
-          <li>your trade and suburb, and the job software you use, if you choose to tell us</li>
-          <li>the plan you picked, and where you came from if you followed a link with a source tag</li>
+          <li>your trade and suburb, if you choose to tell us</li>
         </ul>
         <p>
           If you become a customer, we also handle information needed to set up
@@ -63,7 +67,7 @@ export default function PrivacyPage() {
 
         <h2 className={h2}>Why we collect it</h2>
         <ul className="grid gap-2 pl-5 [&>li]:list-disc">
-          <li>to respond to your request, including your free trial and your free review breakdown</li>
+          <li>to respond to your email, including a free review breakdown if you ask for one</li>
           <li>to set up and run ReviewBuddy for your business</li>
           <li>to bill you and manage your account</li>
           <li>to contact you about your account, your trial and the service, including a weekly check-in about getting more reviews</li>
@@ -94,10 +98,19 @@ export default function PrivacyPage() {
         </p>
         <ul className="grid gap-2 pl-5 [&>li]:list-disc">
           <li>Vercel, which hosts this website</li>
-          <li>Supabase, which stores the details you send us in a database</li>
-          <li>Resend, which sends our email notifications</li>
-          <li>Stripe, which processes payments and subscriptions</li>
-          <li>Embed My Reviews, the platform that runs the review link, widget and email sequences for our customers</li>
+          <li>
+            Supabase, only if blog and help articles are read from it. This
+            website does not use it to store trial sign-ups. [Dan to confirm
+            whether that content database stays on.]
+          </li>
+          <li>
+            Embed My Reviews, which hosts trial sign-up and runs the review
+            link, widget and review-request emails
+          </li>
+          <li>
+            [Dan to confirm the payment provider named on the Embed My Reviews
+            checkout.]
+          </li>
           <li>Google, where your reviews and Google Business Profile are involved</li>
         </ul>
         <p>
@@ -115,9 +128,10 @@ export default function PrivacyPage() {
 
         <h2 className={h2}>Security and how long we keep it</h2>
         <p>
-          Details submitted through our forms are stored in a database that is
-          not open to the public, and are accessed only by us and our service
-          providers. We keep personal information only as long as we need it
+          This marketing site does not store trial sign-ups or the breakdown
+          form. Details you email us, and details you enter on the Embed My
+          Reviews sign-up page, are handled by us and that platform. We keep
+          personal information only as long as we need it
           for the purposes above or the law requires, then delete or
           de-identify it. [Retention periods to be confirmed.] No online
           system is completely secure, so please take care with what you send.

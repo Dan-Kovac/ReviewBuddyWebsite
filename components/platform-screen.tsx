@@ -9,7 +9,7 @@ const note = "Product illustration. Names and numbers in the picture are example
  */
 export function PlatformScreen() {
   return (
-    <figure>
+    <figure className="min-w-0 max-w-full">
       <p className="mb-3 text-sm font-semibold text-ink lg:hidden" aria-hidden="true">
         Swipe sideways to see the whole screen
       </p>

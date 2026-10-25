@@ -5,8 +5,8 @@
  */
 export const SHOW_KOVELE = false;
 
-/** Set true to mention taking the card in the homepage cost answer. */
-export const CARD_UPFRONT = false;
+/** The 7-day trial takes a card up front on the Embed My Reviews sign-up page. */
+export const CARD_UPFRONT = true;
 
 /**
  * True while the privacy policy and terms are drafts that Dan has not had

@@ -35,7 +35,7 @@ export function ProductShot({
 }) {
   return (
     <figure className="relative">
-      <div className={`rounded-[28px] p-5 sm:p-8 ${tones[tone]}`}>
+      <div className={`overflow-hidden rounded-[28px] p-3 shadow-[0_28px_60px_-36px_rgba(11,15,20,0.45)] ring-1 ring-black/5 sm:p-5 ${tones[tone]}`}>
         <Image
           src={src}
           alt={alt}
@@ -44,7 +44,7 @@ export function ProductShot({
           priority={priority}
           quality={85}
           sizes={sizes}
-          className="mx-auto h-auto w-full"
+          className="mx-auto h-auto w-full rounded-[18px]"
         />
       </div>
       {caption ? (

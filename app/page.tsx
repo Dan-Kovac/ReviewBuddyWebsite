@@ -12,12 +12,12 @@ import { ProductShot } from "@/components/product-shot";
 import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { ProofBlock } from "@/components/proof-block";
 import { PlatformScreen } from "@/components/platform-screen";
-import { CTA_LABEL, SETUP_LINE, TRIAL_LINE, lowestPrice, plans } from "@/lib/site";
+import { BOTH_PLANS_LINE, CTA_LABEL, SETUP_LINE, TRIAL_LINE, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Get More Google Reviews | ReviewBuddy for Tradies",
   description:
-    "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.",
+    "One view of your review sites. 7-day free trial, card taken up front. Starter A$49/month incl GST. Growth A$75/month incl GST.",
   path: "/",
 });
 
@@ -25,15 +25,16 @@ const steps = [
   {
     title: "Ask after the job",
     detail:
-      "Share your Google review link or QR code when the job is done. On Growth, email follow ups keep asking for you.",
+      "Share your direct Google review link or QR code when the job is done. On Growth, automatic review-request emails ask for you, with one polite reminder.",
   },
   {
     title: "Reviews come in",
     detail: "On Google from the customers you asked, and on the other review sites you connect, like Service Seeking or hipages.",
   },
   {
-    title: "They show on your site",
-    detail: "One widget shows them together. It updates when a new Google review comes in.",
+    title: "One view on your site",
+    detail:
+      "One widget shows them together, matched to your site's look. It updates when a new Google review comes in.",
   },
 ];
 
@@ -43,7 +44,7 @@ const wrap = "mx-auto w-full max-w-[1200px]";
 const pad = "px-4 sm:px-6";
 const starterPlan = plans.find((plan) => plan.id === "starter")!;
 const growthPlan = plans.find((plan) => plan.id === "growth")!;
-const finalBandLine = `${TRIAL_LINE} Then Starter is $${starterPlan.price} a month or Growth is $${growthPlan.price}, including GST.`;
+const finalBandLine = `${TRIAL_LINE} Then Starter is ${starterPlan.priceLabel} or Growth is ${growthPlan.priceLabel}.`;
 
 const facts = [
   "Updates when a new review comes in",
@@ -52,9 +53,9 @@ const facts = [
 ];
 
 const pastCustomerSteps = [
-  "Export your past customers. We show you how.",
-  "Import them by CSV.",
-  "Email sequences keep asking, so you do not have to.",
+  "Send us a spreadsheet of past customers you have actually done work for.",
+  "We load the list for you.",
+  "Automatic review-request emails go out, with one polite reminder.",
 ];
 
 export default function HomePage() {
@@ -81,7 +82,7 @@ export default function HomePage() {
             </div>
             <p className="mt-4 text-base font-semibold leading-6 text-ink">{TRIAL_LINE}</p>
             <p className="mt-6 text-sm leading-6 text-muted">
-              After your trial, plans start at ${lowestPrice} a month, including GST.{" "}
+              After your trial, Starter is {starterPlan.priceLabel} and Growth is {growthPlan.priceLabel}.{" "}
               <Link href="/pricing" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
                 See plans and pricing
               </Link>
@@ -231,7 +232,7 @@ export default function HomePage() {
               You have already done the hard part.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-              Your past customers already know your work. On Growth, we show you how to export them from the software you already use and import them by CSV. Then email sequences ask them for a review, and bring past leads back into the conversation.
+              Your past customers already know your work. On Growth, send us a spreadsheet of people you have actually done work for. We load the list, then automatic review-request emails ask them for a review, with one polite reminder.
             </p>
             <div className="mt-8">
               <Link
@@ -260,7 +261,7 @@ export default function HomePage() {
               Two plans. Pick the one that fits.
             </h2>
             <p className="mt-5 text-lg leading-8 text-muted">
-              Prices include GST. Monthly. Cancel anytime. {SETUP_LINE}
+              {BOTH_PLANS_LINE} {SETUP_LINE}
             </p>
           </div>
           <div data-reveal="" className="mt-14">

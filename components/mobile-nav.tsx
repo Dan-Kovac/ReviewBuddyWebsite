@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
-import { loginUrl, navLinks } from "@/lib/site";
+import { TrialButton } from "@/components/trial-button";
+import { CTA_LABEL, loginUrl, navLinks } from "@/lib/site";
 
 export function MobileNav() {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ export function MobileNav() {
     <div>
       <button
         type="button"
-        className="inline-flex size-11 items-center justify-center rounded-full border border-line text-ink"
+        className="inline-flex size-12 items-center justify-center rounded-full border border-line text-ink"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpenPath(open ? null : pathname)}
@@ -44,7 +45,7 @@ export function MobileNav() {
         <nav
           id={panelId}
           aria-label="Mobile"
-          className="absolute inset-x-0 top-full border-b border-line bg-background px-4 py-3 sm:px-6"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-background px-4 py-3 shadow-lg sm:px-6"
         >
           <ul className="grid gap-1">
             {navLinks.map((link) => (
@@ -64,6 +65,11 @@ export function MobileNav() {
               >
                 Log in
               </a>
+            </li>
+            <li className="pt-2">
+              <TrialButton variant="ink" className="w-full">
+                {CTA_LABEL}
+              </TrialButton>
             </li>
           </ul>
         </nav>

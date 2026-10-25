@@ -3,9 +3,8 @@ import { Inter, Work_Sans } from "next/font/google";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { TrialProvider } from "@/components/trial-provider";
 import { organizationJsonLd } from "@/lib/json-ld";
-import { siteUrl } from "@/lib/site";
+import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
 
@@ -21,7 +20,7 @@ const workSans = Work_Sans({
 
 const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
 const homeDescription =
-  "7-day free trial, free setup. Get more Google reviews and show them with your other review sites in one widget on your website. From $49 a month inc. GST.";
+  "One view of your review sites. 7-day free trial, card taken up front. Starter A$49/month incl GST. Growth A$75/month incl GST.";
 
 export const ensureStatic = "navigation";
 
@@ -67,17 +66,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <TrialProvider>
-          <SiteHeader />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </TrialProvider>
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            The sign up form needs JavaScript. Email hello@reviewbuddy.com.au with
-            your name, business, mobile, and website.
+            Start trial links work without JavaScript. The free breakdown form
+            needs JavaScript. Email {contactEmail} if it does not open.
           </p>
         </noscript>
       </body>

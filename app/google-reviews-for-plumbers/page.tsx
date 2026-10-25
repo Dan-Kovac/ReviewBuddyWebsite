@@ -12,7 +12,7 @@ import { CTA_LABEL, TRIAL_LINE, plans } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
   description:
-    "Get more Google reviews after every plumbing job and show them on your website with your Service Seeking and hipages reviews. Starter $49, Growth $75 a month inc. GST.",
+    "Google reviews for plumbers, in one view with your other review sites. Starter A$49/month incl GST. Growth A$75/month incl GST. 7-day free trial, card taken up front.",
   path: "/google-reviews-for-plumbers",
 });
 
@@ -61,7 +61,7 @@ export default function PlumbersPage() {
                 </Link>
               </div>
               <p className="mt-4 text-sm leading-6 text-muted">
-                {TRIAL_LINE} Then plans from ${starter.price} a month (inc. GST).
+                {TRIAL_LINE} Then Starter is {starter.priceLabel} or Growth is {growth.priceLabel}.
               </p>
             </div>
             <ProductShot
@@ -118,8 +118,9 @@ export default function PlumbersPage() {
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
               Hot water jobs, blocked drains, bathroom renovations. Plenty of past
-              customers never got asked. On Growth, we show you how to export them
-              and import them by CSV, then email sequences ask them for a review.
+              customers never got asked. On Growth, send us a spreadsheet of people
+              you have actually done work for. We load the list, then automatic
+              review-request emails ask them, with one polite reminder.
             </p>
             <p className="mt-4">
               <Link href="/pricing#growth" className="font-semibold text-ink underline">
@@ -138,15 +139,16 @@ export default function PlumbersPage() {
               <div className="mt-6 grid gap-4 text-base leading-7 text-muted">
                 <p>
                   <strong className="text-ink">Starter, {starter.priceLabel}:</strong>{" "}
-                  Google review link and QR code, live reviews widget on your
-                  plumbing website, setup included.
+                  direct Google review link and QR code, a review widget matched
+                  to your plumbing website, and free done-for-you setup.
                 </p>
                 <p>
                   <strong className="text-ink">Growth, {growth.priceLabel}:</strong>{" "}
-                  everything in Starter, plus email sequences that keep asking for
-                  reviews and a way to reach past customers.
+                  everything in Starter, plus automatic review-request emails with
+                  one polite reminder, your past-customer list loaded, and ongoing
+                  coaching.
                 </p>
-                <p>Cancel anytime.</p>
+                <p>Both plans: 7-day free trial, card taken up front, a weekly note with one simple thing to do. Cancel any time.</p>
               </div>
             </div>
             <div className="flex flex-col justify-end gap-4">
@@ -172,7 +174,7 @@ export default function PlumbersPage() {
       </article>
       <CtaBand
         title="Put your plumbing reviews on the website"
-        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
+        body={`${TRIAL_LINE} Then Starter is ${starter.priceLabel} or Growth is ${growth.priceLabel}.`}
       />
     </>
   );

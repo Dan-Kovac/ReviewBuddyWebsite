@@ -1,28 +1,33 @@
 # ReviewBuddy
 
-> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them live on their own website. It is a white-labelled review platform with setup done for the customer.
+> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them, with the other review sites they connect, in one view on their own website. Setup is done for the customer.
 
 ## What it does
 
-- Gives each business a Google review link and QR code to share after every job.
-- Brings reviews from the other review sites a business connects, such as Service Seeking and hipages, together with Google in the one widget.
-- Puts a live Google reviews widget on the business website. It updates when a new review comes in.
-- Growth plan: email sequences that keep asking customers for reviews, and a way to reach past customers (export from your job software, import by CSV).
+- Gives each business a direct Google review link and QR code to share after every job.
+- Brings reviews from the other review sites a business connects, such as Service Seeking and hipages, together with Google in one widget.
+- Puts a review widget on the business website, matched to the site's look. It updates when a new review comes in.
+- Growth plan: automatic review-request emails with one polite reminder, the past-customer list loaded, and ongoing coaching.
+- Both plans include a weekly note with one simple thing to do.
 
 ## Offer and prices
 
-- 7-day free trial, free setup, cancel anytime.
-- Starter: $49 a month including GST.
-- Growth: $75 a month including GST.
+- 7-day free trial. Card taken up front. Cancel any time.
+- Free done-for-you setup on both plans.
+- Starter: A$49/month incl GST.
+- Growth: A$75/month incl GST.
+- Trial sign-up is on the Embed My Reviews platform, not stored on this website.
 
 ## Pages
 
 - [Home](https://reviewbuddy.com.au/): what ReviewBuddy is and how it works
 - [Pricing](https://reviewbuddy.com.au/pricing): both plans and a full comparison
+- [Blog](https://reviewbuddy.com.au/blog): articles, when published
+- [Help](https://reviewbuddy.com.au/help): help guides, when published
 - [Free review breakdown](https://reviewbuddy.com.au/free-review-breakdown): request a free look at where a business stands on Google
 - [Google reviews for plumbers](https://reviewbuddy.com.au/google-reviews-for-plumbers): how it works for plumbing businesses
-- [Privacy](https://reviewbuddy.com.au/privacy)
-- [Terms](https://reviewbuddy.com.au/terms)
+- [Privacy](https://reviewbuddy.com.au/privacy): draft
+- [Terms](https://reviewbuddy.com.au/terms): draft
 
 ## Contact
 

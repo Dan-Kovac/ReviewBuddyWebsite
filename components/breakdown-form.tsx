@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Field } from "@/components/trial-form";
+import { Field } from "@/components/form-field";
 import {
   BREAKDOWN_SOURCE,
   attributionFromParams,
@@ -36,19 +36,22 @@ const fieldIds: Record<string, string> = {
 
 export function BreakdownForm() {
   const [errors, setErrors] = useState<LeadErrors>({});
-  const [formError, setFormError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [mailto, setMailto] = useState("");
 
-  if (sent) {
+  if (mailto) {
     return (
       <div role="status" className="py-2">
-        <p className="text-xl font-semibold text-ink">Request received</p>
+        <p className="text-xl font-semibold text-ink">Next step: email us</p>
         <p className="mt-3 text-base leading-7 text-muted">
-          Thanks. We will look at your Google reviews and send your breakdown
-          to the email you gave us. There is nothing to pay and nothing to
-          sign up for.
+          This page does not store your details. Email them to us and we will
+          send the breakdown. There is nothing to pay.
         </p>
+        <a
+          href={mailto}
+          className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white"
+        >
+          Email {contactEmail}
+        </a>
       </div>
     );
   }
@@ -57,15 +60,14 @@ export function BreakdownForm() {
     <form
       noValidate
       className="grid gap-4"
-      onSubmit={async (event) => {
+      onSubmit={(event) => {
         event.preventDefault();
-        setFormError("");
 
         const form = event.currentTarget;
         const payload = Object.fromEntries(new FormData(form).entries());
 
         if (honeypotFilled(payload)) {
-          setSent(true);
+          setMailto(`mailto:${contactEmail}`);
           return;
         }
 
@@ -84,38 +86,22 @@ export function BreakdownForm() {
         }
 
         setErrors({});
-        setSubmitting(true);
-
-        try {
-          const response = await fetch("/api/lead", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(parsed.lead),
-          });
-          const result = (await response.json()) as {
-            ok?: boolean;
-            errors?: LeadErrors;
-          };
-
-          if (!response.ok || !result.ok) {
-            if (result.errors) {
-              setErrors(result.errors);
-            }
-            setFormError(
-              `We could not send that. Email ${contactEmail} and we will sort it.`,
-            );
-            return;
-          }
-
-          setSent(true);
-          form.reset();
-        } catch {
-          setFormError(
-            `We could not send that. Email ${contactEmail} and we will sort it.`,
-          );
-        } finally {
-          setSubmitting(false);
-        }
+        const lead = parsed.lead;
+        const subject = encodeURIComponent("Free review breakdown");
+        const body = encodeURIComponent(
+          [
+            "Please send my free review breakdown.",
+            "",
+            `Name: ${lead.name}`,
+            `Business: ${lead.businessName}`,
+            `Email: ${lead.email}`,
+            `Website or Google profile: ${lead.website}`,
+            `Mobile: ${lead.mobile || "-"}`,
+            `Trade and suburb: ${lead.tradeAndSuburb || "-"}`,
+          ].join("\n"),
+        );
+        setMailto(`mailto:${contactEmail}?subject=${subject}&body=${body}`);
+        form.reset();
       }}
     >
       <p className="text-sm text-muted">
@@ -187,22 +173,15 @@ export function BreakdownForm() {
           autoComplete="off"
         />
       </div>
-      {formError ? (
-        <p role="alert" className="text-sm text-danger">
-          {formError}
-        </p>
-      ) : null}
       <button
         type="submit"
-        disabled={submitting}
-        aria-busy={submitting}
-        className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white hover:bg-black disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white hover:bg-black"
       >
-        {submitting ? "Sending…" : "Send me my free breakdown"}
+        Send me my free breakdown
       </button>
       <p className="text-sm leading-6 text-muted">
-        We use your details to prepare your breakdown and to contact you about
-        it. See our <a href="/privacy" className="underline">privacy policy</a>.
+        The next step opens an email to {contactEmail}. This page does not
+        store the form. See our <a href="/privacy" className="underline">privacy policy</a>.
       </p>
     </form>
   );

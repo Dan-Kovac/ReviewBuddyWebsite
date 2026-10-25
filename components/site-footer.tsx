@@ -17,11 +17,11 @@ const legal = [
 export function SiteFooter() {
   return (
     <footer className="bg-ink text-white">
-      <div className="mx-auto grid w-full max-w-[1200px] gap-12 px-4 py-16 pb-24 sm:px-6 md:grid-cols-[1.3fr_0.8fr_1fr] md:pb-16">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-12 px-4 py-16 pb-28 sm:px-6 md:grid-cols-[1.3fr_0.8fr_1fr] lg:pb-16">
         <div>
           <Logo />
           <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">
-            Google reviews on your website, for Australian tradies.
+            One view of your reviews, on your website. For Australian tradies.
           </p>
         </div>
         <nav aria-label="Footer" className="grid content-start gap-1 text-sm">

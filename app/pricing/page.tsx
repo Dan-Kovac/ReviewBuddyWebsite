@@ -7,22 +7,95 @@ import { TrialButton } from "@/components/trial-button";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
+import { BOTH_PLANS_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy Pricing: Starter $49, Growth $75 a month inc. GST",
+  title: "ReviewBuddy Pricing: Starter A$49 and Growth A$75 a month incl GST",
   description:
-    "Two plans for tradies, both with a 7-day free trial and free setup. Starter puts your Google reviews live on your website. Growth adds email follow ups and re-engages past customers. Cancel anytime.",
+    "Starter A$49/month incl GST. Growth A$75/month incl GST. 7-day free trial, card taken up front, free done-for-you setup. Cancel any time.",
   path: "/pricing",
 });
 
 const billing = [
   "7-day free trial on both plans",
-  "Billed monthly after your trial",
-  "Prices include GST",
-  "Cancel anytime",
-  "Email us for any change",
+  "Card taken up front",
+  "Weekly note with one simple thing to do",
+  "Free done-for-you setup",
+  "Cancel any time",
 ];
+
+const comparisonRows = [
+  ["Direct Google review link and QR code", "Included", "Included"],
+  ["Review widget on your site, matched to its look", "Included", "Included"],
+  ["Free done-for-you setup", "Included", "Included"],
+  ["Weekly note with one simple thing to do", "Included", "Included"],
+  ["7-day free trial, card taken up front", "Included", "Included"],
+  ["Cancel any time", "Yes", "Yes"],
+  ["Automatic review-request emails with one polite reminder", "Not included", "Included"],
+  ["Past-customer list loaded", "Not included", "Included"],
+  ["Ongoing coaching", "Not included", "Included"],
+] as const;
+
+function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: string; growth: string }) {
+  const rows = [
+    ["Price", starterPrice, growthPrice],
+    ...comparisonRows,
+  ] as const;
+
+  return (
+    <>
+      <div className="mt-8 grid gap-4 sm:hidden">
+        {(["Starter", "Growth"] as const).map((name, column) => (
+          <section key={name} className="rounded-2xl border border-line bg-white p-4">
+            <h3 className="text-lg font-semibold text-ink">
+              {name}
+              {name === "Growth" ? (
+                <span className="ml-2 rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                  Recommended
+                </span>
+              ) : null}
+            </h3>
+            <dl className="mt-3 grid gap-3">
+              {rows.map((row) => (
+                <div key={row[0]} className="border-t border-line pt-3">
+                  <dt className="text-sm font-semibold text-ink">{row[0]}</dt>
+                  <dd className={`mt-1 text-base ${row[column + 1] === "Not included" ? "text-muted" : "text-ink"}`}>
+                    {row[column + 1]}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))}
+      </div>
+      <div className="mt-8 hidden rounded-2xl border border-line bg-white sm:block">
+        <table className="w-full border-collapse text-left text-sm md:text-base">
+          <thead>
+            <tr className="border-b border-line bg-soft">
+              <th scope="col" className="px-4 py-4 font-semibold text-ink">Plan</th>
+              <th scope="col" className="px-4 py-4 font-semibold text-ink">Starter</th>
+              <th scope="col" className="px-4 py-4 font-semibold text-ink">
+                Growth{" "}
+                <span className="ml-1 rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                  Recommended
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {rows.map((row) => (
+              <tr key={row[0]}>
+                <th scope="row" className="px-4 py-4 font-semibold text-ink">{row[0]}</th>
+                <td className={`px-4 py-4 ${row[1] === "Not included" ? "text-muted" : "text-ink"}`}>{row[1]}</td>
+                <td className={`px-4 py-4 ${row[2] === "Not included" ? "text-muted" : "text-ink"}`}>{row[2]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
 
 export default function PricingPage() {
   const starter = plans.find((plan) => plan.id === "starter")!;
@@ -39,9 +112,10 @@ export default function PricingPage() {
               ReviewBuddy pricing
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              Starter puts your Google reviews live on your website. Growth keeps
-              them coming and reaches your past customers. Prices include GST.
-              Cancel anytime.
+              Starter is a direct Google review link, a QR code and a review
+              widget matched to your site. Growth adds automatic review-request
+              emails with one polite reminder, your past-customer list loaded,
+              and ongoing coaching. {BOTH_PLANS_LINE}
             </p>
             <p className="mt-4 inline-flex rounded-full bg-brand px-4 py-2 text-base font-semibold text-ink">
               {TRIAL_LINE}
@@ -54,72 +128,14 @@ export default function PricingPage() {
             <div className="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <PlanPair compact />
             </div>
-            <p className="mt-8 text-center text-base text-muted">Cancel anytime.</p>
+            <p className="mt-8 text-center text-base text-muted">Cancel any time.</p>
           </div>
         </div>
 
         <section className="px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto w-full max-w-[1100px]">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Compare the plans</h2>
-            <div className="mt-8 overflow-x-auto rounded-2xl border border-line bg-white">
-              <table className="w-full min-w-[560px] border-collapse text-left">
-                <thead>
-                  <tr className="border-b border-line bg-soft">
-                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
-                      Plan
-                    </th>
-                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
-                      Starter
-                    </th>
-                    <th scope="col" className="px-4 py-4 text-sm font-semibold text-ink">
-                      Growth <span className="ml-1 rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-ink">Recommended</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-line text-base">
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Price</th>
-                    <td className="px-4 py-4 text-ink">{starter.priceLabel}</td>
-                    <td className="px-4 py-4 text-ink">{growth.priceLabel}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Google review link and QR code</th>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Live reviews widget on your website</th>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Setup</th>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Email sequences that keep asking customers for reviews</th>
-                    <td className="px-4 py-4 text-muted">Not included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Re-engage past leads and customers</th>
-                    <td className="px-4 py-4 text-muted">Not included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Help exporting past customers and importing by CSV</th>
-                    <td className="px-4 py-4 text-muted">Not included</td>
-                    <td className="px-4 py-4 text-ink">Included</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="px-4 py-4 font-semibold text-ink">Cancel anytime</th>
-                    <td className="px-4 py-4 text-ink">Yes</td>
-                    <td className="px-4 py-4 text-ink">Yes</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <Comparison starter={starter.priceLabel} growth={growth.priceLabel} />
           </div>
         </section>
 
@@ -128,17 +144,18 @@ export default function PricingPage() {
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">Not sure which plan?</h2>
               <p className="mt-4 text-base leading-7 text-muted">
-                Start with Starter if you only want your reviews on your website.
-                Choose Growth if you want email follow ups and want to ask the
-                customers you have already worked for. You can also pick &quot;Not
-                sure yet&quot; in the sign up form and we will talk it through.
+                Starter is the link, the QR code and the widget. Growth adds
+                automatic review-request emails with one polite reminder, your
+                past-customer list loaded, and ongoing coaching. Email us if you
+                are not sure which plan.
               </p>
             </div>
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">Setup is done for you</h2>
               <p className="mt-4 text-base leading-7 text-muted">
-                Setup is included on both plans. We add the live reviews widget
-                to your website and set up your Google review link and QR code.
+                Free done-for-you setup is included on both plans. We match the
+                review widget to your site and set up your direct Google review
+                link and QR code.
               </p>
               <ul className="mt-6 grid gap-2">
                 {billing.map((item) => (
@@ -188,7 +205,7 @@ export default function PricingPage() {
       </article>
       <CtaBand
         title="Start your 7-day free trial."
-        body={`${TRIAL_LINE} Then Starter is $${starter.price} a month or Growth is $${growth.price}, including GST.`}
+        body={`${TRIAL_LINE} Then Starter is ${starter.priceLabel} or Growth is ${growth.priceLabel}.`}
       />
     </>
   );

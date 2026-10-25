@@ -2,9 +2,9 @@
 
 .hero-wash {
   background:
-    radial-gradient(900px 480px at 88% -10%, rgb(56 182 255 / 0.22), transparent 66%),
-    radial-gradient(600px 360px at -8% 110%, rgb(56 182 255 / 0.10), transparent 70%),
-    #fff;
+    radial-gradient(880px 420px at 92% -8%, rgb(56 182 255 / 0.28), transparent 62%),
+    radial-gradient(520px 320px at -10% 100%, rgb(56 182 255 / 0.12), transparent 68%),
+    linear-gradient(180deg, #f7fbfe 0%, #fff 42%);
 }
 
 /* Confident page headings on the pricing, plumbers and free breakdown headers. */

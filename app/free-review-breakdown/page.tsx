@@ -68,12 +68,12 @@ export default function FreeReviewBreakdownPage() {
                 If you like it
               </h2>
               <p className="mt-4 text-base leading-7 text-muted">
-                {TRIAL_LINE} We set up your Google review link and QR code and
-                put a live reviews widget on your website. It is your call, and
-                the breakdown is yours to keep either way.
+                {TRIAL_LINE} Free done-for-you setup includes your direct Google
+                review link, QR code and a review widget matched to your site.
+                The breakdown is yours either way.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <TrialButton variant="ink">Start free trial</TrialButton>
+                <TrialButton variant="ink">Get started</TrialButton>
                 <Link href="/pricing" className="font-semibold text-ink underline">
                   See plans and pricing
                 </Link>
@@ -87,7 +87,8 @@ export default function FreeReviewBreakdownPage() {
                 Request your breakdown
               </h2>
               <p className="mt-2 text-sm leading-6 text-muted">
-                It takes a minute. We email it to you.
+                It takes a minute. The next step is an email to us. We do not
+                store this form on the site.
               </p>
               <div className="mt-6">
                 <BreakdownForm />

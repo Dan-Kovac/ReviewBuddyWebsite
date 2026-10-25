@@ -15,11 +15,9 @@ function Cover() {
 
 export function GuideCards({
   guides,
-  emptyHref,
   columns = 2,
 }: {
   guides: readonly Guide[];
-  emptyHref?: string;
   columns?: 2 | 3;
 }) {
   if (guides.length === 0) {

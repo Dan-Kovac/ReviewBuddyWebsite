@@ -44,26 +44,29 @@ export default function TermsPage() {
         <h2 className={h2}>The service</h2>
         <p>
           ReviewBuddy helps your business ask customers for Google reviews and
-          shows your Google reviews on your website. Starter gives you a Google
-          review link and QR code and a live reviews widget. Growth adds email
-          sequences that keep asking customers for reviews, and a way to reach
-          past leads and customers. We set the service up for you.
+          shows those reviews, with the other review sites you connect, in one
+          view on your website. Starter gives you a direct Google review link
+          and QR code and a review widget matched to your site. Growth adds
+          automatic review-request emails with one polite reminder, loads your
+          past-customer list, and includes ongoing coaching. Setup is done for
+          you.
         </p>
 
         <h2 className={h2}>Free trial</h2>
         <p>
-          New customers get a 7-day free trial and free setup. You can cancel
-          at any time during the trial and you will not be charged for it.
-          [Dan to confirm: whether a card is needed to start the trial, and
-          what happens at the end of day 7.]
+          New customers get a 7-day free trial and free done-for-you setup. Your
+          card is taken up front on the Embed My Reviews sign-up page. You can
+          cancel any time. [Dan to confirm: whether the card is charged during
+          the 7 days, or only if the plan continues after day 7.]
         </p>
 
         <h2 className={h2}>Plans, prices and billing</h2>
         <p>
-          After your trial, {starter.name} is ${starter.price} a month and{" "}
-          {growth.name} is ${growth.price} a month. Prices are in Australian
-          dollars and include GST. Plans are billed monthly in advance. If our
-          prices change, we will tell you before the change applies to you.
+          {starter.name} is {starter.priceLabel} and {growth.name} is{" "}
+          {growth.priceLabel}. Prices are in Australian dollars and include GST.
+          [Dan to confirm the billing cycle shown on the Embed My Reviews
+          checkout.] If our prices change, we will tell you before the change
+          applies to you.
         </p>
 
         <h2 className={h2}>Cancelling</h2>
