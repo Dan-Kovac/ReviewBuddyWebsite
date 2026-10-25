@@ -2,7 +2,7 @@ import type { Faq } from "@/lib/faqs";
 
 export function FaqList({ faqs }: { faqs: readonly Faq[] }) {
   return (
-    <div className="divide-y divide-line rounded-2xl border border-line bg-white shadow-[0_16px_40px_-34px_rgba(26,26,26,0.45)]">
+    <div className="divide-y divide-line rounded-[10px] border border-line bg-white">
       {faqs.map((faq) => (
         <details key={faq.question} className="group px-4 sm:px-6">
           <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold text-ink [&::-webkit-details-marker]:hidden">

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { guidePath, type Guide } from "@/lib/guides";
 
 const card =
-  "hover-lift flex h-full flex-col overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_16px_40px_-28px_rgba(11,15,20,0.18)] hover:shadow-[0_20px_44px_-24px_rgba(11,15,20,0.28)]";
+  "flex h-full flex-col overflow-hidden rounded-[10px] border border-line bg-white";
 
 function Cover() {
   return (

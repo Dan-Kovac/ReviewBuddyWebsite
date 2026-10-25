@@ -27,6 +27,8 @@ function trackOwnErrors(page: Page) {
     if (!onOurSite || message.type() !== "error") return;
     const text = message.text();
     if (text.includes("favicon")) return;
+    // The breakdown form returns 503 when Supabase is not configured. That is the fallback.
+    if (text.includes("status of 503")) return;
     problems.push(`console: ${text}`);
   });
   return problems;
@@ -45,9 +47,10 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
 
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Get chosen before they call");
-  await expect(page.getByText("A$49/month incl GST").first()).toBeVisible();
-  await expect(page.getByText("A$75/month incl GST").first()).toBeVisible();
-  await expect(page.getByText("Card taken up front").first()).toBeVisible();
+  await expect(page.getByText("About $11 a week").first()).toBeVisible();
+  await expect(page.getByText("About $17 a week").first()).toBeVisible();
+  await expect(page.getByText("Cancel with one email").first()).toBeVisible();
+  await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
   await expect(page.getByText(/no card/i)).toHaveCount(0);
   await shot(page, "01-landing");
@@ -66,17 +69,20 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await menuButton.click();
     const menu = page.getByRole("navigation", { name: "Mobile" });
     await expect(menu.getByRole("link", { name: "Pricing" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Blog" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Help" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Plumbers" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Free breakdown" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
+    await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(menu.getByRole("link", { name: "Get started" })).toHaveAttribute("href", pricingSectionHref);
+    await expect(menu.getByRole("link", { name: "Start my free trial" })).toHaveAttribute("href", pricingSectionHref);
     await shot(page, "02-menu");
     await page.getByRole("button", { name: "Close menu" }).click();
   } else {
     const nav = page.getByRole("navigation", { name: "Main" });
     await expect(nav.getByRole("link", { name: "Pricing" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(page.getByRole("banner").getByRole("link", { name: "Get started" })).toHaveAttribute(
+    await expect(nav.getByRole("link", { name: "Blog" })).toHaveCount(0);
+    await expect(page.getByRole("banner").getByRole("link", { name: "Start my free trial" })).toHaveAttribute(
       "href",
       pricingSectionHref,
     );
@@ -107,8 +113,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
 
   await page.goto("/pricing");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("ReviewBuddy pricing");
-  await expect(page.getByRole("link", { name: "Start free trial on Starter" })).toHaveAttribute("href", starterSignup);
-  await expect(page.getByRole("link", { name: "Start free trial on Growth" })).toHaveAttribute("href", growthSignup);
+  await expect(page.getByRole("link", { name: "Try Starter free" })).toHaveAttribute("href", starterSignup);
+  await expect(page.getByRole("link", { name: "Try Growth free" })).toHaveAttribute("href", growthSignup);
   await expect(page.locator("[data-cta='pricing']").first()).toHaveAttribute("href", pricingSectionHref);
   await shot(page, "04-pricing-page");
 
@@ -123,16 +129,13 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await shot(page, "06-help");
 
   await page.goto("/free-review-breakdown");
-  await page.getByLabel("Your name").fill("Sam Lee");
-  await page.getByLabel("Business name").fill("Lee Plumbing");
-  await page.getByLabel("Website or Google Business Profile link").fill("https://example.com");
+  const posted = page.waitForResponse((response) => response.url().includes("/api/breakdown") && response.request().method() === "POST");
+  await page.getByLabel("Business name and suburb").fill("Lee Plumbing, Richmond");
   await page.getByLabel("Email").fill("sam@example.com");
   await page.getByRole("button", { name: "Send me my free breakdown" }).click();
-  await expect(page.getByRole("status")).toContainText("Next step: email us");
-  await expect(page.getByRole("status").getByRole("link", { name: /Email hello@/ })).toHaveAttribute(
-    "href",
-    /mailto:hello@reviewbuddy.com.au/,
-  );
+  const response = await posted;
+  expect(response.status()).toBe(503);
+  await expect(page.getByRole("status")).toContainText("hello@reviewbuddy.com.au");
   await shot(page, "07-breakdown-next");
 
   expect(problems, problems.join("\n")).toEqual([]);

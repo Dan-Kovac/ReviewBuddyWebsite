@@ -1,11 +1,12 @@
 "use client";
 
+import { Phone } from "lucide-react";
 import { useEffect, useState } from "react";
-import { CTA_LABEL, pricingSectionHref } from "@/lib/site";
+import { STICKY_CTA_LABEL, contactPhoneHref, pricingSectionHref } from "@/lib/site";
 
 /**
- * Sticky bottom trial bar on phones. Appears once the hero button leaves view,
- * hides while the pricing band is on screen.
+ * Sticky bottom bar on phones. Appears once the hero button leaves view,
+ * and hides while the pricing block is on screen.
  */
 export function StickyTrialBar() {
   const [show, setShow] = useState(false);
@@ -38,16 +39,22 @@ export function StickyTrialBar() {
   }, []);
 
   return (
-    <div
-      className={`sticky-bar fixed inset-x-0 bottom-0 z-40 lg:hidden ${show ? "" : "hidden"}`}
-    >
-      <div className="border-t border-line bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">
+    <div className={`fixed inset-x-0 bottom-0 z-40 lg:hidden ${show ? "" : "hidden"}`}>
+      <div className="flex gap-2 border-t border-line bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <a
           href={pricingSectionHref}
           data-cta="pricing"
-          className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white"
+          data-location="sticky"
+          className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-ink px-4 text-center text-base font-semibold text-white"
         >
-          {CTA_LABEL}
+          {STICKY_CTA_LABEL}
+        </a>
+        <a
+          href={contactPhoneHref}
+          aria-label="Call Dan on 0411 701 078"
+          className="inline-flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-ink text-ink"
+        >
+          <Phone aria-hidden="true" className="size-5" />
         </a>
       </div>
     </div>

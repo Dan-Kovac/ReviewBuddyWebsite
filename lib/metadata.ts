@@ -19,7 +19,7 @@ export function pageMetadata({
     url: `${siteUrl}/opengraph-image`,
     width: 1200,
     height: 630,
-    alt: "Review Buddy. Show your Google reviews on your website.",
+    alt: "ReviewBuddy. Google reviews on your website.",
   };
 
   return {

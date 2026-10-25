@@ -10,7 +10,7 @@ export const metadata = pageMetadata({
 });
 
 const EMPTY_MESSAGE =
-  "Help guides are being prepared. If you are stuck on something today, email hello@reviewbuddy.com.au and we will sort it out.";
+  "Help guides are being prepared. If you're stuck today, email hello@reviewbuddy.com.au.";
 
 function DocList({ docs }: { docs: readonly PostCard[] }) {
   return (
@@ -55,10 +55,10 @@ async function HelpIndex() {
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
         Short, plain answers to the things our clients ask about. If your
-        question is not here, email hello@reviewbuddy.com.au.
+        question isn&apos;t here, email hello@reviewbuddy.com.au.
       </p>
       {cards.length === 0 ? (
-        <p className="mt-12 rounded-[20px] border border-line bg-soft p-8 text-base leading-7 text-muted">
+        <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
           {EMPTY_MESSAGE}
         </p>
       ) : (

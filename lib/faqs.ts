@@ -6,87 +6,95 @@ export type Faq = {
 export const homeFaqs: Faq[] = [
   {
     question: "Is there a free trial?",
-    answer:
-      "Yes. Both plans include a 7-day free trial. Your card is taken up front. You can cancel any time.",
+    answer: "Yes. It's free for 7 days. Cancel with one email.",
   },
   {
     question: "What does it cost?",
     answer:
-      "Starter is A$49/month incl GST. Growth is A$75/month incl GST. Both include a 7-day free trial, a weekly note with one simple thing to do, and free done-for-you setup. Cancel any time.",
+      "Starter is $49 a month. Growth is $75 a month. GST is included. Both come with free setup and a weekly tip from me.",
   },
   {
-    question: "What is the difference between Starter and Growth?",
+    question: "What's the difference between Starter and Growth?",
     answer:
-      "Starter gives you a direct Google review link and QR code, and a review widget on your site matched to its look. Growth is everything in Starter, plus automatic review-request emails with one polite reminder, your past-customer list loaded, and ongoing coaching.",
+      "Starter is for tradies who'll ask in person. You get a Google review link, a QR code and a widget on your site. Growth is for tradies who'd rather we did the asking. We email your customers and load your past customers in.",
   },
   {
     question: "Which plan should I choose?",
-    answer:
-      "Growth suits most tradies, because the review requests go out for you and your past customers are loaded in. Starter suits you if you only want the link, the QR code and the widget.",
-  },
-  {
-    question: "How does setup work?",
-    answer:
-      "Setup is free and done for you on both plans. We connect your Google reviews, place the review widget on your website matched to its look, and give you the direct review link and QR code.",
+    answer: "Most tradies start on Growth. Pick Starter if you'll ask people yourself.",
   },
   {
     question: "Do you take a card up front?",
     answer:
-      "Yes. The 7-day free trial takes your card up front on the sign-up page. You can cancel any time.",
+      "Yes. Your card is taken when you start, so the trial can roll on if you stay. Cancel with one email.",
   },
   {
-    question: "Can I show reviews from Service Seeking and Google together?",
+    question: "Can I show Service Seeking and Google together?",
     answer:
-      "Yes. One view brings together the review sites you connect, Google and Service Seeking among them, in one widget on your website. The Google review link and QR code are where new Google reviews start.",
+      "Yes. Connect the sites you already use. They show up together in one box on your website.",
   },
   {
     question: "Which review sites can you pull from?",
     answer:
-      "The platform behind ReviewBuddy supports more than 60 review sites. For tradies that includes Google, Facebook, Service Seeking, hipages, Airtasker and Houzz. Email us the ones you use and we will tell you what can be connected.",
+      "Google, Facebook, Service Seeking, hipages and plenty more. Email me the ones you use and I'll tell you what we can connect.",
   },
   {
     question: "Can I cancel?",
-    answer: "Yes. Cancel any time.",
+    answer: "Yes. There's no lock-in. Email me and I'll cancel it.",
   },
   {
     question: "Do you write reviews for me?",
-    answer:
-      "No. Every review comes from a real customer. We just make it easy for them to leave one.",
+    answer: "No. Every review comes from a real customer. We just make it easy to leave one.",
   },
   {
-    question: "How do I ask my past customers for reviews?",
+    question: "How do I ask past customers?",
     answer:
-      "On Growth, send us a spreadsheet of past customers you have actually done work for. We load the list, and automatic review-request emails go out with one polite reminder.",
+      "On Growth, send us a list of past customers. We'll load it and ask them, with one reminder.",
   },
 ];
 
+/**
+ * Pricing objections. Two answers stay out of the page until Dan confirms them:
+ *
+ * TODO(Dan): "When is my card charged?"
+ * Confirm whether Stripe charges at the end of day 7 or during the trial,
+ * and whether the trial-ending reminder email is on. Do not publish an answer before that.
+ *
+ * TODO(Dan): "How long does setup take?"
+ * Confirm the turnaround and what you need from the tradie. Do not publish a number of days before that.
+ */
 export const pricingFaqs: Faq[] = [
   {
+    question: "Is there a lock-in contract?",
+    answer: "No. You're month to month. Cancel with one email.",
+  },
+  {
+    question: "What if I get a bad review?",
+    answer: "We help you reply well. We never hide or filter reviews.",
+  },
+  {
+    question: "Do I need a website?",
+    answer:
+      "You can start without one. Starter still gives you a Google review link and a QR code. The widget needs a page to sit on.",
+  },
+  {
+    question: "Will you spam my customers?",
+    answer: "One email and one reminder, that's it.",
+  },
+  {
+    question: "Can I change plans?",
+    answer: "Yes. Email me and I'll move you. You're not locked in.",
+  },
+  {
     question: "Is there a free trial?",
-    answer:
-      "Yes. Both plans start with a 7-day free trial. Your card is taken up front. Cancel any time.",
-  },
-  {
-    question: "When do I pay?",
-    answer:
-      "Your card is taken up front to start the 7-day free trial. Starter is A$49/month incl GST and Growth is A$75/month incl GST. Cancel any time.",
-  },
-  {
-    question: "Is setup included?",
-    answer: "Yes. Free done-for-you setup is included on both plans.",
+    answer: "Yes. It's free for 7 days. Your card is taken to start it. Cancel with one email.",
   },
   {
     question: "Do prices include GST?",
-    answer: "Yes. Starter is A$49/month incl GST and Growth is A$75/month incl GST.",
+    answer: "Yes. $49 and $75 are the monthly prices, GST included.",
   },
   {
-    question: "Can I cancel?",
-    answer: "Yes. Cancel any time. Email us for any change.",
-  },
-  {
-    question: "Can the widget show Service Seeking and Google reviews together?",
-    answer:
-      "Yes. One view shows reviews from the sites you connect, Google and Service Seeking among them. Email us the sites you use and we will tell you what can be connected.",
+    question: "Is setup included?",
+    answer: "Yes. I set both plans up for you.",
   },
 ];
 
@@ -94,21 +102,21 @@ export const plumberFaqs: Faq[] = [
   {
     question: "When do I ask for a review?",
     answer:
-      "After the job, while the customer still remembers you. Share your direct Google review link, or put the QR code on your invoice or van. On Growth, automatic review-request emails ask for you, with one polite reminder.",
+      "After the job, while they still remember you. Share your Google review link, or put the QR code on the invoice. On Growth, we email them for you.",
   },
   {
-    question: "Can I show my Service Seeking and Google reviews together?",
+    question: "Can I show Service Seeking and Google together?",
     answer:
-      "Yes. One widget can show reviews from the sites you connect, such as Google, Service Seeking and hipages, together on your plumbing website. Email us the ones you use and we will tell you what can be connected.",
+      "Yes. One widget can show Google, Service Seeking and hipages on your plumbing site. Email me the sites you use.",
   },
   {
     question: "What does it cost a plumber?",
     answer:
-      "Starter is A$49/month incl GST and Growth is A$75/month incl GST. Both include a 7-day free trial, card taken up front, a weekly note with one simple thing to do, and free done-for-you setup. Cancel any time.",
+      "Starter is $49 a month. Growth is $75 a month. GST is included. Both include free setup and a weekly tip. Cancel with one email.",
   },
   {
     question: "Can I ask customers from last year?",
     answer:
-      "On Growth, yes. Send us a spreadsheet of past customers you have actually done work for. We load the list, and the review-request emails go out with one polite reminder.",
+      "On Growth, yes. Send us a list of past customers. We'll load it and ask them, with one reminder.",
   },
 ];

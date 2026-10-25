@@ -21,8 +21,9 @@ export function SiteFooter() {
         <div>
           <Logo />
           <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">
-            One view of your reviews, on your website. For Australian tradies.
+            Google reviews for Aussie tradies.
           </p>
+          {/* TODO(Dan): confirm a public line such as "Run by Dan Kovac in Melbourne." Do not publish a city until you do. */}
         </div>
         <nav aria-label="Footer" className="grid content-start gap-1 text-sm">
           <p className="mb-2 text-xs font-semibold tracking-wide text-white/50">Explore</p>
@@ -78,7 +79,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <p className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-5 text-sm text-white/60 sm:px-6">
           <span>© 2026 ReviewBuddy</span>
-          <span className="text-white/50">{abnPlaceholder}</span>
+          <span>Trademarks belong to their owners.</span>
         </p>
       </div>
     </footer>

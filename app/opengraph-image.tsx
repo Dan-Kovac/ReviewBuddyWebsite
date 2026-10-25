@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Review Buddy. Show your Google reviews on your website.";
+export const alt = "ReviewBuddy. Google reviews on your website.";
 export const size = {
   width: 1200,
   height: 630,
@@ -32,7 +32,7 @@ export default function OpenGraphImage() {
             }}
           />
           <div style={{ marginLeft: 16, fontSize: 28, letterSpacing: 3 }}>
-            REVIEW BUDDY
+            ReviewBuddy
           </div>
         </div>
         <div
@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
           Get chosen before they call.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#1a1a1a" }}>
-          One view of your reviews. Starter A$49/month incl GST.
+          Plans from $49 a month, GST included.
         </div>
       </div>
     ),

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Work_Sans } from "next/font/google";
+import { Archivo, Work_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { CtaAnalytics } from "@/components/cta-analytics";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -8,19 +10,21 @@ import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["700", "800"],
 });
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
   subsets: ["latin"],
+  weight: ["400", "600"],
 });
 
 const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
 const homeDescription =
-  "One view of your review sites. 7-day free trial, card taken up front. Starter A$49/month incl GST. Growth A$75/month incl GST.";
+  "We help tradies get more Google reviews, then put them on their website. Plans from $49 a month, GST included.";
 
 export const ensureStatic = "navigation";
 
@@ -56,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`${inter.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
+      className={`${archivo.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />
@@ -71,10 +75,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        {process.env.VERCEL ? <Analytics /> : null}
+        <CtaAnalytics />
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            Start trial links work without JavaScript. The free breakdown form
-            needs JavaScript. Email {contactEmail} if it does not open.
+            Trial links work without JavaScript. The free breakdown form needs
+            JavaScript. Email {contactEmail} if it doesn&apos;t open.
           </p>
         </noscript>
       </body>

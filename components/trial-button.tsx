@@ -7,20 +7,21 @@ const variants = {
 };
 
 /**
- * With a plan, this is Start free trial and leaves for that plan's Stripe
- * payment link. Without a plan, this is Get started and goes to the pricing
- * section so the visitor chooses a plan first.
+ * With a plan, this leaves for that plan's Stripe payment link.
+ * Without a plan, this goes to the pricing section so the visitor picks one.
  */
 export function TrialButton({
   children,
   className = "",
   variant = "brand",
   plan,
+  location = "cta",
 }: {
   children?: React.ReactNode;
   className?: string;
   variant?: keyof typeof variants;
   plan?: PlanId;
+  location?: string;
 }) {
   const href = plan ? signupHref(plan) : pricingSectionHref;
   return (
@@ -28,9 +29,10 @@ export function TrialButton({
       href={href}
       data-signup={plan}
       data-cta={plan ? undefined : "pricing"}
-      className={`hover-lift inline-flex min-h-12 items-center justify-center rounded-full px-5 text-center text-base font-semibold shadow-[0_10px_24px_-16px_rgba(26,26,26,0.65)] ${variants[variant]} ${className}`}
+      data-location={location}
+      className={`inline-flex min-h-12 items-center justify-center rounded-full px-5 text-center text-base font-semibold ${variants[variant]} ${className}`}
     >
-      {children ?? (plan ? "Start free trial" : "Get started")}
+      {children ?? (plan ? "Try this plan free" : "Start my free trial")}
     </a>
   );
 }

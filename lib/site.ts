@@ -1,4 +1,4 @@
-import { CARD_UPFRONT } from "./flags";
+import { TRIAL_REMINDER } from "./flags";
 
 export {
   defaultGrowthSignupUrl,
@@ -27,6 +27,13 @@ export type Plan = {
   id: PlanId;
   name: string;
   price: number;
+  /** Big figure on the plan card, for example "$49". */
+  priceAmount: string;
+  /** Small line under the figure. */
+  pricePeriod: string;
+  /** Weekly anchor under the monthly price. */
+  weekly: string;
+  /** Full price phrase for schema and pages that need one line. */
   priceLabel: string;
   tagline: string;
   subHeading: string;
@@ -47,17 +54,20 @@ export const plans: readonly Plan[] = [
     id: "starter",
     name: "Starter",
     price: 49,
-    priceLabel: "A$49/month incl GST",
-    tagline: "Your reviews, live on your website.",
+    priceAmount: "$49",
+    pricePeriod: "a month, GST incl.",
+    weekly: "About $11 a week",
+    priceLabel: "$49 a month, GST incl.",
+    tagline: "For tradies who'll ask in person.",
     subHeading:
       "A direct Google review link and QR code, and a review widget on your site matched to its look. Free done-for-you setup.",
     includes: [
       "Direct Google review link and QR code",
       "Review widget on your site, matched to its look",
-      "Free done-for-you setup",
+      "Free setup",
     ],
     offerDescription:
-      "A$49/month incl GST. Direct Google review link and QR code, a review widget matched to your site, and free done-for-you setup. 7-day free trial, card taken up front. Cancel any time.",
+      "$49 a month, GST included. A Google review link, a QR code, a review widget matched to your site, and free setup.",
     stripeProductId: "prod_VUZxrvOPaIxAFn",
     stripePriceId: "price_1UTanI2VeLXnEu5vqJZEWtU9",
   },
@@ -65,19 +75,23 @@ export const plans: readonly Plan[] = [
     id: "growth",
     name: "Growth",
     price: 75,
-    priceLabel: "A$75/month incl GST",
-    tagline: "Reviews keep coming, including from past customers.",
+    priceAmount: "$75",
+    pricePeriod: "a month, GST incl.",
+    weekly: "About $17 a week",
+    priceLabel: "$75 a month, GST incl.",
+    tagline: "For tradies who'd rather we did the asking.",
     subHeading:
       "Everything in Starter, plus automatic review-request emails with one polite reminder, your past-customer list loaded, and ongoing coaching.",
     recommended: true,
     includes: [
       "Everything in Starter",
-      "Automatic review-request emails with one polite reminder",
-      "Past-customer list loaded",
+      "Review request emails",
+      "One reminder",
+      "Past customers loaded in",
       "Ongoing coaching",
     ],
     offerDescription:
-      "A$75/month incl GST. Everything in Starter, plus automatic review-request emails with one polite reminder, past-customer list loaded, and ongoing coaching. 7-day free trial, card taken up front. Cancel any time.",
+      "$75 a month, GST included. Everything in Starter, plus review request emails, one reminder, past customers loaded in, and ongoing coaching.",
     stripeProductId: "prod_VUZx7ZiwpbyODv",
     stripePriceId: "price_1UTanI2VeLXnEu5vFjqFXp0U",
   },
@@ -92,22 +106,21 @@ export function planById(id: PlanId): Plan {
 }
 
 /**
- * Settled offer. Card is taken up front (CARD_UPFRONT). No setup-value
- * claim and no "no card needed" claim.
+ * Settled offer. No setup-value claim and no "no card needed" claim.
+ * TRIAL_REMINDER stays false until Dan confirms the Stripe reminder email.
  */
-export const CTA_LABEL = "Get started";
-export const TRIAL_LINE = CARD_UPFRONT
-  ? "7-day free trial. Card taken up front. Cancel any time."
-  : "7-day free trial. Cancel any time.";
-export const SETUP_LINE = "Free done-for-you setup.";
+export const CTA_LABEL = "Start my free trial";
+export const TRIAL_LINE = TRIAL_REMINDER
+  ? "Free for 7 days. We'll email you before you're charged. Cancel with one email."
+  : "Free for 7 days. Cancel with one email.";
+export const SETUP_LINE = "Free setup.";
 export const BOTH_PLANS_LINE =
-  "Both plans include a 7-day free trial (card taken up front), a weekly note with one simple thing to do, and you can cancel any time.";
+  "Both plans come with free setup and a weekly tip from me. No lock-in.";
 export const GUARANTEE_BADGE = "";
+export const STICKY_CTA_LABEL = "Start free trial · from $49/mo";
 
 export const navLinks = [
   { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/help", label: "Help" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
   { href: "/free-review-breakdown", label: "Free breakdown" },
 ] as const;

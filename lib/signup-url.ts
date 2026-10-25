@@ -2,8 +2,8 @@
  * Checkout and log-in addresses. This is the only file that chooses them.
  * lib/site.ts re-exports them.
  *
- * A general Get started button does not use these. It scrolls to the pricing
- * section so the visitor picks Starter or Growth first.
+ * A general Start my free trial button does not use these. It scrolls to the
+ * pricing section so the visitor picks Starter or Growth first.
  *
  * Starter and Growth "Start free trial" buttons use the Stripe payment links.
  * Stripe takes the card, starts the 7-day trial, and sends the visitor on to
@@ -22,7 +22,7 @@ export const defaultGrowthSignupUrl =
 
 export const defaultLoginUrl = "https://1qbx.app.embedmyreviews.com/login";
 
-/** Home pricing block. General Get started buttons go here, not to checkout. */
+/** Home pricing block. General trial buttons go here, not to checkout. */
 export const pricingSectionHref = "/#pricing";
 
 export type SignupPlan = "starter" | "growth";

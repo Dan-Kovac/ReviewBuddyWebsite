@@ -12,11 +12,11 @@
 
 ## Offer and prices
 
-- 7-day free trial. Card taken up front. Cancel any time.
-- Free done-for-you setup on both plans.
-- Starter: A$49/month incl GST.
-- Growth: A$75/month incl GST.
-- Trial sign-up is on the Embed My Reviews platform, not stored on this website.
+- Free for 7 days. Cancel with one email.
+- Free setup on both plans, plus a weekly tip.
+- Starter: $49 a month, GST included. For tradies who'll ask in person.
+- Growth: $75 a month, GST included. For tradies who'd rather we did the asking.
+- Start free trial goes to a Stripe payment link, then on to registration. The trial isn't stored on this website.
 
 ## Pages
 

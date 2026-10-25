@@ -8,17 +8,13 @@ const tones = {
   dark: "bg-ink-2 ring-1 ring-white/10",
 } as const;
 
-/**
- * A real product image set large on a rounded panel. The caption keeps the
- * picture honest: the names and numbers inside it are the platform's own sample.
- */
 export function ProductShot({
   src,
   alt,
   width,
   height,
   priority = false,
-  caption = true,
+  caption = false,
   tone = "tint",
   captionTone = "light",
   sizes = "(min-width: 1024px) 560px, 100vw",
@@ -35,7 +31,7 @@ export function ProductShot({
 }) {
   return (
     <figure className="relative">
-      <div className={`overflow-hidden rounded-[28px] p-3 shadow-[0_28px_60px_-36px_rgba(11,15,20,0.45)] ring-1 ring-black/5 sm:p-5 ${tones[tone]}`}>
+      <div className={`overflow-hidden rounded-[10px] p-3 ring-1 ring-black/5 sm:p-4 ${tones[tone]}`}>
         <Image
           src={src}
           alt={alt}
@@ -44,7 +40,7 @@ export function ProductShot({
           priority={priority}
           quality={85}
           sizes={sizes}
-          className="mx-auto h-auto w-full rounded-[18px]"
+          className="mx-auto h-auto w-full rounded-[10px]"
         />
       </div>
       {caption ? (

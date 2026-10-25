@@ -45,7 +45,7 @@ export function MobileNav() {
         <nav
           id={panelId}
           aria-label="Mobile"
-          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-background px-4 py-3 shadow-lg sm:px-6"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-background px-4 py-3 sm:px-6"
         >
           <ul className="grid gap-1">
             {navLinks.map((link) => (
@@ -67,7 +67,7 @@ export function MobileNav() {
               </a>
             </li>
             <li className="pt-2">
-              <TrialButton variant="ink" className="w-full">
+              <TrialButton variant="ink" location="mobile-nav" className="w-full">
                 {CTA_LABEL}
               </TrialButton>
             </li>

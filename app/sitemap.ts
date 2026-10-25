@@ -9,8 +9,6 @@ const paths = [
   "/pricing",
   "/free-review-breakdown",
   "/google-reviews-for-plumbers",
-  "/blog",
-  "/help",
   "/privacy",
   "/terms",
 ];
@@ -24,7 +22,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPublishedPosts("doc"),
   ]);
 
-  const staticEntries = [...paths, ...guidePaths].map((path) => ({
+  const indexPaths = [
+    ...paths,
+    ...(blogPosts.length > 0 ? ["/blog"] : []),
+    ...(helpDocs.length > 0 ? ["/help"] : []),
+  ];
+
+  const staticEntries = [...indexPaths, ...guidePaths].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: staticLastModified,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),

@@ -1,34 +1,46 @@
+import { Check } from "lucide-react";
 import { TrialButton } from "@/components/trial-button";
 import type { Plan } from "@/lib/site";
 
-export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: boolean }) {
+export function PlanCard({
+  plan,
+  location = "plan-card",
+}: {
+  plan: Plan;
+  location?: string;
+}) {
   const featured = plan.recommended === true;
 
   return (
     <section
       id={plan.id}
-      className={`scroll-mt-24 lift-card relative flex flex-col rounded-[24px] border p-6 sm:p-8 ${featured
-        ? "border-brand bg-ink text-white shadow-[0_24px_60px_-24px_rgba(56,182,255,0.55)]"
-        : "border-line bg-white text-ink shadow-[0_16px_40px_-32px_rgba(11,15,20,0.4)]"}`}
+      className={`scroll-mt-24 relative flex h-full flex-col rounded-[10px] border p-6 sm:p-8 ${
+        featured ? "border-brand bg-ink text-white" : "border-line bg-white text-ink"
+      }`}
     >
       {featured ? (
-        <p className="absolute -top-3.5 left-8 inline-flex rounded-full bg-brand px-3 py-1 text-sm font-semibold text-ink lg:left-1/2 lg:-translate-x-1/2">
-          Recommended
+        <p className="absolute -top-3.5 left-8 inline-flex rounded-[10px] bg-brand px-3 py-1 text-sm font-semibold text-ink">
+          Most tradies start here
         </p>
       ) : null}
       <h3 className="text-2xl font-bold">{plan.name}</h3>
       <p className={`mt-2 text-base leading-7 ${featured ? "text-muted-on-dark" : "text-muted"}`}>
         {plan.tagline}
       </p>
-      <p className={`mt-6 text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold leading-tight ${featured ? "text-white" : "text-ink"}`}>
-        {plan.priceLabel}
+      <p className={`mt-6 text-[clamp(3rem,6vw,4.25rem)] font-extrabold leading-none ${featured ? "text-white" : "text-ink"}`}>
+        {plan.priceAmount}
       </p>
-      <ul className={`mt-6 divide-y ${featured ? "divide-white/15" : "divide-line"}`}>
+      <p className={`mt-2 text-base font-semibold ${featured ? "text-white" : "text-ink"}`}>
+        {plan.pricePeriod}
+      </p>
+      <p className={`mt-1 text-sm ${featured ? "text-muted-on-dark" : "text-muted"}`}>{plan.weekly}</p>
+      <ul className="mt-6 grid gap-3">
         {plan.includes.map((item) => (
-          <li key={item} className={`flex gap-3 py-3 text-base leading-7 ${featured ? "text-white" : "text-ink"}`}>
-            <span
+          <li key={item} className={`flex gap-3 text-base leading-7 ${featured ? "text-white" : "text-ink"}`}>
+            <Check
               aria-hidden="true"
-              className={`mt-3 h-0.5 w-4 shrink-0 rounded-full ${featured ? "bg-brand" : "bg-brand-text"}`}
+              className={`mt-1 size-5 shrink-0 ${featured ? "text-brand" : "text-brand-text"}`}
+              strokeWidth={2.5}
             />
             <span>{item}</span>
           </li>
@@ -36,16 +48,12 @@ export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: bool
       </ul>
       <TrialButton
         plan={plan.id}
+        location={location}
         variant={featured ? "brand" : "outline"}
-        className="mt-8 w-full shadow-none"
+        className="mt-8 w-full"
       >
-        Start free trial on {plan.name}
+        Try {plan.name} free
       </TrialButton>
-      {!compact ? (
-        <p className={`mt-4 text-sm leading-6 ${featured ? "text-muted-on-dark" : "text-muted"}`}>
-          {plan.subHeading}
-        </p>
-      ) : null}
     </section>
   );
 }

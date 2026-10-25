@@ -6,7 +6,7 @@ export function Logo({ className = "" }: { className?: string }) {
     <Link href="/" className={`inline-flex items-center ${className}`}>
       <Image
         src="/logo.svg"
-        alt="Review Buddy"
+        alt="ReviewBuddy"
         width={176}
         height={43}
         unoptimized
