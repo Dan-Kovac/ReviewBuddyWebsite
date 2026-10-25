@@ -220,11 +220,12 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
 test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByRole("contentinfo").getByText("ABN")).toHaveCount(0);
   await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);
-  await expect(page.getByText("44 108 955 374")).toHaveCount(0);
-  await expect(page.getByRole("contentinfo").getByRole("link", { name: "Privacy" })).toHaveCount(0);
-  await expect(page.getByRole("contentinfo").getByRole("link", { name: "Terms" })).toHaveCount(0);
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByText("ABN")).toBeVisible();
+  await expect(footer.getByText("44 108 955 374")).toBeVisible();
+  await expect(footer.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
+  await expect(footer.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
   await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
@@ -246,17 +247,28 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(page.locator("#pricing")).toBeInViewport();
 
   await page.goto("/terms");
+  const termsText = await page.locator("article").innerText();
+  expect(termsText).not.toContain("[");
+  expect(termsText).not.toContain("Draft");
   await expect(
     page.getByText(
       "Starter gives you a review link where customers pick the site, a QR code, and a widget that shows your reviews on your website.",
     ),
   ).toBeVisible();
+  await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
   await expect(page.getByText("ongoing coaching")).toHaveCount(0);
   await expect(page.getByText(/first week/)).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();
+  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
 
   await page.goto("/privacy");
-  await expect(page.getByText("text messages")).toHaveCount(0);
+  const privacyText = await page.locator("article").innerText();
+  expect(privacyText).not.toContain("[");
+  expect(privacyText).not.toContain("Draft");
+  expect(privacyText).not.toContain("text messages");
+  await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Cookies, analytics and advertising" })).toBeVisible();
+  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
 
   await page.goto("/free-review-breakdown");
   await expect(page.getByText(/plain-English/)).toBeVisible();
@@ -278,11 +290,11 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
     const sitemap = await request.get("/sitemap.xml");
     expect(sitemap.status()).toBe(200);
     const xml = await sitemap.text();
-    expect(xml).not.toContain("/privacy");
-    expect(xml).not.toContain("/terms");
+    expect(xml).toContain("/privacy");
+    expect(xml).toContain("/terms");
     const llms = await request.get("/llms.txt");
     const text = await llms.text();
-    expect(text).not.toContain("/privacy");
-    expect(text).not.toContain("/terms");
+    expect(text).toContain("/privacy");
+    expect(text).toContain("/terms");
   }
 });

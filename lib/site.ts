@@ -24,7 +24,6 @@ export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const contactPhone = "0411 701 078";
 export const contactPhoneHref = "tel:+61411701078";
-export const abnPlaceholder = "[ABN to be added before launch]";
 
 export type PlanId = "starter" | "growth";
 

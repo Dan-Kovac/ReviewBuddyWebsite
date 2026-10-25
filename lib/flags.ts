@@ -17,8 +17,8 @@ export const CARD_UPFRONT = false;
 export const TRIAL_REMINDER = false;
 
 /**
- * True while the privacy policy and terms are drafts that Dan has not had
- * checked. It shows a draft notice on both pages and keeps them out of search.
- * Set false only after a lawyer has reviewed them.
+ * False once privacy and terms are published: linked in the footer, listed in
+ * the sitemap and llms.txt, and indexable. Set true only to pull those pages
+ * off production again.
  */
-export const LEGAL_DRAFT = true;
+export const LEGAL_DRAFT = false;

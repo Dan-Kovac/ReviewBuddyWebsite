@@ -12,7 +12,7 @@ This repository is the public site only. It does not deploy itself. Do not point
 - `/free-review-breakdown` posts to `/api/breakdown`. Without Supabase it asks the visitor to email hello@reviewbuddy.com.au
 - `/welcome` is an optional page after a trial starts in the app. It is noindex. Sign-up itself is Embed My Reviews registration, not a payment link.
 - `/blog` and `/help` (empty until Supabase content is configured)
-- `/privacy` and `/terms` are drafts. While `LEGAL_DRAFT` is true they are left out of the footer, the sitemap and `llms.txt`. Local and Vercel preview still render them, with noindex, so the wording can be reviewed. A production deployment returns 404 for both until the flag is turned off. TODO for the owner: ABN, legal name, and a lawyer check before launch. Do not invent an ABN or address.
+- `/privacy` and `/terms` are published. `LEGAL_DRAFT` is false, so they are in the footer, the sitemap and `llms.txt`, and they are indexable. A production build returns 404 for both only if that flag is turned back on.
 - `/guides` returns not found until a guide is published
 
 ## Sign-up
@@ -28,7 +28,7 @@ The trial line is `7-day free trial, no card needed. Add a card before day 8 to 
 
 The site builds and renders with no `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` or `LEAD_ALERT_FROM`. Those are not required. Blog and help stay empty without Supabase, and they stay out of the nav and the sitemap until a post is published. The breakdown form returns 503 and shows an email fallback when Supabase is missing. If `RESEND_API_KEY` is set, a saved lead also sends an alert. Set `LEAD_ALERT_FROM` to a verified sender.
 
-Public contact is `hello@reviewbuddy.com.au` and `0411 701 078`. The footer ABN row stays hidden until `abn` in `lib/abn.ts` is a confirmed 11-digit number. Do not publish a placeholder or an unconfirmed number.
+Public contact is `hello@reviewbuddy.com.au` and `0411 701 078`. The footer ABN is `44 108 955 374`. The ABR entity name, used on the legal pages, is `KOVAC, DANIEL DEAN`. The registered business name is `Review Buddy`.
 
 Free setup spots (`/api/spots` and the bar near the hero and pricing):
 

@@ -1,4 +1,5 @@
 import type { Faq } from "@/lib/faqs";
+import { abn, legalEntityName } from "@/lib/abn";
 import { contactEmail, contactPhone, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
@@ -9,6 +10,8 @@ export function organizationJsonLd() {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
         name: siteName,
+        legalName: legalEntityName,
+        taxID: abn.replace(/\s/g, ""),
         url: siteUrl,
         email: contactEmail,
         telephone: contactPhone,
