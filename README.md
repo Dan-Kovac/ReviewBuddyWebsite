@@ -50,4 +50,8 @@ npm run build
 npm run test:e2e
 ```
 
-`test:e2e` needs a production build first (`npm run build`) and Playwright's Chromium (`npx playwright install chromium`).
+`npm run typecheck` generates Next.js route types first, so it works on a clean checkout. `test:e2e` needs a production build first (`npm run build`) and Playwright's Chromium (`npx playwright install chromium`).
+
+`npm run check:signup` fetches the two Embed My Reviews register URLs and fails unless both return 200. It is a pre-merge check. It is not part of `npm run test:e2e`, because those URLs depend on Embed My Reviews settings outside this repo.
+
+`supabase/migrations/20261025235100_revoke_leads_grants.sql` removes anon and authenticated grants on `public.leads`. Dan applies that migration in Supabase. The site build does not run it.

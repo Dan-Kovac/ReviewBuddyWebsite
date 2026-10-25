@@ -45,7 +45,16 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   const problems = trackOwnErrors(page);
   const project = test.info().project.name;
 
-  await page.goto("/");
+  const home = await page.goto("/");
+  const headers = home?.headers() ?? {};
+  expect(headers["strict-transport-security"] ?? "").toMatch(/max-age=\d+/);
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(headers["x-frame-options"]).toBe("DENY");
+  const policy = headers["permissions-policy"] ?? "";
+  expect(policy).toContain("camera=()");
+  expect(policy).toContain("microphone=()");
+  expect(policy).toContain("geolocation=()");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Win their trust before they pick up the phone",
   );
@@ -61,6 +70,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
+  await expect(page.getByText("I ran Roadmap Labs")).toBeVisible();
+  await expect(page.getByText("Roadmap Digital")).toHaveCount(0);
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
 
@@ -122,6 +133,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
 
   await page.goto("/pricing");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans. Both set up for you.");
+  await expect(page.getByRole("heading", { level: 2, name: /^Plans$/ })).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 3, name: "Starter" }).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
   await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
   await expect(

@@ -12,7 +12,7 @@ import { contactEmail } from "@/lib/site";
  */
 const founderParagraphs = [
   "I'm Dan Kovac, and I set up every ReviewBuddy account myself.",
-  "I've spent 10 years in digital marketing and websites. I ran Roadmap Digital, an agency doing SEO and websites for small businesses, and these days I'm a product manager at a leading Aussie wagering company.",
+  "I've spent 10 years in digital marketing and websites. I ran Roadmap Labs, an agency doing SEO and websites for small businesses, and these days I'm a product manager at a leading Aussie wagering company.",
   "Across all those clients, reviews were one of the most influential things we could change. The trouble was always getting them. Owners would try it themselves and hit the same walls: finding their Google review link, getting it to customers, and customers giving up halfway through.",
   "ReviewBuddy is the system I wish they'd had.",
   "If you've got a question, reply to any email from me. You'll get me.",
