@@ -291,3 +291,106 @@ dialog::backdrop {
     animation: none;
   }
 }
+
+/* CMS article body, rendered markdown from the content database. The
+   markdown renderer only emits these tags, so the styles stay in step
+   with what can actually appear. */
+.cms-body h2 {
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.cms-body h3 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cms-body h4 {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cms-body p {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--muted);
+}
+
+.cms-body ul,
+.cms-body ol {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--muted);
+}
+
+.cms-body ul {
+  list-style: disc;
+}
+
+.cms-body ol {
+  list-style: decimal;
+}
+
+.cms-body li {
+  padding-left: 0.25rem;
+}
+
+.cms-body blockquote {
+  margin-top: 1.25rem;
+  border-left: 3px solid var(--brand);
+  background: var(--brand-tint);
+  padding: 0.75rem 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--ink);
+}
+
+.cms-body blockquote p {
+  margin-top: 0;
+  color: inherit;
+}
+
+.cms-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+  background: var(--soft);
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.4rem;
+}
+
+.cms-body pre {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  background: var(--ink-2);
+  color: #fff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.cms-body pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* Task list checkboxes from GFM markdown. */
+.cms-body li:has(> input[type="checkbox"]) {
+  list-style: none;
+  margin-left: -1.25rem;
+}
+
+.cms-body input[type="checkbox"] {
+  margin-right: 0.5rem;
+}

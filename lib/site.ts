@@ -96,6 +96,8 @@ export const GUARANTEE_BADGE = "";
 
 export const navLinks = [
   { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+  { href: "/help", label: "Help" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
   { href: "/free-review-breakdown", label: "Free breakdown" },
 ] as const;
