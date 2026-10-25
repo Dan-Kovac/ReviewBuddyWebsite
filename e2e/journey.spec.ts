@@ -220,6 +220,9 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
 test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
+  await expect(page.getByText("No GST charged").first()).toBeVisible();
+  await expect(page.getByText("GST included")).toHaveCount(0);
+  await expect(page.getByText("incl GST")).toHaveCount(0);
   await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);
   const footer = page.getByRole("contentinfo");
   await expect(footer.getByText("ABN")).toBeVisible();
@@ -256,6 +259,12 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
     ),
   ).toBeVisible();
   await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
+  await expect(
+    page.getByText(
+      "We are not currently registered for GST, so no GST is charged. If we register, we will tell you at least 30 days before any GST is added, and you can cancel before then.",
+    ),
+  ).toBeVisible();
+  await expect(page.getByText("incl GST")).toHaveCount(0);
   await expect(page.getByText("ongoing coaching")).toHaveCount(0);
   await expect(page.getByText(/first week/)).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();

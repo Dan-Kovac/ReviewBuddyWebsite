@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { sharePriceLine } from "@/lib/gst";
 
 export const alt = "ReviewBuddy. Google reviews on your website.";
 export const size = {
@@ -46,7 +47,7 @@ export default function OpenGraphImage() {
           Win their trust before they pick up the phone.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#1a1a1a" }}>
-          Free for 7 days, no card needed. From $49 a month, GST included.
+          {sharePriceLine()}
         </div>
       </div>
     ),

@@ -11,6 +11,7 @@ import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
+import { fromPriceLine } from "@/lib/gst";
 import { BOTH_PLANS_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, contactEmail } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -70,7 +71,7 @@ const trustItems = [
   "Set up for you",
   "One link, every customer asked the same way",
   "No card to start, no contract",
-  "From $49 a month, GST included",
+  fromPriceLine(),
 ];
 
 const iDo = [
@@ -110,7 +111,7 @@ export default function HomePage() {
               </TrialButton>
             </div>
             <p className="mt-4 text-base font-semibold leading-6 text-ink">
-              {TRIAL_LINE} From $49 a month, GST included.
+              {TRIAL_LINE} {fromPriceLine()}.
             </p>
             <p className="mt-3 text-sm leading-6 text-muted">
               <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">

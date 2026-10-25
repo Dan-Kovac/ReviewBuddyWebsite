@@ -1,8 +1,10 @@
 import { abn, confirmedAbnDisplay } from "./abn";
 import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags";
+import { monthlyPriceLabel, offerDescription } from "./gst";
 import { BILLING_LINE, PRICING_SUB, resolveTrialLine } from "./trial-copy";
 
 export { abn, confirmedAbnDisplay };
+export { GST_REGISTERED } from "./flags";
 export { BILLING_LINE, PRICING_SUB, resolveTrialLine };
 export { NO_CARD_TRIAL_LINE } from "./trial-copy";
 
@@ -52,7 +54,7 @@ export const plans: readonly Plan[] = [
     price: 49,
     priceAmount: "$49",
     pricePeriod: "a month",
-    priceLabel: "$49 a month, AUD, GST included",
+    priceLabel: monthlyPriceLabel("$49 a month"),
     tagline: "You do the asking. We make it easy.",
     subHeading: "Your review link, QR code and a review widget on your website. I set it up for you.",
     includes: [
@@ -61,8 +63,7 @@ export const plans: readonly Plan[] = [
       "Free setup",
       "A short weekly email with one thing to do",
     ],
-    offerDescription:
-      "$49 a month, AUD, GST included. Your review link, QR code and a review widget on your website. Setup is free.",
+    offerDescription: offerDescription("starter"),
   },
   {
     id: "growth",
@@ -70,7 +71,7 @@ export const plans: readonly Plan[] = [
     price: 75,
     priceAmount: "$75",
     pricePeriod: "a month",
-    priceLabel: "$75 a month, AUD, GST included",
+    priceLabel: monthlyPriceLabel("$75 a month"),
     tagline: "The asking happens without you.",
     subHeading: "Everything in Starter, plus we ask your customers and your past customers.",
     recommended: true,
@@ -79,8 +80,7 @@ export const plans: readonly Plan[] = [
       "An automatic review request after each job, with one polite reminder",
       "Your past customers asked too",
     ],
-    offerDescription:
-      "$75 a month, AUD, GST included. Everything in Starter, plus an automatic review request after each job, one polite reminder, and your past customers asked too.",
+    offerDescription: offerDescription("growth"),
   },
 ];
 

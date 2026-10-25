@@ -17,6 +17,13 @@ export const CARD_UPFRONT = false;
 export const TRIAL_REMINDER = false;
 
 /**
+ * False until this ABN is registered for GST. An unregistered business must
+ * not show prices as including GST or charge GST. Flip to true to show
+ * "incl GST". The phrases live in lib/gst.ts.
+ */
+export const GST_REGISTERED = false;
+
+/**
  * False once privacy and terms are published: linked in the footer, listed in
  * the sitemap and llms.txt, and indexable. Set true only to pull those pages
  * off production again.

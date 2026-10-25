@@ -8,6 +8,7 @@ import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
+import { thenFromPriceLine } from "@/lib/gst";
 import { CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -57,7 +58,7 @@ export default function PlumbersPage() {
                 </TrialButton>
               </div>
               <p className="mt-4 text-sm font-semibold leading-6 text-ink">
-                {TRIAL_LINE} Then from $49 a month, GST included.
+                {TRIAL_LINE} {thenFromPriceLine()}
               </p>
             </div>
             <ProductShot

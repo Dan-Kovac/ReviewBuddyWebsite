@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { organizationJsonLd } from "@/lib/json-ld";
+import { homeMetaDescription } from "@/lib/gst";
 import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
@@ -23,8 +24,7 @@ const workSans = Work_Sans({
 });
 
 const homeTitle = "More Google Reviews for Tradies | ReviewBuddy";
-const homeDescription =
-  "More Google reviews for Australian tradies, shown on your website too. Free for 7 days, no card needed. From $49 a month, GST included.";
+const homeDescription = homeMetaDescription();
 
 export const ensureStatic = "navigation";
 

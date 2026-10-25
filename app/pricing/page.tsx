@@ -9,10 +9,11 @@ import { TrialTimeline } from "@/components/trial-timeline";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
+import { pricingIntro, pricingPageTitle } from "@/lib/gst";
 import { BILLING_LINE, CTA_LABEL, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy Pricing: $49 or $75 a month, GST included",
+  title: pricingPageTitle(),
   description:
     "Two plans for Australian tradies, both set up for you. Free for 7 days with no card needed. No contract, no notice period.",
   path: "/pricing",
@@ -114,7 +115,7 @@ export default function PricingPage() {
               Two plans. Both set up for you.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              Starter gives you the link, QR code and website widget, and you do the asking. Growth does the asking for you, including your past customers. Prices are in AUD and include GST.
+              {pricingIntro()}
             </p>
             <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
             <SpotsLeft />

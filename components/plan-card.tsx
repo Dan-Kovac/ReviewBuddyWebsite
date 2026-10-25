@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { TrialButton } from "@/components/trial-button";
+import { gstCardNote } from "@/lib/gst";
 import type { Plan } from "@/lib/site";
 
 export function PlanCard({
@@ -26,7 +27,7 @@ export function PlanCard({
       <p className="mt-2 min-h-14 text-base leading-7 text-muted">{plan.tagline}</p>
       <p className="mt-6 text-[clamp(3rem,6vw,4.25rem)] font-extrabold leading-none text-ink">{plan.priceAmount}</p>
       <p className="mt-2 text-base font-semibold text-ink">{plan.pricePeriod}</p>
-      <p className="mt-1 text-sm text-muted">AUD, GST included</p>
+      <p className="mt-1 text-sm text-muted">{gstCardNote()}</p>
       <ul className="mt-6 grid gap-3">
         {plan.includes.map((item) => (
           <li key={item} className="flex items-start gap-3 text-base leading-6 text-ink">

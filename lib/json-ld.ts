@@ -1,5 +1,6 @@
 import type { Faq } from "@/lib/faqs";
 import { abn, legalEntityName } from "@/lib/abn";
+import { valueAddedTaxIncluded as pricesIncludeGst } from "@/lib/gst";
 import { contactEmail, contactPhone, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
@@ -45,7 +46,7 @@ export function organizationJsonLd() {
             price: plan.price.toFixed(2),
             priceCurrency: "AUD",
             unitText: "MONTH",
-            valueAddedTaxIncluded: true,
+            valueAddedTaxIncluded: pricesIncludeGst(),
           },
         })),
       },

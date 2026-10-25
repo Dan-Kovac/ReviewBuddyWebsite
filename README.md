@@ -28,7 +28,7 @@ The trial line is `7-day free trial, no card needed. Add a card before day 8 to 
 
 The site builds and renders with no `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` or `LEAD_ALERT_FROM`. Those are not required. Blog and help stay empty without Supabase, and they stay out of the nav and the sitemap until a post is published. The breakdown form returns 503 and shows an email fallback when Supabase is missing. If `RESEND_API_KEY` is set, a saved lead also sends an alert. Set `LEAD_ALERT_FROM` to a verified sender.
 
-Public contact is `hello@reviewbuddy.com.au` and `0411 701 078`. The footer ABN is `44 108 955 374`. The ABR entity name, used on the legal pages, is `KOVAC, DANIEL DEAN`. The registered business name is `Review Buddy`.
+Public contact is `hello@reviewbuddy.com.au` and `0411 701 078`. The footer ABN is `44 108 955 374`. The ABR entity name, used on the legal pages, is `KOVAC, DANIEL DEAN`. The registered business name is `Review Buddy`. `GST_REGISTERED` in `lib/flags.ts` is false, so prices are not shown as including GST. Set it to true after the ABN is registered for GST, and update the price lines in `public/llms.txt` to say `incl GST`.
 
 Free setup spots (`/api/spots` and the bar near the hero and pricing):
 

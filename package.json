@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:unit": "node --experimental-strip-types --test lib/signup-url.test.ts lib/setup-spots.test.ts lib/trial-copy.test.ts lib/review-fixes.test.ts"
+    "test:unit": "node --import ./test/register-hooks.mjs --experimental-strip-types --test lib/signup-url.test.ts lib/setup-spots.test.ts lib/trial-copy.test.ts lib/review-fixes.test.ts lib/gst.test.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

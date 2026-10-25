@@ -1,3 +1,5 @@
+import { priceFaqAnswer, plumberCostAnswer } from "./gst";
+
 export type Faq = {
   question: string;
   answer: string;
@@ -92,7 +94,7 @@ export const pricingFaqs: Faq[] = [
   },
   {
     question: "Do prices include GST?",
-    answer: "Yes. $49 and $75 are in AUD and include GST.",
+    answer: priceFaqAnswer(),
   },
 ];
 
@@ -112,7 +114,6 @@ export const plumberFaqs: Faq[] = [
   },
   {
     question: "What does it cost?",
-    answer:
-      "$49 or $75 a month, GST included, after a 7-day free trial with no card needed. Add a card before day 8 to keep going.",
+    answer: plumberCostAnswer(),
   },
 ];

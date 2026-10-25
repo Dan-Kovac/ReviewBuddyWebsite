@@ -3,6 +3,7 @@ import { abn, legalEntityName, legalUpdated, registeredBusinessName } from "@/li
 import { LEGAL_DRAFT } from "@/lib/flags";
 import { legalPagesPublic } from "@/lib/legal-pages";
 import { pageMetadata } from "@/lib/metadata";
+import { gstTermsParagraph } from "@/lib/gst";
 import { contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -91,6 +92,7 @@ export default function TermsPage() {
           Plans are billed monthly. The price on the pricing page is the price
           you pay. We do not add a separate setup fee.
         </p>
+        <p>{gstTermsParagraph()}</p>
         <p>
           If we change a price, we will tell you before the new price applies
           to you. You can cancel from the billing page in your account before
