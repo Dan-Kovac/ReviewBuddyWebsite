@@ -44,8 +44,7 @@ export function FounderNote() {
             <p className="founder-quote mt-5">
               If you&apos;ve got a question, reply to any email from me. You&apos;ll get me.
             </p>
-            <p className="founder-sign">Dan</p>
-            <p className="mt-2 text-sm leading-5 text-[var(--rb-text-muted)]">
+            <p className="mt-5 text-sm leading-5 text-[var(--rb-text-muted)]">
               Dan Kovac, founder
             </p>
             <p className="mt-4 text-base font-semibold">

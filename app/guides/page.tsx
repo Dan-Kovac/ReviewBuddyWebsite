@@ -18,7 +18,7 @@ export default function GuidesPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
+    <div className="page-shell py-24 lg:py-32">
       <p className="text-sm font-semibold tracking-wide text-muted">Guides</p>
       <h1 className="display mt-4 max-w-3xl text-balance">
         Guides

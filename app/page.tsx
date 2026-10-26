@@ -218,7 +218,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-[var(--rb-surface-alt)]">
-        <div className={`${shell} max-w-none`}>
+        <div className={shell}>
           <div className="max-w-[var(--rb-text-max)]">
             <h2>Win more jobs on trust</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
@@ -238,7 +238,7 @@ export default function HomePage() {
 
       <section className="bg-[var(--rb-surface)]">
         <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
+          <div className="mx-auto max-w-[var(--rb-text-max)]">
             <h2>It&apos;s a tough year to compete on price</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
@@ -270,7 +270,7 @@ export default function HomePage() {
               <p>That&apos;s how a good business can end up with fewer reviews than an average one.</p>
             </div>
           </div>
-          <figure className="art">
+          <figure className="art baked-at-lg">
             <ArtImage
               desktop={{
                 webp: "/img/sections/reviewbuddy-happy-customers-desktop.webp",
@@ -305,7 +305,7 @@ export default function HomePage() {
               <p>And it&apos;s not only on Google. When they click through to your website, your reviews are there too.</p>
             </div>
           </div>
-          <figure className="art">
+          <figure className="art baked-at-lg">
             <ArtImage
               desktop={{
                 webp: "/img/sections/reviewbuddy-be-the-tradie-desktop-v2.webp",
@@ -390,7 +390,7 @@ export default function HomePage() {
 
       <section className="bg-[var(--rb-surface-alt)]">
         <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
+          <div className="mx-auto max-w-[var(--rb-text-max)]">
             <h2>You&apos;ve probably got dozens of reviews you never asked for</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>

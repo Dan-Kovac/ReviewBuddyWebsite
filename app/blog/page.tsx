@@ -45,12 +45,12 @@ async function BlogIndex() {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
-      <p className="text-sm font-semibold tracking-wide text-muted">Blog</p>
-      <h1 className="display mt-4 max-w-3xl text-balance">
+    <div className="page-shell py-24 lg:py-32">
+      <p className="eyebrow">Blog</p>
+      <h1 className="display mt-4 max-w-[var(--rb-text-max)] text-balance">
         Guides to getting more reviews
       </h1>
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
+      <p className="mt-6 max-w-[var(--rb-text-max)] text-lg leading-8 text-muted">
         Plain-English guides for Australian tradies on getting more Google reviews and putting them to work on your website.
       </p>
       {orderedNames.length === 0 ? (

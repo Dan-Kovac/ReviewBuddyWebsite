@@ -22,7 +22,7 @@ export default function PrivacyPage() {
   }
 
   return (
-    <article className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6 md:py-20">
+    <article className="page-gutter mx-auto w-full max-w-3xl py-14 md:py-20">
       <h1>Privacy policy</h1>
       <p className="mt-3 text-sm text-muted">Last updated: {legalUpdated}</p>
 

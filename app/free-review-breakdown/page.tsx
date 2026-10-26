@@ -31,19 +31,21 @@ export default function FreeReviewBreakdownPage() {
       />
       <article>
         <header className="hero-wash border-b border-line">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:py-20">
-            <p className="eyebrow">Free, for Australian tradies</p>
-            <h1 className="display mt-4 max-w-3xl text-balance">
-              See how your reviews stack up
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              Tell me your business and I&apos;ll send you a short, plain-English breakdown of where you stand on Google next to the tradies people compare you with, and what it would take to move up.
-            </p>
+          <div className="page-shell py-14 lg:py-20">
+            <div className="max-w-[var(--rb-text-max)]">
+              <p className="eyebrow">Free, for Australian tradies</p>
+              <h1 className="display mt-4 text-balance">
+                See how your reviews stack up
+              </h1>
+              <p className="mt-5 text-lg leading-8 text-muted">
+                Tell me your business and I&apos;ll send you a short, plain-English breakdown of where you stand on Google next to the tradies people compare you with, and what it would take to move up.
+              </p>
+            </div>
           </div>
         </header>
 
-        <section className="px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto grid w-full max-w-[1100px] gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
+        <section>
+          <div className="page-shell grid gap-12 py-14 lg:grid-cols-[1fr_1fr] lg:items-start lg:py-20">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-ink">What you&apos;ll get</h2>
               <ul className="mt-6 grid gap-3">
@@ -53,7 +55,7 @@ export default function FreeReviewBreakdownPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 text-base font-semibold text-ink">Dan</p>
+              <p className="founder-sign">Dan</p>
               <h2 className="mt-12 text-3xl font-semibold tracking-tight text-ink">If you like what you see</h2>
               <p className="mt-4 text-base leading-7 text-muted">
                 If it&apos;s useful, try ReviewBuddy. The breakdown&apos;s yours either way.

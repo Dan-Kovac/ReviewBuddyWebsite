@@ -46,9 +46,7 @@ try {
         throw new Error(`${path} returned ${response?.status() ?? "no response"}`);
       }
       await waitForLazyImages(page);
-      await page.addStyleTag({
-        content: "header { position: relative !important; top: auto !important; }",
-      });
+      await page.evaluate(() => document.documentElement.classList.add("capture-mode"));
       await page.evaluate(() => window.scrollTo(0, 0));
       const file = `${outDir}/gate-${slug}-${name}.png`;
       await page.screenshot({ path: file, fullPage: true, animations: "disabled" });

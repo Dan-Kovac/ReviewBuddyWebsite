@@ -107,49 +107,53 @@ export default function PricingPage() {
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
         <header className="bg-[var(--rb-surface)]">
-          <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 text-center lg:py-20" data-hero-cta="">
-            <p className="eyebrow">Pricing</p>
-            <h1 className="display mt-4 text-balance">Two plans, both set up for you</h1>
-            <p className="lead mt-5 text-[var(--rb-text-muted)]">{pricingIntro()}</p>
-            <p className="mt-4 text-base font-semibold leading-7">{TRIAL_LINE}</p>
-            <p className="mt-2 text-base font-semibold leading-7">{BILLING_LINE}</p>
+          <div className="page-shell py-14 lg:py-20" data-hero-cta="">
+            <div className="max-w-[var(--rb-text-max)]">
+              <p className="eyebrow">Pricing</p>
+              <h1 className="display mt-4 text-balance">Two plans, both set up for you</h1>
+              <p className="lead mt-5 text-[var(--rb-text-muted)]">{pricingIntro()}</p>
+              <p className="mt-4 text-base font-semibold leading-7">{TRIAL_LINE}</p>
+              <p className="mt-2 text-base font-semibold leading-7">{BILLING_LINE}</p>
+            </div>
           </div>
         </header>
 
-        <div id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)] px-[var(--rb-gutter)] py-14 lg:py-20">
-          <div className="mx-auto w-full max-w-[1100px]">
+        <div id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
+          <div className="page-shell py-14 lg:py-20">
             <PlanPair location="pricing-plans" />
           </div>
         </div>
 
-        <section className="px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto w-full max-w-[1100px]">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Compare the plans</h2>
+        <section>
+          <div className="page-shell py-14 lg:py-20">
+            <h2>Compare the plans</h2>
             <Comparison starter={starter.priceLabel} growth={growth.priceLabel} />
           </div>
         </section>
 
         <section className="bg-soft">
-          <div className="mx-auto w-full max-w-[1100px] px-4 py-8 sm:px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">How the 7-day free trial works</h2>
-          </div>
-          <TrialTimeline />
-        </section>
-
-        <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto w-full max-w-[720px]">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">What it works out to</h2>
-            <p className="mt-4 text-lg leading-8 text-ink">
-              About $1.60 a day for Starter, or about $2.50 a day for Growth.
-            </p>
+          <div className="page-shell py-14 lg:py-20">
+            <h2>How the 7-day free trial works</h2>
+            <TrialTimeline />
           </div>
         </section>
 
-        <section className="px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-ink">More than one location</h2>
-              <p className="mt-3 max-w-xl text-base leading-7 text-muted">
+        <section className="border-t border-line bg-soft">
+          <div className="page-shell py-14 lg:py-20">
+            <div className="max-w-[var(--rb-text-max)]">
+              <h2>What it works out to</h2>
+              <p className="mt-4 text-lg leading-8 text-ink">
+                About $1.60 a day for Starter, or about $2.50 a day for Growth.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="page-shell py-14 lg:py-20">
+            <div className="max-w-[var(--rb-text-max)]">
+              <h2>More than one location</h2>
+              <p className="mt-3 text-base leading-7 text-muted">
                 Email{" "}
                 <a href={`mailto:${contactEmail}`} className="font-semibold text-ink underline">
                   {contactEmail}
@@ -160,10 +164,10 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto w-full max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Fair questions</h2>
-            <div className="mt-8">
+        <section className="bg-soft">
+          <div className="page-shell py-14 lg:py-20">
+            <h2>Fair questions</h2>
+            <div className="mt-8 max-w-3xl">
               <FaqList faqs={pricingFaqs} />
             </div>
             <p className="mt-8 text-base text-muted">

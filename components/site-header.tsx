@@ -23,7 +23,7 @@ export function SiteHeader() {
           </a>
         </nav>
         <div className="ml-auto flex items-center gap-2.5 lg:ml-8">
-          <TrialButton variant="gold" location="header" className="h-11 min-h-11 px-[18px] text-sm">
+          <TrialButton variant="gold" location="header">
             <span className="lg:hidden">{STICKY_CTA_LABEL}</span>
             <span className="hidden lg:inline">{CTA_LABEL}</span>
           </TrialButton>

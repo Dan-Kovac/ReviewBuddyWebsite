@@ -42,7 +42,8 @@ export default function PlumbersPage() {
       <JsonLd data={faqJsonLd(plumberFaqs)} />
       <article>
         <header className="bg-[var(--rb-surface)]">
-          <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 lg:py-20">
+          <div className="page-shell py-14 lg:py-20">
+            <div className="max-w-[var(--rb-text-max)]">
             <p className="eyebrow">For plumbers</p>
             <h1 className="display mt-4 text-balance">When the hot water dies, they ring the plumber they trust</h1>
             <p className="lead mt-5 text-[var(--rb-text-muted)]">
@@ -56,11 +57,13 @@ export default function PlumbersPage() {
             <p className="mt-4 text-sm font-semibold leading-6">
               {TRIAL_LINE} {thenFromPriceLine()}
             </p>
+            </div>
           </div>
         </header>
 
-        <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        <section>
+          <div className="page-shell py-16 lg:py-24">
+          <h2 className="max-w-[var(--rb-text-max)]">
             Ask while they&apos;re still relieved
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
@@ -69,16 +72,17 @@ export default function PlumbersPage() {
           <ol className="mt-12 grid gap-0 lg:grid-cols-2 lg:gap-x-8">
             {steps.map((step, index) => (
               <li key={step.title} className="border-t-2 border-ink py-7">
-                <span className="text-sm font-bold text-brand-text">{index + 1}</span>
+                <span className="step-num">{index + 1}</span>
                 <h3 className="mt-3 text-xl font-bold text-ink">{step.title}</h3>
                 <p className="mt-2 text-base leading-7 text-muted">{step.body}</p>
               </li>
             ))}
           </ol>
+          </div>
         </section>
 
         <section className="border-t border-line bg-soft">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+          <div className="page-shell py-16 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Last year&apos;s customers count too</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
               Every hot water job and blocked drain from last year is a customer who could vouch for you. Most of those customers were happy and never got asked. On Growth, send me a list and they&apos;ll get asked too.
@@ -87,7 +91,7 @@ export default function PlumbersPage() {
         </section>
 
         <section id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
-          <div className="mx-auto w-full max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
+          <div className="page-shell py-16 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans, both set up for you</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">No contract. No notice period.</p>
             <div className="mt-10">
@@ -102,7 +106,7 @@ export default function PlumbersPage() {
         </section>
 
         <section className="border-t border-line">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+          <div className="page-shell py-16 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Fair questions</h2>
             <div className="mt-8 max-w-3xl">
               <FaqList faqs={plumberFaqs} />

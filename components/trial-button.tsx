@@ -40,13 +40,17 @@ export function TrialButton({
     return null;
   }
   const href = plan ? signupHref(plan) : pricingSectionLink(pathname);
+  const header = location === "header";
+  const size = header
+    ? "h-11 min-h-11 px-[18px] text-sm"
+    : "min-h-[52px] px-6 text-base";
   return (
     <a
       href={href}
       data-signup={plan}
       data-cta={plan ? undefined : "pricing"}
       data-location={location}
-      className={`inline-flex min-h-[52px] items-center justify-center rounded-full px-6 text-center text-base font-semibold ${variants[variant]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full text-center font-semibold ${size} ${variants[variant]} ${className}`}
     >
       {children ?? (plan ? "Try this plan free for 7 days" : CTA_LABEL)}
     </a>

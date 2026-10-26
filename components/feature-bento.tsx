@@ -32,39 +32,39 @@ const send = {
 
 export function FeatureBento() {
   return (
-    <div className="feature-shots">
-      <div className="feature-col">
-        <article>
+    <div className="bento">
+      <article className="bento-card bento-lead">
+        <div className="bento-copy">
           <h3>Every review in one list</h3>
-          <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">
+          <p>
             Google, Facebook and the other review sites you connect, side by side. Search, filter and tag them in one place.
           </p>
-        </article>
-        <figure className="art">
+        </div>
+        <div className="shot shot-framed">
           <ArtImage
             desktop={sources.desktop}
             mobile={sources.mobile}
             alt="The ReviewBuddy review sources screen for Demo Plumbing Co, listing the sites connected to the account. The business name is demo data."
           />
-          <figcaption>Review sites connected for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</figcaption>
-        </figure>
-      </div>
-      <div className="feature-col">
-        <article>
+        </div>
+        <p className="bento-note">Review sites connected for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</p>
+      </article>
+      <article className="bento-card">
+        <div className="bento-copy">
           <h3>Ask from the app</h3>
-          <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">
+          <p>
             Send a review request straight from ReviewBuddy, or copy your link to send it your own way.
           </p>
-        </article>
-        <figure className="art">
+        </div>
+        <div className="shot shot-framed">
           <ArtImage
             desktop={send.desktop}
             mobile={send.mobile}
             alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
           />
-          <figcaption>Sending a request from the app.</figcaption>
-        </figure>
-      </div>
+        </div>
+        <p className="bento-note">Sending a request from the app.</p>
+      </article>
     </div>
   );
 }
