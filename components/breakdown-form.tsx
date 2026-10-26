@@ -13,7 +13,7 @@ import {
   parseBreakdown,
   type BreakdownErrors,
 } from "@/lib/lead";
-import { contactEmail } from "@/lib/site";
+import { CTA_LABEL, contactEmail } from "@/lib/site";
 
 function SourcePostField() {
   const params = useSearchParams();
@@ -36,7 +36,7 @@ export function BreakdownForm() {
         <p className="mt-3 text-base leading-7 text-muted">I&apos;ll email your breakdown.</p>
         <div className="mt-6">
           <TrialButton variant="ink" location="breakdown-success">
-            Start your trial
+            {CTA_LABEL}
           </TrialButton>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function BreakdownForm() {
   if (fallback) {
     return (
       <div role="status" className="py-2">
-        <p className="text-xl font-semibold text-ink">Email us instead</p>
+        <p className="text-xl font-semibold text-ink">Email me instead</p>
         <p className="mt-3 text-base leading-7 text-muted">
           I couldn&apos;t save that just now. Email{" "}
           <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>
@@ -161,10 +161,11 @@ export function BreakdownForm() {
         disabled={pending}
         className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-5 text-base font-semibold text-white hover:bg-black disabled:opacity-60"
       >
-        {pending ? "Sending" : "Send me my free breakdown"}
+        {pending ? "Sending" : "Send me my breakdown"}
       </button>
       <p className="text-sm leading-6 text-muted">
-        See our <a href="/privacy" className="underline">privacy policy</a>.
+        This sends your details so I can email the breakdown. If it can&apos;t be saved, you&apos;ll be asked to email {contactEmail}. See our{" "}
+        <a href="/privacy" className="underline">privacy policy</a>.
       </p>
     </form>
   );

@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { sharePriceLine } from "@/lib/gst";
 
 export const alt = "ReviewBuddy. Google reviews on your website.";
 export const size = {
@@ -18,7 +19,7 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           background: "#ffffff",
-          color: "#1a1a1a",
+          color: "#0B0F14",
           padding: "72px",
         }}
       >
@@ -38,15 +39,15 @@ export default function OpenGraphImage() {
         <div
           style={{
             display: "flex",
-            fontSize: 68,
+            fontSize: 56,
             lineHeight: 1.05,
             maxWidth: 920,
           }}
         >
-          Get chosen before they call.
+          Win their trust before they pick up the phone.
         </div>
-        <div style={{ display: "flex", fontSize: 28, color: "#1a1a1a" }}>
-          Plans from $49 a month, GST included.
+        <div style={{ display: "flex", fontSize: 28, color: "#5C6570" }}>
+          {sharePriceLine()}
         </div>
       </div>
     ),

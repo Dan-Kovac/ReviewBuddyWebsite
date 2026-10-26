@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+/** Original blue star and REVIEW BUDDY wordmark. Swap the file to change the mark. */
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <Link href="/" className={`inline-flex items-center ${className}`}>

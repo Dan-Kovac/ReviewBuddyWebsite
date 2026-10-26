@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:unit": "node --experimental-strip-types --test lib/signup-url.test.ts lib/setup-spots.test.ts"
+    "check:signup": "node --experimental-strip-types scripts/check-signup-urls.mjs",
+    "test:unit": "node --import ./test/register-hooks.mjs --experimental-strip-types --test lib/signup-url.test.ts lib/setup-spots.test.ts lib/trial-copy.test.ts lib/review-fixes.test.ts lib/gst.test.ts lib/markdown.test.ts lib/copy-consistency.test.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

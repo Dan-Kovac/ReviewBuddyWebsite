@@ -1,5 +1,7 @@
 import type { Faq } from "@/lib/faqs";
-import { contactEmail, plans, siteName, siteUrl } from "@/lib/site";
+import { abn, legalEntityName } from "@/lib/abn";
+import { valueAddedTaxIncluded as pricesIncludeGst } from "@/lib/gst";
+import { contactEmail, contactPhone, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
   return {
@@ -9,8 +11,11 @@ export function organizationJsonLd() {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
         name: siteName,
+        legalName: legalEntityName,
+        taxID: abn.replace(/\s/g, ""),
         url: siteUrl,
         email: contactEmail,
+        telephone: contactPhone,
         logo: `${siteUrl}/logo.svg`,
         areaServed: {
           "@type": "Country",
@@ -22,7 +27,7 @@ export function organizationJsonLd() {
         "@id": `${siteUrl}/#product`,
         name: siteName,
         description:
-          "ReviewBuddy helps Australian tradies get more Google reviews and shows them live on their website.",
+          "ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. 7-day free trial, no card needed. Add a card before day 8 to keep going.",
         brand: {
           "@type": "Brand",
           name: siteName,
@@ -41,7 +46,7 @@ export function organizationJsonLd() {
             price: plan.price.toFixed(2),
             priceCurrency: "AUD",
             unitText: "MONTH",
-            valueAddedTaxIncluded: true,
+            valueAddedTaxIncluded: pricesIncludeGst(),
           },
         })),
       },

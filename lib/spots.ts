@@ -5,7 +5,6 @@ if (typeof window !== "undefined") {
 }
 import {
   growthPriceId,
-  parseClaimedEnv,
   spotsFromClaimed,
   starterPriceId,
   type SetupSpots,
@@ -16,8 +15,8 @@ import {
  *
  * STRIPE_SECRET_KEY counts active and trialing subscriptions on the Starter
  * and Growth prices. The key never reaches the browser.
- * CLAIMED_SETUPS is used only when that key is unset. It defaults to 0.
- * If Stripe cannot be read, this returns null and the page shows nothing.
+ * With no key, or if Stripe cannot be read, this returns null and the page
+ * shows nothing. It does not fall back to a default of 200.
  */
 type StripeList = {
   data?: { id?: string }[];
@@ -74,11 +73,10 @@ export async function getSetupSpots(): Promise<SetupSpots | null> {
   cacheLife({ stale: 600, revalidate: 600, expire: 3600 });
 
   const key = process.env.STRIPE_SECRET_KEY?.trim();
+  if (!key) {
+    return null;
+  }
   try {
-    if (!key) {
-      const claimed = parseClaimedEnv(process.env.CLAIMED_SETUPS);
-      return claimed === null ? null : spotsFromClaimed(claimed);
-    }
     return spotsFromClaimed(await claimedFromStripe(key));
   } catch (error) {
     console.error(error instanceof Error ? error.message : "Could not count setup spots");

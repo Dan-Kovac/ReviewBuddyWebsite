@@ -19,10 +19,10 @@ export function spotsFromClaimed(claimed: number): SetupSpots {
   };
 }
 
-/** Empty or missing means 0. Anything that is not a whole number is rejected. */
+/** A blank value is not a count. Anything that is not a whole number is rejected. */
 export function parseClaimedEnv(value: string | undefined): number | null {
   if (value === undefined || value.trim() === "") {
-    return 0;
+    return null;
   }
   if (!/^\d+$/.test(value.trim())) {
     return null;

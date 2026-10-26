@@ -21,7 +21,7 @@ test("pages do not scroll sideways", async ({ page }) => {
 
   await page.setViewportSize({ width: 375, height: 900 });
   await page.goto("/pricing");
-  const trial = page.getByRole("link", { name: "Try Starter free" });
+  const trial = page.getByRole("link", { name: "Try Starter free for 7 days" });
   const box = await trial.boundingBox();
   expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
 

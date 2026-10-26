@@ -2,7 +2,8 @@
 // the ones this file builds itself from parsed Markdown structure, and
 // every piece of author text is escaped on output. Raw HTML in the
 // database renders as visible text, never as markup. Link targets pass
-// an allowlist (secure web, site relative, mailto); anything else
+// an allowlist (http, https, mailto, tel, and same-site relative paths).
+// A target that starts with two slashes is refused. Anything else
 // renders as plain text. Images are not rendered; their alt text is
 // kept. Entity names, angle brackets and scheme prefixes are built from
 // character codes so no string literal in this file looks like markup
@@ -43,6 +44,7 @@ const SECURE =
   String.fromCharCode(104, 116, 116, 112, 115) + COLON + SLASH + SLASH;
 const PLAIN = String.fromCharCode(104, 116, 116, 112) + COLON + SLASH + SLASH;
 const MAILTO = String.fromCharCode(109, 97, 105, 108, 116, 111) + COLON;
+const TEL = String.fromCharCode(116, 101, 108) + COLON;
 
 function esc(v: string): string {
   return v
@@ -53,17 +55,39 @@ function esc(v: string): string {
     .split(SQ).join(ENT_SQ);
 }
 
-// Allowlist for link targets: secure web, site relative and mailto only.
+// A same-site path: a single leading slash, a hash, a query, or a relative
+// path with no scheme. A second slash or a backslash would be another host.
+function sameSitePath(value: string): boolean {
+  if (value.length === 0 || value.includes("\\") || value.startsWith("//")) {
+    return false;
+  }
+  if (value.startsWith("/") || value.startsWith("#") || value.startsWith("?")) {
+    return true;
+  }
+  if (value.startsWith("./") || value.startsWith("../")) {
+    return true;
+  }
+  return !value.includes(":") && !value.includes("//");
+}
+
+// Allowlist: http(s), mailto, tel, and same-site relative paths.
+// http is rewritten to https. A leading pair of slashes is refused.
 function safeHref(href: string): string | null {
   const trimmed = href.trim();
+  if (trimmed.length === 0) {
+    return null;
+  }
   const lower = trimmed.toLowerCase();
-  if (lower.startsWith(SECURE) || lower.startsWith("/")) {
+  if (lower.startsWith(SECURE)) {
     return trimmed;
   }
   if (lower.startsWith(PLAIN)) {
     return SECURE + trimmed.slice(PLAIN.length);
   }
-  if (lower.startsWith(MAILTO)) {
+  if (lower.startsWith(MAILTO) || lower.startsWith(TEL)) {
+    return trimmed;
+  }
+  if (sameSitePath(trimmed)) {
     return trimmed;
   }
   return null;

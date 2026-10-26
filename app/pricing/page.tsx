@@ -1,32 +1,34 @@
 import Link from "next/link";
-import { CtaBand } from "@/components/cta-band";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
 import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
+import { TrialTimeline } from "@/components/trial-timeline";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { BOTH_PLANS_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
+import { pricingIntro, pricingPageTitle } from "@/lib/gst";
+import { BILLING_LINE, CLOSING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "ReviewBuddy pricing",
-  description: "Starter is $49 a month. Growth is $75 a month. GST included. Free for 7 days. No lock-in.",
+  title: pricingPageTitle(),
+  description:
+    "Two plans for Australian tradies, both set up for you. 7-day free trial, no card needed. Add a card before day 8 to keep going. No contract, no notice period.",
   path: "/pricing",
 });
 
 const comparisonRows = [
-  ["A link and QR code to ask for a Google review", "Included", "Included"],
-  ["Your best Google reviews on your website", "Included", "Included"],
+  ["Review link where customers pick the site", "Included", "Included"],
+  ["QR code", "Included", "Included"],
+  ["Review widget on your website", "Included", "Included"],
   ["Free setup", "Included", "Included"],
-  ["Weekly tip from me", "Included", "Included"],
-  ["Free for 7 days", "Included", "Included"],
-  ["Emails that ask for a review", "Not included", "Included"],
-  ["One reminder, then we stop", "Not included", "Included"],
-  ["Past customers loaded in", "Not included", "Included"],
-  ["Help along the way", "Not included", "Included"],
+  ["Weekly email with one thing to do", "Included", "Included"],
+  ["Automatic review request after each job", "Not included", "Included"],
+  ["One polite reminder", "Not included", "Included"],
+  ["Past customers asked", "Not included", "Included"],
+  ["Private feedback box for every customer", "Included", "Included"],
 ] as const;
 
 function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: string; growth: string }) {
@@ -45,7 +47,7 @@ function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: s
             <h3 className="text-lg font-semibold text-ink">
               {name}
               {name === "Growth" ? (
-                <span className="ml-2 rounded-[10px] bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                <span className="ml-2 rounded-full bg-[var(--rb-accent)] px-2 py-0.5 text-xs font-semibold text-[var(--rb-on-accent)]">
                   Recommended
                 </span>
               ) : null}
@@ -75,7 +77,7 @@ function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: s
               </th>
               <th scope="col" className="px-4 py-4 font-semibold text-ink">
                 Growth{" "}
-                <span className="ml-1 rounded-[10px] bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                <span className="ml-1 rounded-full bg-[var(--rb-accent)] px-2 py-0.5 text-xs font-semibold text-[var(--rb-on-accent)]">
                   Recommended
                 </span>
               </th>
@@ -106,20 +108,18 @@ export default function PricingPage() {
     <>
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
-        <header className="hero-wash border-b border-line">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:py-20" data-hero-cta="">
-            <p className="text-sm font-semibold text-muted">Two plans for tradies</p>
-            <h1 className="mt-4 max-w-3xl text-balance text-4xl font-extrabold text-ink sm:text-6xl sm:leading-[1.05]">
-              ReviewBuddy pricing
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">Two plans. No lock-in. Setup&apos;s on us.</p>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-muted">{BOTH_PLANS_LINE}</p>
-            <p className="mt-4 text-base font-semibold text-ink">{TRIAL_LINE}</p>
+        <header className="bg-[var(--rb-surface)]">
+          <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 text-center lg:py-20" data-hero-cta="">
+            <p className="eyebrow">Pricing</p>
+            <h1 className="display mt-4 text-balance">Two plans. Both set up for you.</h1>
+            <p className="lead mt-5 text-[var(--rb-text-muted)]">{pricingIntro()}</p>
+            <p className="mt-4 text-base font-semibold leading-7">{TRIAL_LINE}</p>
+            <p className="mt-2 text-base font-semibold leading-7">{BILLING_LINE}</p>
             <SpotsLeft />
           </div>
         </header>
 
-        <div id="pricing" className="scroll-mt-24 bg-brand-tint px-4 py-14 sm:px-6 lg:py-20">
+        <div id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)] px-[var(--rb-gutter)] py-14 lg:py-20">
           <div className="mx-auto w-full max-w-[1100px]">
             <PlanPair location="pricing-plans" />
           </div>
@@ -132,15 +132,27 @@ export default function PricingPage() {
           </div>
         </section>
 
+        <section className="bg-soft">
+          <div className="mx-auto w-full max-w-[1100px] px-4 py-8 sm:px-6">
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">How the 7-day free trial works</h2>
+          </div>
+          <TrialTimeline />
+        </section>
+
+        <section className="px-4 py-14 sm:px-6 lg:py-20">
+          <div className="mx-auto w-full max-w-[720px]">
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">Stop any time</h2>
+            <p className="mt-4 text-lg leading-8 text-ink">
+              No contract and no notice period. Cancel any time from the billing page in your account, and you keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they&apos;re yours.
+            </p>
+          </div>
+        </section>
+
         <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto w-full max-w-[720px]">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Not sure which plan</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">What does $49 a month actually buy?</h2>
             <p className="mt-4 text-lg leading-8 text-ink">
-              Not sure? Email{" "}
-              <a href={`mailto:${contactEmail}`} className="font-semibold underline">
-                {contactEmail}
-              </a>{" "}
-              and I&apos;ll tell you straight which one suits.
+              About $1.60 a day for Starter, or about $2.50 a day for Growth.
             </p>
           </div>
         </section>
@@ -179,11 +191,19 @@ export default function PricingPage() {
           </div>
         </section>
       </article>
-      <CtaBand
-        title="Try it free for 7 days"
-        body="Then Starter is $49 a month or Growth is $75 a month."
-        location="pricing-band"
-      />
+      <section className="band">
+        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
+              {CLOSING_LINE}
+            </p>
+          </div>
+          <TrialButton variant="ink" location="pricing-band" className="px-8">
+            {CTA_LABEL}
+          </TrialButton>
+        </div>
+      </section>
       <StickyTrialBar />
     </>
   );
