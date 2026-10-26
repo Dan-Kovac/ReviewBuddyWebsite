@@ -128,7 +128,6 @@ export default function HomePage() {
           <div className="stage">
             <KeyImage priority />
           </div>
-          <p className="demo-note hero-demo">Demo data for illustration. Not real customers or reviews.</p>
         </div>
       </section>
 
@@ -214,7 +213,6 @@ export default function HomePage() {
             </p>
           </div>
           <FeatureBento />
-          <p className="demo-note">Demo data for illustration. Not real customers or reviews.</p>
         </div>
       </section>
 
