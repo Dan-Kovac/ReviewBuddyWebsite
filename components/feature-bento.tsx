@@ -44,10 +44,10 @@ export function FeatureBento() {
           <ArtImage
             desktop={sources.desktop}
             mobile={sources.mobile}
-            alt="The ReviewBuddy review sources screen for Demo Plumbing Co, listing the sites connected to the account. The business name is demo data."
+            alt="Review sites for Demo Plumbing Co. The business name is demo data."
           />
         </div>
-        <p className="bento-note">Review sites connected for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</p>
+        <p className="bento-note">Review sites for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</p>
       </article>
       <article className="bento-card">
         <div className="bento-copy">

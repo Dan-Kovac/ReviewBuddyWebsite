@@ -210,7 +210,7 @@ export default function HomePage() {
             <p className="eyebrow">Inside ReviewBuddy</p>
             <h2 className="mt-3">All your reviews in one place</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              These are crops of the real Reviews screen in the app. The names and reviews are demo data.
+              These are real screens from the app. The business name is demo data.
             </p>
           </div>
           <FeatureBento />

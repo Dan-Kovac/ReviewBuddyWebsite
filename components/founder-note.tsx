@@ -27,7 +27,7 @@ export function FounderNote() {
                 width: 1080,
                 height: 1320,
               }}
-              alt="A lettering card for Dan Kovac, founder of ReviewBuddy. It shows the initials DK and his name. It is not a photograph."
+              alt="Dan Kovac, Founder, ReviewBuddy"
             />
           </figure>
           <article className="founder-card">
