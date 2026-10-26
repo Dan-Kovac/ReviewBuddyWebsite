@@ -649,6 +649,16 @@ footer .eyebrow,
   gap: 12px;
 }
 
+.step .step-shot {
+  margin-top: auto;
+}
+
+.step .step-shot img {
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
+  object-position: center top;
+}
+
 .step-num {
   font-family: var(--rb-font-display);
   font-variation-settings: var(--rb-font-display-settings);

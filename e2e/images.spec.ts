@@ -1,5 +1,6 @@
 import sharp from "sharp";
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator } from "@playwright/test";
+import { waitForLazyImages } from "./lazy-images";
 
 const pages = [
   "/",
@@ -17,60 +18,6 @@ const pages = [
 /** A frame this large is a picture, not a 24px mark. Blank white boxes fail here. */
 const frameMinWidth = 100;
 const frameMinHeight = 48;
-
-async function settle(page: Page) {
-  await page.evaluate(async () => {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    const step = Math.max(240, Math.floor(window.innerHeight * 0.7));
-    let y = 0;
-    const height = () => Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-    while (y < height()) {
-      window.scrollTo(0, y);
-      await sleep(70);
-      y += step;
-    }
-    window.scrollTo(0, height());
-    await sleep(100);
-
-    const pending = [...document.images].filter((img) => !img.complete);
-    await Promise.all(
-      pending.map(
-        (img) =>
-          new Promise((resolve) => {
-            img.addEventListener("load", () => resolve(null), { once: true });
-            img.addEventListener("error", () => resolve(null), { once: true });
-          }),
-      ),
-    );
-
-    const urls = new Set<string>();
-    for (const img of document.images) {
-      const src = img.currentSrc || img.src;
-      if (src) urls.add(src);
-    }
-    for (const el of document.querySelectorAll<HTMLElement>("*")) {
-      const bg = getComputedStyle(el).backgroundImage;
-      if (!bg || bg === "none" || !bg.includes("url(")) continue;
-      el.setAttribute("data-has-bg", "");
-      for (const match of bg.matchAll(/url\((['"]?)(.*?)\1\)/g)) {
-        const url = match[2];
-        if (url && !url.startsWith("data:")) urls.add(new URL(url, location.href).href);
-      }
-    }
-
-    await Promise.all(
-      [...urls].map(
-        (url) =>
-          new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(null);
-            img.onerror = () => resolve(url);
-            img.src = url;
-          }),
-      ),
-    );
-  });
-}
 
 async function dominantShare(buffer: Buffer) {
   const { data, info } = await sharp(buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -103,7 +50,7 @@ test("images and background crops are loaded and not a blank colour", async ({ p
   test.setTimeout(180_000);
   for (const path of pages) {
     await page.goto(path, { waitUntil: "networkidle" });
-    await settle(page);
+    await waitForLazyImages(page);
 
     const images = page.locator("img");
     for (let index = 0; index < (await images.count()); index += 1) {

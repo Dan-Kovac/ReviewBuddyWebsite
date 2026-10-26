@@ -11,6 +11,7 @@
     "test:e2e": "playwright test",
     "check:signup": "node --experimental-strip-types scripts/check-signup-urls.mjs",
     "check:markers": "node scripts/check-markers.mjs",
+    "capture:pages": "node --experimental-strip-types scripts/capture-pages.mjs",
     "prebuild": "node scripts/check-markers.mjs",
     "postbuild": "node scripts/check-markers.mjs --built",
     "test:unit": "node --import ./test/register-hooks.mjs --experimental-strip-types --test lib/signup-url.test.ts lib/setup-spots.test.ts lib/trial-copy.test.ts lib/review-fixes.test.ts lib/gst.test.ts lib/markdown.test.ts lib/copy-consistency.test.ts lib/live-site.test.ts"

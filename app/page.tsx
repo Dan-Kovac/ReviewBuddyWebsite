@@ -67,16 +67,16 @@ const youDo = [
 const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
 export default function HomePage() {
-  preload("/img/reviewbuddy-key-image-mobile-hero-800.webp", {
+  preload("/img/reviewbuddy-key-image-mobile-hero-800-v2.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(max-width: 1023px)",
     type: "image/webp",
     imageSrcSet:
-      "/img/reviewbuddy-key-image-mobile-hero-800.webp 800w, /img/reviewbuddy-key-image-mobile-hero.webp 1080w",
+      "/img/reviewbuddy-key-image-mobile-hero-800-v2.webp 800w, /img/reviewbuddy-key-image-mobile-hero-v2.webp 1080w",
     imageSizes: "calc(100vw - 60px)",
   });
-  preload("/img/reviewbuddy-key-image-desktop-2400.webp", {
+  preload("/img/reviewbuddy-key-image-desktop-2400-v2.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(min-width: 1024px)",
@@ -150,23 +150,43 @@ export default function HomePage() {
                 <h3>{step.title}</h3>
                 <p className="text-base leading-6 text-[var(--rb-text-muted)]">{step.detail}</p>
                 {index === 3 ? (
-                  <figure className="art">
+                  <figure className="art step-shot">
                     <ArtImage
                       desktop={{
-                        webp: "/img/screens/reviewbuddy-send-review-request-desktop.webp",
-                        png: "/img/screens/reviewbuddy-send-review-request-desktop.png",
+                        webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
+                        png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
                         width: 1520,
-                        height: 1316,
+                        height: 1314,
                       }}
                       mobile={{
-                        webp: "/img/screens/reviewbuddy-send-review-request-mobile.webp",
-                        png: "/img/screens/reviewbuddy-send-review-request-mobile.png",
+                        webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
+                        png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
                         width: 1080,
-                        height: 1011,
+                        height: 930,
                       }}
                       alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
                     />
                     <figcaption>Sending a request from the app.</figcaption>
+                  </figure>
+                ) : null}
+                {index === 4 ? (
+                  <figure className="art step-shot">
+                    <ArtImage
+                      desktop={{
+                        webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
+                        png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
+                        width: 2400,
+                        height: 1210,
+                      }}
+                      mobile={{
+                        webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
+                        png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
+                        width: 1080,
+                        height: 1044,
+                      }}
+                      alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
+                    />
+                    <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
                   </figure>
                 ) : null}
               </li>
@@ -289,18 +309,18 @@ export default function HomePage() {
           <figure className="art">
             <ArtImage
               desktop={{
-                webp: "/img/sections/reviewbuddy-be-the-tradie-desktop.webp",
-                png: "/img/sections/reviewbuddy-be-the-tradie-desktop.png",
+                webp: "/img/sections/reviewbuddy-be-the-tradie-desktop-v2.webp",
+                png: "/img/sections/reviewbuddy-be-the-tradie-desktop-v2.png",
                 width: 1440,
                 height: 940,
               }}
               mobile={{
-                webp: "/img/sections/reviewbuddy-be-the-tradie-mobile.webp",
-                png: "/img/sections/reviewbuddy-be-the-tradie-mobile.png",
+                webp: "/img/sections/reviewbuddy-be-the-tradie-mobile-v2.webp",
+                png: "/img/sections/reviewbuddy-be-the-tradie-mobile-v2.png",
                 width: 1080,
                 height: 2310,
               }}
-              alt="An illustration of three unnamed tradies being compared: 9 reviews from 2022, 30 reviews, and 80 reviews from last week, with those reviews also drawn on a website. Not real businesses or reviews."
+              alt="An illustration of someone comparing two tradies. One has 9 reviews, latest from 2022. The other has 80 reviews, latest from last week, and those reviews are also shown on a website. Not real businesses."
             />
             <figcaption>Illustration of the example above. Not real businesses or reviews.</figcaption>
           </figure>
@@ -324,20 +344,20 @@ export default function HomePage() {
           <figure className="art art-wide">
             <ArtImage
               desktop={{
-                webp: "/img/screens/reviewbuddy-widget-on-website-desktop.webp",
-                png: "/img/screens/reviewbuddy-widget-on-website-desktop.png",
+                webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
+                png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
                 width: 2400,
-                height: 1212,
+                height: 1210,
               }}
               mobile={{
-                webp: "/img/screens/reviewbuddy-widget-on-website-mobile.webp",
-                png: "/img/screens/reviewbuddy-widget-on-website-mobile.png",
+                webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
+                png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
                 width: 1080,
-                height: 1167,
+                height: 1044,
               }}
               alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
             />
-            <figcaption>The widget on a website. The reviews shown are demo data.</figcaption>
+            <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
           </figure>
         </div>
       </section>

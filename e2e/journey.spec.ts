@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { waitForLazyImages } from "./lazy-images";
 import {
   defaultGrowthSignupUrl,
   defaultStarterSignupUrl,
@@ -358,36 +359,7 @@ test("pages have no unfinished copy, header plumbers link, or Base44 icon", asyn
       "href",
       "/google-reviews-for-plumbers",
     );
-    await page.evaluate(async () => {
-      const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-      const height = document.body.scrollHeight;
-      for (let y = 0; y < height; y += window.innerHeight) {
-        window.scrollTo(0, y);
-        await wait(40);
-      }
-      window.scrollTo(0, height);
-      await Promise.all(
-        [...document.images].map(
-          (image) =>
-            new Promise((resolve) => {
-              if (image.complete) {
-                resolve(null);
-                return;
-              }
-              image.addEventListener("load", () => resolve(null), { once: true });
-              image.addEventListener("error", () => resolve(null), { once: true });
-            }),
-        ),
-      );
-    });
-    const broken = await page.locator("img").evaluateAll((images) =>
-      images.flatMap((node) => {
-        const image = node as HTMLImageElement;
-        if (image.complete && image.naturalWidth > 0) return [];
-        return [image.currentSrc || image.getAttribute("src") || image.getAttribute("alt") || "image"];
-      }),
-    );
-    expect(broken, path).toEqual([]);
+    await waitForLazyImages(page);
   }
 
   await page.goto("/");

@@ -2,31 +2,31 @@ import { ArtImage } from "@/components/art-image";
 
 const sources = {
   desktop: {
-    webp: "/img/screens/reviewbuddy-review-sources-desktop.webp",
-    png: "/img/screens/reviewbuddy-review-sources-desktop.png",
+    webp: "/img/screens/reviewbuddy-review-sources-desktop-v2.webp",
+    png: "/img/screens/reviewbuddy-review-sources-desktop-v2.png",
     width: 2400,
-    height: 1458,
+    height: 1456,
   },
   mobile: {
-    webp: "/img/screens/reviewbuddy-review-sources-mobile.webp",
-    png: "/img/screens/reviewbuddy-review-sources-mobile.png",
+    webp: "/img/screens/reviewbuddy-review-sources-mobile-v2.webp",
+    png: "/img/screens/reviewbuddy-review-sources-mobile-v2.png",
     width: 1080,
-    height: 843,
+    height: 720,
   },
 };
 
 const respond = {
   desktop: {
-    webp: "/img/screens/reviewbuddy-respond-to-review-desktop.webp",
-    png: "/img/screens/reviewbuddy-respond-to-review-desktop.png",
+    webp: "/img/screens/reviewbuddy-respond-to-review-desktop-v2.webp",
+    png: "/img/screens/reviewbuddy-respond-to-review-desktop-v2.png",
     width: 2000,
-    height: 1240,
+    height: 1238,
   },
   mobile: {
-    webp: "/img/screens/reviewbuddy-respond-to-review-mobile.webp",
-    png: "/img/screens/reviewbuddy-respond-to-review-mobile.png",
+    webp: "/img/screens/reviewbuddy-respond-to-review-mobile-v2.webp",
+    png: "/img/screens/reviewbuddy-respond-to-review-mobile-v2.png",
     width: 1080,
-    height: 1311,
+    height: 1188,
   },
 };
 
@@ -51,7 +51,7 @@ export function FeatureBento() {
           mobile={sources.mobile}
           alt="The ReviewBuddy review sources screen for Demo Plumbing Co, listing the sites connected to the account. The business name is demo data."
         />
-        <figcaption>Review sites connected for Demo Plumbing Co.</figcaption>
+        <figcaption>Review sites connected for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</figcaption>
       </figure>
       <figure className="art">
         <ArtImage
@@ -59,7 +59,7 @@ export function FeatureBento() {
           mobile={respond.mobile}
           alt="The ReviewBuddy reply screen, with a box for writing a response to a demo review. The reply is typed by hand. The reviewer name and review text are demo data."
         />
-        <figcaption>Responding to a review. You write the reply.</figcaption>
+        <figcaption>Responding to a review. You write the reply. Demo data for illustration. Not real customers or reviews.</figcaption>
       </figure>
     </div>
   );
