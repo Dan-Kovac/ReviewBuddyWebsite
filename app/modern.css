@@ -1,0 +1,19 @@
+/* Flat off-white hero. No gradient, no grid. */
+
+.hero-wash {
+  background: var(--rb-surface);
+}
+
+header.hero-wash h1 {
+  font-size: clamp(2.4rem, 8vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-card,
+  .lift-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
