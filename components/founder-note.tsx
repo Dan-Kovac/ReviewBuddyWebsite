@@ -1,4 +1,3 @@
-import { ArtImage } from "@/components/art-image";
 import { contactEmail } from "@/lib/site";
 
 const founderParagraphs = [
@@ -12,25 +11,7 @@ export function FounderNote() {
   return (
     <section className="bg-[var(--rb-surface)]" aria-labelledby="about-dan">
       <div className="mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]">
-        <div className="founder-layout">
-          <figure className="art founder-art">
-            <ArtImage
-              desktop={{
-                webp: "/img/sections/reviewbuddy-founder-card-desktop.webp",
-                png: "/img/sections/reviewbuddy-founder-card-desktop.png",
-                width: 1120,
-                height: 720,
-              }}
-              mobile={{
-                webp: "/img/sections/reviewbuddy-founder-card-mobile.webp",
-                png: "/img/sections/reviewbuddy-founder-card-mobile.png",
-                width: 1080,
-                height: 1320,
-              }}
-              alt="A lettering card for Dan Kovac, founder of ReviewBuddy. It shows the initials DK, his name, and a signature. It is not a photograph."
-            />
-          </figure>
-          <article className="founder-card">
+        <article className="founder-card">
             <p className="eyebrow" id="about-dan">
               Who&apos;s setting this up for you
             </p>
@@ -53,8 +34,7 @@ export function FounderNote() {
                 {contactEmail}
               </a>
             </p>
-          </article>
-        </div>
+        </article>
       </div>
     </section>
   );

@@ -59,7 +59,7 @@ export function pricingSubTail(registered = GST_REGISTERED): string {
 export function priceFaqAnswer(registered = GST_REGISTERED): string {
   return registered
     ? "Yes. $49 and $75 a month are in Australian dollars and incl GST."
-    : "No GST is charged.";
+    : "No. We are not registered for GST, so no GST is charged. $49 and $75 a month are in Australian dollars.";
 }
 
 export function plumberCostAnswer(registered = GST_REGISTERED): string {

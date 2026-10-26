@@ -824,7 +824,7 @@ footer .eyebrow,
 }
 
 .founder-card {
-  max-width: 760px;
+  max-width: none;
   background: var(--rb-surface-raised);
   border-radius: var(--rb-radius-lg);
   padding: 32px 28px;

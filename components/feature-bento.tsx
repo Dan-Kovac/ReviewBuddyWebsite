@@ -33,6 +33,18 @@ const respond = {
 export function FeatureBento() {
   return (
     <div className="feature-shots">
+      <article>
+        <h3>Every review in one list</h3>
+        <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">
+          Google, Facebook and the other sites you connect, side by side. Search, filter and tag them in one place.
+        </p>
+      </article>
+      <article>
+        <h3>Ask from the app</h3>
+        <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">
+          Send a review request straight from ReviewBuddy, or copy your link to send it your own way.
+        </p>
+      </article>
       <figure className="art">
         <ArtImage
           desktop={sources.desktop}

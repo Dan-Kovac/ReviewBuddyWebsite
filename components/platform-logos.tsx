@@ -18,7 +18,7 @@ export function PlatformLogos() {
               <span>{platform.name}</span>
             </li>
           ))}
-          <li className="logo-more">and the other review sites your customers use</li>
+          <li className="logo-more">and 80+ more</li>
         </ul>
       </div>
     </div>

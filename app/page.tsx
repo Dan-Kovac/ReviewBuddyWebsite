@@ -190,7 +190,7 @@ export default function HomePage() {
             <p className="eyebrow">Inside ReviewBuddy</p>
             <h2 className="mt-3">All your reviews in one place</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              These are real screens from the app. The business is Demo Plumbing Co, and the reviews are demo data.
+              These are real screens from the app. The names and reviews are demo data.
             </p>
           </div>
           <FeatureBento />
@@ -278,7 +278,7 @@ export default function HomePage() {
             <h2>Be the tradie with the reviews</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
-                Picture someone comparing three tradies. One has 9 reviews, and the latest is from 2022. One has 30. You&apos;ve got 80, and the latest is from last week. You get the call.
+                Picture someone choosing between two tradies. One has 9 reviews, and the latest is from 2022. You&apos;ve got 80, and the latest is from last week. You get the call.
               </p>
               <p>
                 They don&apos;t know any of you. But they know who looks busy, trusted and still doing good work right now. That&apos;s who gets the call.
