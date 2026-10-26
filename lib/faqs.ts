@@ -29,7 +29,7 @@ export const homeFaqs: Faq[] = [
   {
     question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Service Seeking can show in your widget if it connects. Email me the sites you use and I'll check.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email me the sites you use and I'll check.",
   },
   {
     question: "Do I need a card to start?",
@@ -100,7 +100,7 @@ export const plumberFaqs: Faq[] = [
     answer: "Straight after the job, while they remember you fixed it. Growth handles the timing for you.",
   },
   {
-    question: "I'm on Service Seeking and hipages too. Can those reviews show?",
+    question: "I use other review sites too. Can those reviews show?",
     answer:
       "They can show in your widget if they connect. Email me the sites you use and I'll check.",
   },

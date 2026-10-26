@@ -89,13 +89,16 @@ test("published trial copy does not promise a card, a reminder email, or Stripe"
   assert.equal(copy.includes("usually means another paid tool"), false);
 });
 
-test("the home FAQ hedges Service Seeking the same way as the plumbers FAQ", () => {
+test("other review sites are hedged the same way on home and for plumbers", () => {
   const home = homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer;
-  const plumber = plumberFaqs.find((faq) => faq.question.includes("Service Seeking"))!.answer;
-  assert.match(home, /Service Seeking can show in your widget if it connects\./);
+  const plumber = plumberFaqs.find((faq) => faq.question === "I use other review sites too. Can those reviews show?")!.answer;
+  assert.match(home, /Other review sites can show in your widget if they connect\./);
   assert.match(home, /Email me the sites you use and I'll check\./);
   assert.match(plumber, /if they connect/);
   assert.match(plumber, /Email me the sites you use and I'll check\./);
+  assert.equal(home.includes("Service Seeking"), false);
+  assert.equal(plumber.includes("Service Seeking"), false);
+  assert.equal(plumber.includes("hipages"), false);
 });
 
 test("plans no longer carry the stale Stripe product ids", () => {

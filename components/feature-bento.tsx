@@ -36,7 +36,7 @@ export function FeatureBento() {
       <article>
         <h3>Every review in one list</h3>
         <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">
-          Google, Facebook and the other sites you connect, side by side. Search, filter and tag them in one place.
+          Google, Facebook and the other review sites you connect, side by side. Search, filter and tag them in one place.
         </p>
       </article>
       <article>
