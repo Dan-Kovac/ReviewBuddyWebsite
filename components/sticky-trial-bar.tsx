@@ -41,13 +41,13 @@ export function StickyTrialBar() {
 
   return (
     <div className={`fixed inset-x-0 bottom-0 z-40 lg:hidden ${show ? "" : "hidden"}`}>
-      <div className="flex items-center gap-3 border-t border-line bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <p className="min-w-0 flex-1 text-sm font-semibold leading-5 text-ink">{STICKY_TRIAL_TEXT}</p>
+      <div className="flex items-center gap-3 border-t border-[var(--rb-line)] bg-[var(--rb-surface-raised)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[var(--rb-shadow-card)]">
+        <p className="min-w-0 flex-1 text-sm font-semibold leading-5 text-[var(--rb-text)]">{STICKY_TRIAL_TEXT}</p>
         <a
           href={pricingSectionLink(pathname)}
           data-cta="pricing"
           data-location="sticky"
-          className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-ink px-4 text-center text-base font-semibold text-white"
+          className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-[var(--rb-accent)] px-4 text-center text-base font-semibold text-[var(--rb-on-accent)]"
         >
           {STICKY_CTA_LABEL}
         </a>

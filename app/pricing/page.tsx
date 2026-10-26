@@ -9,7 +9,6 @@ import { TrialTimeline } from "@/components/trial-timeline";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { HeroProduct } from "@/components/product-visual";
 import { pricingIntro, pricingPageTitle } from "@/lib/gst";
 import { BILLING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
@@ -48,7 +47,7 @@ function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: s
             <h3 className="text-lg font-semibold text-ink">
               {name}
               {name === "Growth" ? (
-                <span className="ml-2 rounded-[10px] bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                <span className="ml-2 rounded-full bg-[var(--rb-accent)] px-2 py-0.5 text-xs font-semibold text-[var(--rb-on-accent)]">
                   Recommended
                 </span>
               ) : null}
@@ -78,7 +77,7 @@ function Comparison({ starter: starterPrice, growth: growthPrice }: { starter: s
               </th>
               <th scope="col" className="px-4 py-4 font-semibold text-ink">
                 Growth{" "}
-                <span className="ml-1 rounded-[10px] bg-brand px-2 py-0.5 text-xs font-semibold text-ink">
+                <span className="ml-1 rounded-full bg-[var(--rb-accent)] px-2 py-0.5 text-xs font-semibold text-[var(--rb-on-accent)]">
                   Recommended
                 </span>
               </th>
@@ -109,25 +108,18 @@ export default function PricingPage() {
     <>
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
-        <header className="hero-wash border-b border-line">
-          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-20" data-hero-cta="">
-            <div>
-              <p className="text-sm font-semibold text-muted">Pricing</p>
-              <h1 className="mt-4 max-w-3xl text-balance text-4xl font-extrabold text-ink sm:text-6xl sm:leading-[1.05]">
-                Two plans. Both set up for you.
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-                {pricingIntro()}
-              </p>
-              <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{TRIAL_LINE}</p>
-              <p className="mt-2 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
-              <SpotsLeft />
-            </div>
-            <HeroProduct />
+        <header className="bg-[var(--rb-surface)]">
+          <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 text-center lg:py-20" data-hero-cta="">
+            <p className="eyebrow">Pricing</p>
+            <h1 className="display mt-4 text-balance">Two plans. Both set up for you.</h1>
+            <p className="lead mt-5 text-[var(--rb-text-muted)]">{pricingIntro()}</p>
+            <p className="mt-4 text-base font-semibold leading-7">{TRIAL_LINE}</p>
+            <p className="mt-2 text-base font-semibold leading-7">{BILLING_LINE}</p>
+            <SpotsLeft />
           </div>
         </header>
 
-        <div id="pricing" className="scroll-mt-24 bg-brand-tint px-4 py-14 sm:px-6 lg:py-20">
+        <div id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)] px-[var(--rb-gutter)] py-14 lg:py-20">
           <div className="mx-auto w-full max-w-[1100px]">
             <PlanPair location="pricing-plans" />
           </div>
@@ -202,13 +194,11 @@ export default function PricingPage() {
           </div>
         </section>
       </article>
-      <section className="bg-brand">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-16 sm:px-6 md:flex-row md:items-end md:justify-between md:py-24">
+      <section className="band">
+        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-[clamp(2rem,5.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Build the trust before they call.
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink">
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
               Free for 7 days. No card needed. I&apos;ll set it up for you.
             </p>
           </div>

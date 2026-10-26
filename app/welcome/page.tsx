@@ -20,7 +20,7 @@ export const metadata = pageMetadata({
 export default function WelcomePage() {
   return (
     <article className="mx-auto w-full max-w-[720px] px-4 py-16 sm:px-6 lg:py-24">
-      <h1 className="text-4xl font-extrabold tracking-tight text-ink sm:text-6xl">You&apos;re in</h1>
+      <h1 className="display">You&apos;re in</h1>
       <p className="mt-5 text-lg leading-8 text-muted">
         Your 7-day free trial has started. No card needed. Add a card before day 8 to keep going.
       </p>

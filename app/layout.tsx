@@ -1,27 +1,15 @@
 import type { Metadata } from "next";
-import { Archivo, Work_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { CtaAnalytics } from "@/components/cta-analytics";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { caveat, fraunces, frauncesItalic, inter } from "@/app/fonts";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { homeMetaDescription } from "@/lib/gst";
 import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
-
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["700", "800"],
-});
-
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-  weight: ["400", "600"],
-});
 
 const homeTitle = "More Google Reviews for Tradies | ReviewBuddy";
 const homeDescription = homeMetaDescription();
@@ -60,9 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`${archivo.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
+      data-theme="eucalypt-gold"
+      className={`${fraunces.variable} ${frauncesItalic.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white font-sans text-ink">
+      <body className="flex min-h-full flex-col bg-[var(--rb-surface)] font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />
         <a
           href="#main"

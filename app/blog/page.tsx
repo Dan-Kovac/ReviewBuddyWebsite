@@ -45,7 +45,7 @@ async function BlogIndex() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
       <p className="text-sm font-semibold tracking-wide text-muted">Blog</p>
-      <h1 className="mt-4 max-w-3xl text-5xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl sm:leading-[1.05]">
+      <h1 className="display mt-4 max-w-3xl text-balance">
         More reviews, more jobs
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">

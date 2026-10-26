@@ -17,7 +17,7 @@ export default function CancelHelpPage() {
           Help
         </Link>
       </p>
-      <h1 className="mt-8 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+      <h1 className="mt-8">
         {cancellingGuide.title}
       </h1>
       <p className="mt-6 text-xl leading-8 text-muted">{cancellingGuide.excerpt}</p>

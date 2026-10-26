@@ -1,7 +1,7 @@
 /* Flat off-white hero. No gradient, no grid. */
 
 .hero-wash {
-  background: #f7f6f3;
+  background: var(--rb-surface);
 }
 
 header.hero-wash h1 {

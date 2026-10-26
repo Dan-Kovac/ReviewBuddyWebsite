@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-hidden="true">
+  <!-- Concept mark. Swap this file to change the logo. Colours follow the Eucalypt & Gold tokens. -->
+  <path fill="#E9A93B" d="M6 3h20a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H14l-6.5 5.2c-.6.5-1.5 0-1.5-.8V25a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"/>
+  <path fill="#1F4D3F" d="M16 7.5l2.2 4.6 5 .6-3.7 3.4 1 5-4.5-2.5-4.5 2.5 1-5-3.7-3.4 5-.6z"/>
+</svg>

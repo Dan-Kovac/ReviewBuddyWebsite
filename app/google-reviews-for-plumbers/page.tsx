@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
-import { HeroProduct } from "@/components/product-visual";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
@@ -42,26 +41,21 @@ export default function PlumbersPage() {
     <>
       <JsonLd data={faqJsonLd(plumberFaqs)} />
       <article>
-        <header className="hero-wash border-b border-line">
-          <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
-            <div>
-              <p className="text-sm font-semibold text-muted">For plumbers</p>
-              <h1 className="mt-4 text-balance text-[clamp(2.4rem,7vw,4.25rem)] font-extrabold leading-[1.02] text-ink">
-                When the hot water dies, they ring the plumber they trust.
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-                At 7am with a cold shower, nobody reads ten websites. They look at the reviews and ring the plumber who looks reliable. ReviewBuddy helps that be you.
-              </p>
-              <div className="mt-8" data-hero-cta="">
-                <TrialButton variant="ink" location="plumbers-hero">
-                  {CTA_LABEL}
-                </TrialButton>
-              </div>
-              <p className="mt-4 text-sm font-semibold leading-6 text-ink">
-                {TRIAL_LINE} {thenFromPriceLine()}
-              </p>
+        <header className="bg-[var(--rb-surface)]">
+          <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 lg:py-20">
+            <p className="eyebrow">For plumbers</p>
+            <h1 className="display mt-4 text-balance">When the hot water dies, they ring the plumber they trust.</h1>
+            <p className="lead mt-5 text-[var(--rb-text-muted)]">
+              At 7am with a cold shower, nobody reads ten websites. They look at the reviews and ring the plumber who looks reliable. ReviewBuddy helps that be you.
+            </p>
+            <div className="mt-8" data-hero-cta="">
+              <TrialButton variant="gold" location="plumbers-hero">
+                {CTA_LABEL}
+              </TrialButton>
             </div>
-            <HeroProduct />
+            <p className="mt-4 text-sm font-semibold leading-6">
+              {TRIAL_LINE} {thenFromPriceLine()}
+            </p>
           </div>
         </header>
 
@@ -92,7 +86,7 @@ export default function PlumbersPage() {
           </div>
         </section>
 
-        <section id="pricing" className="scroll-mt-24 border-t border-line bg-brand-tint">
+        <section id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
           <div className="mx-auto w-full max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans. Both set up for you.</h2>
             <div className="mt-10">
@@ -115,13 +109,11 @@ export default function PlumbersPage() {
           </div>
         </section>
       </article>
-      <section className="bg-brand">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-4 py-16 sm:px-6 md:flex-row md:items-end md:justify-between md:py-24">
+      <section className="band">
+        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-[clamp(2rem,5.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Build the trust before they call.
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink">
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
               Free for 7 days. No card needed. I&apos;ll set it up for you.
             </p>
           </div>

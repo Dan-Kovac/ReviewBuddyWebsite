@@ -242,7 +242,7 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
 test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByText("No GST charged").first()).toBeVisible();
+  await expect(page.getByText("No GST charged")).toHaveCount(0);
   await expect(page.getByText("GST included")).toHaveCount(0);
   await expect(page.getByText("incl GST")).toHaveCount(0);
   await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);

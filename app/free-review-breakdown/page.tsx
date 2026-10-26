@@ -33,8 +33,8 @@ export default function FreeReviewBreakdownPage() {
       <article>
         <header className="hero-wash border-b border-line">
           <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:py-20">
-            <p className="text-sm font-semibold text-muted">Free, for Australian tradies</p>
-            <h1 className="mt-4 max-w-3xl text-balance text-4xl font-extrabold text-ink sm:text-6xl sm:leading-[1.05]">
+            <p className="eyebrow">Free, for Australian tradies</p>
+            <h1 className="display mt-4 max-w-3xl text-balance">
               See how your reviews stack up
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">

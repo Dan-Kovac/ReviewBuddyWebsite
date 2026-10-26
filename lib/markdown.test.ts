@@ -58,7 +58,7 @@ test("review follow-ups stay in the source", () => {
   const groupHeading = plans.indexOf('className="sr-only">Plans');
   const cardUse = plans.indexOf("<PlanCard");
   assert.ok(groupHeading > 0 && groupHeading < cardUse);
-  assert.match(card, /<h3 className="text-2xl font-bold">\{plan\.name\}<\/h3>/);
+  assert.match(card, /<h3[^>]*>\{plan\.name\}<\/h3>/);
   assert.match(config, /Strict-Transport-Security/);
   assert.match(config, /X-Content-Type-Options", value: "nosniff"/);
   assert.match(config, /Referrer-Policy", value: "strict-origin-when-cross-origin"/);

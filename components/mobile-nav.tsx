@@ -31,7 +31,7 @@ export function MobileNav() {
     <div>
       <button
         type="button"
-        className="inline-flex size-12 items-center justify-center rounded-full border border-line text-ink"
+        className="inline-flex size-11 items-center justify-center rounded-[12px] border-[1.5px] border-[color-mix(in_srgb,var(--rb-on-brand)_25%,transparent)] text-[var(--rb-on-brand)]"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpenPath(open ? null : pathname)}
@@ -45,7 +45,7 @@ export function MobileNav() {
         <nav
           id={panelId}
           aria-label="Mobile"
-          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-background px-4 py-3 sm:px-6"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-[var(--rb-line)] bg-[var(--rb-surface)] px-[var(--rb-gutter)] py-3"
         >
           <ul className="grid gap-1">
             {navLinks.map((link) => (

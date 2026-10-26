@@ -26,7 +26,7 @@ export default function TermsPage() {
 
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6 md:py-20">
-      <h1 className="text-4xl font-semibold tracking-tight text-ink">Terms of use</h1>
+      <h1>Terms of use</h1>
       <p className="mt-3 text-sm text-muted">Last updated: {legalUpdated}</p>
 
       <div className="mt-6 grid gap-4 text-base leading-7 text-muted">
