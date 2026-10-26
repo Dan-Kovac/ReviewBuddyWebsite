@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
 import { TrialButton } from "@/components/trial-button";
-import { CTA_LABEL, loginUrl, navLinks } from "@/lib/site";
+import { CTA_LABEL, headerLinks, loginUrl } from "@/lib/site";
 
 export function MobileNav() {
   const pathname = usePathname();
@@ -48,7 +48,7 @@ export function MobileNav() {
           className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-[var(--rb-line)] bg-[var(--rb-surface)] px-[var(--rb-gutter)] py-3"
         >
           <ul className="grid gap-1">
-            {navLinks.map((link) => (
+            {headerLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}

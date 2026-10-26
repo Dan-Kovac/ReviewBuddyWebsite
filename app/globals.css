@@ -616,6 +616,13 @@ footer .eyebrow,
   gap: 12px;
 }
 
+.step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .step-num {
   font-family: var(--rb-font-display);
   font-variation-settings: var(--rb-font-display-settings);
@@ -625,20 +632,59 @@ footer .eyebrow,
   color: var(--rb-brand-text);
 }
 
-.placeholder {
-  margin-top: auto;
-  border: 1.5px dashed var(--rb-line-strong);
-  border-radius: 12px;
-  background: var(--rb-surface);
-  color: var(--rb-text-muted);
-  font-size: 13px;
-  line-height: 18px;
+.step-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--rb-brand-text);
+}
+
+.how-shots {
   display: grid;
-  place-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.how-shot {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--rb-surface-raised);
+  border-radius: var(--rb-radius-lg);
+  padding: 20px 20px 16px;
+  box-shadow: var(--rb-shadow-card);
+}
+
+.how-shot img {
+  width: auto;
+  max-width: min(100%, 320px);
+  height: auto;
+}
+
+.how-shot figcaption {
   text-align: center;
-  padding: 16px;
-  min-height: 140px;
-  aspect-ratio: 16 / 10;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rb-text-muted);
+}
+
+.widget-points {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+  max-width: 640px;
+}
+
+.widget-points li {
+  background: var(--rb-surface-raised);
+  border-radius: var(--rb-radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--rb-shadow-card);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--rb-text);
 }
 
 .fair {
@@ -715,25 +761,12 @@ footer .eyebrow,
   border-radius: 12px;
 }
 
-.founder-grid {
-  display: grid;
-  gap: 24px;
-  align-items: center;
-}
-
-.founder-photo {
-  aspect-ratio: 4 / 5;
+.founder-card {
+  max-width: 760px;
+  background: var(--rb-surface-raised);
   border-radius: var(--rb-radius-lg);
-  border: 1.5px dashed var(--rb-line-strong);
-  background: var(--rb-surface-alt);
-  display: grid;
-  place-items: center;
-  color: var(--rb-text-muted);
-  font-size: 14px;
-  text-align: center;
-  padding: 20px;
-  max-width: 360px;
-  width: 100%;
+  padding: 32px 28px;
+  box-shadow: var(--rb-shadow-card);
 }
 
 .founder-quote {
@@ -794,6 +827,15 @@ footer .eyebrow,
     gap: 24px;
   }
 
+  .how-shots {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .founder-card {
+    padding: 48px 44px;
+  }
+
   .bento {
     grid-template-columns: repeat(6, 1fr);
     gap: 24px;
@@ -804,9 +846,4 @@ footer .eyebrow,
   .bento-card:nth-child(3) { grid-column: span 2; }
   .bento-card:nth-child(4) { grid-column: span 2; }
   .bento-card:nth-child(5) { grid-column: span 2; }
-
-  .founder-grid {
-    grid-template-columns: 360px 1fr;
-    gap: 64px;
-  }
 }

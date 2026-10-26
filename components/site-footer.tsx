@@ -7,8 +7,8 @@ import {
   contactEmail,
   contactPhone,
   contactPhoneHref,
+  footerLinks,
   loginUrl,
-  navLinks,
 } from "@/lib/site";
 
 const legal = LEGAL_DRAFT
@@ -32,7 +32,7 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer" className="grid content-start gap-1 text-sm">
           <p className="eyebrow mb-2">Explore</p>
-          {navLinks.map((link) => (
+          {footerLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}

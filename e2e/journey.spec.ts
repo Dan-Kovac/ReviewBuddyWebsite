@@ -90,7 +90,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await menuButton.click();
     const menu = page.getByRole("navigation", { name: "Mobile" });
     await expect(menu.getByRole("link", { name: "Pricing" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Plumbers" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Plumbers" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Free review breakdown" })).toBeVisible();
     await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
@@ -101,6 +101,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   } else {
     const nav = page.getByRole("navigation", { name: "Main" });
     await expect(nav.getByRole("link", { name: "Pricing" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Plumbers" })).toHaveCount(0);
     await expect(nav.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
     await expect(nav.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(page.getByRole("banner").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
@@ -318,6 +319,11 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   expect(missing?.status()).toBe(404);
   await expect(page).toHaveTitle("Page not found | ReviewBuddy");
 
+  await expect(footer.getByRole("link", { name: "Plumbers" })).toHaveAttribute(
+    "href",
+    "/google-reviews-for-plumbers",
+  );
+
   if (test.info().project.name === "desktop") {
     const sitemap = await request.get("/sitemap.xml");
     expect(sitemap.status()).toBe(200);
@@ -328,5 +334,66 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
     const text = await llms.text();
     expect(text).toContain("/privacy");
     expect(text).toContain("/terms");
+  }
+});
+
+const unfinished =
+  /placeholder|coming soon|\bTODO\b|photo of dan|real photo|image coming soon|real screenshot/i;
+
+test("pages have no unfinished copy, header plumbers link, or Base44 icon", async ({ page }) => {
+  const paths = ["/", "/pricing", "/google-reviews-for-plumbers", "/free-review-breakdown", "/privacy", "/terms"];
+  for (const path of paths) {
+    const response = await page.goto(path);
+    expect(response?.status(), path).toBeLessThan(400);
+    const text = await page.locator("body").innerText();
+    expect(text, path).not.toMatch(unfinished);
+    const header = await page.getByRole("banner").innerHTML();
+    expect(header, path).not.toMatch(/Plumbers|google-reviews-for-plumbers/);
+    await expect(page.getByRole("contentinfo").getByRole("link", { name: "Plumbers" })).toHaveAttribute(
+      "href",
+      "/google-reviews-for-plumbers",
+    );
+    await page.evaluate(async () => {
+      const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+      const height = document.body.scrollHeight;
+      for (let y = 0; y < height; y += window.innerHeight) {
+        window.scrollTo(0, y);
+        await wait(40);
+      }
+      window.scrollTo(0, height);
+      await Promise.all(
+        [...document.images].map(
+          (image) =>
+            new Promise((resolve) => {
+              if (image.complete) {
+                resolve(null);
+                return;
+              }
+              image.addEventListener("load", () => resolve(null), { once: true });
+              image.addEventListener("error", () => resolve(null), { once: true });
+            }),
+        ),
+      );
+    });
+    const broken = await page.locator("img").evaluateAll((images) =>
+      images.flatMap((node) => {
+        const image = node as HTMLImageElement;
+        if (image.complete && image.naturalWidth > 0) return [];
+        return [image.currentSrc || image.getAttribute("src") || image.getAttribute("alt") || "image"];
+      }),
+    );
+    expect(broken, path).toEqual([]);
+  }
+
+  await page.goto("/");
+  const icons = await page.locator("link[rel='icon'], link[rel='apple-touch-icon'], link[rel='manifest']").evaluateAll(
+    (links) => links.map((link) => link.getAttribute("href") ?? ""),
+  );
+  expect(icons.length).toBeGreaterThan(0);
+  for (const href of icons) {
+    expect(href.toLowerCase()).not.toContain("base44");
+    const asset = await page.request.get(href);
+    expect(asset.status(), href).toBe(200);
+    expect(asset.headers()["content-type"] ?? "", href).toMatch(/icon|image|manifest|json/);
   }
 });

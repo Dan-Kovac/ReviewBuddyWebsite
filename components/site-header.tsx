@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { MobileNav } from "@/components/mobile-nav";
 import { TrialButton } from "@/components/trial-button";
-import { CTA_LABEL, STICKY_CTA_LABEL, loginUrl, navLinks } from "@/lib/site";
+import { CTA_LABEL, STICKY_CTA_LABEL, headerLinks, loginUrl } from "@/lib/site";
 
 const linkClass =
   "text-[15px] font-medium text-[color-mix(in_srgb,var(--rb-on-brand)_80%,transparent)] hover:text-[var(--rb-on-brand)]";
@@ -13,7 +13,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-[72px] w-full max-w-[var(--rb-max-width)] items-center gap-3 px-[var(--rb-gutter)]">
         <Logo />
         <nav aria-label="Main" className="ml-auto hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
+          {headerLinks.map((link) => (
             <Link key={link.href} href={link.href} className={linkClass}>
               {link.label}
             </Link>

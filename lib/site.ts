@@ -106,7 +106,12 @@ export const FOOTER_LINE =
   "More reviews, more trust, more calls. For Australian tradies. Made in Melbourne by Roadmap Labs.";
 export const GUARANTEE_BADGE = "";
 
-export const navLinks = [
+export const headerLinks = [
+  { href: "/pricing", label: "Pricing" },
+  { href: "/free-review-breakdown", label: "Free review breakdown" },
+] as const;
+
+export const footerLinks = [
   { href: "/pricing", label: "Pricing" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
   { href: "/free-review-breakdown", label: "Free review breakdown" },

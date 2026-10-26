@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { preload } from "react-dom";
 import { FaqList } from "@/components/faq-list";
@@ -28,20 +29,68 @@ const howSteps = [
     title: "One link for every customer.",
     detail:
       "Your customer gets one link. It opens a page with your review sites on it, like Google and Facebook, and they pick where to leave it. No searching for your business.",
-    slot: "Real screenshot: customer review page",
+    icon: "link",
   },
   {
     title: "Sent the way that suits you.",
     detail:
       "Put it on your invoice, in an email after the job, or on a QR code on the van or your business card. Or your team can mention it at the end of the job. On Growth, if they haven't got to it, they get one polite reminder.",
-    slot: "Real photo: QR code on a van or invoice",
+    icon: "send",
   },
   {
     title: "Shown on your website.",
     detail: "New reviews appear on your website automatically, so people who find you there see them as well.",
-    slot: "Real screenshot: review widget on a site",
+    icon: "site",
   },
-];
+] as const;
+
+const productShots = [
+  {
+    src: "/images/find-the-best.png",
+    width: 995,
+    height: 868,
+    alt: "The ReviewBuddy page a customer opens, with Google and Facebook to choose from. The business and ratings shown are demo data.",
+    caption: "The page your customer opens.",
+  },
+  {
+    src: "/images/request-review.png",
+    width: 474,
+    height: 578,
+    alt: "The ReviewBuddy screen for sending a review request. The name and message shown are demo data.",
+    caption: "Sending a request from the app.",
+  },
+] as const;
+
+function StepIcon({ name }: { name: (typeof howSteps)[number]["icon"] }) {
+  return (
+    <svg className="step-icon" viewBox="0 0 24 24" aria-hidden="true">
+      {name === "link" ? (
+        <path
+          d="M9.5 14.5l-1.2 1.2a3.5 3.5 0 01-5-5l2.3-2.3a3.5 3.5 0 015 0M14.5 9.5l1.2-1.2a3.5 3.5 0 015 5l-2.3 2.3a3.5 3.5 0 01-5 0"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      ) : null}
+      {name === "send" ? (
+        <path
+          d="M4 12l16-7-6 16-2.5-6.5z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+      ) : null}
+      {name === "site" ? (
+        <>
+          <rect x="3.5" y="5" width="17" height="12.5" rx="2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M8 20.5h8M12 17.5v3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
 
 const shareWays = [
   {
@@ -162,13 +211,32 @@ export default function HomePage() {
           <ol className="steps">
             {howSteps.map((step, index) => (
               <li key={step.title} className="step">
-                <span className="step-num">{index + 1}</span>
+                <div className="step-head">
+                  <span className="step-num">{index + 1}</span>
+                  <StepIcon name={step.icon} />
+                </div>
                 <h3>{step.title}</h3>
                 <p className="text-base leading-6 text-[var(--rb-text-muted)]">{step.detail}</p>
-                <div className="placeholder">{step.slot}</div>
               </li>
             ))}
           </ol>
+          <div className="how-shots">
+            {productShots.map((shot) => (
+              <figure key={shot.src} className="how-shot">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.width}
+                  height={shot.height}
+                  sizes="(min-width: 800px) 420px, 90vw"
+                />
+                <figcaption>{shot.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-4 text-sm leading-5 text-[var(--rb-text-muted)]">
+            Demo data for illustration. Not real customers or reviews.
+          </p>
           <div className="fair">
             <svg width="20" height="20" viewBox="0 0 20 20" className="mt-px shrink-0" aria-hidden="true">
               <path d="M10 2l6 2.5v5c0 4-2.7 7-6 8.5-3.3-1.5-6-4.5-6-8.5v-5z" fill="none" stroke="currentColor" strokeWidth="1.7" />
@@ -295,7 +363,11 @@ export default function HomePage() {
               More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
             </p>
           </div>
-          <div className="placeholder mt-10 max-w-xl">Real screenshot: review widget on a site</div>
+          <ul className="widget-points">
+            <li>Your rating and review count</li>
+            <li>The latest reviews, from Google and your other review sites</li>
+            <li>Matched to your website when I set it up</li>
+          </ul>
         </div>
       </section>
 
