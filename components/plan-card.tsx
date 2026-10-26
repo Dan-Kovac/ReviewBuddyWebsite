@@ -1,51 +1,62 @@
 import { TrialButton } from "@/components/trial-button";
 import type { Plan } from "@/lib/site";
 
-export function PlanCard({ plan, compact = false }: { plan: Plan; compact?: boolean }) {
-  const featured = plan.recommended === true;
+export function PlanCard({
+  plan,
+  location = "plan-card",
+}: {
+  plan: Plan;
+  location?: string;
+}) {
+  const featured = Boolean(plan.recommended);
 
   return (
     <section
       id={plan.id}
-      className={`scroll-mt-24 lift-card relative flex flex-col rounded-[24px] border p-6 sm:p-8 ${featured
-        ? "border-brand bg-ink text-white shadow-[0_24px_60px_-24px_rgba(56,182,255,0.55)]"
-        : "border-line bg-white text-ink shadow-[0_16px_40px_-32px_rgba(11,15,20,0.4)]"}`}
+      className={`relative flex h-full scroll-mt-24 flex-col rounded-[var(--rb-radius-xl)] p-8 ${
+        featured
+          ? "bg-[var(--rb-brand)] text-[var(--rb-on-brand)] shadow-[var(--rb-shadow-product)]"
+          : "border border-[var(--rb-line)] bg-[var(--rb-surface-raised)] text-[var(--rb-text)] shadow-[var(--rb-shadow-card)]"
+      }`}
     >
-      {featured ? (
-        <p className="absolute -top-3.5 left-8 inline-flex rounded-full bg-brand px-3 py-1 text-sm font-semibold text-ink lg:left-1/2 lg:-translate-x-1/2">
-          Recommended
-        </p>
-      ) : null}
-      <h3 className="text-2xl font-bold">{plan.name}</h3>
-      <p className={`mt-2 text-base leading-7 ${featured ? "text-muted-on-dark" : "text-muted"}`}>
+      <p
+        className={`mb-3 inline-flex w-fit rounded-full bg-[var(--rb-accent)] px-2.5 py-1 text-xs font-bold tracking-[0.06em] text-[var(--rb-on-accent)] uppercase ${
+          featured ? "" : "invisible max-lg:hidden"
+        }`}
+        aria-hidden={featured ? undefined : true}
+      >
+        Recommended
+      </p>
+      <h3 className={featured ? "text-[var(--rb-on-brand)]" : undefined}>{plan.name}</h3>
+      <p className={`mt-1 text-base ${featured ? "text-[var(--rb-on-brand-muted)]" : "text-[var(--rb-text-muted)]"}`}>
         {plan.tagline}
       </p>
-      <p className={`mt-6 text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold leading-tight ${featured ? "text-white" : "text-ink"}`}>
-        {plan.priceLabel}
+      <p className="mt-5 flex items-baseline gap-1.5">
+        <span className="wordmark text-[56px] leading-none tracking-[-0.02em]">{plan.priceAmount}</span>
+        <span className={featured ? "text-[var(--rb-on-brand-muted)]" : "text-[var(--rb-text-muted)]"}>{plan.pricePeriod}</span>
       </p>
-      <ul className={`mt-6 divide-y ${featured ? "divide-white/15" : "divide-line"}`}>
+      <ul className="mt-6 grid gap-2.5 text-base leading-6">
         {plan.includes.map((item) => (
-          <li key={item} className={`flex gap-3 py-3 text-base leading-7 ${featured ? "text-white" : "text-ink"}`}>
+          <li key={item} className="flex items-start gap-2.5">
             <span
               aria-hidden="true"
-              className={`mt-3 h-0.5 w-4 shrink-0 rounded-full ${featured ? "bg-brand" : "bg-brand-text"}`}
-            />
-            <span>{item}</span>
+              className={`mt-0.5 grid size-[18px] shrink-0 place-items-center rounded-full ${
+                featured ? "bg-[var(--rb-accent)] text-[var(--rb-brand)]" : "bg-[var(--rb-brand-tint)] text-[var(--rb-brand)]"
+              }`}
+            >
+              <svg viewBox="0 0 18 18" className="size-[18px]" fill="none">
+                <path d="M5 9.5l2.5 2.5L13 6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <span className={featured ? "text-[var(--rb-on-brand-muted)]" : undefined}>{item}</span>
           </li>
         ))}
       </ul>
-      <TrialButton
-        plan={plan.id}
-        variant={featured ? "brand" : "outline"}
-        className="mt-8 w-full shadow-none"
-      >
-        Start free trial on {plan.name}
-      </TrialButton>
-      {!compact ? (
-        <p className={`mt-4 text-sm leading-6 ${featured ? "text-muted-on-dark" : "text-muted"}`}>
-          {plan.subHeading}
-        </p>
-      ) : null}
+      <div className="mt-auto pt-8">
+        <TrialButton plan={plan.id} location={location} variant={featured ? "gold" : "outline"} className="w-full">
+          Try {plan.name} free for 7 days
+        </TrialButton>
+      </div>
     </section>
   );
 }

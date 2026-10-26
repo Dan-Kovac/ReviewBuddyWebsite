@@ -1,34 +1,35 @@
 # ReviewBuddy
 
-> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them, with the other review sites they connect, in one view on their own website. Setup is done for the customer.
+> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them on their own website. Set up for you.
 
 ## What it does
 
-- Gives each business a direct Google review link and QR code to share after every job.
-- Brings reviews from the other review sites a business connects, such as Service Seeking and hipages, together with Google in one widget.
-- Puts a review widget on the business website, matched to the site's look. It updates when a new review comes in.
-- Growth plan: automatic review-request emails with one polite reminder, the past-customer list loaded, and ongoing coaching.
-- Both plans include a weekly note with one simple thing to do.
+- Gives each business one review link and a QR code. The customer picks the review site, such as Google or Facebook.
+- Shows reviews on the business's own website, with the rating and review count. They update when a new one comes in.
+- Growth plan: an automatic review request after each job, one polite reminder, and past customers asked too.
+- Free setup. When a live Stripe count is available, the site shows how many of the next 200 setups are left. If that count cannot be read, the line is hidden.
 
 ## Offer and prices
 
-- 7-day free trial. Card taken up front. Cancel any time.
-- Free done-for-you setup on both plans.
-- Starter: A$49/month incl GST.
-- Growth: A$75/month incl GST.
-- Trial sign-up is on the Embed My Reviews platform, not stored on this website.
+- 7-day free trial, no card needed. Add a card before day 8 to keep going.
+- If you haven't added a card by day 8, the account pauses. Review requests and syncing stop until a card is added in the app.
+- Cancel any time from the billing page in the account. Access stays until the end of the billing period.
+- Starter: $49 a month, AUD. No GST is charged. You do the asking.
+- Growth: $75 a month, AUD. No GST is charged. The asking happens without you.
+- Try Starter free for 7 days goes to Embed My Reviews registration with plan 5. Try Growth free for 7 days goes to plan 6. The trial is not stored on this website.
 
 ## Pages
 
 - [Home](https://reviewbuddy.com.au/): what ReviewBuddy is and how it works
 - [Pricing](https://reviewbuddy.com.au/pricing): both plans and a full comparison
 - [Blog](https://reviewbuddy.com.au/blog): articles, when published
-- [Help](https://reviewbuddy.com.au/help): help guides, when published
+- [Help](https://reviewbuddy.com.au/help): help guides, including how to cancel
 - [Free review breakdown](https://reviewbuddy.com.au/free-review-breakdown): request a free look at where a business stands on Google
 - [Google reviews for plumbers](https://reviewbuddy.com.au/google-reviews-for-plumbers): how it works for plumbing businesses
-- [Privacy](https://reviewbuddy.com.au/privacy): draft
-- [Terms](https://reviewbuddy.com.au/terms): draft
+- [Privacy](https://reviewbuddy.com.au/privacy): how personal information is handled
+- [Terms](https://reviewbuddy.com.au/terms): the terms for the website and the service
 
 ## Contact
 
 hello@reviewbuddy.com.au
+0411 701 078

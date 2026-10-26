@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "lib/signup-url.test.ts"]
+  "exclude": ["node_modules", "lib/signup-url.test.ts", "lib/setup-spots.test.ts", "lib/trial-copy.test.ts", "lib/review-fixes.test.ts", "lib/gst.test.ts", "lib/markdown.test.ts", "lib/copy-consistency.test.ts"]
 }

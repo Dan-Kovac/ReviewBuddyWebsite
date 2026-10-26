@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { publishedGuides } from "@/content/guides/registry";
+import { LEGAL_DRAFT } from "@/lib/flags";
 import { guidePath } from "@/lib/guides";
 import { getPublishedPosts } from "@/lib/cms";
 import { siteUrl } from "@/lib/site";
@@ -9,10 +10,9 @@ const paths = [
   "/pricing",
   "/free-review-breakdown",
   "/google-reviews-for-plumbers",
-  "/blog",
   "/help",
-  "/privacy",
-  "/terms",
+  "/help/cancelling",
+  ...(LEGAL_DRAFT ? [] : ["/privacy", "/terms"]),
 ];
 
 const staticLastModified = new Date("2026-10-25");
@@ -24,7 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPublishedPosts("doc"),
   ]);
 
-  const staticEntries = [...paths, ...guidePaths].map((path) => ({
+  const indexPaths = [
+    ...paths,
+    ...(blogPosts.length > 0 ? ["/blog"] : []),
+  ];
+
+  const staticEntries = [...indexPaths, ...guidePaths].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: staticLastModified,
     changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),

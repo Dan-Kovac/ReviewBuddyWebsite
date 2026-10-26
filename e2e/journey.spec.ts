@@ -27,6 +27,8 @@ function trackOwnErrors(page: Page) {
     if (!onOurSite || message.type() !== "error") return;
     const text = message.text();
     if (text.includes("favicon")) return;
+    // The breakdown form returns 503 when Supabase is not configured. That is the fallback.
+    if (text.includes("status of 503")) return;
     problems.push(`console: ${text}`);
   });
   return problems;
@@ -43,13 +45,35 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   const problems = trackOwnErrors(page);
   const project = test.info().project.name;
 
-  await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Get chosen before they call");
-  await expect(page.getByText("A$49/month incl GST").first()).toBeVisible();
-  await expect(page.getByText("A$75/month incl GST").first()).toBeVisible();
-  await expect(page.getByText("Card taken up front").first()).toBeVisible();
+  const home = await page.goto("/");
+  const headers = home?.headers() ?? {};
+  expect(headers["strict-transport-security"] ?? "").toMatch(/max-age=\d+/);
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(headers["x-frame-options"]).toBe("DENY");
+  const policy = headers["permissions-policy"] ?? "";
+  expect(policy).toContain("camera=()");
+  expect(policy).toContain("microphone=()");
+  expect(policy).toContain("geolocation=()");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "Win their trust before they pick up the phone",
+  );
+  await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
+  await expect(page.getByText("and no contract.")).toBeVisible();
+  await expect(page.getByText("no notice needed").first()).toBeVisible();
+  await expect(page.getByText(/free setups left/)).toHaveCount(0);
+  await expect(page.getByText("0411 701 078").first()).toBeVisible();
+  await expect(page.locator("a[href^='tel:']").first()).toBeVisible();
+  await expect(page.getByText(/Free until/)).toHaveCount(0);
+  await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
+  await expect(page.getByText("Cancel with one email")).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await expect(page.getByText(/card up front/i)).toHaveCount(0);
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
-  await expect(page.getByText(/no card/i)).toHaveCount(0);
+  await expect(page.getByText("I ran Roadmap Labs")).toBeVisible();
+  await expect(page.getByText("Roadmap Digital")).toHaveCount(0);
+  await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
 
   const logins = page.getByRole("link", { name: "Log in" });
@@ -66,17 +90,20 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await menuButton.click();
     const menu = page.getByRole("navigation", { name: "Mobile" });
     await expect(menu.getByRole("link", { name: "Pricing" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Blog" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Help" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Plumbers" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Free review breakdown" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
+    await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(menu.getByRole("link", { name: "Get started" })).toHaveAttribute("href", pricingSectionHref);
+    await expect(menu.getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute("href", pricingSectionHref);
     await shot(page, "02-menu");
     await page.getByRole("button", { name: "Close menu" }).click();
   } else {
     const nav = page.getByRole("navigation", { name: "Main" });
     await expect(nav.getByRole("link", { name: "Pricing" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(page.getByRole("banner").getByRole("link", { name: "Get started" })).toHaveAttribute(
+    await expect(nav.getByRole("link", { name: "Blog" })).toHaveCount(0);
+    await expect(page.getByRole("banner").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
       "href",
       pricingSectionHref,
     );
@@ -106,33 +133,62 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   }
 
   await page.goto("/pricing");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("ReviewBuddy pricing");
-  await expect(page.getByRole("link", { name: "Start free trial on Starter" })).toHaveAttribute("href", starterSignup);
-  await expect(page.getByRole("link", { name: "Start free trial on Growth" })).toHaveAttribute("href", growthSignup);
-  await expect(page.locator("[data-cta='pricing']").first()).toHaveAttribute("href", pricingSectionHref);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans. Both set up for you.");
+  await expect(page.getByRole("heading", { level: 2, name: /^Plans$/ })).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 3, name: "Starter" }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
+  await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
+  await expect(
+    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first(),
+  ).toBeVisible();
+  await expect(page.getByText("billing page in your account").first()).toBeVisible();
+  await expect(page.getByText("Day 0")).toBeVisible();
+  await expect(page.getByText("Day 8, no card")).toBeVisible();
+  await expect(page.getByText(/day 5/i)).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
+  await expect(page.getByText("Add a card in the app and you pick up where you left off.").first()).toBeVisible();
+  await expect(page.getByText("Add a card any time")).toHaveCount(0);
+  await expect(page.locator("#pricing")).toHaveCount(1);
+  const pricingPageCtas = page.locator("[data-cta='pricing']");
+  expect(await pricingPageCtas.count()).toBeGreaterThan(0);
+  for (let index = 0; index < (await pricingPageCtas.count()); index += 1) {
+    await expect(pricingPageCtas.nth(index)).toHaveAttribute("href", "#pricing");
+  }
   await shot(page, "04-pricing-page");
 
   await page.goto("/blog");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("More reviews, more jobs");
+  await expect(page.getByText("Plain-English guides")).toBeVisible();
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /Plain-English guides/);
   await expect(page.getByText("New articles are on the way")).toBeVisible();
   await shot(page, "05-blog");
 
   await page.goto("/help");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Help guides");
-  await expect(page.getByText("Help guides are being prepared")).toBeVisible();
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "How to cancel, and how to reach us.",
+  );
+  await expect(page.getByRole("link", { name: "How to cancel" })).toBeVisible();
   await shot(page, "06-help");
 
+  await page.goto("/help/cancelling");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("How to cancel");
+  await expect(page.getByText("the billing page in your account").first()).toBeVisible();
+  await expect(page.getByText("not by replying to an email")).toBeVisible();
+  await expect(page.getByText(/Stripe/)).toHaveCount(0);
+  await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
+  await shot(page, "06b-cancel-help");
+
   await page.goto("/free-review-breakdown");
-  await page.getByLabel("Your name").fill("Sam Lee");
-  await page.getByLabel("Business name").fill("Lee Plumbing");
-  await page.getByLabel("Website or Google Business Profile link").fill("https://example.com");
+  const posted = page.waitForResponse((response) => response.url().includes("/api/breakdown") && response.request().method() === "POST");
+  await page.getByLabel("Business name and suburb").fill("Lee Plumbing, Richmond");
   await page.getByLabel("Email").fill("sam@example.com");
-  await page.getByRole("button", { name: "Send me my free breakdown" }).click();
-  await expect(page.getByRole("status")).toContainText("Next step: email us");
-  await expect(page.getByRole("status").getByRole("link", { name: /Email hello@/ })).toHaveAttribute(
-    "href",
-    /mailto:hello@reviewbuddy.com.au/,
-  );
+  await page.getByRole("button", { name: "Send me my breakdown" }).click();
+  const response = await posted;
+  expect(response.status()).toBe(503);
+  await expect(page.getByRole("status")).toContainText("hello@reviewbuddy.com.au");
   await shot(page, "07-breakdown-next");
 
   expect(problems, problems.join("\n")).toEqual([]);
@@ -182,4 +238,95 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
   expect(login.status(), loginUrl).toBeLessThan(400);
 
   expect(problems, problems.join("\n")).toEqual([]);
+});
+
+test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.getByText(/free setups left/)).toHaveCount(0);
+  await expect(page.getByText("No GST charged")).toHaveCount(0);
+  await expect(page.getByText("GST included")).toHaveCount(0);
+  await expect(page.getByText("incl GST")).toHaveCount(0);
+  await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);
+  const footer = page.getByRole("contentinfo");
+  await expect(footer.getByText("ABN")).toBeVisible();
+  await expect(footer.getByText("44 108 955 374")).toBeVisible();
+  await expect(footer.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
+  await expect(footer.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
+  await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
+
+  await page.getByText("What if I want to stop using ReviewBuddy?").click();
+  await expect(page.getByText("Service Seeking can show in your widget if it connects.")).toBeVisible();
+  await expect(page.getByText("Email me the sites you use and I'll check.")).toBeVisible();
+
+  for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
+    await page.goto(path);
+    await expect(page.locator("#pricing")).toHaveCount(1);
+    const links = page.locator("[data-cta='pricing']");
+    expect(await links.count()).toBeGreaterThan(0);
+    for (let index = 0; index < (await links.count()); index += 1) {
+      await expect(links.nth(index)).toHaveAttribute("href", "#pricing");
+    }
+  }
+  await page.goto("/pricing");
+  await page.locator("[data-location='pricing-locations']").click();
+  await expect(page).toHaveURL(/\/pricing#pricing$/);
+  await expect(page.locator("#pricing")).toBeInViewport();
+
+  await page.goto("/terms");
+  const termsText = await page.locator("article").innerText();
+  expect(termsText).not.toContain("[");
+  expect(termsText).not.toContain("Draft");
+  await expect(
+    page.getByText(
+      "Starter gives you a review link where customers pick the site, a QR code, and a widget that shows your reviews on your website.",
+    ),
+  ).toBeVisible();
+  await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
+  await expect(
+    page.getByText(
+      "We are not currently registered for GST, so no GST is charged. If we register, we will tell you at least 30 days before any GST is added, and you can cancel before then.",
+    ),
+  ).toBeVisible();
+  await expect(page.getByText("incl GST")).toHaveCount(0);
+  await expect(page.getByText("ongoing coaching")).toHaveCount(0);
+  await expect(page.getByText(/first week/)).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();
+  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+
+  await page.goto("/privacy");
+  const privacyText = await page.locator("article").innerText();
+  expect(privacyText).not.toContain("[");
+  expect(privacyText).not.toContain("Draft");
+  expect(privacyText).not.toContain("text messages");
+  await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Cookies, analytics and advertising" })).toBeVisible();
+  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+
+  await page.goto("/free-review-breakdown");
+  await expect(page.getByText(/plain-English/)).toBeVisible();
+
+  await page.goto("/welcome");
+  await expect(page.getByRole("link", { name: "Try it free for 7 days" })).toHaveCount(0);
+  if (test.info().project.name === "mobile") {
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(
+      page.getByRole("navigation", { name: "Mobile" }).getByRole("link", { name: "Try it free for 7 days" }),
+    ).toHaveCount(0);
+  }
+
+  const missing = await page.goto("/this-page-does-not-exist");
+  expect(missing?.status()).toBe(404);
+  await expect(page).toHaveTitle("Page not found | ReviewBuddy");
+
+  if (test.info().project.name === "desktop") {
+    const sitemap = await request.get("/sitemap.xml");
+    expect(sitemap.status()).toBe(200);
+    const xml = await sitemap.text();
+    expect(xml).toContain("/privacy");
+    expect(xml).toContain("/terms");
+    const llms = await request.get("/llms.txt");
+    const text = await llms.text();
+    expect(text).toContain("/privacy");
+    expect(text).toContain("/terms");
+  }
 });

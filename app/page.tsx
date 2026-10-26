@@ -1,305 +1,405 @@
 import Link from "next/link";
+import { preload } from "react-dom";
 import { FaqList } from "@/components/faq-list";
+import { FeatureBento } from "@/components/feature-bento";
+import { FounderNote } from "@/components/founder-note";
 import { JsonLd } from "@/components/json-ld";
+import { KeyImage } from "@/components/key-image";
 import { PlanPair } from "@/components/plan-pair";
-import { PromiseStrip } from "@/components/promise-strip";
+import { PlatformLogos } from "@/components/platform-logos";
+import { ProofBlock } from "@/components/proof-block";
+import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { ProductShot } from "@/components/product-shot";
-import { RevealOnScroll } from "@/components/reveal-on-scroll";
-import { ProofBlock } from "@/components/proof-block";
-import { PlatformScreen } from "@/components/platform-screen";
-import { BOTH_PLANS_LINE, CTA_LABEL, SETUP_LINE, TRIAL_LINE, plans } from "@/lib/site";
+import { fromPriceLine, homeMetaDescription } from "@/lib/gst";
+import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, contactEmail } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Get More Google Reviews | ReviewBuddy for Tradies",
-  description:
-    "One view of your review sites. 7-day free trial, card taken up front. Starter A$49/month incl GST. Growth A$75/month incl GST.",
+  title: "More Google Reviews for Tradies | ReviewBuddy",
+  description: homeMetaDescription(),
   path: "/",
 });
 
-const steps = [
+const howSteps = [
   {
-    title: "Ask after the job",
+    title: "One link for every customer.",
     detail:
-      "Share your direct Google review link or QR code when the job is done. On Growth, automatic review-request emails ask for you, with one polite reminder.",
+      "Your customer gets one link. It opens a page with your review sites on it, like Google and Facebook, and they pick where to leave it. No searching for your business.",
+    slot: "Real screenshot: customer review page",
   },
   {
-    title: "Reviews come in",
-    detail: "On Google from the customers you asked, and on the other review sites you connect, like Service Seeking or hipages.",
-  },
-  {
-    title: "One view on your site",
+    title: "Sent the way that suits you.",
     detail:
-      "One widget shows them together, matched to your site's look. It updates when a new Google review comes in.",
+      "Put it on your invoice, in an email after the job, or on a QR code on the van or your business card. Or your team can mention it at the end of the job. On Growth, if they haven't got to it, they get one polite reminder.",
+    slot: "Real photo: QR code on a van or invoice",
+  },
+  {
+    title: "Shown on your website.",
+    detail: "New reviews appear on your website automatically, so people who find you there see them as well.",
+    slot: "Real screenshot: review widget on a site",
   },
 ];
 
-const platformNames = ["Google", "Facebook", "Service Seeking", "hipages", "Airtasker", "Houzz", "and more"];
-
-const wrap = "mx-auto w-full max-w-[1200px]";
-const pad = "px-4 sm:px-6";
-const starterPlan = plans.find((plan) => plan.id === "starter")!;
-const growthPlan = plans.find((plan) => plan.id === "growth")!;
-const finalBandLine = `${TRIAL_LINE} Then Starter is ${starterPlan.priceLabel} or Growth is ${growthPlan.priceLabel}.`;
-
-const facts = [
-  "Updates when a new review comes in",
-  "Matches your site",
-  "Works on phones",
+const shareWays = [
+  {
+    title: "On the invoice.",
+    detail: "A short line and your link or QR code.",
+  },
+  {
+    title: "By email after the job.",
+    detail: "Written for you, approved by you. On Growth it sends itself.",
+  },
+  {
+    title: "On the van or a card.",
+    detail: "A QR code they can scan before you've packed up.",
+  },
+  {
+    title: "In person.",
+    detail:
+      "Your team can say \"If you've got a minute later, we'd really appreciate a review. The link's on your invoice.\" That's it. No standing over them, no pressure.",
+  },
 ];
 
-const pastCustomerSteps = [
-  "Send us a spreadsheet of past customers you have actually done work for.",
-  "We load the list for you.",
-  "Automatic review-request emails go out, with one polite reminder.",
+const iDo = [
+  "Connect your Google profile and your other review sites",
+  "Build your review link and QR code",
+  "Put the widget on your website, matched to your colours",
+  "Write your review email, and you approve it before anything goes out",
+  "On Growth, load your past customers and send their requests",
 ];
+
+const youDo = [
+  "Give me access to your Google profile and website (I'll show you how)",
+  "Put the link or QR code on your invoices, van or cards",
+  "Keep doing good work",
+];
+
+const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
 export default function HomePage() {
+  preload("/img/reviewbuddy-key-image-mobile-hero-800.webp", {
+    as: "image",
+    fetchPriority: "high",
+    media: "(max-width: 1023px)",
+    type: "image/webp",
+    imageSrcSet:
+      "/img/reviewbuddy-key-image-mobile-hero-800.webp 800w, /img/reviewbuddy-key-image-mobile-hero.webp 1080w",
+    imageSizes: "calc(100vw - 60px)",
+  });
+  preload("/img/reviewbuddy-key-image-desktop-2400.webp", {
+    as: "image",
+    fetchPriority: "high",
+    media: "(min-width: 1024px)",
+    type: "image/webp",
+  });
+
   return (
     <>
-      <RevealOnScroll />
-      <section className="hero-wash overflow-hidden">
-        <div className={`${wrap} ${pad} grid gap-10 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-24`}>
-          <div>
-            <p className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
-              <span aria-hidden="true" className="h-0.5 w-8 rounded-full bg-brand" />
-              Google reviews for tradies
-            </p>
-            <h1 className="mt-4 text-balance text-[clamp(2.6rem,9.5vw,5.25rem)] font-extrabold leading-[1] text-ink">
-              Get chosen before they <span className="text-brand-text">call.</span>
-            </h1>
-            <p className="mt-5 max-w-[34rem] text-lg leading-8 text-muted">
-              More Google reviews from your real customers, shown with your other review sites in one widget on your website.
-            </p>
-            <div className="mt-7 w-full sm:w-auto" data-hero-cta="">
-              <TrialButton variant="ink" className="w-full px-8 sm:w-auto">
+      <section className="site-hero">
+        <div className="wrap mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)]">
+          <p className="eyebrow text-[var(--rb-accent)]">Reviews for Australian tradies</p>
+          <h1 className="display mx-auto mt-4 max-w-[19ch] text-balance">
+            Win their{" "}
+            <span className="trust-word">
+              trust
+              <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                  d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
+                  fill="none"
+                  stroke="currentColor"
+                  className="text-[var(--rb-accent)]"
+                  strokeWidth="3.2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>{" "}
+            before they pick up the phone.
+          </h1>
+          <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
+            Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website.
+          </p>
+          <div className="hero-actions">
+            <div data-hero-cta="" className="w-full lg:w-auto">
+              <TrialButton variant="gold" location="hero" className="w-full lg:w-auto">
                 {CTA_LABEL}
               </TrialButton>
             </div>
-            <p className="mt-4 text-base font-semibold leading-6 text-ink">{TRIAL_LINE}</p>
-            <p className="mt-6 text-sm leading-6 text-muted">
-              After your trial, Starter is {starterPlan.priceLabel} and Growth is {growthPlan.priceLabel}.{" "}
-              <Link href="/pricing" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
-                See plans and pricing
-              </Link>
-            </p>
-            <p className="mt-2 text-sm leading-6 text-muted">
-              Not ready to start?{" "}
-              <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
-                Get a free review breakdown first
-              </Link>
-            </p>
+            <Link
+              href="/free-review-breakdown"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border-[1.5px] border-[color-mix(in_srgb,var(--rb-on-brand)_40%,transparent)] px-6 text-center text-base font-semibold whitespace-normal text-[var(--rb-on-brand)] lg:w-auto"
+            >
+              Get a free review breakdown
+            </Link>
           </div>
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute -right-6 -top-6 hidden size-40 rounded-full bg-brand/30 blur-2xl lg:block"
-            />
-            <ProductShot
-              src="/images/hero.png"
-              alt="Review Buddy sample: a five star Google review card, a rating request and a 4.5 average rating breakdown"
-              width={1116}
-              height={1130}
-              priority
-              sizes="(min-width: 1024px) 520px, 92vw"
-            />
+          <p className="micro-claims">
+            <span>Set up for you</span>
+            <span>{fromPriceLine()}</span>
+          </p>
+          <p className="mx-auto mt-3 max-w-[34rem] text-sm leading-5 text-[var(--rb-on-brand-muted)]">{TRIAL_LINE}</p>
+          <div className="stage">
+            <KeyImage priority />
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="platform-screen" className={`bg-soft ${pad} py-14 lg:py-20`}>
-        <div className={wrap}>
-          <div data-reveal="" className="max-w-3xl">
-            <h2 id="platform-screen" className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              Your review sites, together in one view.
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-muted">
-              Google, Service Seeking, hipages and more. Reviews from the sites you connect sit together in one widget on your website. This is the review platform we build on, with notes on what it does.
+      <PlatformLogos />
+      <p className="bg-[var(--rb-surface)] pb-6 text-center text-sm leading-5 text-[var(--rb-text-muted)]">
+        Demo data for illustration. Not real customers or reviews.
+      </p>
+
+      <section id="how-it-works" className="scroll-mt-24 bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <p className="eyebrow">How it works</p>
+            <h2 className="mt-3">One link. Every customer. Shown on your site.</h2>
+            <p className="lead mt-4 text-[var(--rb-text-muted)]">
+              ReviewBuddy is a simple system that takes the friction out of asking, following up and showing your reviews.
             </p>
           </div>
-          <div data-reveal="" className="mt-8 lg:mt-10">
-            <PlatformScreen />
-          </div>
-          <div data-reveal="" className="mt-6">
-            <p className="text-sm font-semibold text-ink">Review sites you can bring together</p>
-            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-base leading-7 text-muted">
-              {platformNames.map((name) => (
-                <li key={name}>{name}</li>
-              ))}
-            </ul>
-            <p className="mt-2 text-xs leading-5 text-muted">
-              Names show where reviews can come from. They do not mean any of these sites endorses Review Buddy.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <PromiseStrip />
-
-      <ProofBlock />
-
-      <section className={`${pad} py-20 lg:py-32`}>
-        <div className={wrap}>
-          <div data-reveal="" className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-20">
-            <div>
-              <h2 className="text-balance text-[clamp(2.25rem,7vw,4.75rem)] font-extrabold leading-[1.02] text-ink">
-                Win the job on <span className="text-brand-text">trust,</span> not price.
-              </h2>
-              <p className="mt-8 max-w-xl border-l-4 border-brand pl-5 text-lg leading-8 text-muted">
-                Before someone calls, they check your Google reviews, then they look at your website. Reviews copied in by hand go stale the day you stop updating them. With ReviewBuddy the widget on your site updates when a new Google review comes in, so the next customer sees how you really work.
-              </p>
-            </div>
-            <ProductShot
-              src="/images/find-the-best.png"
-              alt="Review Buddy sample: a Google review card with a rating request and Google, Facebook and review site badges"
-              width={995}
-              height={868}
-              tone="soft"
-              sizes="(min-width: 1024px) 420px, 92vw"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="how-it-works" className={`scroll-mt-24 bg-soft ${pad} py-20 lg:py-32`}>
-        <div className={`${wrap} grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20`}>
-          <div data-reveal="" className="lg:sticky lg:top-28 lg:self-start">
-            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              All your reviews in one place, on your site.
-            </h2>
-            <p className="mt-5 max-w-md text-lg leading-8 text-muted">
-              We set it up and add the widget to your site.
-            </p>
-            <div className="mt-8 max-w-[320px]">
-              <ProductShot
-                src="/images/request-review.png"
-                alt="Review Buddy sample: a feedback request form that sends a rating request to a customer"
-                width={474}
-                height={578}
-                tone="tint"
-                sizes="320px"
-              />
-            </div>
-          </div>
-          <ol className="grid">
-            {steps.map((step, index) => (
-              <li
-                key={step.title}
-                data-reveal=""
-                className="step-row grid grid-cols-[4.5rem_1fr] gap-x-4 border-t-2 border-ink py-8 sm:grid-cols-[6rem_1fr] sm:gap-x-6 lg:grid-cols-[8.5rem_1fr] lg:gap-x-8"
-              >
-                <span className="step-num text-[clamp(3rem,7vw,5.5rem)] font-extrabold leading-none text-brand-text">
-                  0{index + 1}
-                </span>
-                <div className="pt-1 lg:pt-3">
-                  <h3 className="text-2xl font-bold text-ink">{step.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-muted">{step.detail}</p>
-                </div>
+          <ol className="steps">
+            {howSteps.map((step, index) => (
+              <li key={step.title} className="step">
+                <span className="step-num">{index + 1}</span>
+                <h3>{step.title}</h3>
+                <p className="text-base leading-6 text-[var(--rb-text-muted)]">{step.detail}</p>
+                <div className="placeholder">{step.slot}</div>
               </li>
             ))}
           </ol>
+          <div className="fair">
+            <svg width="20" height="20" viewBox="0 0 20 20" className="mt-px shrink-0" aria-hidden="true">
+              <path d="M10 2l6 2.5v5c0 4-2.7 7-6 8.5-3.3-1.5-6-4.5-6-8.5v-5z" fill="none" stroke="currentColor" strokeWidth="1.7" />
+              <path d="M7 10l2 2 4-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            </svg>
+            <p>
+              Everyone gets the same link, whatever they thought. There&apos;s also a private box if they&apos;d rather tell you something directly, so you hear about problems early. Every review comes from a real customer. We never write reviews, offer incentives, or filter out unhappy customers. Those are Google&apos;s rules and Australian consumer law.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className={`bg-ink ${pad} py-20 text-white lg:py-32`}>
-        <div className={wrap}>
-          <div data-reveal="" className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
-            <h2 className="text-balance text-[clamp(2rem,6vw,3.75rem)] font-extrabold leading-[1.04]">
-              Every review, one screen.
-            </h2>
-            <p className="max-w-xl text-lg leading-8 text-muted-on-dark">
-              Search your reviews, see where each one came from and keep track of every location from one dashboard.
+      <section className="bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <p className="eyebrow">Inside ReviewBuddy</p>
+            <h2 className="mt-3">All your reviews, in one place.</h2>
+            <p className="lead mt-4 text-[var(--rb-text-muted)]">
+              Every crop below is the real Reviews screen, not a mock-up of features we don&apos;t have.
             </p>
           </div>
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-[20px] bg-white/15 sm:grid-cols-3">
-            {facts.map((fact) => (
-              <li key={fact} className="bg-ink px-6 py-6 text-lg font-semibold leading-7 text-white">
-                {fact}
+          <FeatureBento />
+        </div>
+      </section>
+
+      <section className="bg-[var(--rb-surface-alt)]">
+        <div className={`${shell} max-w-none`}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2>Win the job on trust, not price.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>
+                People used to pick a tradie because someone over the back fence said &quot;use this one&quot;. That recommendation still decides who gets the job. It just happens on Google now.
+              </p>
+              <p>
+                They search, they look at the stars and the number of reviews, and they ring the one that looks trusted. If that&apos;s you, you&apos;re the safe pick. And the safe pick doesn&apos;t have to be the cheapest quote.
+              </p>
+              <p>
+                That&apos;s the whole idea. More reviews build trust. Trust wins the job. And winning on trust instead of price is where the profit is.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2>It&apos;s a tough year to be competing on price.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>
+                You don&apos;t need me to tell you it&apos;s hard out there. Trades prices rose 6.6% in the year to September, the fastest in four years (HIA, October 2026). And a quarter of households say they&apos;re putting repairs off because of the cost of living (Finder, July 2026).
+              </p>
+              <p>
+                So when someone does spend, they&apos;re careful about who they let in the house. They check first. 86% of homeowners on hipages check reviews before they hire, and 87% look at the star rating (hipages survey, March 2025).
+              </p>
+              <p>If your reviews are thin, the job goes to someone else before you knew it was there.</p>
+            </div>
+            <p className="mt-6 text-sm leading-6 text-[var(--rb-text-muted)]">
+              Sources: HIA Trades Report, 22 Oct 2026. Finder via realestate.com.au, 20 Jul 2026. hipages homeowner survey, March 2025.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2>Happy customers don&apos;t leave reviews on their own.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>
+                Most of your customers are happy. Hardly any of them leave a review unless someone asks, and asking is where it falls over.
+              </p>
+              <p>
+                It feels awkward. You forget when the next job&apos;s waiting. And when you do ask, the customer has to find your business on Google, find the review button, and remember to do it later. Most don&apos;t.
+              </p>
+              <p>The unhappy ones never need asking. That&apos;s how a good business ends up with 12 reviews while an average one has 80.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <h2>However you finish a job, there&apos;s a way to ask.</h2>
+          <ul className="mt-10 grid gap-6 md:grid-cols-2">
+            {shareWays.map((way) => (
+              <li key={way.title} className="rounded-[var(--rb-radius-lg)] bg-[var(--rb-surface-raised)] p-7 shadow-[var(--rb-shadow-card)]">
+                <h3>{way.title}</h3>
+                <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">{way.detail}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className={`${pad} py-20 lg:py-32`}>
-        <div className={`${wrap} grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20`}>
-          <div data-reveal="">
-            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              You have already done the hard part.
-            </h2>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-              Your past customers already know your work. On Growth, send us a spreadsheet of people you have actually done work for. We load the list, then automatic review-request emails ask them for a review, with one polite reminder.
+      <section className="bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2>Be the tradie with the reviews.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>
+                Picture someone comparing three tradies. One has 9 reviews from 2022. One has 30. You&apos;ve got 80, and the latest is from last week.
+              </p>
+              <p>
+                They don&apos;t know any of you. But they know who looks busy, trusted and still doing good work right now. That&apos;s who gets the call.
+              </p>
+              <p>And it&apos;s not only on Google. When they click through to your website, your reviews are there too.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="widget" className="bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2 id="widget">Your reviews, right where your ads and SEO send people.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>You pay for ads and SEO to get people to your website. When they land, most are still deciding.</p>
+              <p>
+                The ReviewBuddy widget shows your latest reviews on your site, from Google and your other review sites, with your rating and review count. It updates on its own, so it never goes stale. It&apos;s there to turn more of those visits into calls.
+              </p>
+            </div>
+            <p className="mt-6 text-sm leading-6 text-[var(--rb-text-muted)]">
+              More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
             </p>
+          </div>
+          <div className="placeholder mt-10 max-w-xl">Real screenshot: review widget on a site</div>
+        </div>
+      </section>
+
+      <ProofBlock />
+
+      <section className="bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <h2>I set it up for you. You keep doing the work.</h2>
+          <div className="mt-10 grid gap-10 md:grid-cols-2">
+            <div>
+              <h3>What I do</h3>
+              <ul className="mt-4 grid gap-3">
+                {iDo.map((item) => (
+                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>What you do</h3>
+              <ul className="mt-4 grid gap-3">
+                {youDo.map((item) => (
+                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="mt-8 text-base font-semibold">{SETUP_LINE}</p>
+        </div>
+      </section>
+
+      <section className="bg-[var(--rb-surface)]">
+        <div className={shell}>
+          <div className="max-w-[var(--rb-text-max)]">
+            <h2>You&apos;ve probably got dozens of reviews you never asked for.</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
+              <p>
+                On Growth, send me a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
+              </p>
+            </div>
             <div className="mt-8">
               <Link
                 href="/pricing#growth"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-ink bg-white px-6 font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
+                className="inline-flex min-h-[52px] items-center justify-center rounded-full border-[1.5px] border-[var(--rb-line-strong)] bg-[var(--rb-surface-raised)] px-6 font-semibold text-[var(--rb-brand)]"
               >
                 See the Growth plan
               </Link>
             </div>
           </div>
-          <ol data-reveal="" className="grid content-center">
-            {pastCustomerSteps.map((item, index) => (
-              <li key={item} className="flex items-baseline gap-5 border-t border-line py-6 last:border-b">
-                <span className="text-sm font-bold text-brand-text">0{index + 1}</span>
-                <span className="text-xl font-semibold leading-8 text-ink">{item}</span>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
-      <section id="pricing" className={`scroll-mt-24 bg-brand-tint ${pad} py-20 lg:py-32`}>
-        <div className={wrap}>
-          <div data-reveal="" className="max-w-2xl">
-            <h2 className="text-balance text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              Two plans. Pick the one that fits.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-muted">
-              {BOTH_PLANS_LINE} {SETUP_LINE}
-            </p>
+      <FounderNote />
+
+      <section id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <div className="mx-auto max-w-[var(--rb-text-max)] text-center">
+            <p className="eyebrow">Pricing</p>
+            <h2 className="mt-3">Two plans. Both set up for you.</h2>
+            <p className="lead mt-4 text-[var(--rb-text-muted)]">{PRICING_SUB}</p>
+            <p className="mt-3 text-base leading-7 text-[var(--rb-text-muted)]">{BOTH_PLANS_LINE}</p>
+            <SpotsLeft />
           </div>
-          <div data-reveal="" className="mt-14">
-            <PlanPair />
+          <div className="mx-auto mt-10 max-w-[880px]">
+            <PlanPair location="home-plans" />
           </div>
-          <p className="mt-10 text-base text-muted">
-            <Link href="/pricing" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
-              Compare the plans in full
+          <p className="mt-8 text-center text-base">
+            <Link href="/pricing" className="font-semibold underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
+              Compare the plans
             </Link>
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="questions" className={`${pad} py-20 lg:py-32`}>
-        <div className={`${wrap} grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20`}>
-          <div data-reveal="">
-            <h2 id="questions" className="text-[clamp(1.875rem,5vw,3rem)] font-bold leading-[1.1] text-ink">
-              Questions
-            </h2>
-            <p className="mt-5 max-w-sm text-lg leading-8 text-muted">
-              Plans, setup and how it works.
+      <section aria-labelledby="questions" className="bg-[var(--rb-surface)]">
+        <div className={`${shell} grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20`}>
+          <div>
+            <h2 id="questions">Fair questions</h2>
+            <p className="mt-5 max-w-sm text-base leading-7 text-[var(--rb-text-muted)]">
+              Ask me anything else at{" "}
+              <a href={`mailto:${contactEmail}`} className="font-semibold text-[var(--rb-text)] underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
+                {contactEmail}
+              </a>
+              .
             </p>
           </div>
-          <div data-reveal="">
-            <FaqList faqs={homeFaqs} />
-          </div>
+          <FaqList faqs={homeFaqs} />
         </div>
       </section>
 
-      <section className={`bg-brand ${pad} py-16 lg:py-24`}>
-        <div className={`${wrap} flex flex-col gap-8 md:flex-row md:items-end md:justify-between`}>
+      <section className="band">
+        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-balance text-[clamp(2.25rem,6vw,4rem)] font-extrabold leading-[1.02] text-ink">
-              Start your 7-day free trial.
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink">{finalBandLine}</p>
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
+              {CLOSING_LINE}
+            </p>
+            <p className="mt-3 text-sm leading-6">
+              <Link href="/free-review-breakdown" className="font-semibold text-[var(--rb-on-brand)] underline decoration-[var(--rb-accent)] decoration-2 underline-offset-4">
+                Get a free review breakdown
+              </Link>
+            </p>
           </div>
-          <TrialButton variant="ink" className="px-8">
+          <TrialButton variant="gold" location="home-final" className="px-8">
             {CTA_LABEL}
           </TrialButton>
         </div>

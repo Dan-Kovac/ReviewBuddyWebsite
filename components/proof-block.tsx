@@ -22,7 +22,7 @@ export function ProofBlock() {
           {proofItems.map((item) => (
             <li
               key={item.kind === "quote" ? `${item.name}-${item.business}` : item.text}
-              className="rounded-[20px] border border-line bg-white p-6"
+              className="rounded-[10px] border border-line bg-white p-6"
             >
               {item.kind === "quote" ? (
                 <figure>

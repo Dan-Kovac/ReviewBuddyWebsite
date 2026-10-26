@@ -1,4 +1,12 @@
-import { CARD_UPFRONT } from "./flags";
+import { abn, confirmedAbnDisplay } from "./abn";
+import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags";
+import { monthlyPriceLabel, offerDescription } from "./gst";
+import { BILLING_LINE, PRICING_SUB, resolveTrialLine } from "./trial-copy";
+
+export { abn, confirmedAbnDisplay };
+export { GST_REGISTERED } from "./flags";
+export { BILLING_LINE, PRICING_SUB, resolveTrialLine };
+export { NO_CARD_TRIAL_LINE } from "./trial-copy";
 
 export {
   defaultGrowthSignupUrl,
@@ -6,6 +14,7 @@ export {
   defaultStarterSignupUrl,
   loginUrl,
   pricingSectionHref,
+  pricingSectionLink,
   resolveLoginUrl,
   resolveSignupHref,
   signupHref,
@@ -16,10 +25,7 @@ export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const contactPhone = "0411 701 078";
-/** tel: links must not contain spaces. */
 export const contactPhoneHref = "tel:+61411701078";
-/** Dan has not supplied the ABN. Shown as an obvious placeholder until he does. */
-export const abnPlaceholder = "[ABN to be added before launch]";
 
 export type PlanId = "starter" | "growth";
 
@@ -27,6 +33,11 @@ export type Plan = {
   id: PlanId;
   name: string;
   price: number;
+  /** Big figure on the plan card, for example "$49". */
+  priceAmount: string;
+  /** Small line under the figure. */
+  pricePeriod: string;
+  /** Full price phrase for schema and pages that need one line. */
   priceLabel: string;
   tagline: string;
   subHeading: string;
@@ -34,12 +45,6 @@ export type Plan = {
   recommended?: boolean;
   /** Wording for the product structured data offer. */
   offerDescription: string;
-  /**
-   * Stripe ids for the lead record and later checkout work.
-   * The site never calls Stripe.
-   */
-  stripeProductId: string;
-  stripePriceId: string;
 };
 
 export const plans: readonly Plan[] = [
@@ -47,39 +52,35 @@ export const plans: readonly Plan[] = [
     id: "starter",
     name: "Starter",
     price: 49,
-    priceLabel: "A$49/month incl GST",
-    tagline: "Your reviews, live on your website.",
-    subHeading:
-      "A direct Google review link and QR code, and a review widget on your site matched to its look. Free done-for-you setup.",
+    priceAmount: "$49",
+    pricePeriod: "a month",
+    priceLabel: monthlyPriceLabel("$49 a month"),
+    tagline: "You do the asking.",
+    subHeading: "Your review link, QR code and a review widget on your website.",
     includes: [
-      "Direct Google review link and QR code",
-      "Review widget on your site, matched to its look",
-      "Free done-for-you setup",
+      "Your review link and QR code",
+      "A review widget on your website, matched to your site",
+      "Free setup",
+      "A short weekly email with one thing to do",
     ],
-    offerDescription:
-      "A$49/month incl GST. Direct Google review link and QR code, a review widget matched to your site, and free done-for-you setup. 7-day free trial, card taken up front. Cancel any time.",
-    stripeProductId: "prod_VUZxrvOPaIxAFn",
-    stripePriceId: "price_1UTanI2VeLXnEu5vqJZEWtU9",
+    offerDescription: offerDescription("starter"),
   },
   {
     id: "growth",
     name: "Growth",
     price: 75,
-    priceLabel: "A$75/month incl GST",
-    tagline: "Reviews keep coming, including from past customers.",
-    subHeading:
-      "Everything in Starter, plus automatic review-request emails with one polite reminder, your past-customer list loaded, and ongoing coaching.",
+    priceAmount: "$75",
+    pricePeriod: "a month",
+    priceLabel: monthlyPriceLabel("$75 a month"),
+    tagline: "The asking happens without you.",
+    subHeading: "Everything in Starter, plus your customers and your past customers get asked.",
     recommended: true,
     includes: [
       "Everything in Starter",
-      "Automatic review-request emails with one polite reminder",
-      "Past-customer list loaded",
-      "Ongoing coaching",
+      "An automatic review request after each job, with one polite reminder",
+      "Your past customers asked too",
     ],
-    offerDescription:
-      "A$75/month incl GST. Everything in Starter, plus automatic review-request emails with one polite reminder, past-customer list loaded, and ongoing coaching. 7-day free trial, card taken up front. Cancel any time.",
-    stripeProductId: "prod_VUZx7ZiwpbyODv",
-    stripePriceId: "price_1UTanI2VeLXnEu5vFjqFXp0U",
+    offerDescription: offerDescription("growth"),
   },
 ];
 
@@ -91,23 +92,22 @@ export function planById(id: PlanId): Plan {
   return found;
 }
 
-/**
- * Settled offer. Card is taken up front (CARD_UPFRONT). No setup-value
- * claim and no "no card needed" claim.
- */
-export const CTA_LABEL = "Get started";
-export const TRIAL_LINE = CARD_UPFRONT
-  ? "7-day free trial. Card taken up front. Cancel any time."
-  : "7-day free trial. Cancel any time.";
-export const SETUP_LINE = "Free done-for-you setup.";
+export const TRIAL_LINE = resolveTrialLine(CARD_UPFRONT, TRIAL_REMINDER);
+
+export const SETUP_LINE = "It's free.";
 export const BOTH_PLANS_LINE =
-  "Both plans include a 7-day free trial (card taken up front), a weekly note with one simple thing to do, and you can cancel any time.";
+  "Both plans come with free setup, a short weekly email with one thing to do, and no contract.";
+export const CTA_LABEL = "Try it free for 7 days";
+export const CLOSING_LINE = `${TRIAL_LINE} I set it up for you.`;
+/** Phone header and sticky bar only. The full label does not fit beside the logo. */
+export const STICKY_TRIAL_TEXT = "7-day free trial, no card needed.";
+export const STICKY_CTA_LABEL = "Try it free";
+export const FOOTER_LINE =
+  "More reviews, more trust, more calls. For Australian tradies. Made in Melbourne by Roadmap Labs.";
 export const GUARANTEE_BADGE = "";
 
 export const navLinks = [
   { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/help", label: "Help" },
   { href: "/google-reviews-for-plumbers", label: "Plumbers" },
-  { href: "/free-review-breakdown", label: "Free breakdown" },
+  { href: "/free-review-breakdown", label: "Free review breakdown" },
 ] as const;

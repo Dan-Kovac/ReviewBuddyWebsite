@@ -1,29 +1,37 @@
 /**
- * Checkout and log-in addresses. This is the only file that chooses them.
+ * Trial registration and log-in addresses. This is the only file that chooses them.
  * lib/site.ts re-exports them.
  *
- * A general Get started button does not use these. It scrolls to the pricing
- * section so the visitor picks Starter or Growth first.
+ * A general "Try it free for 7 days" button does not use these. It goes to the
+ * pricing section so the visitor picks Starter or Growth first.
  *
- * Starter and Growth "Start free trial" buttons use the Stripe payment links.
- * Stripe takes the card, starts the 7-day trial, and sends the visitor on to
- * Embed My Reviews registration. Replace a link by editing the matching
- * constant, or set the full URL in NEXT_PUBLIC_SIGNUP_URL_STARTER or
- * NEXT_PUBLIC_SIGNUP_URL_GROWTH. An env value is used as-is.
+ * Starter and Growth trial buttons go straight to Embed My Reviews registration.
+ * There is no Stripe payment step. The app's own 7-day trial does not take a card.
+ * Replace a link by editing the matching constant, or set the full URL in
+ * NEXT_PUBLIC_SIGNUP_URL_STARTER or NEXT_PUBLIC_SIGNUP_URL_GROWTH.
+ * An env value is used as-is. If those Vercel vars still point at Stripe
+ * payment links, they override these defaults and need updating or removing.
  *
  * Log in is NEXT_PUBLIC_LOGIN_URL, or the Embed My Reviews login below until
  * a custom domain replaces it.
  */
 export const defaultStarterSignupUrl =
-  "https://buy.stripe.com/6oU9AM0d0g0V2va2Ue6c000";
+  "https://1qbx.app.embedmyreviews.com/register?plan=5";
 
 export const defaultGrowthSignupUrl =
-  "https://buy.stripe.com/bJe8wIaRE8yt1r69iC6c001";
+  "https://1qbx.app.embedmyreviews.com/register?plan=6";
 
 export const defaultLoginUrl = "https://1qbx.app.embedmyreviews.com/login";
 
-/** Home pricing block. General Get started buttons go here, not to checkout. */
+/** Home pricing block. General trial buttons go here, not straight to a plan. */
 export const pricingSectionHref = "/#pricing";
+
+const pagesWithPricing = new Set(["/pricing", "/google-reviews-for-plumbers"]);
+
+/** On a page that already has a pricing section, stay there. Everywhere else, go to the home section. */
+export function pricingSectionLink(pathname: string): string {
+  return pagesWithPricing.has(pathname) ? "#pricing" : pricingSectionHref;
+}
 
 export type SignupPlan = "starter" | "growth";
 
@@ -65,7 +73,7 @@ export function resolveSignupHref(
   return usableSignupUrl(env.growth) ?? defaultGrowthSignupUrl;
 }
 
-/** The href for a plan's Start free trial control. */
+/** The href for a plan's trial control. */
 export function signupHref(plan: SignupPlan): string {
   return resolveSignupHref(plan);
 }

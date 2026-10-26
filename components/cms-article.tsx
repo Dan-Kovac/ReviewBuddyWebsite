@@ -67,7 +67,7 @@ export function CmsArticle({
           src={heroImageUrl}
           alt=""
           aria-hidden="true"
-          className="mt-8 aspect-[16/9] w-full rounded-[20px] object-cover"
+          className="mt-8 aspect-[16/9] w-full rounded-[10px] object-cover"
         />
       ) : null}
       <div
@@ -75,15 +75,14 @@ export function CmsArticle({
         dangerouslySetInnerHTML={{ __html: bodyHtml }}
       />
       {related}
-      <section className="mt-14 rounded-[20px] border border-line bg-soft p-8">
+      <section className="mt-14 rounded-[10px] border border-line bg-soft p-8">
         <h2 className="text-2xl font-semibold tracking-tight text-ink">
-          Get more Google reviews, without the chasing
+          Get more Google reviews
         </h2>
         <p className="mt-3 text-base leading-7 text-muted">
-          That is where ReviewBuddy comes in. We put your reviews live on
-          your website and keep new ones coming. {TRIAL_LINE}
+          That&apos;s where ReviewBuddy comes in. It puts your reviews on your website. {TRIAL_LINE}
         </p>
-        <TrialButton variant="ink" className="mt-6">
+        <TrialButton variant="ink" location="article" className="mt-6">
           {CTA_LABEL}
         </TrialButton>
       </section>

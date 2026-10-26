@@ -116,13 +116,58 @@ export function parseLead(
     (!mobileOptional || mobileGiven) &&
     (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15)
   ) {
-    errors.mobile = "Enter a mobile number we can text or call.";
+    errors.mobile = "Enter a valid mobile number.";
   }
   if (!emailPattern.test(lead.email)) {
     errors.email = "Enter a valid email address.";
   }
   if (lead.website.length < 3) {
     errors.website = "Add your website or Google Business Profile link.";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { ok: false, errors };
+  }
+
+  return { ok: true, lead };
+}
+
+export type BreakdownLead = {
+  businessName: string;
+  email: string;
+  mobile: string;
+  source: string;
+  source_post: string;
+};
+
+export type BreakdownErrors = Partial<Record<"businessName" | "email" | "mobile", string>>;
+
+/** Free breakdown form: business name and suburb, email, optional mobile. */
+export function parseBreakdown(
+  input: unknown,
+): { ok: true; lead: BreakdownLead } | { ok: false; errors: BreakdownErrors } {
+  const record =
+    input && typeof input === "object" ? (input as Record<string, unknown>) : {};
+
+  const lead: BreakdownLead = {
+    businessName: readString(record.businessName, limits.businessName),
+    email: readString(record.email, limits.email),
+    mobile: readString(record.mobile, limits.mobile),
+    source: readString(record.source, limits.source) || BREAKDOWN_SOURCE,
+    source_post: readString(record.source_post ?? record.sourcePost, limits.source_post),
+  };
+
+  const errors: BreakdownErrors = {};
+  const mobileDigits = lead.mobile.replace(/\D/g, "");
+
+  if (lead.businessName.length < 2) {
+    errors.businessName = "Enter your business name and suburb.";
+  }
+  if (!emailPattern.test(lead.email)) {
+    errors.email = "Enter a valid email address.";
+  }
+  if (lead.mobile && (mobileDigits.length < 8 || mobileDigits.length > 15)) {
+    errors.mobile = "Enter a valid mobile number.";
   }
 
   if (Object.keys(errors).length > 0) {

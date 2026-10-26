@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { PostCard } from "@/lib/cms";
 
 const card =
-  "hover-lift flex h-full flex-col overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_16px_40px_-28px_rgba(11,15,20,0.18)] hover:shadow-[0_20px_44px_-24px_rgba(11,15,20,0.28)]";
+  "flex h-full flex-col overflow-hidden rounded-[10px] border border-line bg-white";
 
 function Cover() {
   return (
@@ -24,7 +24,7 @@ export function PostCards({
 }) {
   if (posts.length === 0) {
     return (
-      <p className="mt-12 rounded-[20px] border border-line bg-soft p-8 text-base leading-7 text-muted">
+      <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
         {emptyMessage}
       </p>
     );

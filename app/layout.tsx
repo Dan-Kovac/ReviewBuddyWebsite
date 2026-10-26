@@ -1,26 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Work_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { CtaAnalytics } from "@/components/cta-analytics";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { caveat, fraunces, frauncesItalic, inter } from "@/app/fonts";
 import { organizationJsonLd } from "@/lib/json-ld";
+import { homeMetaDescription } from "@/lib/gst";
 import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-});
-
-const homeTitle = "Get More Google Reviews | ReviewBuddy for Tradies";
-const homeDescription =
-  "One view of your review sites. 7-day free trial, card taken up front. Starter A$49/month incl GST. Growth A$75/month incl GST.";
+const homeTitle = "More Google Reviews for Tradies | ReviewBuddy";
+const homeDescription = homeMetaDescription();
 
 export const ensureStatic = "navigation";
 
@@ -56,9 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`${inter.variable} ${workSans.variable} h-full scroll-smooth antialiased`}
+      data-theme="reviewbuddy"
+      className={`${fraunces.variable} ${frauncesItalic.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white font-sans text-ink">
+      <body className="flex min-h-full flex-col bg-[var(--rb-surface)] font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />
         <a
           href="#main"
@@ -71,10 +64,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        {process.env.VERCEL ? <Analytics /> : null}
+        <CtaAnalytics />
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            Start trial links work without JavaScript. The free breakdown form
-            needs JavaScript. Email {contactEmail} if it does not open.
+            Trial links work without JavaScript. The free review breakdown form needs
+            JavaScript. Email {contactEmail} if it doesn&apos;t open.
           </p>
         </noscript>
       </body>

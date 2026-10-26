@@ -1,18 +1,15 @@
-import { plans } from "@/lib/site";
 import { PlanCard } from "@/components/plan-card";
+import { plans } from "@/lib/site";
 
-export function PlanPair({ compact = false }: { compact?: boolean }) {
-  // Growth listed first on phones via order classes; desktop grid keeps reading order.
+export function PlanPair({ location = "plans" }: { location?: string }) {
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-      {plans.map((plan) => (
-        <div
-          key={plan.id}
-          className={plan.recommended ? "order-first lg:order-none lg:-my-3" : ""}
-        >
-          <PlanCard plan={plan} compact={compact} />
-        </div>
-      ))}
+    <div>
+      <h2 className="sr-only">Plans</h2>
+      <div className="grid items-stretch gap-6 lg:grid-cols-2">
+        {plans.map((plan) => (
+          <PlanCard key={plan.id} plan={plan} location={location} />
+        ))}
+      </div>
     </div>
   );
 }

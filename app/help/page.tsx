@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { getCategories, getPublishedPosts, toCards, type PostCard } from "@/lib/cms";
+import { builtInHelp } from "@/lib/help-guides";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Help | ReviewBuddy",
-  description:
-    "Answers to the questions our clients ask: setting up your review link and widget, asking customers for reviews, billing and cancelling.",
+  description: "How to cancel, and how to reach us.",
   path: "/help",
 });
 
 const EMPTY_MESSAGE =
-  "Help guides are being prepared. If you are stuck on something today, email hello@reviewbuddy.com.au and we will sort it out.";
+  "Help guides are being prepared. If you're stuck today, email hello@reviewbuddy.com.au.";
 
 function DocList({ docs }: { docs: readonly PostCard[] }) {
   return (
@@ -50,15 +50,33 @@ async function HelpIndex() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:py-32">
       <p className="text-sm font-semibold tracking-wide text-muted">Help</p>
-      <h1 className="mt-4 max-w-3xl text-5xl font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl sm:leading-[1.05]">
+      <h1 className="display mt-4 max-w-3xl text-balance">
         Help guides
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
         Short, plain answers to the things our clients ask about. If your
-        question is not here, email hello@reviewbuddy.com.au.
+        question isn&apos;t here, email hello@reviewbuddy.com.au.
       </p>
+      <section aria-labelledby="help-account">
+        <h2 id="help-account" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Your account
+        </h2>
+        <ul className="mt-6 grid gap-4">
+          {builtInHelp.map((guide) => (
+            <li key={guide.slug}>
+              <Link
+                href={`/help/${guide.slug}`}
+                className="hover-lift block rounded-[16px] border border-line bg-white p-5"
+              >
+                <p className="text-lg font-semibold text-ink">{guide.title}</p>
+                <p className="mt-1 text-sm leading-6 text-muted">{guide.excerpt}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
       {cards.length === 0 ? (
-        <p className="mt-12 rounded-[20px] border border-line bg-soft p-8 text-base leading-7 text-muted">
+        <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
           {EMPTY_MESSAGE}
         </p>
       ) : (
