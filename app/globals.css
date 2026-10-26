@@ -895,10 +895,29 @@ footer .eyebrow,
 
 .founder-sign {
   font-family: var(--rb-font-hand);
+  font-weight: 600;
   font-size: 34px;
   color: var(--rb-brand);
   margin-top: 12px;
   line-height: 1;
+}
+
+.founder-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.founder-signoff .founder-sign {
+  margin-top: 0;
+}
+
+.founder-signoff-line {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rb-text-muted);
 }
 
 @media (min-width: 1024px) {
@@ -989,6 +1008,12 @@ footer .eyebrow,
 
   .founder-card {
     padding: 48px 44px;
+  }
+
+  .founder-signoff {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
   }
 
   .bento {

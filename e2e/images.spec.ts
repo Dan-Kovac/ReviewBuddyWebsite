@@ -158,6 +158,39 @@ test("the blog index is noindex and stays out of the sitemap", async ({ page }) 
   expect(xml).not.toMatch(/<loc>https:\/\/reviewbuddy\.com\.au\/blog<\/loc>/);
 });
 
+test("the home page has one Caveat signature beside the founder sign-off", async ({ page }) => {
+  test.skip(test.info().project.name !== "desktop", "once, at 390, 768 and 1440");
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: width === 1440 ? 900 : 844 });
+    await page.goto("/", { waitUntil: "networkidle" });
+    const signs = page.locator(".founder-sign");
+    await expect(signs).toHaveCount(1);
+    await expect(signs).toHaveText("Dan");
+    const type = await signs.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return { family: style.fontFamily, size: style.fontSize, weight: style.fontWeight };
+    });
+    expect(type.size).toBe("34px");
+    expect(type.weight).toBe("600");
+    expect(type.family.toLowerCase()).toContain("caveat");
+
+    const sign = await signs.boundingBox();
+    const line = await page.locator(".founder-signoff-line").boundingBox();
+    const signoff = await page.locator(".founder-signoff").boundingBox();
+    const letter = await page.locator(".founder-letter p").last().boundingBox();
+    expect(sign && line && signoff && letter, `boxes at ${width}`).toBeTruthy();
+    expect(letter!.y + letter!.height, `letter then sign-off at ${width}`).toBeLessThanOrEqual(signoff!.y + 1);
+    if (width < 1024) {
+      expect(sign!.y + sign!.height, `signature above the line at ${width}`).toBeLessThanOrEqual(line!.y + 1);
+    } else {
+      expect(sign!.x + sign!.width, "signature left of the line").toBeLessThanOrEqual(line!.x + 1);
+      const overlaps =
+        sign!.y < line!.y + line!.height && line!.y < sign!.y + sign!.height;
+      expect(overlaps, "signature lines up with the sign-off").toBe(true);
+    }
+  }
+});
+
 test("the sticky header does not cover the page title at the top", async ({ page }) => {
   for (const path of pages) {
     await page.goto(path, { waitUntil: "domcontentloaded" });
