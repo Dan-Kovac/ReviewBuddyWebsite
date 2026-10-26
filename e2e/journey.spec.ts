@@ -59,7 +59,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     "Win their trust before they pick up the phone",
   );
   await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
-  await expect(page.getByText("No card to start. No contract. No notice period.").first()).toBeVisible();
+  await expect(page.getByText("and no contract.")).toBeVisible();
+  await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
   await expect(page.getByText("0411 701 078").first()).toBeVisible();
   await expect(page.locator("a[href^='tel:']").first()).toBeVisible();
@@ -90,7 +91,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     const menu = page.getByRole("navigation", { name: "Mobile" });
     await expect(menu.getByRole("link", { name: "Pricing" })).toBeVisible();
     await expect(menu.getByRole("link", { name: "Plumbers" })).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Free breakdown" })).toBeVisible();
+    await expect(menu.getByRole("link", { name: "Free review breakdown" })).toBeVisible();
     await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
@@ -138,7 +139,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
   await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
   await expect(
-    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going."),
+    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first(),
   ).toBeVisible();
   await expect(page.getByText("billing page in your account").first()).toBeVisible();
   await expect(page.getByText("Day 0")).toBeVisible();

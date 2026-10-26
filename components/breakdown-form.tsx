@@ -13,7 +13,7 @@ import {
   parseBreakdown,
   type BreakdownErrors,
 } from "@/lib/lead";
-import { contactEmail } from "@/lib/site";
+import { CTA_LABEL, contactEmail } from "@/lib/site";
 
 function SourcePostField() {
   const params = useSearchParams();
@@ -36,7 +36,7 @@ export function BreakdownForm() {
         <p className="mt-3 text-base leading-7 text-muted">I&apos;ll email your breakdown.</p>
         <div className="mt-6">
           <TrialButton variant="ink" location="breakdown-success">
-            Try it free for 7 days
+            {CTA_LABEL}
           </TrialButton>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function BreakdownForm() {
   if (fallback) {
     return (
       <div role="status" className="py-2">
-        <p className="text-xl font-semibold text-ink">Email us instead</p>
+        <p className="text-xl font-semibold text-ink">Email me instead</p>
         <p className="mt-3 text-base leading-7 text-muted">
           I couldn&apos;t save that just now. Email{" "}
           <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>

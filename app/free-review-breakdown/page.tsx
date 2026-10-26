@@ -57,7 +57,7 @@ export default function FreeReviewBreakdownPage() {
               <p className="mt-8 text-base font-semibold text-ink">Dan</p>
               <h2 className="mt-12 text-3xl font-semibold tracking-tight text-ink">If you like what you see</h2>
               <p className="mt-4 text-base leading-7 text-muted">
-                If it&apos;s useful, try ReviewBuddy free for 7 days, no card needed. The breakdown&apos;s yours either way.
+                If it&apos;s useful, try ReviewBuddy. The breakdown&apos;s yours either way.
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">{TRIAL_LINE}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -65,7 +65,7 @@ export default function FreeReviewBreakdownPage() {
                   {CTA_LABEL}
                 </TrialButton>
                 <Link href="/pricing" className="font-semibold text-ink underline">
-                  Compare plans
+                  Compare the plans
                 </Link>
               </div>
             </div>

@@ -8,12 +8,12 @@ import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { thenFromPriceLine } from "@/lib/gst";
-import { CTA_LABEL, TRIAL_LINE } from "@/lib/site";
+import { CLOSING_LINE, CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
   description:
-    "More Google reviews after every plumbing job, shown on your website too. Set up for you. Free for 7 days, no card needed.",
+    "More Google reviews after every plumbing job, shown on your website too. Set up for you. 7-day free trial, no card needed. Add a card before day 8 to keep going.",
   path: "/google-reviews-for-plumbers",
 });
 
@@ -89,12 +89,13 @@ export default function PlumbersPage() {
         <section id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
           <div className="mx-auto w-full max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans. Both set up for you.</h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-muted">No contract. No notice period.</p>
             <div className="mt-10">
               <PlanPair location="plumbers-plans" />
             </div>
             <p className="mt-8">
               <Link href="/pricing" className="font-semibold text-ink underline">
-                Full pricing
+                Compare the plans
               </Link>
             </p>
           </div>
@@ -114,7 +115,7 @@ export default function PlumbersPage() {
           <div>
             <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
-              Free for 7 days. No card needed. I&apos;ll set it up for you.
+              {CLOSING_LINE}
             </p>
           </div>
           <TrialButton variant="ink" location="plumbers-band" className="px-8">

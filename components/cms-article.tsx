@@ -80,7 +80,7 @@ export function CmsArticle({
           Get more Google reviews
         </h2>
         <p className="mt-3 text-base leading-7 text-muted">
-          That&apos;s where ReviewBuddy comes in. We put your reviews on your website. {TRIAL_LINE}
+          That&apos;s where ReviewBuddy comes in. It puts your reviews on your website. {TRIAL_LINE}
         </p>
         <TrialButton variant="ink" location="article" className="mt-6">
           {CTA_LABEL}

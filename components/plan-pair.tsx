@@ -1,5 +1,5 @@
 import { PlanCard } from "@/components/plan-card";
-import { PLAN_FOOT_LINE, plans } from "@/lib/site";
+import { plans } from "@/lib/site";
 
 export function PlanPair({ location = "plans" }: { location?: string }) {
   return (
@@ -10,7 +10,6 @@ export function PlanPair({ location = "plans" }: { location?: string }) {
           <PlanCard key={plan.id} plan={plan} location={location} />
         ))}
       </div>
-      <p className="mt-8 text-center text-base font-semibold text-ink">{PLAN_FOOT_LINE}</p>
     </div>
   );
 }

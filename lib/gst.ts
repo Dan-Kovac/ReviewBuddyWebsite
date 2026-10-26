@@ -31,12 +31,14 @@ export function pricingPageTitle(registered = GST_REGISTERED): string {
     : "ReviewBuddy Pricing: $49 or $75 a month";
 }
 
+const trialLine = "7-day free trial, no card needed. Add a card before day 8 to keep going.";
+
 export function homeMetaDescription(registered = GST_REGISTERED): string {
-  return `More Google reviews for Australian tradies, shown on your website too. Free for 7 days, no card needed. ${fromPriceLine(registered)}.`;
+  return `Build trust before they call. One link to ask every customer for a review, and your reviews on your website. Set up for you. ${trialLine} ${fromPriceLine(registered)}.`;
 }
 
 export function sharePriceLine(registered = GST_REGISTERED): string {
-  return `Free for 7 days, no card needed. ${fromPriceLine(registered)}.`;
+  return `${trialLine} ${fromPriceLine(registered)}.`;
 }
 
 export function pricingIntro(registered = GST_REGISTERED): string {
@@ -48,7 +50,7 @@ export function pricingIntro(registered = GST_REGISTERED): string {
 }
 
 export function pricingSubTail(registered = GST_REGISTERED): string {
-  return registered ? "Prices in AUD, incl GST." : "Prices in AUD.";
+  return registered ? "Prices are in Australian dollars, incl GST." : "Prices are in Australian dollars.";
 }
 
 export function priceFaqAnswer(registered = GST_REGISTERED): string {
@@ -59,13 +61,13 @@ export function priceFaqAnswer(registered = GST_REGISTERED): string {
 
 export function plumberCostAnswer(registered = GST_REGISTERED): string {
   const price = registered ? "$49 or $75 a month, incl GST" : "$49 or $75 a month";
-  return `${price}, after a 7-day free trial with no card needed. Add a card before day 8 to keep going.`;
+  return `${price}. 7-day free trial, no card needed. Add a card before day 8 to keep going.`;
 }
 
 export function offerDescription(plan: "starter" | "growth", registered = GST_REGISTERED): string {
   const gst = registered ? ", incl GST" : "";
   if (plan === "starter") {
-    return `$49 a month${gst}. Your review link, QR code and a review widget on your website. Setup is free.`;
+    return `$49 a month${gst}. Your review link, QR code and a review widget on your website. I set it up for you.`;
   }
   return `$75 a month${gst}. Everything in Starter, plus an automatic review request after each job, one polite reminder, and your past customers asked too.`;
 }

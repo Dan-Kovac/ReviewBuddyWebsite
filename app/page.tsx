@@ -14,13 +14,12 @@ import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { fromPriceLine } from "@/lib/gst";
-import { BOTH_PLANS_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, contactEmail } from "@/lib/site";
+import { fromPriceLine, homeMetaDescription } from "@/lib/gst";
+import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, contactEmail } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "More Google Reviews for Tradies | ReviewBuddy",
-  description:
-    "Build trust before they call. One link to ask every customer for a review, and your reviews on your website. Set up for you. Free for 7 days, no card needed.",
+  description: homeMetaDescription(),
   path: "/",
 });
 
@@ -120,7 +119,7 @@ export default function HomePage() {
             before they pick up the phone.
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website. I set it all up for you.
+            Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
@@ -132,11 +131,10 @@ export default function HomePage() {
               href="/free-review-breakdown"
               className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border-[1.5px] border-[color-mix(in_srgb,var(--rb-on-brand)_40%,transparent)] px-6 text-center text-base font-semibold whitespace-normal text-[var(--rb-on-brand)] lg:w-auto"
             >
-              Not ready? Get a free review breakdown first.
+              Get a free review breakdown
             </Link>
           </div>
           <p className="micro-claims">
-            <span>No card needed</span>
             <span>Set up for you</span>
             <span>{fromPriceLine()}</span>
           </p>
@@ -158,7 +156,7 @@ export default function HomePage() {
             <p className="eyebrow">How it works</p>
             <h2 className="mt-3">One link. Every customer. Shown on your site.</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              ReviewBuddy is a simple system that takes the friction out of asking, following up and showing your reviews. Here&apos;s what happens. One link, every customer asked the same way.
+              ReviewBuddy is a simple system that takes the friction out of asking, following up and showing your reviews.
             </p>
           </div>
           <ol className="steps">
@@ -305,7 +303,7 @@ export default function HomePage() {
 
       <section className="bg-[var(--rb-surface-alt)]">
         <div className={shell}>
-          <h2>I do the setup. You keep doing the work.</h2>
+          <h2>I set it up for you. You keep doing the work.</h2>
           <div className="mt-10 grid gap-10 md:grid-cols-2">
             <div>
               <h3>What I do</h3>
@@ -366,7 +364,7 @@ export default function HomePage() {
           </div>
           <p className="mt-8 text-center text-base">
             <Link href="/pricing" className="font-semibold underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
-              Compare the plans in full
+              Compare the plans
             </Link>
           </p>
         </div>
@@ -393,11 +391,11 @@ export default function HomePage() {
           <div>
             <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
-              Free for 7 days. No card needed. I&apos;ll set it up for you.
+              {CLOSING_LINE}
             </p>
             <p className="mt-3 text-sm leading-6">
               <Link href="/free-review-breakdown" className="font-semibold text-[var(--rb-on-brand)] underline decoration-[var(--rb-accent)] decoration-2 underline-offset-4">
-                Or get a free review breakdown first
+                Get a free review breakdown
               </Link>
             </p>
           </div>

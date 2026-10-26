@@ -1,6 +1,6 @@
 # ReviewBuddy
 
-> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them on their own website. Setup is done for the customer. The 7-day trial does not need a card.
+> ReviewBuddy helps Australian trade businesses get more Google reviews and shows them on their own website. Set up for you.
 
 ## What it does
 
@@ -12,11 +12,11 @@
 ## Offer and prices
 
 - 7-day free trial, no card needed. Add a card before day 8 to keep going.
-- If there is no card by day 8, the account pauses. Review requests and syncing stop until a card is added in the app.
+- If you haven't added a card by day 8, the account pauses. Review requests and syncing stop until a card is added in the app.
 - Cancel any time from the billing page in the account. Access stays until the end of the billing period.
 - Starter: $49 a month, AUD. No GST is charged. You do the asking.
 - Growth: $75 a month, AUD. No GST is charged. The asking happens without you.
-- Try Starter free goes to Embed My Reviews registration with plan 5. Try Growth free goes to plan 6. The trial is not stored on this website.
+- Try Starter free for 7 days goes to Embed My Reviews registration with plan 5. Try Growth free for 7 days goes to plan 6. The trial is not stored on this website.
 
 ## Pages
 

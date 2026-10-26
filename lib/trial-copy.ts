@@ -19,7 +19,7 @@ export function resolveTrialLine(cardUpfront: boolean, trialReminder = false): s
 }
 
 export const BILLING_LINE =
-  "No card by day 8? Your account pauses, and adding a card in the app picks up where you left off. Cancel any time from the billing page in your account, no notice needed.";
+  "Your account pauses if you haven't added a card by day 8. Add a card in the app and you pick up where you left off. Cancel any time from the billing page in your account, no notice needed.";
 
 export const PRICING_SUB =
-  `7-day free trial, no card needed. Add a card before day 8 to keep going, and your plan starts. Cancel any time from the billing page in your account, no notice needed. ${pricingSubTail()}`;
+  `${NO_CARD_TRIAL_LINE} Your plan starts then. Cancel any time from the billing page in your account, no notice needed. ${pricingSubTail()}`;

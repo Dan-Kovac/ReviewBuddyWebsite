@@ -10,12 +10,12 @@ import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { pricingIntro, pricingPageTitle } from "@/lib/gst";
-import { BILLING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
+import { BILLING_LINE, CLOSING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: pricingPageTitle(),
   description:
-    "Two plans for Australian tradies, both set up for you. Free for 7 days with no card needed. No contract, no notice period.",
+    "Two plans for Australian tradies, both set up for you. 7-day free trial, no card needed. Add a card before day 8 to keep going. No contract, no notice period.",
   path: "/pricing",
 });
 
@@ -134,10 +134,7 @@ export default function PricingPage() {
 
         <section className="bg-soft">
           <div className="mx-auto w-full max-w-[1100px] px-4 py-8 sm:px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">How the free week works</h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-muted">
-              You register in the app. No card needed. You get 7 days of full access.
-            </p>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">How the 7-day free trial works</h2>
           </div>
           <TrialTimeline />
         </section>
@@ -169,7 +166,7 @@ export default function PricingPage() {
                 <a href={`mailto:${contactEmail}`} className="font-semibold text-ink underline">
                   {contactEmail}
                 </a>{" "}
-                and we&apos;ll work out what suits.
+                and I&apos;ll work out what suits.
               </p>
             </div>
             <TrialButton variant="ink" location="pricing-locations">
@@ -199,7 +196,7 @@ export default function PricingPage() {
           <div>
             <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
-              Free for 7 days. No card needed. I&apos;ll set it up for you.
+              {CLOSING_LINE}
             </p>
           </div>
           <TrialButton variant="ink" location="pricing-band" className="px-8">

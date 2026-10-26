@@ -34,7 +34,7 @@ export const homeFaqs: Faq[] = [
   {
     question: "Do I need a card to start?",
     answer:
-      "No. It's a 7-day free trial, no card needed. If you're happy, add a card before day 8 to keep going and your plan starts. If you don't, your account pauses: review requests and syncing stop. Add a card in the app and you pick up where you left off.",
+      "No. 7-day free trial, no card needed. Add a card before day 8 to keep going. If you don't, your account pauses: review requests and syncing stop. Add a card in the app and you pick up where you left off.",
   },
   {
     question: "Will my customers actually leave a review?",
@@ -54,7 +54,7 @@ export const homeFaqs: Faq[] = [
   {
     question: "How much of my time does it take?",
     answer:
-      "About as long as it takes to give me access to your Google profile and website. I do the setup. On Growth, the asking happens without you.",
+      "About as long as it takes to give me access to your Google profile and website. I set it up for you. On Growth, the asking happens without you.",
   },
   {
     question: "Do I need to touch my website?",
@@ -71,7 +71,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     question: "I've got more than one location.",
-    answer: "Email hello@reviewbuddy.com.au and we'll work out what suits.",
+    answer: "Email me at hello@reviewbuddy.com.au and I'll work out what suits.",
   },
 ];
 

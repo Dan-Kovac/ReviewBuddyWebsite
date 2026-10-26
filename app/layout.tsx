@@ -68,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <CtaAnalytics />
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
-            Trial links work without JavaScript. The free breakdown form needs
+            Trial links work without JavaScript. The free review breakdown form needs
             JavaScript. Email {contactEmail} if it doesn&apos;t open.
           </p>
         </noscript>

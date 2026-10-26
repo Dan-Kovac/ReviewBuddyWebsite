@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { pageMetadata } from "@/lib/metadata";
 import { cancellingGuide } from "@/lib/help-guides";
-import { contactEmail } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "How to cancel | ReviewBuddy",
@@ -25,13 +24,6 @@ export default function CancelHelpPage() {
         {cancellingGuide.paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
-        <p>
-          Email{" "}
-          <a className="font-semibold text-ink underline" href={`mailto:${contactEmail}`}>
-            {contactEmail}
-          </a>{" "}
-          if you have a question. To cancel, use the billing page in your account.
-        </p>
       </div>
     </article>
   );

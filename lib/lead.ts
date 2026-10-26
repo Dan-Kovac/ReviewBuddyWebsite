@@ -116,7 +116,7 @@ export function parseLead(
     (!mobileOptional || mobileGiven) &&
     (!lead.mobile || mobileDigits.length < 8 || mobileDigits.length > 15)
   ) {
-    errors.mobile = "Enter a mobile number we can text or call.";
+    errors.mobile = "Enter a valid mobile number.";
   }
   if (!emailPattern.test(lead.email)) {
     errors.email = "Enter a valid email address.";
@@ -167,7 +167,7 @@ export function parseBreakdown(
     errors.email = "Enter a valid email address.";
   }
   if (lead.mobile && (mobileDigits.length < 8 || mobileDigits.length > 15)) {
-    errors.mobile = "Enter a mobile number we can text or call.";
+    errors.mobile = "Enter a valid mobile number.";
   }
 
   if (Object.keys(errors).length > 0) {

@@ -27,7 +27,7 @@ export function organizationJsonLd() {
         "@id": `${siteUrl}/#product`,
         name: siteName,
         description:
-          "ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. Free for 7 days, no card needed.",
+          "ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. 7-day free trial, no card needed. Add a card before day 8 to keep going.",
         brand: {
           "@type": "Brand",
           name: siteName,

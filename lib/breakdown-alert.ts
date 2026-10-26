@@ -23,7 +23,7 @@ export function breakdownAlertText(lead: BreakdownAlertLead): string {
   }
   lines.push(
     "",
-    "This form is not a trial sign-up. The 7-day trial starts in the app, with no card needed.",
+    "This form is not a trial sign-up. 7-day free trial, no card needed. Add a card before day 8 to keep going. It starts in the app.",
   );
   return lines.join("\n");
 }
