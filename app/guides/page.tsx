@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function GuidesPage() {
   const articles = publishedGuides();
-  // No placeholder guide pages while no guides are published.
+  // The index stays unpublished while the guide list is empty.
   if (articles.length === 0) {
     notFound();
   }

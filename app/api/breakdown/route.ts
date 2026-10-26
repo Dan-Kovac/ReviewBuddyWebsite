@@ -51,7 +51,7 @@ async function sendAlert(lead: BreakdownLead) {
     return;
   }
 
-  // TODO(Dan): set LEAD_ALERT_FROM to a sender Resend has verified.
+  // From address is LEAD_ALERT_FROM once that sender is verified with Resend.
   const from = process.env.LEAD_ALERT_FROM || `ReviewBuddy <${contactEmail}>`;
   const to = process.env.LEAD_ALERT_TO || contactEmail;
 

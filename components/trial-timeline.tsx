@@ -2,11 +2,11 @@ const steps = [
   { label: "Day 0", detail: "Pick a plan and sign up in the app." },
   {
     label: "During the 7 days",
-    detail: "I set it up for you and send your review email to approve.",
+    detail: "I set it up for you and send you your review email to approve.",
   },
   {
     label: "Day 7",
-    detail: "Last day of the trial. Add a card before day 8 to keep going.",
+    detail: "Last day of the trial. Add a card in the app if you want to keep going.",
   },
   {
     label: "Day 8, no card",

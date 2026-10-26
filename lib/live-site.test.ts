@@ -90,11 +90,41 @@ test("published pages do not contain placeholder copy", () => {
       if (!/\.(tsx|css)$/.test(entry)) continue;
       const source = stripComments(readFileSync(full, "utf8"));
       source.split("\n").forEach((line, index) => {
-        if (line.includes("__placeholder__") || line.includes("buildPlaceholder")) return;
         if (bannedLine.test(line)) hits.push(`${relative(root.pathname, full)}:${index + 1}: ${line.trim()}`);
       });
     }
   }
   for (const dir of dirs) walk(join(root.pathname, dir));
+  assert.deepEqual(hits, []);
+});
+
+test("stock testimonial images and names are not in the repo", () => {
+  for (const path of ["../public/images/find-the-best.png", "../public/images/request-review.png"]) {
+    assert.equal(existsSync(new URL(path, import.meta.url)), false, path);
+  }
+  const banned = [/Anastasya/, /Young Lex/, /find-the-best/, /request-review/];
+  const skip = new Set(["node_modules", ".next", ".git"]);
+  const hits: string[] = [];
+  function walk(dir: string) {
+    for (const entry of readdirSync(dir)) {
+      if (skip.has(entry)) continue;
+      const full = join(dir, entry);
+      const rel = relative(root.pathname, full);
+      if (rel.startsWith("e2e/") || rel.endsWith(".test.ts") || rel.endsWith("check-markers.mjs")) continue;
+      if (banned.some((pattern) => pattern.test(entry))) hits.push(rel);
+      const info = statSync(full);
+      if (info.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (!/\.(tsx?|jsx?|css|svg|html|json|txt|md|mdx|xml)$/.test(entry)) continue;
+      if (info.size > 1_500_000) continue;
+      const text = readFileSync(full, "utf8");
+      for (const pattern of banned) {
+        if (pattern.test(text)) hits.push(`${rel} matches ${pattern}`);
+      }
+    }
+  }
+  walk(root.pathname);
   assert.deepEqual(hits, []);
 });

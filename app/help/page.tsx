@@ -10,7 +10,7 @@ export const metadata = pageMetadata({
 });
 
 const EMPTY_MESSAGE =
-  "Help guides are being prepared. If you're stuck today, email hello@reviewbuddy.com.au.";
+  "That's the only guide so far. If you're stuck on something else, email hello@reviewbuddy.com.au and I'll help.";
 
 function DocList({ docs }: { docs: readonly PostCard[] }) {
   return (
@@ -54,7 +54,7 @@ async function HelpIndex() {
         Help guides
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-        Short, plain answers to the things our clients ask about. If your
+        Short, plain answers to the things clients ask about. If your
         question isn&apos;t here, email hello@reviewbuddy.com.au.
       </p>
       <section aria-labelledby="help-account">

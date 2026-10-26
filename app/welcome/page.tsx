@@ -12,17 +12,17 @@ export const metadata = pageMetadata({
 /**
  * Optional page after someone starts a trial in the app.
  * Sign-up itself is Embed My Reviews registration, not a payment link.
- *
- * TODO(Dan): replace the short line below with the real next steps.
- * Say what you need from them and how they book a kick-off.
- * Do not publish a setup turnaround until you've confirmed it.
+ * Next steps stay to what is certain: the login email, and adding a card before day 8.
  */
 export default function WelcomePage() {
   return (
     <article className="mx-auto w-full max-w-[720px] px-4 py-16 sm:px-6 lg:py-24">
       <h1 className="display">You&apos;re in</h1>
       <p className="mt-5 text-lg leading-8 text-muted">
-        Your 7-day free trial, no card needed, has started. Add a card before day 8 to keep going.
+        Your 7-day free trial has started. Check your email for your login.
+      </p>
+      <p className="mt-4 text-lg leading-8 text-muted">
+        Add a card in the app before day 8 if you want to keep going. If you&apos;ve got a question, email hello@reviewbuddy.com.au.
       </p>
       <Suspense fallback={null}>
         <WelcomeTracker />

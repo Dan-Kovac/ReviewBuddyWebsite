@@ -62,8 +62,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText("and no contract.")).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByText("0411 701 078").first()).toBeVisible();
-  await expect(page.locator("a[href^='tel:']").first()).toBeVisible();
+  await expect(page.getByText("0411 701 078")).toHaveCount(0);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
   await expect(page.getByText(/Free until/)).toHaveCount(0);
   await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
   await expect(page.getByText("Cancel with one email")).toHaveCount(0);
@@ -71,8 +71,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
   await expect(page.getByText("worth $500")).toHaveCount(0);
-  await expect(page.getByText("I ran Roadmap Labs")).toBeVisible();
-  await expect(page.getByText("Roadmap Digital")).toHaveCount(0);
+  await expect(page.getByText("Roadmap Digital")).toBeVisible();
+  await expect(page.getByText("Made in Melbourne by Roadmap Labs.").first()).toBeVisible();
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
 
@@ -134,7 +134,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   }
 
   await page.goto("/pricing");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans. Both set up for you.");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Two plans, both set up for you");
   await expect(page.getByRole("heading", { level: 2, name: /^Plans$/ })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 3, name: "Starter" }).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
@@ -159,10 +159,10 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await shot(page, "04-pricing-page");
 
   await page.goto("/blog");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("More reviews, more jobs");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Guides to getting more reviews");
   await expect(page.getByText("Plain-English guides")).toBeVisible();
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /Plain-English guides/);
-  await expect(page.getByText("New articles are on the way")).toBeVisible();
+  await expect(page.getByText("There aren't any guides up yet.")).toBeVisible();
   await shot(page, "05-blog");
 
   await page.goto("/help");
@@ -237,6 +237,10 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
 
   const login = await request.get(loginUrl);
   expect(login.status(), loginUrl).toBeLessThan(400);
+  const starter = await request.get(starterSignup);
+  expect(starter.status(), starterSignup).toBe(200);
+  const growth = await request.get(growthSignup);
+  expect(growth.status(), growthSignup).toBe(200);
 
   expect(problems, problems.join("\n")).toEqual([]);
 });
@@ -256,7 +260,7 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
-  await expect(page.getByText("Service Seeking can show in your widget if it connects.")).toBeVisible();
+  await expect(page.getByText("Other review sites can show in your widget if they connect.")).toBeVisible();
   await expect(page.getByText("Email me the sites you use and I'll check.")).toBeVisible();
 
   for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
@@ -269,7 +273,8 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
     }
   }
   await page.goto("/pricing");
-  await page.locator("[data-location='pricing-locations']").click();
+  await expect(page.locator("[data-location='pricing-locations']")).toHaveCount(0);
+  await page.locator("[data-location='pricing-band']").click();
   await expect(page).toHaveURL(/\/pricing#pricing$/);
   await expect(page.locator("#pricing")).toBeInViewport();
 

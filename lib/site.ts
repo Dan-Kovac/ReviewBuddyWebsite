@@ -1,12 +1,11 @@
 import { abn, confirmedAbnDisplay } from "./abn";
-import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags";
 import { monthlyPriceLabel, offerDescription } from "./gst";
-import { BILLING_LINE, PRICING_SUB, resolveTrialLine } from "./trial-copy";
+import { BILLING_LINE, PRICING_SUB, TRIAL_LINE } from "./trial-copy";
 
 export { abn, confirmedAbnDisplay };
 export { GST_REGISTERED } from "./flags";
-export { BILLING_LINE, PRICING_SUB, resolveTrialLine };
-export { NO_CARD_TRIAL_LINE } from "./trial-copy";
+export { BILLING_LINE, PRICING_SUB, TRIAL_LINE };
+export { CARD_REQUIRED_TRIAL_LINE, NO_CARD_TRIAL_LINE, resolveTrialLine } from "./trial-copy";
 
 export {
   defaultGrowthSignupUrl,
@@ -24,8 +23,6 @@ export type { SignupEnv } from "./signup-url";
 export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
-export const contactPhone = "0411 701 078";
-export const contactPhoneHref = "tel:+61411701078";
 
 export type PlanId = "starter" | "growth";
 
@@ -92,19 +89,24 @@ export function planById(id: PlanId): Plan {
   return found;
 }
 
-export const TRIAL_LINE = resolveTrialLine(CARD_UPFRONT, TRIAL_REMINDER);
-
-export const SETUP_LINE = "It's free.";
-export const BOTH_PLANS_LINE =
-  "Both plans come with free setup, a short weekly email with one thing to do, and no contract.";
+export const SETUP_LINE = "Setup is free on both plans.";
+export const BOTH_PLANS_LINE = "Both plans come with free setup and no contract.";
 export const CTA_LABEL = "Try it free for 7 days";
-export const CLOSING_LINE = `${TRIAL_LINE} I set it up for you.`;
+export const CLOSING_LINE = "Pick a plan and I'll set it up for you. If it's not for you, cancel from your account.";
 /** Phone header and sticky bar only. The full label does not fit beside the logo. */
-export const STICKY_TRIAL_TEXT = "7-day free trial, no card needed.";
+export const STICKY_TRIAL_TEXT = "7 days free. I set it up for you.";
 export const STICKY_CTA_LABEL = "Try it free";
 export const FOOTER_LINE =
-  "More reviews, more trust, more calls. For Australian tradies. Made in Melbourne by Roadmap Labs.";
+  "Google reviews for Australian tradies, set up for you. Made in Melbourne by Roadmap Labs.";
 export const GUARANTEE_BADGE = "";
+
+/** Facts under the hero. None of these repeat the trial line. */
+export const TRUST_BAR = [
+  "Set up by me, Dan",
+  "No contract, no notice period",
+  "Everyone asked the same way, by Google's rules",
+  "From $49 a month",
+] as const;
 
 export const headerLinks = [
   { href: "/pricing", label: "Pricing" },

@@ -80,8 +80,7 @@ export default function PrivacyPage() {
           automatically. The breakdown itself is an email we send you.
         </p>
         <p>
-          You can also email {contactEmail} or call the phone number on this
-          website. We keep what you send us so we can answer.
+          You can also email {contactEmail}. We keep what you send us so we can answer.
         </p>
         <p>
           <strong className="text-ink">Sign-up and the app.</strong> Trial
@@ -97,8 +96,7 @@ export default function PrivacyPage() {
           this website. If you add a card, you do it in the app, and Stripe
           processes the payment. We do not store your card number here. This
           website can read from Stripe whether a Starter or Growth subscription
-          is active or still in its trial, and only so we can count how many
-          free setups are left. That count is a number. It is not your name.
+          is active or still in its trial. That read is a count. It is not your name.
         </p>
         <p>
           <strong className="text-ink">Running the service.</strong> To set the

@@ -29,12 +29,12 @@ export const homeFaqs: Faq[] = [
   {
     question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Service Seeking can show in your widget if it connects. Email me the sites you use and I'll check.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email me the sites you use and I'll check.",
   },
   {
     question: "Do I need a card to start?",
     answer:
-      "No. 7-day free trial, no card needed. Add a card before day 8 to keep going. If you don't, your account pauses: review requests and syncing stop. Add a card in the app and you pick up where you left off.",
+      "No. You get 7 days to try it first. If you want to keep going, add a card in the app before day 8. If you don't, your account pauses: review requests and syncing stop, and you pay nothing. Add a card in the app later and you pick up where you left off.",
   },
   {
     question: "Will my customers actually leave a review?",
@@ -58,7 +58,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     question: "Do I need to touch my website?",
-    answer: "No. I add the widget for you.",
+    answer: "No. I add the widget for you and match it to your site.",
   },
   {
     question: "Do you write reviews for me?",
@@ -76,10 +76,6 @@ export const homeFaqs: Faq[] = [
 ];
 
 export const pricingFaqs: Faq[] = [
-  {
-    question: "Do I need a card to start?",
-    answer: homeFaqs.find((faq) => faq.question === "Do I need a card to start?")!.answer,
-  },
   {
     question: "What if I want to stop?",
     answer: homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer,
@@ -104,7 +100,7 @@ export const plumberFaqs: Faq[] = [
     answer: "Straight after the job, while they remember you fixed it. Growth handles the timing for you.",
   },
   {
-    question: "I'm on Service Seeking and hipages too. Can those reviews show?",
+    question: "I use other review sites too. Can those reviews show?",
     answer:
       "They can show in your widget if they connect. Email me the sites you use and I'll check.",
   },

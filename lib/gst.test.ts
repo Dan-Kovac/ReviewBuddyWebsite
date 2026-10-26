@@ -21,7 +21,8 @@ test("GST wording follows the registration flag", () => {
   assert.equal(fromPriceLine(false), "From $49 a month");
   assert.equal(gstTermsParagraph(false), GST_NOT_REGISTERED_TERMS);
   assert.match(gstTermsParagraph(true), /incl GST/);
-  assert.equal(priceFaqAnswer(false).startsWith("No."), true);
+  assert.equal(priceFaqAnswer(false), "No GST is charged.");
+  assert.match(priceFaqAnswer(true), /incl GST/);
   assert.equal(valueAddedTaxIncluded(false), false);
   assert.equal(valueAddedTaxIncluded(true), true);
 });

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { BreakdownForm } from "@/components/breakdown-form";
 import { JsonLd } from "@/components/json-ld";
 import { TrialButton } from "@/components/trial-button";
@@ -8,7 +7,7 @@ import { CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Free Google Review Breakdown for Tradies | ReviewBuddy",
   description:
-    "See how your Google reviews stack up against other tradies near you. Free, nothing to sign up for.",
+    "See how your Google reviews compare with other tradies near you. It's free, and there's nothing to sign up for.",
   path: "/free-review-breakdown",
 });
 
@@ -60,18 +59,14 @@ export default function FreeReviewBreakdownPage() {
                 If it&apos;s useful, try ReviewBuddy. The breakdown&apos;s yours either way.
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">{TRIAL_LINE}</p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6">
                 <TrialButton variant="ink" location="breakdown-aside">
                   {CTA_LABEL}
                 </TrialButton>
-                <Link href="/pricing" className="font-semibold text-ink underline">
-                  Compare the plans
-                </Link>
               </div>
             </div>
             <div id="request" className="scroll-mt-24 rounded-[10px] border border-line bg-white p-6 sm:p-8">
               <h2 className="text-2xl font-semibold tracking-tight text-ink">Request your breakdown</h2>
-              {/* TODO(Dan): confirm the turnaround before promising a number of days. */}
               <div className="mt-6">
                 <BreakdownForm />
               </div>

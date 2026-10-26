@@ -1,4 +1,5 @@
-import { GST_REGISTERED } from "./flags";
+import { CARD_UPFRONT, GST_REGISTERED } from "./flags";
+import { resolveTrialLine } from "./trial-copy";
 
 export const GST_NOT_REGISTERED_TERMS =
   "We are not currently registered for GST, so no GST is charged. If we register, we will tell you at least 30 days before any GST is added, and you can cancel before then.";
@@ -31,14 +32,16 @@ export function pricingPageTitle(registered = GST_REGISTERED): string {
     : "ReviewBuddy Pricing: $49 or $75 a month";
 }
 
-const trialLine = "7-day free trial, no card needed. Add a card before day 8 to keep going.";
+function trialLine(): string {
+  return resolveTrialLine(CARD_UPFRONT);
+}
 
 export function homeMetaDescription(registered = GST_REGISTERED): string {
-  return `Build trust before they call. One link to ask every customer for a review, and your reviews on your website. Set up for you. ${trialLine} ${fromPriceLine(registered)}.`;
+  return `Win their trust before they call. ReviewBuddy asks every customer for a Google review and shows your reviews on your website. Set up for you. ${trialLine()} ${fromPriceLine(registered)}.`;
 }
 
 export function sharePriceLine(registered = GST_REGISTERED): string {
-  return `${trialLine} ${fromPriceLine(registered)}.`;
+  return `${trialLine()} ${fromPriceLine(registered)}.`;
 }
 
 export function pricingIntro(registered = GST_REGISTERED): string {
@@ -56,12 +59,14 @@ export function pricingSubTail(registered = GST_REGISTERED): string {
 export function priceFaqAnswer(registered = GST_REGISTERED): string {
   return registered
     ? "Yes. $49 and $75 a month are in Australian dollars and incl GST."
-    : "No. We are not registered for GST, so no GST is charged. $49 and $75 a month are in Australian dollars.";
+    : "No GST is charged.";
 }
 
 export function plumberCostAnswer(registered = GST_REGISTERED): string {
-  const price = registered ? "$49 or $75 a month, incl GST" : "$49 or $75 a month";
-  return `${price}. 7-day free trial, no card needed. Add a card before day 8 to keep going.`;
+  const price = registered ? "$49 or $75 a month, incl GST" : "$49 a month for Starter or $75 a month for Growth";
+  return registered
+    ? `${price}, after a 7-day free trial. Setup is free and there's no contract.`
+    : "$49 a month for Starter or $75 a month for Growth, after a 7-day free trial. Setup is free and there's no contract.";
 }
 
 export function offerDescription(plan: "starter" | "growth", registered = GST_REGISTERED): string {

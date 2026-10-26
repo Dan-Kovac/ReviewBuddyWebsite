@@ -14,7 +14,7 @@ export const cancellingGuide: HelpGuide = {
   slug: "cancelling",
   title: "How to cancel",
   excerpt:
-    "Cancel from the billing page in your account. You keep access until the end of the billing period.",
+    "Cancel any time from the billing page in your account. There's no notice period.",
   paragraphs: [
     "You cancel from the billing page in your account, not by replying to an email.",
     "Log in to ReviewBuddy and open the billing page in your account. Cancel there. There's no contract and no notice period. You keep access until the end of your billing period.",

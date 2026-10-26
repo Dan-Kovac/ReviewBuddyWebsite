@@ -6,6 +6,7 @@ const pages = [
   "/pricing",
   "/blog",
   "/help",
+  "/help/cancelling",
   "/free-review-breakdown",
   "/google-reviews-for-plumbers",
   "/privacy",

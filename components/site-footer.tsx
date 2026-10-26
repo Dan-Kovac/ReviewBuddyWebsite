@@ -5,8 +5,6 @@ import {
   FOOTER_LINE,
   confirmedAbnDisplay,
   contactEmail,
-  contactPhone,
-  contactPhoneHref,
   footerLinks,
   loginUrl,
 } from "@/lib/site";
@@ -57,14 +55,6 @@ export function SiteFooter() {
         <div>
           <p className="eyebrow mb-3">Contact</p>
           <dl className="grid gap-3 text-sm">
-            <div className="flex items-center justify-between gap-4">
-              <dt className="text-[color-mix(in_srgb,var(--rb-on-brand)_85%,transparent)]">Phone</dt>
-              <dd>
-                <a href={contactPhoneHref} className="text-[color-mix(in_srgb,var(--rb-on-brand)_85%,transparent)] underline-offset-4 hover:text-[var(--rb-on-brand)] hover:underline">
-                  {contactPhone}
-                </a>
-              </dd>
-            </div>
             <div className="flex items-center justify-between gap-4">
               <dt className="text-[color-mix(in_srgb,var(--rb-on-brand)_85%,transparent)]">Email</dt>
               <dd>

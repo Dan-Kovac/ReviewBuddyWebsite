@@ -12,26 +12,25 @@ import { CLOSING_LINE, CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
-  description:
-    "More Google reviews after every plumbing job, shown on your website too. Set up for you. 7-day free trial, no card needed. Add a card before day 8 to keep going.",
+  description: `Get more Google reviews after every plumbing job and show them on your website. Set up for you. ${TRIAL_LINE}`,
   path: "/google-reviews-for-plumbers",
 });
 
 const steps = [
   {
-    title: "The job's done.",
-    body: "A burst pipe, a blocked drain, a new hot water unit.",
+    title: "The job's done",
+    body: "A burst pipe fixed or a new hot water unit in.",
   },
   {
-    title: "They get the link.",
+    title: "They get the link",
     body: "On the invoice, by email after the job, or the QR code on the van. On Growth, the email sends itself with one reminder.",
   },
   {
-    title: "They pick where to review.",
+    title: "They pick where to review",
     body: "Google, Facebook, or your other sites.",
   },
   {
-    title: "It shows on your website.",
+    title: "It shows on your website",
     body: "The next person who finds you sees it there as well as on Google.",
   },
 ];
@@ -44,7 +43,7 @@ export default function PlumbersPage() {
         <header className="bg-[var(--rb-surface)]">
           <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 lg:py-20">
             <p className="eyebrow">For plumbers</p>
-            <h1 className="display mt-4 text-balance">When the hot water dies, they ring the plumber they trust.</h1>
+            <h1 className="display mt-4 text-balance">When the hot water dies, they ring the plumber they trust</h1>
             <p className="lead mt-5 text-[var(--rb-text-muted)]">
               At 7am with a cold shower, nobody reads ten websites. They look at the reviews and ring the plumber who looks reliable. ReviewBuddy helps that be you.
             </p>
@@ -81,14 +80,14 @@ export default function PlumbersPage() {
           <div className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
             <h2 className="text-3xl font-semibold tracking-tight text-ink">Last year&apos;s customers count too</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
-              Hot water jobs, blocked drains, bathroom renos. Most of those customers were happy and never got asked. On Growth, send me a list and they&apos;ll get asked too.
+              Every hot water job and blocked drain from last year is a customer who could vouch for you. Most of those customers were happy and never got asked. On Growth, send me a list and they&apos;ll get asked too.
             </p>
           </div>
         </section>
 
         <section id="pricing" className="scroll-mt-24 bg-[var(--rb-surface-alt)]">
           <div className="mx-auto w-full max-w-[1100px] px-4 py-16 sm:px-6 lg:py-24">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans. Both set up for you.</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">Two plans, both set up for you</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted">No contract. No notice period.</p>
             <div className="mt-10">
               <PlanPair location="plumbers-plans" />
@@ -113,7 +112,7 @@ export default function PlumbersPage() {
       <section className="band">
         <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
               {CLOSING_LINE}
             </p>

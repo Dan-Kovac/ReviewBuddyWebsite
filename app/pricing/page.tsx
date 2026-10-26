@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
-import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { TrialTimeline } from "@/components/trial-timeline";
@@ -14,8 +13,7 @@ import { BILLING_LINE, CLOSING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans 
 
 export const metadata = pageMetadata({
   title: pricingPageTitle(),
-  description:
-    "Two plans for Australian tradies, both set up for you. 7-day free trial, no card needed. Add a card before day 8 to keep going. No contract, no notice period.",
+  description: `Two plans for Australian tradies, both set up for you. ${TRIAL_LINE} No contract, no notice period.`,
   path: "/pricing",
 });
 
@@ -111,11 +109,10 @@ export default function PricingPage() {
         <header className="bg-[var(--rb-surface)]">
           <div className="mx-auto w-full max-w-[var(--rb-text-max)] px-[var(--rb-gutter)] py-14 text-center lg:py-20" data-hero-cta="">
             <p className="eyebrow">Pricing</p>
-            <h1 className="display mt-4 text-balance">Two plans. Both set up for you.</h1>
+            <h1 className="display mt-4 text-balance">Two plans, both set up for you</h1>
             <p className="lead mt-5 text-[var(--rb-text-muted)]">{pricingIntro()}</p>
             <p className="mt-4 text-base font-semibold leading-7">{TRIAL_LINE}</p>
             <p className="mt-2 text-base font-semibold leading-7">{BILLING_LINE}</p>
-            <SpotsLeft />
           </div>
         </header>
 
@@ -139,18 +136,9 @@ export default function PricingPage() {
           <TrialTimeline />
         </section>
 
-        <section className="px-4 py-14 sm:px-6 lg:py-20">
-          <div className="mx-auto w-full max-w-[720px]">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">Stop any time</h2>
-            <p className="mt-4 text-lg leading-8 text-ink">
-              No contract and no notice period. Cancel any time from the billing page in your account, and you keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they&apos;re yours.
-            </p>
-          </div>
-        </section>
-
         <section className="bg-soft px-4 py-14 sm:px-6 lg:py-20">
           <div className="mx-auto w-full max-w-[720px]">
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">What does $49 a month actually buy?</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink">What it works out to</h2>
             <p className="mt-4 text-lg leading-8 text-ink">
               About $1.60 a day for Starter, or about $2.50 a day for Growth.
             </p>
@@ -169,9 +157,6 @@ export default function PricingPage() {
                 and I&apos;ll work out what suits.
               </p>
             </div>
-            <TrialButton variant="ink" location="pricing-locations">
-              {CTA_LABEL}
-            </TrialButton>
           </div>
         </section>
 
@@ -194,7 +179,7 @@ export default function PricingPage() {
       <section className="band">
         <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
+            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
               {CLOSING_LINE}
             </p>
