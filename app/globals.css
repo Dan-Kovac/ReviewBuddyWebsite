@@ -746,14 +746,9 @@ footer .eyebrow,
   overflow: hidden;
   border-radius: 12px 0 0 0;
   background-color: var(--rb-surface-raised);
+  background-repeat: no-repeat;
   box-shadow: var(--rb-shadow-product);
   outline: 1px solid color-mix(in srgb, var(--rb-text) 8%, transparent);
-}
-
-.shot img {
-  display: block;
-  max-width: none;
-  height: auto;
 }
 
 .shot-framed {

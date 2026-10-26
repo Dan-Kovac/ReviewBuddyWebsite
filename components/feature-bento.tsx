@@ -3,27 +3,21 @@ const ui = "/img/reviewbuddy-app-reviews-ui-clean-2400.webp";
 type Crop = {
   ratio: string;
   size: string;
-  shiftX: string;
-  shiftY: string;
+  position: string;
   framed: boolean;
 };
 
 /**
- * Same crop as the design's background-size / background-position on the
- * 1000×663 UI export, applied to a lazy image so the file stays off the
- * hero's critical path.
- *
- * background-position percentages are of the overflow, not the image.
- * Margin percentages are of the container width, which is what the shift uses.
+ * The same rectangle the design cropped from the 1000×663 Reviews screen.
+ * Painted as the frame's own background, so the picture stays inside the box.
+ * An img shifted with a negative margin loads, but full-page captures leave the
+ * frame white because the pixels sit outside the box.
  */
 function crop(w: number, h: number, posX: number, posY: number, framed: boolean): Crop {
-  const x = (posX / 100) * (1000 - w);
-  const y = (posY / 100) * (663 - h);
   return {
     ratio: `${w} / ${h}`,
-    size: `${(1000 / w) * 100}%`,
-    shiftX: `${-(x / w) * 100}%`,
-    shiftY: `${-(y / w) * 100}%`,
+    size: `${(1000 / w) * 100}% auto`,
+    position: `${posX}% ${posY}%`,
     framed,
   };
 }
@@ -40,22 +34,16 @@ function Shot({ crop: frame }: { crop: Crop }) {
   return (
     <div
       className={frame.framed ? "shot shot-framed" : "shot"}
-      style={{ aspectRatio: frame.ratio }}
+      style={{
+        aspectRatio: frame.ratio,
+        backgroundImage: `url(${ui})`,
+        backgroundSize: frame.size,
+        backgroundPosition: frame.position,
+      }}
+      data-media-frame=""
       role="img"
-      aria-label="A crop of the ReviewBuddy Reviews screen."
-    >
-      {/* Native img so the crop lazy-loads. next/image cannot apply this position crop. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={ui}
-        alt=""
-        width={1000}
-        height={663}
-        loading="lazy"
-        decoding="async"
-        style={{ width: frame.size, marginLeft: frame.shiftX, marginTop: frame.shiftY }}
-      />
-    </div>
+      aria-label="A crop of the ReviewBuddy Reviews screen. The names and reviews shown are demo data."
+    />
   );
 }
 
