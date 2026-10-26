@@ -15,7 +15,7 @@
   --soft: var(--rb-surface-alt);
   --brand: var(--rb-brand);
   --brand-deep: var(--rb-brand-strong);
-  --brand-text: var(--rb-brand);
+  --brand-text: var(--rb-brand-text);
   --brand-tint: var(--rb-brand-tint);
   --paper: var(--rb-surface-raised);
   --danger: var(--rb-danger);
@@ -87,8 +87,8 @@ h4 {
 }
 
 ::selection {
-  background: var(--brand);
-  color: var(--ink);
+  background: var(--rb-accent);
+  color: var(--rb-on-accent);
 }
 
 :focus-visible {
@@ -622,7 +622,7 @@ footer .eyebrow,
   font-weight: 600;
   font-size: 44px;
   line-height: 1;
-  color: var(--rb-accent-strong);
+  color: var(--rb-brand-text);
 }
 
 .placeholder {

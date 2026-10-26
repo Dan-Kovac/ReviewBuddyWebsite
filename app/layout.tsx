@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      data-theme="eucalypt-gold"
+      data-theme="reviewbuddy"
       className={`${fraunces.variable} ${frauncesItalic.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-[var(--rb-surface)] font-sans text-ink">

@@ -1,10 +1,44 @@
 /* GENERATED from tokens.json by build_tokens.py. Do not edit by hand. */
 /* Swap direction: <html data-theme="southern-sky"> or change "active" in tokens.json. */
 
-:root, [data-theme="eucalypt-gold"] {
+:root, [data-theme="reviewbuddy"] {
+  --rb-brand: #0B0F14;
+  --rb-brand-strong: #000000;
+  --rb-brand-tint: #EAF6FF;
+  --rb-brand-text: #0A6FB0;
+  --rb-accent: #38B6FF;
+  --rb-accent-strong: #1AA3F0;
+  --rb-accent-tint: #EAF6FF;
+  --rb-surface: #FFFFFF;
+  --rb-surface-alt: #F7F6F3;
+  --rb-surface-raised: #FFFFFF;
+  --rb-on-brand: #FFFFFF;
+  --rb-on-brand-muted: #AAB4C0;
+  --rb-on-accent: #0B0F14;
+  --rb-text: #0B0F14;
+  --rb-text-muted: #5C6570;
+  --rb-line: #E6E8EB;
+  --rb-line-strong: #141B24;
+  --rb-star: #38B6FF;
+  --rb-star-empty: #E6E8EB;
+  --rb-danger: #8F2D2D;
+  --rb-success: #0A6FB0;
+  --rb-focus: #0A6FB0;
+  --rb-app-canvas: #F7F6F3;
+  --rb-app-panel: #FFFFFF;
+  --rb-app-line: #E6E8EB;
+  --rb-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --rb-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --rb-font-hand: 'Caveat', 'Comic Sans MS', cursive;
+  --rb-font-display-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 96;
+  --rb-font-display-weight: 600;
+}
+
+[data-theme="eucalypt-gold"] {
   --rb-brand: #1F4D3F;
   --rb-brand-strong: #173B30;
   --rb-brand-tint: #E3ECE5;
+  --rb-brand-text: #C98A1E;
   --rb-accent: #E9A93B;
   --rb-accent-strong: #C98A1E;
   --rb-accent-tint: #FBEFD8;
@@ -37,6 +71,7 @@
   --rb-brand: #0E2A47;
   --rb-brand-strong: #0A1F35;
   --rb-brand-tint: #E4EEF7;
+  --rb-brand-text: #0E2A47;
   --rb-accent: #F4B63F;
   --rb-accent-strong: #D99A1F;
   --rb-accent-tint: #FDF1D9;
@@ -69,6 +104,7 @@
   --rb-brand: #23201D;
   --rb-brand-strong: #161412;
   --rb-brand-tint: #ECE1D0;
+  --rb-brand-text: #23201D;
   --rb-accent: #F2B544;
   --rb-accent-strong: #A3471F;
   --rb-accent-tint: #FBEBD0;
@@ -114,9 +150,9 @@
   --rb-radius-lg: 20px;
   --rb-radius-xl: 28px;
   --rb-radius-pill: 999px;
-  --rb-shadow-card: 0 1px 2px rgba(29,36,32,.06), 0 8px 24px -12px rgba(29,36,32,.18);
-  --rb-shadow-product: 0 2px 4px rgba(29,36,32,.06), 0 24px 48px -16px rgba(29,36,32,.28), 0 64px 120px -40px rgba(31,77,63,.35);
-  --rb-shadow-button: 0 1px 0 rgba(255,255,255,.4) inset, 0 6px 16px -6px rgba(201,138,30,.55);
+  --rb-shadow-card: 0 1px 2px rgba(11,15,20,.06), 0 8px 24px -12px rgba(11,15,20,.18);
+  --rb-shadow-product: 0 2px 4px rgba(11,15,20,.06), 0 24px 48px -16px rgba(11,15,20,.28);
+  --rb-shadow-button: 0 1px 0 rgba(255,255,255,.35) inset, 0 6px 16px -8px rgba(11,15,20,.28);
   --rb-motion-fast: 150ms;
   --rb-motion-base: 240ms;
   --rb-motion-ease: cubic-bezier(.2,.7,.2,1);

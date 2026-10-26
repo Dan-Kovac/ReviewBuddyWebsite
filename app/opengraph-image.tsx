@@ -1,8 +1,5 @@
 import { ImageResponse } from "next/og";
-import tokens from "@/design/tokens/tokens.json";
 import { sharePriceLine } from "@/lib/gst";
-
-const theme = tokens.themes[tokens.active as keyof typeof tokens.themes];
 
 export const alt = "ReviewBuddy. Google reviews on your website.";
 export const size = {
@@ -21,8 +18,8 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: theme.color.brand,
-          color: theme.color["on-brand"],
+          background: "#ffffff",
+          color: "#0B0F14",
           padding: "72px",
         }}
       >
@@ -31,7 +28,7 @@ export default function OpenGraphImage() {
             style={{
               width: 28,
               height: 28,
-              background: theme.color.accent,
+              background: "#38B6FF",
               clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
             }}
           />
@@ -49,7 +46,7 @@ export default function OpenGraphImage() {
         >
           Win their trust before they pick up the phone.
         </div>
-        <div style={{ display: "flex", fontSize: 28, color: theme.color["on-brand-muted"] }}>
+        <div style={{ display: "flex", fontSize: 28, color: "#5C6570" }}>
           {sharePriceLine()}
         </div>
       </div>
