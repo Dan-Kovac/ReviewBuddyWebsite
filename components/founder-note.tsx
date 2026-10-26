@@ -47,8 +47,8 @@ export function FounderNote() {
             <div className="founder-signoff">
               <p className="founder-sign">Dan</p>
               <div className="founder-signoff-line">
-                <p>Built in Melbourne by Dan</p>
-                <p>Dan Kovac, founder</p>
+                <p>Dan Kovac, founder.</p>
+                <p>Made in Melbourne by Roadmap Labs.</p>
               </div>
             </div>
             <p className="mt-4 text-base font-semibold">
