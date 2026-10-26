@@ -4,6 +4,8 @@ import { FounderNote } from "@/components/founder-note";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
 import { ProductShot } from "@/components/product-shot";
+import { PlatformScreen } from "@/components/platform-screen";
+import { WebsiteFrame } from "@/components/product-visual";
 import { ProofBlock } from "@/components/proof-block";
 import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
@@ -96,37 +98,30 @@ export default function HomePage() {
   return (
     <>
       <section className="hero-wash">
-        <div className={`${wrap} ${pad} grid gap-10 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-20`}>
-          <div>
-            <p className="text-sm font-semibold text-ink">Reviews for Australian tradies</p>
-            <h1 className="mt-4 text-balance text-[clamp(2.4rem,7vw,4.6rem)] font-extrabold leading-[1.02] text-ink">
-              Win their trust before they pick up the phone.
-            </h1>
-            <p className="mt-5 max-w-[34rem] text-lg leading-8 text-muted">
-              Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website. I set it all up for you.
-            </p>
-            <div className="mt-7 w-full sm:w-auto" data-hero-cta="">
-              <TrialButton variant="ink" location="hero" className="w-full px-8 sm:w-auto">
-                {CTA_LABEL}
-              </TrialButton>
-            </div>
-            <p className="mt-4 text-base font-semibold leading-6 text-ink">
-              {TRIAL_LINE} {fromPriceLine()}.
-            </p>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
-                Not ready? Get a free review breakdown first.
-              </Link>
-            </p>
+        <div className={`${wrap} ${pad} py-10 lg:pt-20 lg:pb-10`}>
+          <p className="text-sm font-semibold text-ink">Reviews for Australian tradies</p>
+          <h1 className="mt-4 max-w-4xl text-balance text-[clamp(2.4rem,7vw,4.6rem)] font-extrabold leading-[1.02] text-ink">
+            Win their trust before they pick up the phone.
+          </h1>
+          <p className="mt-5 max-w-[34rem] text-lg leading-8 text-muted">
+            Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website. I set it all up for you.
+          </p>
+          <div className="mt-7 w-full sm:w-auto" data-hero-cta="">
+            <TrialButton variant="ink" location="hero" className="w-full px-8 sm:w-auto">
+              {CTA_LABEL}
+            </TrialButton>
           </div>
-          <ProductShot
-            src="/images/hero.png"
-            alt="Sample Google review card and a rating request"
-            width={1116}
-            height={1130}
-            priority
-            sizes="(min-width: 1024px) 520px, 92vw"
-          />
+          <p className="mt-4 text-base font-semibold leading-6 text-ink">
+            {TRIAL_LINE} {fromPriceLine()}.
+          </p>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            <Link href="/free-review-breakdown" className="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4">
+              Not ready? Get a free review breakdown first.
+            </Link>
+          </p>
+        </div>
+        <div className={`${wrap} ${pad} pb-12 lg:pb-20`}>
+          <PlatformScreen />
         </div>
       </section>
 
@@ -261,17 +256,22 @@ export default function HomePage() {
       </section>
 
       <section aria-labelledby="widget" className={`${pad} py-16 lg:py-24`}>
-        <div className={`${wrap} max-w-3xl`}>
-          <h2 id="widget" className={h2}>Your reviews, right where your ads and SEO send people.</h2>
-          <div className="mt-6 grid max-w-2xl gap-4 text-lg leading-8 text-muted">
-            <p>You pay for ads and SEO to get people to your website. When they land, most are still deciding.</p>
-            <p>
-              The ReviewBuddy widget shows your latest reviews on your site, from Google and your other review sites, with your rating and review count. It updates on its own, so it never goes stale. It&apos;s there to turn more of those visits into calls.
+        <div className={wrap}>
+          <div className="max-w-3xl">
+            <h2 id="widget" className={h2}>Your reviews, right where your ads and SEO send people.</h2>
+            <div className="mt-6 grid max-w-2xl gap-4 text-lg leading-8 text-muted">
+              <p>You pay for ads and SEO to get people to your website. When they land, most are still deciding.</p>
+              <p>
+                The ReviewBuddy widget shows your latest reviews on your site, from Google and your other review sites, with your rating and review count. It updates on its own, so it never goes stale. It&apos;s there to turn more of those visits into calls.
+              </p>
+            </div>
+            <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">
+              More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
             </p>
           </div>
-          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">
-            More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
-          </p>
+          <div className="mt-10">
+            <WebsiteFrame />
+          </div>
         </div>
       </section>
 

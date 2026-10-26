@@ -9,6 +9,7 @@ import { TrialTimeline } from "@/components/trial-timeline";
 import { pricingFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
+import { HeroProduct } from "@/components/product-visual";
 import { pricingIntro, pricingPageTitle } from "@/lib/gst";
 import { BILLING_LINE, CTA_LABEL, TRIAL_LINE, contactEmail, plans } from "@/lib/site";
 
@@ -109,17 +110,20 @@ export default function PricingPage() {
       <JsonLd data={faqJsonLd(pricingFaqs)} />
       <article>
         <header className="hero-wash border-b border-line">
-          <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:py-20" data-hero-cta="">
-            <p className="text-sm font-semibold text-muted">Pricing</p>
-            <h1 className="mt-4 max-w-3xl text-balance text-4xl font-extrabold text-ink sm:text-6xl sm:leading-[1.05]">
-              Two plans. Both set up for you.
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              {pricingIntro()}
-            </p>
-            <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{TRIAL_LINE}</p>
-            <p className="mt-2 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
-            <SpotsLeft />
+          <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-20" data-hero-cta="">
+            <div>
+              <p className="text-sm font-semibold text-muted">Pricing</p>
+              <h1 className="mt-4 max-w-3xl text-balance text-4xl font-extrabold text-ink sm:text-6xl sm:leading-[1.05]">
+                Two plans. Both set up for you.
+              </h1>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
+                {pricingIntro()}
+              </p>
+              <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-ink">{TRIAL_LINE}</p>
+              <p className="mt-2 max-w-2xl text-base font-semibold leading-7 text-ink">{BILLING_LINE}</p>
+              <SpotsLeft />
+            </div>
+            <HeroProduct />
           </div>
         </header>
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { JsonLd } from "@/components/json-ld";
 import { PlanPair } from "@/components/plan-pair";
-import { ProductShot } from "@/components/product-shot";
+import { HeroProduct } from "@/components/product-visual";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { plumberFaqs } from "@/lib/faqs";
@@ -61,14 +61,7 @@ export default function PlumbersPage() {
                 {TRIAL_LINE} {thenFromPriceLine()}
               </p>
             </div>
-            <ProductShot
-              src="/images/hero.png"
-              alt="Sample Google review card and a rating request"
-              width={1116}
-              height={1130}
-              priority
-              sizes="(min-width: 1024px) 480px, 92vw"
-            />
+            <HeroProduct />
           </div>
         </header>
 

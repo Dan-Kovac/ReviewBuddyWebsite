@@ -1,9 +1,10 @@
+import { ReviewsScreen } from "@/components/product-visual";
+
 /**
- * TODO(Dan): replace public/images/reviews-breakdown.png.
- * The file has "prevent negative reviews" baked into the artwork.
- * That claim must not ship, so this component renders nothing until the
- * file is replaced. Do not put the image back while that note is in it.
+ * public/images/reviews-breakdown.png says "prevent negative reviews".
+ * That claim must not ship, so this draws the reviews screen instead of
+ * using that file.
  */
 export function PlatformScreen() {
-  return null;
+  return <ReviewsScreen />;
 }
