@@ -127,6 +127,37 @@ test("the last footer link is clickable at 390", async ({ page }) => {
   await last.click({ trial: true });
 });
 
+test("the tablet hero shares one centre line and the key image stays in frame", async ({ page }) => {
+  test.skip(test.info().project.name !== "desktop", "once, at a 768 viewport");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  const h1 = await page.getByRole("heading", { level: 1 }).boundingBox();
+  const lead = await page.locator(".site-hero .lead").boundingBox();
+  const cta = await page.locator(".site-hero [data-hero-cta] a").boundingBox();
+  const image = await page.locator(".site-hero .stage img").boundingBox();
+  expect(h1 && lead && cta && image).toBeTruthy();
+  const centre = (box: { x: number; width: number }) => box.x + box.width / 2;
+  expect(Math.abs(centre(h1!) - centre(lead!))).toBeLessThanOrEqual(2);
+  expect(Math.abs(centre(h1!) - centre(cta!))).toBeLessThanOrEqual(2);
+  expect(image!.height).toBeLessThan(1024 * 1.2);
+  const ratio = image!.width / image!.height;
+  expect(ratio).toBeGreaterThan(1080 / 2040 - 0.02);
+  expect(ratio).toBeLessThan(1080 / 2040 + 0.02);
+});
+
+test("the blog index is noindex and stays out of the sitemap", async ({ page }) => {
+  test.skip(test.info().project.name !== "desktop", "once");
+  const response = await page.goto("/blog", { waitUntil: "domcontentloaded" });
+  expect(response?.status()).toBe(200);
+  const robots = page.locator('meta[name="robots"]');
+  await expect(robots).toHaveAttribute("content", /noindex/);
+  await expect(robots).toHaveAttribute("content", /follow/);
+  const sitemap = await page.request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBe(true);
+  const xml = await sitemap.text();
+  expect(xml).not.toMatch(/<loc>https:\/\/reviewbuddy\.com\.au\/blog<\/loc>/);
+});
+
 test("the sticky header does not cover the page title at the top", async ({ page }) => {
   for (const path of pages) {
     await page.goto(path, { waitUntil: "domcontentloaded" });

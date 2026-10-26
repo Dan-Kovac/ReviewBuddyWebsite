@@ -572,6 +572,38 @@ footer .eyebrow,
   aspect-ratio: 1080 / 2040;
 }
 
+/* Tablet only. Phones stay start-aligned and full width. 1024px and up
+   already centres the hero and uses the desktop key image. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site-hero {
+    text-align: center;
+  }
+
+  .site-hero h1,
+  .site-hero .lead,
+  .hero-actions,
+  .hero-quiet,
+  .trust-bar {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    align-items: center;
+  }
+
+  .hero-actions [data-hero-cta],
+  .hero-actions [data-hero-cta] a {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .stage {
+    max-width: 420px;
+    margin-inline: auto;
+  }
+}
+
 .page-shell {
   margin-inline: auto;
   width: 100%;

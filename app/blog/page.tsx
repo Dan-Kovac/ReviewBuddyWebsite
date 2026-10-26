@@ -8,6 +8,7 @@ export const metadata = pageMetadata({
   description:
     "Plain-English guides for Australian tradies on getting more Google reviews and showing them on your website.",
   path: "/blog",
+  noindex: true,
 });
 
 const EMPTY_MESSAGE = (
