@@ -1,4 +1,5 @@
 import { PostCards, CategoryHeading } from "@/components/cms-cards";
+import { EmailText } from "@/components/email-text";
 import { getCategories, getPublishedPosts, toCards } from "@/lib/cms";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -9,8 +10,9 @@ export const metadata = pageMetadata({
   path: "/blog",
 });
 
-const EMPTY_MESSAGE =
-  "There aren't any guides up yet. If you've got a question about reviews, email hello@reviewbuddy.com.au and I'll answer it.";
+const EMPTY_MESSAGE = (
+  <EmailText text="There aren't any guides up yet. If you've got a question about reviews, email hello@reviewbuddy.com.au and I'll answer it." />
+);
 
 async function BlogIndex() {
   const [categories, posts] = await Promise.all([

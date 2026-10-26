@@ -46,7 +46,7 @@ export function FounderNote() {
             </p>
             <p className="founder-sign">Dan</p>
             <p className="mt-2 text-sm leading-5 text-[var(--rb-text-muted)]">
-              Dan Kovac, founder. Made in Melbourne by Roadmap Labs.
+              Dan Kovac, founder
             </p>
             <p className="mt-4 text-base font-semibold">
               <a href={`mailto:${contactEmail}`} className="underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">

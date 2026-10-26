@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import { caveat, fraunces, frauncesItalic, inter } from "@/app/fonts";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { homeMetaDescription } from "@/lib/gst";
+import { shareImageAlt } from "@/lib/metadata";
 import { contactEmail, siteUrl } from "@/lib/site";
 import "./globals.css";
 import "./modern.css";
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "ReviewBuddy",
     locale: "en_AU",
     type: "website",
-    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630 }],
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: shareImageAlt }],
   },
   twitter: {
     card: "summary_large_image",
@@ -69,7 +70,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <p className="bg-ink px-4 py-3 text-center text-sm text-white">
             Trial links work without JavaScript. The free review breakdown form needs
-            JavaScript. Email {contactEmail} if it doesn&apos;t open.
+            JavaScript. Email{" "}
+            <a href={`mailto:${contactEmail}`} className="underline">
+              {contactEmail}
+            </a>{" "}
+            if it doesn&apos;t open.
           </p>
         </noscript>
       </body>

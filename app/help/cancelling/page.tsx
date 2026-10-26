@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmailText } from "@/components/email-text";
 import { pageMetadata } from "@/lib/metadata";
 import { cancellingGuide } from "@/lib/help-guides";
 
@@ -22,7 +23,9 @@ export default function CancelHelpPage() {
       <p className="mt-6 text-xl leading-8 text-muted">{cancellingGuide.excerpt}</p>
       <div className="mt-8 grid gap-4 text-base leading-7 text-muted">
         {cancellingGuide.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p key={paragraph}>
+            <EmailText text={paragraph} />
+          </p>
         ))}
       </div>
     </article>

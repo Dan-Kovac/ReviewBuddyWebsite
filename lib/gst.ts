@@ -1,5 +1,5 @@
 import { CARD_UPFRONT, GST_REGISTERED } from "./flags";
-import { resolveTrialLine } from "./trial-copy";
+import { metaTrialPhrase, resolveTrialLine } from "./trial-copy";
 
 export const GST_NOT_REGISTERED_TERMS =
   "We are not currently registered for GST, so no GST is charged. If we register, we will tell you at least 30 days before any GST is added, and you can cancel before then.";
@@ -32,16 +32,12 @@ export function pricingPageTitle(registered = GST_REGISTERED): string {
     : "ReviewBuddy Pricing: $49 or $75 a month";
 }
 
-function trialLine(): string {
-  return resolveTrialLine(CARD_UPFRONT);
-}
-
-export function homeMetaDescription(registered = GST_REGISTERED): string {
-  return `Win their trust before they call. ReviewBuddy asks every customer for a Google review and shows your reviews on your website. Set up for you. ${trialLine()} ${fromPriceLine(registered)}.`;
+export function homeMetaDescription(cardUpfront?: boolean): string {
+  return `ReviewBuddy asks every customer for a Google review and shows your reviews on your website. Set up for you. ${metaTrialPhrase(cardUpfront)}`;
 }
 
 export function sharePriceLine(registered = GST_REGISTERED): string {
-  return `${trialLine()} ${fromPriceLine(registered)}.`;
+  return `${resolveTrialLine(CARD_UPFRONT)} ${fromPriceLine(registered)}.`;
 }
 
 export function pricingIntro(registered = GST_REGISTERED): string {

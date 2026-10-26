@@ -731,6 +731,12 @@ footer .eyebrow,
   margin-top: 32px;
 }
 
+.feature-col {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
 .founder-layout {
   display: grid;
   gap: 28px;

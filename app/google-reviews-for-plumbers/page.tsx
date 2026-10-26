@@ -8,11 +8,12 @@ import { plumberFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { thenFromPriceLine } from "@/lib/gst";
+import { metaTrialPhrase } from "@/lib/trial-copy";
 import { CLOSING_LINE, CTA_LABEL, TRIAL_LINE } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Google Reviews for Plumbers | ReviewBuddy",
-  description: `Get more Google reviews after every plumbing job and show them on your website. Set up for you. ${TRIAL_LINE}`,
+  description: `Get more Google reviews after every plumbing job and show them on your website. Set up for you. ${metaTrialPhrase()}`,
   path: "/google-reviews-for-plumbers",
 });
 

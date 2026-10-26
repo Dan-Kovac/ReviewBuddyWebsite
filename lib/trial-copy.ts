@@ -29,6 +29,11 @@ export function resolveTrialLine(cardUpfront: boolean, trialReminder = false): s
 
 export const TRIAL_LINE = resolveTrialLine(CARD_UPFRONT);
 
+/** Short trial phrase for meta descriptions. Follows CARD_UPFRONT. */
+export function metaTrialPhrase(cardUpfront = CARD_UPFRONT): string {
+  return cardUpfront ? "7-day free trial. A card is needed to start." : "7-day free trial, no card needed.";
+}
+
 export const BILLING_LINE =
   "Cancel any time from the billing page in your account. No contract, no notice period.";
 

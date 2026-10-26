@@ -21,7 +21,8 @@ export function StickyTrialBar() {
 
     let heroVisible = true;
     let pricingVisible = false;
-    const update = () => setShow(!heroVisible && !pricingVisible);
+    let footerVisible = false;
+    const update = () => setShow(!heroVisible && !pricingVisible && !footerVisible);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -34,13 +35,23 @@ export function StickyTrialBar() {
       { rootMargin: "-72px 0px -72px 0px" },
     );
 
+    const footerObserver = new IntersectionObserver((entries) => {
+      footerVisible = entries.some((entry) => entry.isIntersecting);
+      update();
+    });
+
     observer.observe(heroButton);
     if (pricing) observer.observe(pricing);
-    return () => observer.disconnect();
+    const footer = document.querySelector("footer");
+    if (footer) footerObserver.observe(footer);
+    return () => {
+      observer.disconnect();
+      footerObserver.disconnect();
+    };
   }, []);
 
   return (
-    <div className={`fixed inset-x-0 bottom-0 z-40 lg:hidden ${show ? "" : "hidden"}`}>
+    <div data-sticky-trial="" className={`fixed inset-x-0 bottom-0 z-40 lg:hidden ${show ? "" : "hidden"}`}>
       <div className="flex items-center gap-3 border-t border-[var(--rb-line)] bg-[var(--rb-surface-raised)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[var(--rb-shadow-card)]">
         <p className="min-w-0 flex-1 text-sm font-semibold leading-5 text-[var(--rb-text)]">{STICKY_TRIAL_TEXT}</p>
         <a

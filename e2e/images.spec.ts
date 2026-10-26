@@ -104,6 +104,29 @@ test("the hero shows the demo-data line at 390", async ({ page }) => {
   expect(noteBox!.y).toBeGreaterThanOrEqual(stageBox!.y);
 });
 
+test("the last footer link is clickable at 390", async ({ page }) => {
+  test.skip(test.info().project.name !== "mobile", "390 width only");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  expect(page.viewportSize()?.width).toBe(390);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect(page.locator("[data-sticky-trial]")).toBeHidden();
+  const links = page.getByRole("contentinfo").getByRole("link");
+  const count = await links.count();
+  expect(count).toBeGreaterThan(0);
+  let last = links.nth(0);
+  let lowest = -1;
+  for (let index = 0; index < count; index += 1) {
+    const box = await links.nth(index).boundingBox();
+    if (box && box.y >= lowest) {
+      lowest = box.y;
+      last = links.nth(index);
+    }
+  }
+  await expect(last).toBeVisible();
+  await last.click({ trial: true });
+});
+
 test("the sticky header does not cover the page title at the top", async ({ page }) => {
   for (const path of pages) {
     await page.goto(path, { waitUntil: "domcontentloaded" });

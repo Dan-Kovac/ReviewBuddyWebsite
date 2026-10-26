@@ -210,7 +210,7 @@ export default function HomePage() {
             <p className="eyebrow">Inside ReviewBuddy</p>
             <h2 className="mt-3">All your reviews in one place</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              These are real screens from the app. The names and reviews are demo data.
+              These are crops of the real Reviews screen in the app. The names and reviews are demo data.
             </p>
           </div>
           <FeatureBento />
@@ -229,7 +229,7 @@ export default function HomePage() {
                 They search, they look at the stars and the number of reviews, and they ring the one that looks trusted. If that&apos;s you, you&apos;re the safe pick. And the safe pick doesn&apos;t have to be the cheapest quote.
               </p>
               <p>
-                More reviews means more people trust you before they&apos;ve met you. That&apos;s how you win the job without being the cheapest quote.
+                More reviews means more people trust you before they&apos;ve met you.
               </p>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function HomePage() {
                 Picture someone choosing between two tradies. One has 9 reviews, and the latest is from 2022. You&apos;ve got 80, and the latest is from last week. You get the call.
               </p>
               <p>
-                They don&apos;t know any of you. But they know who looks busy, trusted and still doing good work right now. That&apos;s who gets the call.
+                They don&apos;t know either of you. But they can see who&apos;s trusted and still doing good work right now.
               </p>
               <p>And it&apos;s not only on Google. When they click through to your website, your reviews are there too.</p>
             </div>

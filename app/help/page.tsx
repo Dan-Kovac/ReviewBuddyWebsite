@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmailText } from "@/components/email-text";
 import { getCategories, getPublishedPosts, toCards, type PostCard } from "@/lib/cms";
 import { builtInHelp } from "@/lib/help-guides";
 import { pageMetadata } from "@/lib/metadata";
@@ -9,8 +10,9 @@ export const metadata = pageMetadata({
   path: "/help",
 });
 
-const EMPTY_MESSAGE =
-  "That's the only guide so far. If you're stuck on something else, email hello@reviewbuddy.com.au and I'll help.";
+const EMPTY_MESSAGE = (
+  <EmailText text="That's the only guide so far. If you're stuck on something else, email hello@reviewbuddy.com.au and I'll help." />
+);
 
 function DocList({ docs }: { docs: readonly PostCard[] }) {
   return (
@@ -54,8 +56,7 @@ async function HelpIndex() {
         Help guides
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-        Short, plain answers to the things clients ask about. If your
-        question isn&apos;t here, email hello@reviewbuddy.com.au.
+        <EmailText text="Short, plain answers to the things clients ask about. If your question isn't here, email hello@reviewbuddy.com.au." />
       </p>
       <section aria-labelledby="help-account">
         <h2 id="help-account" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
