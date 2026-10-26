@@ -543,6 +543,14 @@ footer .eyebrow,
   color: var(--rb-on-brand);
 }
 
+.hero-demo {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--rb-on-brand-muted);
+}
+
 .stage {
   position: relative;
   margin-top: 44px;

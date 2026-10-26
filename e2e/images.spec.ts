@@ -89,6 +89,21 @@ test("images and background crops are loaded and not a blank colour", async ({ p
   }
 });
 
+test("the hero shows the demo-data line at 390", async ({ page }) => {
+  test.skip(test.info().project.name !== "mobile", "390 width only");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  expect(page.viewportSize()?.width).toBe(390);
+  const hero = page.locator(".site-hero");
+  const note = hero.getByText("Demo data for illustration. Not real customers or reviews.", { exact: true });
+  await expect(note).toBeVisible();
+  const noteBox = await note.boundingBox();
+  const stageBox = await hero.locator(".stage").boundingBox();
+  expect(noteBox).toBeTruthy();
+  expect(stageBox).toBeTruthy();
+  expect(noteBox!.y).toBeGreaterThanOrEqual(stageBox!.y);
+});
+
 test("the sticky header does not cover the page title at the top", async ({ page }) => {
   for (const path of pages) {
     await page.goto(path, { waitUntil: "domcontentloaded" });

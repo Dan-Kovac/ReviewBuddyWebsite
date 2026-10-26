@@ -67,16 +67,16 @@ const youDo = [
 const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
 export default function HomePage() {
-  preload("/img/reviewbuddy-key-image-mobile-hero-800-v2.webp", {
+  preload("/img/reviewbuddy-key-image-mobile-hero-800-v3.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(max-width: 1023px)",
     type: "image/webp",
     imageSrcSet:
-      "/img/reviewbuddy-key-image-mobile-hero-800-v2.webp 800w, /img/reviewbuddy-key-image-mobile-hero-v2.webp 1080w",
+      "/img/reviewbuddy-key-image-mobile-hero-800-v3.webp 800w, /img/reviewbuddy-key-image-mobile-hero-v3.webp 1080w",
     imageSizes: "calc(100vw - 60px)",
   });
-  preload("/img/reviewbuddy-key-image-desktop-2400-v2.webp", {
+  preload("/img/reviewbuddy-key-image-desktop-2400-v3.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(min-width: 1024px)",
@@ -128,6 +128,7 @@ export default function HomePage() {
           <div className="stage">
             <KeyImage priority />
           </div>
+          <p className="hero-demo lg:hidden">Demo data for illustration. Not real customers or reviews.</p>
         </div>
       </section>
 
