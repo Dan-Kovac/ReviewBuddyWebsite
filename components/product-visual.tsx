@@ -65,61 +65,6 @@ export function WebsiteWidget({ compact = false }: { compact?: boolean }) {
   );
 }
 
-/** The reviews screen, drawn in the page so the old screenshot is not used. */
-export function ReviewsScreen() {
-  return (
-    <figure className="min-w-0">
-      <div className="overflow-hidden rounded-[16px] border border-line bg-white shadow-[0_24px_60px_-36px_rgba(11,15,20,0.45)]">
-        <div className="flex items-center gap-2 border-b border-line bg-soft px-4 py-3">
-          <span className="size-2.5 rounded-full bg-[#e6e8eb]" />
-          <span className="size-2.5 rounded-full bg-[#e6e8eb]" />
-          <span className="size-2.5 rounded-full bg-[#e6e8eb]" />
-          <p className="ml-2 text-xs font-semibold text-muted">Reviews</p>
-        </div>
-        <div className="grid md:grid-cols-[9.5rem_1fr]">
-          <div className="hidden border-r border-line p-3 md:block">
-            {["Reviews", "Requests", "Widget"].map((item, index) => (
-              <p
-                key={item}
-                className={`rounded-[8px] px-3 py-2 text-sm font-semibold ${index === 0 ? "bg-brand-tint text-ink" : "text-muted"}`}
-              >
-                {item}
-              </p>
-            ))}
-          </div>
-          <div className="min-w-0 p-4 sm:p-5">
-            <div className="flex flex-wrap gap-2">
-              {["All sites", "Google", "Facebook", "hipages"].map((filter, index) => (
-                <span
-                  key={filter}
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${index === 0 ? "bg-ink text-white" : "bg-soft text-ink"}`}
-                >
-                  {filter}
-                </span>
-              ))}
-            </div>
-            <ul className="mt-4 divide-y divide-line">
-              {reviews.map((review) => (
-                <li key={review.name} className="grid gap-1 py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
-                  <div>
-                    <p className="text-sm font-semibold text-ink">{review.name}</p>
-                    <p className="text-xs text-muted">{review.source}</p>
-                  </div>
-                  <div className="min-w-0">
-                    <Stars value={review.stars} />
-                    <p className="mt-1 text-sm leading-5 text-ink">{review.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <figcaption className="mt-3 text-xs leading-5 text-muted">{caption}</figcaption>
-    </figure>
-  );
-}
-
 /** The widget as it sits on a customer's website. */
 export function WebsiteFrame() {
   return (
