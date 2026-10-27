@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
 import { TrialButton } from "@/components/trial-button";
-import { CTA_LABEL, loginUrl, navLinks } from "@/lib/site";
+import { CTA_LABEL, headerLinks, loginUrl } from "@/lib/site";
 
 export function MobileNav() {
   const pathname = usePathname();
@@ -23,8 +23,19 @@ export function MobileNav() {
       }
     }
 
+    function onClick(event: MouseEvent) {
+      const target = event.target;
+      if (target instanceof Element && target.closest("a")) {
+        setOpenPath(null);
+      }
+    }
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("click", onClick);
+    };
   }, [open]);
 
   return (
@@ -48,11 +59,12 @@ export function MobileNav() {
           className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-[var(--rb-line)] bg-[var(--rb-surface)] px-[var(--rb-gutter)] py-3"
         >
           <ul className="grid gap-1">
-            {navLinks.map((link) => (
+            {headerLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   className="flex min-h-12 items-center text-base font-semibold text-ink"
+                  onClick={() => setOpenPath(null)}
                 >
                   {link.label}
                 </Link>
@@ -62,12 +74,13 @@ export function MobileNav() {
               <a
                 href={loginUrl}
                 className="flex min-h-12 items-center text-base font-semibold text-ink"
+                onClick={() => setOpenPath(null)}
               >
                 Log in
               </a>
             </li>
             {pathname === "/welcome" ? null : (
-              <li className="pt-2">
+              <li className="pt-2" onClick={() => setOpenPath(null)}>
                 <TrialButton variant="ink" location="mobile-nav" className="w-full">
                   {CTA_LABEL}
                 </TrialButton>

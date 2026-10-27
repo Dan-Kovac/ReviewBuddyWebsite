@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { track } from "@vercel/analytics";
+import { EmailText } from "@/components/email-text";
 import { Field } from "@/components/form-field";
 import { TrialButton } from "@/components/trial-button";
 import {
@@ -164,7 +165,7 @@ export function BreakdownForm() {
         {pending ? "Sending" : "Send me my breakdown"}
       </button>
       <p className="text-sm leading-6 text-muted">
-        This sends your details so I can email the breakdown. If it can&apos;t be saved, you&apos;ll be asked to email {contactEmail}. See our{" "}
+        <EmailText text={`This sends your details so I can email the breakdown. If it can't be saved, you'll be asked to email ${contactEmail}.`} /> See our{" "}
         <a href="/privacy" className="underline">privacy policy</a>.
       </p>
     </form>

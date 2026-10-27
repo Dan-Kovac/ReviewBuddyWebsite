@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { sharePriceLine } from "@/lib/gst";
 
-export const alt = "ReviewBuddy. Google reviews on your website.";
+export const alt = "ReviewBuddy: more Google reviews for Australian tradies, shown on your website";
 export const size = {
   width: 1200,
   height: 630,
@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
             maxWidth: 920,
           }}
         >
-          Win their trust before they pick up the phone.
+          Win their trust before they pick up the phone
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#5C6570" }}>
           {sharePriceLine()}

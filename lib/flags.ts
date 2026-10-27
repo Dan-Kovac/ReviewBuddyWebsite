@@ -5,8 +5,10 @@
 export const SHOW_KOVELE = false;
 
 /**
- * The 7-day trial does not take a card. People register in the app.
- * Keep this false. Card-up-front wording is not published.
+ * Flip this one constant before launch if Embed My Reviews
+ * "Require Payment Before Signup" is ON.
+ * false publishes NO_CARD_TRIAL_LINE. true publishes CARD_REQUIRED_TRIAL_LINE.
+ * Both sentences live in lib/trial-copy.ts. Every page reads them through TRIAL_LINE.
  */
 export const CARD_UPFRONT = false;
 

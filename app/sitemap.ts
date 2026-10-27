@@ -24,10 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPublishedPosts("doc"),
   ]);
 
-  const indexPaths = [
-    ...paths,
-    ...(blogPosts.length > 0 ? ["/blog"] : []),
-  ];
+  const indexPaths = paths;
 
   const staticEntries = [...indexPaths, ...guidePaths].map((path) => ({
     url: `${siteUrl}${path}`,

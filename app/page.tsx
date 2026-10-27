@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { preload } from "react-dom";
-import { FaqList } from "@/components/faq-list";
+import { ArtImage } from "@/components/art-image";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { FeatureBento } from "@/components/feature-bento";
 import { FounderNote } from "@/components/founder-note";
+import { Tick } from "@/components/tick";
 import { JsonLd } from "@/components/json-ld";
 import { KeyImage } from "@/components/key-image";
 import { PlanPair } from "@/components/plan-pair";
 import { PlatformLogos } from "@/components/platform-logos";
 import { ProofBlock } from "@/components/proof-block";
-import { SpotsLeft } from "@/components/spots-left";
 import { StickyTrialBar } from "@/components/sticky-trial-bar";
 import { TrialButton } from "@/components/trial-button";
 import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { fromPriceLine, homeMetaDescription } from "@/lib/gst";
-import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, contactEmail } from "@/lib/site";
+import { homeMetaDescription } from "@/lib/gst";
+import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, TRUST_BAR, contactEmail, planById } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "More Google Reviews for Tradies | ReviewBuddy",
@@ -25,45 +26,33 @@ export const metadata = pageMetadata({
 
 const howSteps = [
   {
-    title: "One link for every customer.",
+    title: "One link, and they pick the site",
     detail:
-      "Your customer gets one link. It opens a page with your review sites on it, like Google and Facebook, and they pick where to leave it. No searching for your business.",
-    slot: "Real screenshot: customer review page",
+      "Your customer gets one review link. It opens a page with your review sites on it, like Google and Facebook, and they choose where to leave their review. Nobody has to search for your business.",
   },
   {
-    title: "Sent the way that suits you.",
+    title: "A QR code for the van and the counter",
     detail:
-      "Put it on your invoice, in an email after the job, or on a QR code on the van or your business card. Or your team can mention it at the end of the job. On Growth, if they haven't got to it, they get one polite reminder.",
-    slot: "Real photo: QR code on a van or invoice",
+      "You get a QR code that opens the same page. Put it on the van, your business card or the invoice, and customers can scan it with their phone camera.",
   },
   {
-    title: "Shown on your website.",
-    detail: "New reviews appear on your website automatically, so people who find you there see them as well.",
-    slot: "Real screenshot: review widget on a site",
+    title: "Asked the way you already finish a job",
+    detail:
+      'Add the link to your invoice, send it in an email after the job, or just ask before you leave. Your team can say it too: "If you were happy with the job, a quick review would really help us."',
   },
-];
+  {
+    title: "A polite follow-up",
+    detail:
+      "On Growth, the review email goes out after each job without you lifting a finger, and anyone who hasn't got to it gets one polite reminder. On Starter, you send the link yourself.",
+  },
+  {
+    title: "Shown on your website",
+    detail:
+      "New reviews show up on your website on their own, in a widget we match to your site. People who find you online see them before they call.",
+  },
+] as const;
 
-const shareWays = [
-  {
-    title: "On the invoice.",
-    detail: "A short line and your link or QR code.",
-  },
-  {
-    title: "By email after the job.",
-    detail: "Written for you, approved by you. On Growth it sends itself.",
-  },
-  {
-    title: "On the van or a card.",
-    detail: "A QR code they can scan before you've packed up.",
-  },
-  {
-    title: "In person.",
-    detail:
-      "Your team can say \"If you've got a minute later, we'd really appreciate a review. The link's on your invoice.\" That's it. No standing over them, no pressure.",
-  },
-];
-
-const iDo = [
+const weDo = [
   "Connect your Google profile and your other review sites",
   "Build your review link and QR code",
   "Put the widget on your website, matched to your colours",
@@ -72,24 +61,52 @@ const iDo = [
 ];
 
 const youDo = [
-  "Give me access to your Google profile and website (I'll show you how)",
+  "Give us access to your Google profile and website (we'll show you how)",
   "Put the link or QR code on your invoices, van or cards",
-  "Keep doing good work",
 ];
+
+const widgetStats = [
+  {
+    figure: "54%",
+    line: "of people visit a business's website after reading positive reviews.",
+    source: "BrightLocal Local Consumer Review Survey 2026 (US)",
+    href: "https://www.brightlocal.com/research/local-consumer-review-survey/",
+  },
+  {
+    figure: "No. 1",
+    line: "Local search experts rank a high Google rating as the top thing that turns a search into a customer.",
+    source: "Whitespark Local Search Ranking Factors 2026 (expert survey)",
+    href: "https://whitespark.ca/local-search-ranking-factors/",
+  },
+] as const;
+
+const growth = planById("growth");
+const growthIncludes = growth.includes.filter((item) => item !== "Everything in Starter");
+
+function HelpGuidesLink({ className }: { className: string }) {
+  return (
+    <Link href="/help" className={className}>
+      Help guides
+      <svg className="arr" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  );
+}
 
 const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
 export default function HomePage() {
-  preload("/img/reviewbuddy-key-image-mobile-hero-800.webp", {
+  preload("/img/reviewbuddy-key-image-mobile-hero-800-v3.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(max-width: 1023px)",
     type: "image/webp",
     imageSrcSet:
-      "/img/reviewbuddy-key-image-mobile-hero-800.webp 800w, /img/reviewbuddy-key-image-mobile-hero.webp 1080w",
+      "/img/reviewbuddy-key-image-mobile-hero-800-v3.webp 800w, /img/reviewbuddy-key-image-mobile-hero-v3.webp 1080w",
     imageSizes: "calc(100vw - 60px)",
   });
-  preload("/img/reviewbuddy-key-image-desktop-2400.webp", {
+  preload("/img/reviewbuddy-key-image-desktop-2400-v3.webp", {
     as: "image",
     fetchPriority: "high",
     media: "(min-width: 1024px)",
@@ -100,7 +117,7 @@ export default function HomePage() {
     <>
       <section className="site-hero">
         <div className="wrap mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)]">
-          <p className="eyebrow text-[var(--rb-accent)]">Reviews for Australian tradies</p>
+          <p className="eyebrow text-[var(--rb-accent)]">Google reviews for Australian tradies</p>
           <h1 className="display mx-auto mt-4 max-w-[19ch] text-balance">
             Win their{" "}
             <span className="trust-word">
@@ -116,10 +133,10 @@ export default function HomePage() {
                 />
               </svg>
             </span>{" "}
-            before they pick up the phone.
+            before they pick up the phone
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            Before anyone calls, they check your reviews, see you&apos;re reputable, and see you&apos;ve got more of them than the next business. ReviewBuddy makes asking for reviews part of every job and shows them on your website.
+            Before anyone rings, they check your reviews and compare you with the next tradie. ReviewBuddy asks every customer for a review after the job and shows those reviews on your website. We set it all up for you.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
@@ -127,36 +144,33 @@ export default function HomePage() {
                 {CTA_LABEL}
               </TrialButton>
             </div>
-            <Link
-              href="/free-review-breakdown"
-              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border-[1.5px] border-[color-mix(in_srgb,var(--rb-on-brand)_40%,transparent)] px-6 text-center text-base font-semibold whitespace-normal text-[var(--rb-on-brand)] lg:w-auto"
-            >
-              Get a free review breakdown
-            </Link>
           </div>
-          <p className="micro-claims">
-            <span>Set up for you</span>
-            <span>{fromPriceLine()}</span>
+          <p className="hero-quiet">
+            See where you stand first with a{" "}
+            <Link href="/free-review-breakdown">free review breakdown</Link>
           </p>
           <p className="mx-auto mt-3 max-w-[34rem] text-sm leading-5 text-[var(--rb-on-brand-muted)]">{TRIAL_LINE}</p>
+          <ul className="trust-bar" aria-label="What you get">
+            {TRUST_BAR.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
           <div className="stage">
             <KeyImage priority />
           </div>
+          <p className="hero-demo lg:hidden">Demo data for illustration. Not real customers or reviews.</p>
         </div>
       </section>
 
       <PlatformLogos />
-      <p className="bg-[var(--rb-surface)] pb-6 text-center text-sm leading-5 text-[var(--rb-text-muted)]">
-        Demo data for illustration. Not real customers or reviews.
-      </p>
 
       <section id="how-it-works" className="scroll-mt-24 bg-[var(--rb-surface)]">
         <div className={shell}>
           <div className="max-w-[var(--rb-text-max)]">
             <p className="eyebrow">How it works</p>
-            <h2 className="mt-3">One link. Every customer. Shown on your site.</h2>
+            <h2 className="mt-3">How ReviewBuddy gets you more reviews</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              ReviewBuddy is a simple system that takes the friction out of asking, following up and showing your reviews.
+              We set all of this up for you. After that, here&apos;s what happens with every job.
             </p>
           </div>
           <ol className="steps">
@@ -165,7 +179,46 @@ export default function HomePage() {
                 <span className="step-num">{index + 1}</span>
                 <h3>{step.title}</h3>
                 <p className="text-base leading-6 text-[var(--rb-text-muted)]">{step.detail}</p>
-                <div className="placeholder">{step.slot}</div>
+                {index === 3 ? (
+                  <figure className="art step-shot">
+                    <ArtImage
+                      desktop={{
+                        webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
+                        png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
+                        width: 1520,
+                        height: 1314,
+                      }}
+                      mobile={{
+                        webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
+                        png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
+                        width: 1080,
+                        height: 930,
+                      }}
+                      alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
+                    />
+                    <figcaption>Sending a request from the app.</figcaption>
+                  </figure>
+                ) : null}
+                {index === 4 ? (
+                  <figure className="art step-shot">
+                    <ArtImage
+                      desktop={{
+                        webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
+                        png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
+                        width: 2400,
+                        height: 1210,
+                      }}
+                      mobile={{
+                        webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
+                        png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
+                        width: 1080,
+                        height: 1044,
+                      }}
+                      alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
+                    />
+                    <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
+                  </figure>
+                ) : null}
               </li>
             ))}
           </ol>
@@ -175,7 +228,7 @@ export default function HomePage() {
               <path d="M7 10l2 2 4-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
             </svg>
             <p>
-              Everyone gets the same link, whatever they thought. There&apos;s also a private box if they&apos;d rather tell you something directly, so you hear about problems early. Every review comes from a real customer. We never write reviews, offer incentives, or filter out unhappy customers. Those are Google&apos;s rules and Australian consumer law.
+              Everyone gets the same link and the same choice of sites, whatever they thought of the job. If they&apos;d rather tell you something privately, there&apos;s a box for that too, so you hear about a problem while you can still fix it. Every review comes from a real customer. Those are Google&apos;s rules and Australian consumer law.
             </p>
           </div>
         </div>
@@ -185,9 +238,9 @@ export default function HomePage() {
         <div className={shell}>
           <div className="max-w-[var(--rb-text-max)]">
             <p className="eyebrow">Inside ReviewBuddy</p>
-            <h2 className="mt-3">All your reviews, in one place.</h2>
+            <h2 className="mt-3">All your reviews in one place</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              Every crop below is the real Reviews screen, not a mock-up of features we don&apos;t have.
+              These are real screens from the app. The business name is demo data.
             </p>
           </div>
           <FeatureBento />
@@ -195,9 +248,9 @@ export default function HomePage() {
       </section>
 
       <section className="bg-[var(--rb-surface-alt)]">
-        <div className={`${shell} max-w-none`}>
+        <div className={shell}>
           <div className="max-w-[var(--rb-text-max)]">
-            <h2>Win the job on trust, not price.</h2>
+            <h2>Win more jobs on trust</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
                 People used to pick a tradie because someone over the back fence said &quot;use this one&quot;. That recommendation still decides who gets the job. It just happens on Google now.
@@ -206,7 +259,7 @@ export default function HomePage() {
                 They search, they look at the stars and the number of reviews, and they ring the one that looks trusted. If that&apos;s you, you&apos;re the safe pick. And the safe pick doesn&apos;t have to be the cheapest quote.
               </p>
               <p>
-                That&apos;s the whole idea. More reviews build trust. Trust wins the job. And winning on trust instead of price is where the profit is.
+                More reviews means more people trust you before they&apos;ve met you.
               </p>
             </div>
           </div>
@@ -215,11 +268,11 @@ export default function HomePage() {
 
       <section className="bg-[var(--rb-surface)]">
         <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
-            <h2>It&apos;s a tough year to be competing on price.</h2>
+          <div className="mx-auto max-w-[var(--rb-text-max)]">
+            <h2>It&apos;s a tough year to compete on price</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
-                You don&apos;t need me to tell you it&apos;s hard out there. Trades prices rose 6.6% in the year to September, the fastest in four years (HIA, October 2026). And a quarter of households say they&apos;re putting repairs off because of the cost of living (Finder, July 2026).
+                You don&apos;t need us to tell you it&apos;s hard out there. Trades prices rose 6.6% in the year to September, the fastest in four years (HIA, October 2026). And a quarter of households say they&apos;re putting repairs off because of the cost of living (Finder, July 2026).
               </p>
               <p>
                 So when someone does spend, they&apos;re careful about who they let in the house. They check first. 86% of homeowners on hipages check reviews before they hire, and 87% look at the star rating (hipages survey, March 2025).
@@ -234,9 +287,9 @@ export default function HomePage() {
       </section>
 
       <section className="bg-[var(--rb-surface-alt)]">
-        <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
-            <h2>Happy customers don&apos;t leave reviews on their own.</h2>
+        <div className={`${shell} story`}>
+          <div>
+            <h2>Happy customers don&apos;t leave reviews on their own</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
                 Most of your customers are happy. Hardly any of them leave a review unless someone asks, and asking is where it falls over.
@@ -244,103 +297,174 @@ export default function HomePage() {
               <p>
                 It feels awkward. You forget when the next job&apos;s waiting. And when you do ask, the customer has to find your business on Google, find the review button, and remember to do it later. Most don&apos;t.
               </p>
-              <p>The unhappy ones never need asking. That&apos;s how a good business ends up with 12 reviews while an average one has 80.</p>
+              <p>That&apos;s how a good business can end up with fewer reviews than an average one.</p>
             </div>
           </div>
+          <figure className="art baked-at-lg">
+            <ArtImage
+              desktop={{
+                webp: "/img/sections/reviewbuddy-happy-customers-desktop.webp",
+                png: "/img/sections/reviewbuddy-happy-customers-desktop.png",
+                width: 1440,
+                height: 940,
+              }}
+              mobile={{
+                webp: "/img/sections/reviewbuddy-happy-customers-mobile.webp",
+                png: "/img/sections/reviewbuddy-happy-customers-mobile.png",
+                width: 1080,
+                height: 2160,
+              }}
+              alt="A real ReviewBuddy Send Review Request screen beside an illustration of the page a customer opens, with Google, Facebook and other review sites to choose from. No customer name is filled in."
+            />
+            <figcaption>Request form: real ReviewBuddy screen. Customer page: illustration.</figcaption>
+          </figure>
         </div>
       </section>
 
       <section className="bg-[var(--rb-surface)]">
-        <div className={shell}>
-          <h2>However you finish a job, there&apos;s a way to ask.</h2>
-          <ul className="mt-10 grid gap-6 md:grid-cols-2">
-            {shareWays.map((way) => (
-              <li key={way.title} className="rounded-[var(--rb-radius-lg)] bg-[var(--rb-surface-raised)] p-7 shadow-[var(--rb-shadow-card)]">
-                <h3>{way.title}</h3>
-                <p className="mt-2 text-base leading-7 text-[var(--rb-text-muted)]">{way.detail}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-[var(--rb-surface-alt)]">
-        <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
-            <h2>Be the tradie with the reviews.</h2>
+        <div className={`${shell} story`}>
+          <div>
+            <h2>Be the tradie with the reviews</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
-                Picture someone comparing three tradies. One has 9 reviews from 2022. One has 30. You&apos;ve got 80, and the latest is from last week.
+                Picture someone choosing between two tradies. One has 9 reviews, and the latest is from 2022. You&apos;ve got 80, and the latest is from last week. You get the call.
               </p>
               <p>
-                They don&apos;t know any of you. But they know who looks busy, trusted and still doing good work right now. That&apos;s who gets the call.
+                They don&apos;t know either of you. But they can see who&apos;s trusted and still doing good work right now.
               </p>
               <p>And it&apos;s not only on Google. When they click through to your website, your reviews are there too.</p>
             </div>
           </div>
+          <figure className="art baked-at-lg">
+            <ArtImage
+              desktop={{
+                webp: "/img/sections/reviewbuddy-be-the-tradie-desktop-v2.webp",
+                png: "/img/sections/reviewbuddy-be-the-tradie-desktop-v2.png",
+                width: 1440,
+                height: 940,
+              }}
+              mobile={{
+                webp: "/img/sections/reviewbuddy-be-the-tradie-mobile-v2.webp",
+                png: "/img/sections/reviewbuddy-be-the-tradie-mobile-v2.png",
+                width: 1080,
+                height: 2310,
+              }}
+              alt="An illustration of someone comparing two tradies. One has 9 reviews, latest from 2022. The other has 80 reviews, latest from last week, and those reviews are also shown on a website. Not real businesses."
+            />
+            <figcaption>Illustration of the example above. Not real businesses or reviews.</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section aria-labelledby="widget" className="bg-[var(--rb-surface)]">
-        <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
-            <h2 id="widget">Your reviews, right where your ads and SEO send people.</h2>
-            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+      <section id="s1" aria-labelledby="widget" className="sec alt">
+        <div className="shell">
+          <div className="g12 s1-head">
+            <h2 id="widget">Your reviews, right where your ads and SEO send people</h2>
+            <div className="body muted">
               <p>You pay for ads and SEO to get people to your website. When they land, most are still deciding.</p>
               <p>
-                The ReviewBuddy widget shows your latest reviews on your site, from Google and your other review sites, with your rating and review count. It updates on its own, so it never goes stale. It&apos;s there to turn more of those visits into calls.
+                The ReviewBuddy widget shows them your latest reviews, with your rating and review count. New reviews show up on their own, so it stays current.
               </p>
             </div>
-            <p className="mt-6 text-sm leading-6 text-[var(--rb-text-muted)]">
-              More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
-            </p>
           </div>
-          <div className="placeholder mt-10 max-w-xl">Real screenshot: review widget on a site</div>
+          <div className="g12 s1-row">
+            <figure className="art art-at-768">
+              <ArtImage
+                mobileMax={767}
+                desktop={{
+                  webp: "/img/sections/reviewbuddy-widget-builder-desktop.webp",
+                  png: "/img/sections/reviewbuddy-widget-builder-desktop.png",
+                  width: 2400,
+                  height: 1574,
+                }}
+                mobile={{
+                  webp: "/img/sections/reviewbuddy-widget-builder-mobile.webp",
+                  png: "/img/sections/reviewbuddy-widget-builder-mobile.png",
+                  width: 1080,
+                  height: 933,
+                }}
+                alt="The ReviewBuddy widget builder, with widget types on the left and a preview of review cards on a website. The business name, reviewer names and review text are demo data."
+              />
+              <figcaption>Demo data for illustration. Real ReviewBuddy widget, reviews replaced.</figcaption>
+            </figure>
+            <div className="stats">
+              {widgetStats.map((stat) => (
+                <div key={stat.figure} className="stat">
+                  <p className="num">{stat.figure}</p>
+                  <p className="line">{stat.line}</p>
+                  <p className="src">
+                    Source:{" "}
+                    <a href={stat.href} target="_blank" rel="noopener">
+                      {stat.source}
+                    </a>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       <ProofBlock />
 
-      <section className="bg-[var(--rb-surface-alt)]">
-        <div className={shell}>
-          <h2>I set it up for you. You keep doing the work.</h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
-            <div>
-              <h3>What I do</h3>
-              <ul className="mt-4 grid gap-3">
-                {iDo.map((item) => (
-                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+      <section id="s2" className="sec s2">
+        <div className="shell">
+          <h2>We set it up for you, and you keep doing the work</h2>
+          <div className="g12 s2-grid">
+            <div className="card-do">
+              <h3>What we do</h3>
+              <ul className="list">
+                {weDo.map((item) => (
+                  <li key={item}>
+                    <Tick />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
-            <div>
+            <div className="card-you">
               <h3>What you do</h3>
-              <ul className="mt-4 grid gap-3">
-                {youDo.map((item) => (
-                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+              <ol className="nlist">
+                {youDo.map((item, index) => (
+                  <li key={item}>
+                    <span className="num">{index + 1}</span>
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </ul>
+              </ol>
+              <p className="fair-strip">
+                <Tick />
+                <span>{SETUP_LINE}</span>
+              </p>
             </div>
           </div>
-          <p className="mt-8 text-base font-semibold">{SETUP_LINE}</p>
         </div>
       </section>
 
-      <section className="bg-[var(--rb-surface)]">
-        <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
-            <h2>You&apos;ve probably got dozens of reviews you never asked for.</h2>
-            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
-              <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
-              <p>
-                On Growth, send me a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
-              </p>
+      <section id="s3" className="sec alt">
+        <div className="shell">
+          <div className="g12 dz">
+            <div className="dz-copy">
+              <h2>You&apos;ve probably got dozens of reviews you never asked for</h2>
+              <div className="body">
+                <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
+                <p>
+                  On Growth, send us a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
+                </p>
+              </div>
             </div>
-            <div className="mt-8">
-              <Link
-                href="/pricing#growth"
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full border-[1.5px] border-[var(--rb-line-strong)] bg-[var(--rb-surface-raised)] px-6 font-semibold text-[var(--rb-brand)]"
-              >
+            <div className="dz-plan">
+              <h3>{growth.name}</h3>
+              <p className="tag">{growth.tagline}</p>
+              <ul className="list">
+                {growthIncludes.map((item) => (
+                  <li key={item}>
+                    <Tick />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/pricing#growth" className="btn btn-ghost-dark">
                 See the Growth plan
               </Link>
             </div>
@@ -354,10 +478,9 @@ export default function HomePage() {
         <div className={shell}>
           <div className="mx-auto max-w-[var(--rb-text-max)] text-center">
             <p className="eyebrow">Pricing</p>
-            <h2 className="mt-3">Two plans. Both set up for you.</h2>
+            <h2 className="mt-3">Two plans, both set up for you</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">{PRICING_SUB}</p>
             <p className="mt-3 text-base leading-7 text-[var(--rb-text-muted)]">{BOTH_PLANS_LINE}</p>
-            <SpotsLeft />
           </div>
           <div className="mx-auto mt-10 max-w-[880px]">
             <PlanPair location="home-plans" />
@@ -370,38 +493,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="questions" className="bg-[var(--rb-surface)]">
-        <div className={`${shell} grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20`}>
-          <div>
-            <h2 id="questions">Fair questions</h2>
-            <p className="mt-5 max-w-sm text-base leading-7 text-[var(--rb-text-muted)]">
-              Ask me anything else at{" "}
-              <a href={`mailto:${contactEmail}`} className="font-semibold text-[var(--rb-text)] underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
-                {contactEmail}
-              </a>
-              .
-            </p>
+      <section id="s6" aria-labelledby="questions" className="sec">
+        <div className="shell g12">
+          <div className="faq-l">
+            <div className="stick">
+              <h2 id="questions">Fair questions</h2>
+              <p className="muted">
+                Ask us anything else at{" "}
+                <a href={`mailto:${contactEmail}`} className="link">
+                  {contactEmail}
+                </a>
+                .
+              </p>
+              <HelpGuidesLink className="link help d-only" />
+            </div>
           </div>
-          <FaqList faqs={homeFaqs} />
+          <div className="faq-r">
+            <FaqAccordion faqs={homeFaqs} />
+            <HelpGuidesLink className="link help m-only" />
+          </div>
         </div>
       </section>
 
-      <section className="band">
-        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call.</h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
-              {CLOSING_LINE}
-            </p>
-            <p className="mt-3 text-sm leading-6">
-              <Link href="/free-review-breakdown" className="font-semibold text-[var(--rb-on-brand)] underline decoration-[var(--rb-accent)] decoration-2 underline-offset-4">
-                Get a free review breakdown
-              </Link>
+      <section id="s7" className="close-sec">
+        <div className="shell">
+          <div className="cl">
+            <h2>
+              <span className="close-line">
+                Build the{" "}
+                <span className="trust-word">
+                  trust
+                  <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                    <path
+                      d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span className="close-line">before they call</span>
+            </h2>
+            <p className="lead">{CLOSING_LINE}</p>
+            <TrialButton variant="gold" location="home-final" className="close-cta px-8">
+              {CTA_LABEL}
+            </TrialButton>
+            <p className="hero-quiet">
+              See where you stand first with a <Link href="/free-review-breakdown">free review breakdown</Link>
             </p>
           </div>
-          <TrialButton variant="gold" location="home-final" className="px-8">
-            {CTA_LABEL}
-          </TrialButton>
         </div>
       </section>
       <StickyTrialBar />

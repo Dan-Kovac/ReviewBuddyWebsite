@@ -1,3 +1,4 @@
+import { EmailText } from "@/components/email-text";
 import type { Faq } from "@/lib/faqs";
 
 export function FaqList({ faqs }: { faqs: readonly Faq[] }) {
@@ -16,7 +17,9 @@ export function FaqList({ faqs }: { faqs: readonly Faq[] }) {
           </summary>
           <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-open:grid-rows-[1fr] motion-reduce:transition-none">
             <div className="overflow-hidden">
-              <p className="max-w-3xl pb-5 text-base leading-7 text-muted">{faq.answer}</p>
+              <p className="max-w-3xl pb-5 text-base leading-7 text-muted">
+                <EmailText text={faq.answer} />
+              </p>
             </div>
           </div>
         </details>

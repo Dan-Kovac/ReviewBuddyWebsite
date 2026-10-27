@@ -14,14 +14,14 @@ import { renderMarkdown, stripMarkdown } from "@/lib/markdown";
 
 /**
  * Cache Components requires generateStaticParams to return at least one
- * slug. When the database is empty or unreachable this returns a
- * placeholder that simply 404s, so the build never breaks on content.
+ * slug. When the database is empty or unreachable this returns a slug
+ * that 404s, so the build never breaks on content.
  */
-const buildPlaceholder = "__placeholder__";
+const emptyBuildSlug = "unused-slug";
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts("blog");
-  if (posts.length === 0) return [{ slug: buildPlaceholder }];
+  if (posts.length === 0) return [{ slug: emptyBuildSlug }];
   return posts.slice(0, 20).map((post) => ({ slug: post.slug }));
 }
 
@@ -31,7 +31,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (slug === buildPlaceholder) return {};
+  if (slug === emptyBuildSlug) return {};
   const post = await getPostBySlug("blog", slug);
   if (!post) return {};
   return pageMetadata({
@@ -48,7 +48,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug === buildPlaceholder) notFound();
+  if (slug === emptyBuildSlug) notFound();
 
   const post = await getPostBySlug("blog", slug);
   if (!post) notFound();

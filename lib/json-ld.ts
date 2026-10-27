@@ -1,7 +1,7 @@
 import type { Faq } from "@/lib/faqs";
 import { abn, legalEntityName } from "@/lib/abn";
 import { valueAddedTaxIncluded as pricesIncludeGst } from "@/lib/gst";
-import { contactEmail, contactPhone, plans, siteName, siteUrl } from "@/lib/site";
+import { TRIAL_LINE, contactEmail, plans, siteName, siteUrl } from "@/lib/site";
 
 export function organizationJsonLd() {
   return {
@@ -15,7 +15,6 @@ export function organizationJsonLd() {
         taxID: abn.replace(/\s/g, ""),
         url: siteUrl,
         email: contactEmail,
-        telephone: contactPhone,
         logo: `${siteUrl}/logo.svg`,
         areaServed: {
           "@type": "Country",
@@ -27,7 +26,7 @@ export function organizationJsonLd() {
         "@id": `${siteUrl}/#product`,
         name: siteName,
         description:
-          "ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. 7-day free trial, no card needed. Add a card before day 8 to keep going.",
+          `ReviewBuddy helps Australian tradies get more Google reviews and shows them on their website. ${TRIAL_LINE}`,
         brand: {
           "@type": "Brand",
           name: siteName,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { PostCard } from "@/lib/cms";
 
 const card =
@@ -20,7 +21,7 @@ export function PostCards({
 }: {
   posts: readonly PostCard[];
   hrefFor: (post: PostCard) => string;
-  emptyMessage: string;
+  emptyMessage: ReactNode;
 }) {
   if (posts.length === 0) {
     return (

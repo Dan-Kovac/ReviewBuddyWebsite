@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { EmailText } from "@/components/email-text";
+import { FaqList } from "@/components/faq-list";
+import { JsonLd } from "@/components/json-ld";
 import { getCategories, getPublishedPosts, toCards, type PostCard } from "@/lib/cms";
+import { helpFaqs } from "@/lib/faqs";
 import { builtInHelp } from "@/lib/help-guides";
+import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -9,8 +14,9 @@ export const metadata = pageMetadata({
   path: "/help",
 });
 
-const EMPTY_MESSAGE =
-  "Help guides are being prepared. If you're stuck today, email hello@reviewbuddy.com.au.";
+const EMPTY_MESSAGE = (
+  <EmailText text="That's the only guide so far. If you're stuck on something else, email hello@reviewbuddy.com.au and I'll help." />
+);
 
 function DocList({ docs }: { docs: readonly PostCard[] }) {
   return (
@@ -48,14 +54,14 @@ async function HelpIndex() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:py-32">
-      <p className="text-sm font-semibold tracking-wide text-muted">Help</p>
-      <h1 className="display mt-4 max-w-3xl text-balance">
+    <>
+    <div className="page-shell py-24 lg:py-32">
+      <p className="eyebrow">Help</p>
+      <h1 className="display mt-4 max-w-[var(--rb-text-max)] text-balance">
         Help guides
       </h1>
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-        Short, plain answers to the things our clients ask about. If your
-        question isn&apos;t here, email hello@reviewbuddy.com.au.
+      <p className="mt-6 max-w-[var(--rb-text-max)] text-lg leading-8 text-muted">
+        <EmailText text="Short, plain answers to the things clients ask about. If your question isn't here, email hello@reviewbuddy.com.au." />
       </p>
       <section aria-labelledby="help-account">
         <h2 id="help-account" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
@@ -74,6 +80,37 @@ async function HelpIndex() {
             </li>
           ))}
         </ul>
+        <div className="mt-8">
+          <FaqList faqs={helpFaqs.filter((faq) => faq.question === "I've got more than one location.")} />
+        </div>
+      </section>
+      <section aria-labelledby="help-reviews">
+        <h2 id="help-reviews" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Reviews and your business
+        </h2>
+        <div className="mt-6">
+          <FaqList
+            faqs={helpFaqs.filter((faq) =>
+              [
+                "What do more reviews do for my website and my calls?",
+                "Why do reviews matter right now?",
+                "My competitor has more reviews than me. Why does that matter?",
+              ].includes(faq.question),
+            )}
+          />
+        </div>
+      </section>
+      <section aria-labelledby="help-asking">
+        <h2 id="help-asking" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Asking for reviews
+        </h2>
+        <div className="mt-6">
+          <FaqList
+            faqs={helpFaqs.filter((faq) =>
+              ["Can my team ask in person?", "Do you write reviews for me?"].includes(faq.question),
+            )}
+          />
+        </div>
       </section>
       {cards.length === 0 ? (
         <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
@@ -105,6 +142,8 @@ async function HelpIndex() {
         </>
       )}
     </div>
+    <JsonLd data={faqJsonLd(helpFaqs)} />
+    </>
   );
 }
 
