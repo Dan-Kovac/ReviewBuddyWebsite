@@ -170,7 +170,7 @@ test("the home page has one Caveat signature beside the founder sign-off", async
       const style = getComputedStyle(el);
       return { family: style.fontFamily, size: style.fontSize, weight: style.fontWeight };
     });
-    expect(type.size).toBe("34px");
+    expect(type.size).toBe("40px");
     expect(type.weight).toBe("600");
     expect(type.family.toLowerCase()).toContain("caveat");
 
@@ -180,14 +180,9 @@ test("the home page has one Caveat signature beside the founder sign-off", async
     const letter = await page.locator(".founder-letter p").last().boundingBox();
     expect(sign && line && signoff && letter, `boxes at ${width}`).toBeTruthy();
     expect(letter!.y + letter!.height, `letter then sign-off at ${width}`).toBeLessThanOrEqual(signoff!.y + 1);
-    if (width < 1024) {
-      expect(sign!.y + sign!.height, `signature above the line at ${width}`).toBeLessThanOrEqual(line!.y + 1);
-    } else {
-      expect(sign!.x + sign!.width, "signature left of the line").toBeLessThanOrEqual(line!.x + 1);
-      const overlaps =
-        sign!.y < line!.y + line!.height && line!.y < sign!.y + sign!.height;
-      expect(overlaps, "signature lines up with the sign-off").toBe(true);
-    }
+    expect(sign!.x + sign!.width, `signature left of the line at ${width}`).toBeLessThanOrEqual(line!.x + 1);
+    const overlaps = sign!.y < line!.y + line!.height && line!.y < sign!.y + sign!.height;
+    expect(overlaps, `signature lines up with the sign-off at ${width}`).toBe(true);
   }
 });
 

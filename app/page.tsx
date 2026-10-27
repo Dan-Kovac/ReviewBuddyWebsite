@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { preload } from "react-dom";
 import { ArtImage } from "@/components/art-image";
-import { FaqList } from "@/components/faq-list";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { FeatureBento } from "@/components/feature-bento";
 import { FounderNote } from "@/components/founder-note";
+import { Tick } from "@/components/tick";
 import { JsonLd } from "@/components/json-ld";
 import { KeyImage } from "@/components/key-image";
 import { PlanPair } from "@/components/plan-pair";
@@ -15,7 +16,7 @@ import { homeFaqs } from "@/lib/faqs";
 import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { homeMetaDescription } from "@/lib/gst";
-import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, TRUST_BAR, contactEmail } from "@/lib/site";
+import { BOTH_PLANS_LINE, CLOSING_LINE, CTA_LABEL, PRICING_SUB, SETUP_LINE, TRIAL_LINE, TRUST_BAR, contactEmail, planById } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "More Google Reviews for Tradies | ReviewBuddy",
@@ -63,6 +64,35 @@ const youDo = [
   "Give me access to your Google profile and website (I'll show you how)",
   "Put the link or QR code on your invoices, van or cards",
 ];
+
+const widgetStats = [
+  {
+    figure: "54%",
+    line: "of people visit a business's website after reading positive reviews.",
+    source: "BrightLocal Local Consumer Review Survey 2026 (US)",
+    href: "https://www.brightlocal.com/research/local-consumer-review-survey/",
+  },
+  {
+    figure: "No. 1",
+    line: "Local search experts rank a high Google rating as the top thing that turns a search into a customer.",
+    source: "Whitespark Local Search Ranking Factors 2026 (expert survey)",
+    href: "https://whitespark.ca/local-search-ranking-factors/",
+  },
+] as const;
+
+const growth = planById("growth");
+const growthIncludes = growth.includes.filter((item) => item !== "Everything in Starter");
+
+function HelpGuidesLink({ className }: { className: string }) {
+  return (
+    <Link href="/help" className={className}>
+      Help guides
+      <svg className="arr" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  );
+}
 
 const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
@@ -326,83 +356,115 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="widget" className="bg-[var(--rb-surface-alt)]">
-        <div className={shell}>
-          <div className="max-w-[var(--rb-text-max)]">
+      <section id="s1" aria-labelledby="widget" className="sec alt">
+        <div className="shell">
+          <div className="g12 s1-head">
             <h2 id="widget">Your reviews, right where your ads and SEO send people</h2>
-            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+            <div className="body muted">
               <p>You pay for ads and SEO to get people to your website. When they land, most are still deciding.</p>
               <p>
-                The ReviewBuddy widget shows your latest reviews on your site, from Google and your other review sites, with your rating and review count. New reviews show up on their own, so it stays current. It&apos;s there to turn more of those visits into calls.
+                The ReviewBuddy widget shows them your latest reviews, with your rating and review count. New reviews show up on their own, so it stays current.
               </p>
             </div>
-            <p className="mt-6 text-sm leading-6 text-[var(--rb-text-muted)]">
-              More than half of people (54%) visit a business&apos;s website after reading positive reviews (BrightLocal, 2026, US survey). Local search experts rank a high Google rating as the number one thing that turns a search into a customer (Whitespark, 2026).
-            </p>
           </div>
-          <figure className="art art-wide">
-            <ArtImage
-              desktop={{
-                webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
-                png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
-                width: 2400,
-                height: 1210,
-              }}
-              mobile={{
-                webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
-                png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
-                width: 1080,
-                height: 1044,
-              }}
-              alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
-            />
-            <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
-          </figure>
+          <div className="g12 s1-row">
+            <figure className="art art-at-768">
+              <ArtImage
+                mobileMax={767}
+                desktop={{
+                  webp: "/img/sections/reviewbuddy-widget-builder-desktop.webp",
+                  png: "/img/sections/reviewbuddy-widget-builder-desktop.png",
+                  width: 2400,
+                  height: 1574,
+                }}
+                mobile={{
+                  webp: "/img/sections/reviewbuddy-widget-builder-mobile.webp",
+                  png: "/img/sections/reviewbuddy-widget-builder-mobile.png",
+                  width: 1080,
+                  height: 933,
+                }}
+                alt="The ReviewBuddy widget builder, with widget types on the left and a preview of review cards on a website. The business name, reviewer names and review text are demo data."
+              />
+              <figcaption>Demo data for illustration. Real ReviewBuddy widget, reviews replaced.</figcaption>
+            </figure>
+            <div className="stats">
+              {widgetStats.map((stat) => (
+                <div key={stat.figure} className="stat">
+                  <p className="num">{stat.figure}</p>
+                  <p className="line">{stat.line}</p>
+                  <p className="src">
+                    Source:{" "}
+                    <a href={stat.href} target="_blank" rel="noopener">
+                      {stat.source}
+                    </a>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       <ProofBlock />
 
-      <section className="bg-[var(--rb-surface)]">
-        <div className={shell}>
+      <section id="s2" className="sec s2">
+        <div className="shell">
           <h2>I set it up for you, and you keep doing the work</h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
-            <div>
+          <div className="g12 s2-grid">
+            <div className="card-do">
               <h3>What I do</h3>
-              <ul className="mt-4 grid gap-3">
+              <ul className="list">
                 {iDo.map((item) => (
-                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+                  <li key={item}>
+                    <Tick />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
-            <div>
+            <div className="card-you">
               <h3>What you do</h3>
-              <ul className="mt-4 grid gap-3">
-                {youDo.map((item) => (
-                  <li key={item} className="text-base leading-7 text-[var(--rb-text-muted)]">{item}</li>
+              <ol className="nlist">
+                {youDo.map((item, index) => (
+                  <li key={item}>
+                    <span className="num">{index + 1}</span>
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </ul>
+              </ol>
+              <p className="fair-strip">
+                <Tick />
+                <span>{SETUP_LINE}</span>
+              </p>
             </div>
           </div>
-          <p className="mt-8 text-base font-semibold">{SETUP_LINE}</p>
         </div>
       </section>
 
-      <section className="bg-[var(--rb-surface-alt)]">
-        <div className={shell}>
-          <div className="mx-auto max-w-[var(--rb-text-max)]">
-            <h2>You&apos;ve probably got dozens of reviews you never asked for</h2>
-            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
-              <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
-              <p>
-                On Growth, send me a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
-              </p>
+      <section id="s3" className="sec alt">
+        <div className="shell">
+          <div className="g12 dz">
+            <div className="dz-copy">
+              <h2>You&apos;ve probably got dozens of reviews you never asked for</h2>
+              <div className="body">
+                <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
+                <p>
+                  On Growth, send me a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
+                </p>
+              </div>
             </div>
-            <div className="mt-8">
-              <Link
-                href="/pricing#growth"
-                className="inline-flex min-h-[52px] items-center justify-center rounded-full border-[1.5px] border-[var(--rb-line-strong)] bg-[var(--rb-surface-raised)] px-6 font-semibold text-[var(--rb-brand)]"
-              >
+            <div className="dz-plan">
+              <h3>{growth.name}</h3>
+              <p className="tag">{growth.tagline}</p>
+              <ul className="list">
+                {growthIncludes.map((item) => (
+                  <li key={item}>
+                    <Tick />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/pricing#growth" className="btn btn-ghost-dark">
                 See the Growth plan
               </Link>
             </div>
@@ -431,33 +493,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="questions" className="bg-[var(--rb-surface)]">
-        <div className={`${shell} grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20`}>
-          <div>
-            <h2 id="questions">Fair questions</h2>
-            <p className="mt-5 max-w-sm text-base leading-7 text-[var(--rb-text-muted)]">
-              Ask me anything else at{" "}
-              <a href={`mailto:${contactEmail}`} className="font-semibold text-[var(--rb-text)] underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
-                {contactEmail}
-              </a>
-              .
-            </p>
+      <section id="s6" aria-labelledby="questions" className="sec">
+        <div className="shell g12">
+          <div className="faq-l">
+            <div className="stick">
+              <h2 id="questions">Fair questions</h2>
+              <p className="muted">
+                Ask me anything else at{" "}
+                <a href={`mailto:${contactEmail}`} className="link">
+                  {contactEmail}
+                </a>
+                .
+              </p>
+              <HelpGuidesLink className="link help d-only" />
+            </div>
           </div>
-          <FaqList faqs={homeFaqs} />
+          <div className="faq-r">
+            <FaqAccordion faqs={homeFaqs} />
+            <HelpGuidesLink className="link help m-only" />
+          </div>
         </div>
       </section>
 
-      <section className="band">
-        <div className="mx-auto flex w-full max-w-[var(--rb-max-width)] flex-col gap-8 px-[var(--rb-gutter)] py-[var(--rb-section-y)] md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 className="max-w-2xl text-[var(--rb-on-brand)]">Build the trust before they call</h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-[var(--rb-on-brand-muted)]">
-              {CLOSING_LINE}
+      <section id="s7" className="close-sec">
+        <div className="shell">
+          <div className="cl">
+            <h2>
+              Build the{" "}
+              <span className="trust-word">
+                trust
+                <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                  <path
+                    d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3.2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
+              before they call
+            </h2>
+            <p className="lead">{CLOSING_LINE}</p>
+            <TrialButton variant="gold" location="home-final" className="close-cta px-8">
+              {CTA_LABEL}
+            </TrialButton>
+            <p className="hero-quiet">
+              See where you stand first with a <Link href="/free-review-breakdown">free review breakdown</Link>
             </p>
           </div>
-          <TrialButton variant="gold" location="home-final" className="px-8">
-            {CTA_LABEL}
-          </TrialButton>
         </div>
       </section>
       <StickyTrialBar />

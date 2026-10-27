@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { EmailText } from "@/components/email-text";
+import { FaqList } from "@/components/faq-list";
+import { JsonLd } from "@/components/json-ld";
 import { getCategories, getPublishedPosts, toCards, type PostCard } from "@/lib/cms";
+import { helpFaqs } from "@/lib/faqs";
 import { builtInHelp } from "@/lib/help-guides";
+import { faqJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -50,6 +54,7 @@ async function HelpIndex() {
   );
 
   return (
+    <>
     <div className="page-shell py-24 lg:py-32">
       <p className="eyebrow">Help</p>
       <h1 className="display mt-4 max-w-[var(--rb-text-max)] text-balance">
@@ -75,6 +80,37 @@ async function HelpIndex() {
             </li>
           ))}
         </ul>
+        <div className="mt-8">
+          <FaqList faqs={helpFaqs.filter((faq) => faq.question === "I've got more than one location.")} />
+        </div>
+      </section>
+      <section aria-labelledby="help-reviews">
+        <h2 id="help-reviews" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Reviews and your business
+        </h2>
+        <div className="mt-6">
+          <FaqList
+            faqs={helpFaqs.filter((faq) =>
+              [
+                "What do more reviews do for my website and my calls?",
+                "Why do reviews matter right now?",
+                "My competitor has more reviews than me. Why does that matter?",
+              ].includes(faq.question),
+            )}
+          />
+        </div>
+      </section>
+      <section aria-labelledby="help-asking">
+        <h2 id="help-asking" className="mt-16 text-2xl font-semibold tracking-tight text-ink">
+          Asking for reviews
+        </h2>
+        <div className="mt-6">
+          <FaqList
+            faqs={helpFaqs.filter((faq) =>
+              ["Can my team ask in person?", "Do you write reviews for me?"].includes(faq.question),
+            )}
+          />
+        </div>
       </section>
       {cards.length === 0 ? (
         <p className="mt-12 rounded-[10px] border border-line bg-soft p-8 text-base leading-7 text-muted">
@@ -106,6 +142,8 @@ async function HelpIndex() {
         </>
       )}
     </div>
+    <JsonLd data={faqJsonLd(helpFaqs)} />
+    </>
   );
 }
 

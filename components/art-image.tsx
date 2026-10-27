@@ -14,16 +14,20 @@ export function ArtImage({
   mobile,
   alt,
   priority = false,
+  mobileMax = 1023,
 }: {
   desktop: Frame;
   mobile: Frame;
   alt: string;
   priority?: boolean;
+  /** Bottom-half art switches at 767. Older art keeps the 1023 switch. */
+  mobileMax?: 767 | 1023;
 }) {
+  const media = `(max-width: ${mobileMax}px)`;
   return (
     <picture>
-      <source media="(max-width: 1023px)" srcSet={mobile.webp} type="image/webp" />
-      <source media="(max-width: 1023px)" srcSet={mobile.png} />
+      <source media={media} srcSet={mobile.webp} type="image/webp" />
+      <source media={media} srcSet={mobile.png} />
       <source srcSet={desktop.webp} type="image/webp" />
       <img
         src={desktop.png}

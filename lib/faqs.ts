@@ -7,6 +7,48 @@ export type Faq = {
 
 export const homeFaqs: Faq[] = [
   {
+    question: "Do I need a card to start?",
+    answer:
+      "No. You get 7 days to try it first. If you want to keep going, add a card in the app before day 8. If you don't, your account pauses: review requests and syncing stop, and you pay nothing. Add a card in the app later and you pick up where you left off.",
+  },
+  {
+    question: "What if I want to stop using ReviewBuddy?",
+    answer:
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email me the sites you use and I'll check.",
+  },
+  {
+    question: "How much of my time does it take?",
+    answer:
+      "About as long as it takes to give me access to your Google profile and website. I set it up for you. On Growth, the asking happens without you.",
+  },
+  {
+    question: "Do I need to touch my website?",
+    answer: "No. I add the widget for you and match it to your site.",
+  },
+  {
+    question: "Is this allowed by Google?",
+    answer:
+      "Yes. Google encourages businesses to ask for reviews and gives you a link and QR code to do it. What it doesn't allow is paying for reviews, fake reviews, pressuring people on the spot, or only asking the customers you think are happy. ReviewBuddy asks everyone the same way.",
+  },
+  {
+    question: "What if a customer wasn't happy?",
+    answer:
+      "They can still leave a public review. Every customer gets the same link and the same choice of sites, whatever they thought of the job. Google's rules require that, and so does Australian consumer law. On the same page there's an optional box to tell you privately instead. If something wasn't right, you hear about it straight away and can ring them and fix it. And if a 3-star review does land, reply to it calmly. Google says a mix of reviews often looks more trustworthy than a perfect score.",
+  },
+  {
+    question: "Will my customers actually leave a review?",
+    answer:
+      "Not all of them, and nobody can promise a number. But most people who skip a review do it because nobody asked or it was a hassle. ReviewBuddy fixes both: it makes asking for one part of every job, and the link takes them straight to your review sites. They'll still need to be signed in to Google to leave a Google review, and most people's phones already are.",
+  },
+  {
+    question: "Which plan should I pick?",
+    answer:
+      "If you'll reliably hand over the link or QR code after every job, Starter is enough. If you know it'll slip when you're flat out, Growth does the asking for you.",
+  },
+];
+
+export const helpFaqs: Faq[] = [
+  {
     question: "What do more reviews do for my website and my calls?",
     answer:
       "Two things. On Google, reviews are part of how you rank. Google says \"more reviews and positive ratings can help your business's local ranking.\" So more people find you. Then on your website, they turn visits into calls. 54% of people visit a business's website after reading positive reviews, and local search experts rank a high Google rating as the top thing that turns a search into a customer. When they land on your site and see your reviews there too, there's one less reason to keep looking. Sources: Google Business Profile Help. BrightLocal Local Consumer Review Survey 2026 (US). Whitespark Local Search Ranking Factors 2026 (expert survey).",
@@ -22,52 +64,13 @@ export const homeFaqs: Faq[] = [
       "Because people compare. 47% of people won't use a business with fewer than 20 reviews, and 31% only use businesses rated 4.5 stars or more. If they're choosing between you and someone with four times the reviews, you're starting behind before they've heard your voice. The good news is it's catchable. Recent reviews count most, so a steady flow from now on can close the gap faster than you'd think. Source: BrightLocal Local Consumer Review Survey 2026 (US, 1,002 adults).",
   },
   {
-    question: "What if a customer wasn't happy?",
-    answer:
-      "They can still leave a public review. Every customer gets the same link and the same choice of sites, whatever they thought of the job. Google's rules require that, and so does Australian consumer law. On the same page there's an optional box to tell you privately instead. If something wasn't right, you hear about it straight away and can ring them and fix it. Plenty of people would rather do that than post about it. And if a 3-star review does land, reply to it calmly. Google says a mix of reviews often looks more trustworthy than a perfect score.",
-  },
-  {
-    question: "What if I want to stop using ReviewBuddy?",
-    answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email me the sites you use and I'll check.",
-  },
-  {
-    question: "Do I need a card to start?",
-    answer:
-      "No. You get 7 days to try it first. If you want to keep going, add a card in the app before day 8. If you don't, your account pauses: review requests and syncing stop, and you pay nothing. Add a card in the app later and you pick up where you left off.",
-  },
-  {
-    question: "Will my customers actually leave a review?",
-    answer:
-      "Not all of them, and nobody can promise a number. But most people who skip a review do it because nobody asked or it was a hassle. ReviewBuddy fixes both: everyone gets asked, and the link takes them straight to your review sites. They'll still need to be signed in to Google to leave a Google review, and most people's phones already are.",
-  },
-  {
-    question: "Is this allowed by Google?",
-    answer:
-      "Yes. Google encourages businesses to ask for reviews and gives you a link and QR code to do it. What it doesn't allow is paying for reviews, fake reviews, pressuring people on the spot, or only asking the customers you think are happy. ReviewBuddy asks everyone the same way.",
-  },
-  {
     question: "Can my team ask in person?",
     answer:
       "Yes, as a friendly invitation. Something like \"If you've got a minute later, we'd really appreciate a review. The link's on your invoice.\" Don't stand over them or ask them to do it there and then. Google doesn't allow that.",
   },
   {
-    question: "How much of my time does it take?",
-    answer:
-      "About as long as it takes to give me access to your Google profile and website. I set it up for you. On Growth, the asking happens without you.",
-  },
-  {
-    question: "Do I need to touch my website?",
-    answer: "No. I add the widget for you and match it to your site.",
-  },
-  {
     question: "Do you write reviews for me?",
     answer: "No. Never. Every review comes from a real customer.",
-  },
-  {
-    question: "Which plan should I pick?",
-    answer:
-      "If you'll reliably hand over the link or QR code after every job, Starter is enough. If you know it'll slip when you're flat out, Growth does the asking for you.",
   },
   {
     question: "I've got more than one location.",
@@ -86,7 +89,7 @@ export const pricingFaqs: Faq[] = [
   },
   {
     question: "I've got more than one location.",
-    answer: homeFaqs.find((faq) => faq.question === "I've got more than one location.")!.answer,
+    answer: helpFaqs.find((faq) => faq.question === "I've got more than one location.")!.answer,
   },
   {
     question: "Do prices include GST?",

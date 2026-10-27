@@ -10,38 +10,39 @@ const founderParagraphs = [
 
 export function FounderNote() {
   return (
-    <section className="bg-[var(--rb-surface)]" aria-labelledby="about-dan">
-      <div className="mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]">
-        <div className="founder-layout">
-          <figure className="art founder-art">
+    <section id="s4" className="sec" aria-labelledby="about-dan">
+      <div className="shell">
+        <div className="g12 fd founder-home">
+          <figure className="art fd-art art-at-768">
             <ArtImage
+              mobileMax={767}
               desktop={{
-                webp: "/img/sections/reviewbuddy-founder-card-desktop.webp",
-                png: "/img/sections/reviewbuddy-founder-card-desktop.png",
-                width: 1120,
-                height: 720,
+                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.webp",
+                png: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.png",
+                width: 960,
+                height: 1200,
               }}
               mobile={{
-                webp: "/img/sections/reviewbuddy-founder-card-mobile.webp",
-                png: "/img/sections/reviewbuddy-founder-card-mobile.png",
+                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.webp",
+                png: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.png",
                 width: 1080,
-                height: 1320,
+                height: 864,
               }}
-              alt="Dan Kovac, Founder, ReviewBuddy"
+              alt=""
             />
           </figure>
-          <article className="founder-card">
+          <article className="fd-copy">
             <p className="eyebrow" id="about-dan">
               Who&apos;s setting this up for you
             </p>
-            <h2 className="mt-3">Dan Kovac</h2>
-            <p className="mt-2 text-base font-semibold text-[var(--rb-text)]">Founder, ReviewBuddy</p>
-            <div className="founder-letter mt-5 grid gap-4 text-base leading-7 text-[var(--rb-text)]">
+            <h2>Dan Kovac</h2>
+            <p className="title">Founder, ReviewBuddy</p>
+            <div className="letter founder-letter">
               {founderParagraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <p className="founder-quote mt-5">
+            <p className="founder-quote">
               If you&apos;ve got a question, reply to any email from me. You&apos;ll get me.
             </p>
             <div className="founder-signoff">
@@ -51,8 +52,8 @@ export function FounderNote() {
                 <p>Made in Melbourne by Roadmap Labs.</p>
               </div>
             </div>
-            <p className="mt-4 text-base font-semibold">
-              <a href={`mailto:${contactEmail}`} className="underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
+            <p className="mail">
+              <a className="link" href={`mailto:${contactEmail}`}>
                 {contactEmail}
               </a>
             </p>
