@@ -1261,6 +1261,7 @@ footer .eyebrow,
   display: grid;
   gap: 16px;
 }
+#s4 .letter p { text-wrap: pretty; }
 .founder-home .founder-sign {
   font-size: 40px;
   line-height: 1;
@@ -1277,11 +1278,13 @@ footer .eyebrow,
 
 @media (min-width: 1024px) {
   .fd { align-items: center; }
+  #s4 .fd-art picture { display: grid; }
   .fd-art img {
     width: min(100%, 352px);
     max-height: 440px;
     height: auto;
   }
+  #s4 .fd-art img { justify-self: center; }
 }
 
 .faq-l { grid-column: 1 / span 4; }

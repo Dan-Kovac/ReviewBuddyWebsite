@@ -74,6 +74,13 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   const letterCol = await page.locator("#s4 .fd-copy").boundingBox();
   expect(portrait && letterCol).toBeTruthy();
   expect(Math.abs(portrait!.height - letterCol!.height)).toBeLessThanOrEqual(120);
+  const portraitImg = await page.locator("#s4 .fd-art img").boundingBox();
+  expect(portraitImg).toBeTruthy();
+  expect(Math.abs(portrait!.x + portrait!.width / 2 - (portraitImg!.x + portraitImg!.width / 2))).toBeLessThanOrEqual(1);
+  const portraitAlign = await page.locator("#s4 .fd-art img").evaluate((el) => getComputedStyle(el).justifySelf);
+  expect(portraitAlign).toBe("center");
+  const letterWrap = await page.locator("#s4 .letter p").evaluate((el) => getComputedStyle(el).textWrap);
+  expect(letterWrap).toBe("pretty");
   await expect(page.getByRole("link", { name: "See the Growth plan" })).toHaveAttribute("href", "/pricing#growth");
 
   const numeral = await page.locator(".nlist .num").first().evaluate((el) => getComputedStyle(el).color);
@@ -104,8 +111,9 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   const portraitSources = page.locator("#s4 picture source[media]");
   await expect(portraitSources).toHaveCount(2);
   for (const source of await portraitSources.all()) {
-    await expect(source).toHaveAttribute("width", "1080");
-    await expect(source).toHaveAttribute("height", "864");
+    await expect(source).toHaveAttribute("srcset", /founder-portrait-monogram-desktop/);
+    await expect(source).toHaveAttribute("width", "960");
+    await expect(source).toHaveAttribute("height", "1200");
   }
 
   const footerEmail = page.getByRole("contentinfo").getByRole("link", { name: "hello@reviewbuddy.com.au" });
@@ -159,12 +167,9 @@ test("the home bottom half matches the build spec", async ({ page }) => {
       expect(current, `desktop art at ${width}`).toContain("widget-builder-desktop");
     }
     expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
-    const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => img.currentSrc);
-    if (width < 768) {
-      expect(portrait).toContain("founder-portrait-monogram-mobile");
-    } else {
-      expect(portrait).toContain("founder-portrait-monogram-desktop");
-    }
+    const portraitSrc = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => img.currentSrc);
+    expect(portraitSrc, `founder art at ${width}`).toContain("founder-portrait-monogram-desktop");
+    expect(portraitSrc, `founder art at ${width}`).not.toContain("founder-portrait-monogram-mobile");
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -203,6 +208,10 @@ test("help and pricing show the moved questions", async ({ page }) => {
   await expect(page.locator("body")).toContainText(
     "Email us at hello@reviewbuddy.com.au and we'll work out what suits.",
   );
+  const locations = page.locator("section", { has: page.getByRole("heading", { name: "More than one location" }) });
+  await expect(locations).toContainText("and we'll work out what suits.");
+  await expect(locations).not.toContainText("I'll work out");
+  await expect(page.getByText("We set it up for you and send you your review email to approve.")).toBeVisible();
 });
 
 test("the sticky trial bar hides while the closing band is in view", async ({ page }) => {

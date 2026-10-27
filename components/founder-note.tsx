@@ -20,10 +20,10 @@ export function FounderNote() {
                 height: 1200,
               }}
               mobile={{
-                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.webp",
-                png: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.png",
-                width: 1080,
-                height: 864,
+                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.webp",
+                png: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.png",
+                width: 960,
+                height: 1200,
               }}
               alt=""
             />
