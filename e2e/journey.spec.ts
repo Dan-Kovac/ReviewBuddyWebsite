@@ -262,7 +262,7 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
   await expect(page.getByText("Other review sites can show in your widget if they connect.")).toBeVisible();
-  await expect(page.getByText("Email me the sites you use and I'll check.")).toBeVisible();
+  await expect(page.getByText("Email us the sites you use and we'll check.")).toBeVisible();
 
   for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
     await page.goto(path);

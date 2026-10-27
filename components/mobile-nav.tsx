@@ -23,8 +23,19 @@ export function MobileNav() {
       }
     }
 
+    function onClick(event: MouseEvent) {
+      const target = event.target;
+      if (target instanceof Element && target.closest("a")) {
+        setOpenPath(null);
+      }
+    }
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("click", onClick);
+    };
   }, [open]);
 
   return (
@@ -53,6 +64,7 @@ export function MobileNav() {
                 <Link
                   href={link.href}
                   className="flex min-h-12 items-center text-base font-semibold text-ink"
+                  onClick={() => setOpenPath(null)}
                 >
                   {link.label}
                 </Link>
@@ -62,12 +74,13 @@ export function MobileNav() {
               <a
                 href={loginUrl}
                 className="flex min-h-12 items-center text-base font-semibold text-ink"
+                onClick={() => setOpenPath(null)}
               >
                 Log in
               </a>
             </li>
             {pathname === "/welcome" ? null : (
-              <li className="pt-2">
+              <li className="pt-2" onClick={() => setOpenPath(null)}>
                 <TrialButton variant="ink" location="mobile-nav" className="w-full">
                   {CTA_LABEL}
                 </TrialButton>

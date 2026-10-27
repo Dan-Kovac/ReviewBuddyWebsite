@@ -26,8 +26,8 @@ export function ArtImage({
   const media = `(max-width: ${mobileMax}px)`;
   return (
     <picture>
-      <source media={media} srcSet={mobile.webp} type="image/webp" />
-      <source media={media} srcSet={mobile.png} />
+      <source media={media} srcSet={mobile.webp} type="image/webp" width={mobile.width} height={mobile.height} />
+      <source media={media} srcSet={mobile.png} width={mobile.width} height={mobile.height} />
       <source srcSet={desktop.webp} type="image/webp" />
       <img
         src={desktop.png}

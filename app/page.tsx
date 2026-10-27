@@ -48,11 +48,11 @@ const howSteps = [
   {
     title: "Shown on your website",
     detail:
-      "New reviews show up on your website on their own, in a widget I match to your site. People who find you online see them before they call.",
+      "New reviews show up on your website on their own, in a widget we match to your site. People who find you online see them before they call.",
   },
 ] as const;
 
-const iDo = [
+const weDo = [
   "Connect your Google profile and your other review sites",
   "Build your review link and QR code",
   "Put the widget on your website, matched to your colours",
@@ -61,7 +61,7 @@ const iDo = [
 ];
 
 const youDo = [
-  "Give me access to your Google profile and website (I'll show you how)",
+  "Give us access to your Google profile and website (we'll show you how)",
   "Put the link or QR code on your invoices, van or cards",
 ];
 
@@ -136,7 +136,7 @@ export default function HomePage() {
             before they pick up the phone
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            Before anyone rings, they check your reviews and compare you with the next tradie. ReviewBuddy asks every customer for a review after the job and shows those reviews on your website. I set it all up for you.
+            Before anyone rings, they check your reviews and compare you with the next tradie. ReviewBuddy asks every customer for a review after the job and shows those reviews on your website. We set it all up for you.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
@@ -170,7 +170,7 @@ export default function HomePage() {
             <p className="eyebrow">How it works</p>
             <h2 className="mt-3">How ReviewBuddy gets you more reviews</h2>
             <p className="lead mt-4 text-[var(--rb-text-muted)]">
-              I set all of this up for you. After that, here&apos;s what happens with every job.
+              We set all of this up for you. After that, here&apos;s what happens with every job.
             </p>
           </div>
           <ol className="steps">
@@ -272,7 +272,7 @@ export default function HomePage() {
             <h2>It&apos;s a tough year to compete on price</h2>
             <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
               <p>
-                You don&apos;t need me to tell you it&apos;s hard out there. Trades prices rose 6.6% in the year to September, the fastest in four years (HIA, October 2026). And a quarter of households say they&apos;re putting repairs off because of the cost of living (Finder, July 2026).
+                You don&apos;t need us to tell you it&apos;s hard out there. Trades prices rose 6.6% in the year to September, the fastest in four years (HIA, October 2026). And a quarter of households say they&apos;re putting repairs off because of the cost of living (Finder, July 2026).
               </p>
               <p>
                 So when someone does spend, they&apos;re careful about who they let in the house. They check first. 86% of homeowners on hipages check reviews before they hire, and 87% look at the star rating (hipages survey, March 2025).
@@ -409,12 +409,12 @@ export default function HomePage() {
 
       <section id="s2" className="sec s2">
         <div className="shell">
-          <h2>I set it up for you, and you keep doing the work</h2>
+          <h2>We set it up for you, and you keep doing the work</h2>
           <div className="g12 s2-grid">
             <div className="card-do">
-              <h3>What I do</h3>
+              <h3>What we do</h3>
               <ul className="list">
-                {iDo.map((item) => (
+                {weDo.map((item) => (
                   <li key={item}>
                     <Tick />
                     <span>{item}</span>
@@ -449,7 +449,7 @@ export default function HomePage() {
               <div className="body">
                 <p>Think about last year&apos;s jobs. Most of those customers were happy, and most were never asked.</p>
                 <p>
-                  On Growth, send me a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
+                  On Growth, send us a list of people you&apos;ve actually done work for. They get the same friendly request, with one reminder.
                 </p>
               </div>
             </div>
@@ -499,7 +499,7 @@ export default function HomePage() {
             <div className="stick">
               <h2 id="questions">Fair questions</h2>
               <p className="muted">
-                Ask me anything else at{" "}
+                Ask us anything else at{" "}
                 <a href={`mailto:${contactEmail}`} className="link">
                   {contactEmail}
                 </a>
@@ -519,20 +519,22 @@ export default function HomePage() {
         <div className="shell">
           <div className="cl">
             <h2>
-              Build the{" "}
-              <span className="trust-word">
-                trust
-                <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
-                  <path
-                    d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>{" "}
-              before they call
+              <span className="close-line">
+                Build the{" "}
+                <span className="trust-word">
+                  trust
+                  <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                    <path
+                      d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span className="close-line">before they call</span>
             </h2>
             <p className="lead">{CLOSING_LINE}</p>
             <TrialButton variant="gold" location="home-final" className="close-cta px-8">

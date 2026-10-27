@@ -92,9 +92,9 @@ export function planById(id: PlanId): Plan {
 export const SETUP_LINE = "Setup is free on both plans.";
 export const BOTH_PLANS_LINE = "Both plans come with free setup and no contract.";
 export const CTA_LABEL = "Try it free for 7 days";
-export const CLOSING_LINE = "Pick a plan and I'll set it up for you. If it's not for you, cancel from your account.";
+export const CLOSING_LINE = "Pick a plan and we'll set it up for you. If it's not for you, cancel from your account.";
 /** Phone header and sticky bar only. The full label does not fit beside the logo. */
-export const STICKY_TRIAL_TEXT = "7 days free. I set it up for you.";
+export const STICKY_TRIAL_TEXT = "7 days free. We set it up for you.";
 export const STICKY_CTA_LABEL = "Try it free";
 export const FOOTER_LINE =
   "Google reviews for Australian tradies, set up for you. Made in Melbourne by Roadmap Labs.";
@@ -102,7 +102,7 @@ export const GUARANTEE_BADGE = "";
 
 /** Facts under the hero. None of these repeat the trial line. */
 export const TRUST_BAR = [
-  "Set up by me, Dan",
+  "Free setup",
   "No contract, no notice period",
   "Everyone asked the same way, by Google's rules",
   "From $49 a month",

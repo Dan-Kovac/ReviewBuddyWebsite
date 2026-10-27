@@ -14,16 +14,16 @@ export const homeFaqs: Faq[] = [
   {
     question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, I can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email me the sites you use and I'll check.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, we can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email us the sites you use and we'll check.",
   },
   {
     question: "How much of my time does it take?",
     answer:
-      "About as long as it takes to give me access to your Google profile and website. I set it up for you. On Growth, the asking happens without you.",
+      "About as long as it takes to give us access to your Google profile and website. We set it up for you. On Growth, the asking happens without you.",
   },
   {
     question: "Do I need to touch my website?",
-    answer: "No. I add the widget for you and match it to your site.",
+    answer: "No. We add the widget for you and match it to your site.",
   },
   {
     question: "Is this allowed by Google?",
@@ -74,7 +74,7 @@ export const helpFaqs: Faq[] = [
   },
   {
     question: "I've got more than one location.",
-    answer: "Email me at hello@reviewbuddy.com.au and I'll work out what suits.",
+    answer: "Email us at hello@reviewbuddy.com.au and we'll work out what suits.",
   },
 ];
 
@@ -105,7 +105,7 @@ export const plumberFaqs: Faq[] = [
   {
     question: "I use other review sites too. Can those reviews show?",
     answer:
-      "They can show in your widget if they connect. Email me the sites you use and I'll check.",
+      "They can show in your widget if they connect. Email us the sites you use and we'll check.",
   },
   {
     question: "Can I ask customers from last year?",

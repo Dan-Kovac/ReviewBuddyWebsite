@@ -68,7 +68,7 @@ export function plumberCostAnswer(registered = GST_REGISTERED): string {
 export function offerDescription(plan: "starter" | "growth", registered = GST_REGISTERED): string {
   const gst = registered ? ", incl GST" : "";
   if (plan === "starter") {
-    return `$49 a month${gst}. Your review link, QR code and a review widget on your website. I set it up for you.`;
+    return `$49 a month${gst}. Your review link, QR code and a review widget on your website. We set it up for you.`;
   }
   return `$75 a month${gst}. Everything in Starter, plus an automatic review request after each job, one polite reminder, and your past customers asked too.`;
 }

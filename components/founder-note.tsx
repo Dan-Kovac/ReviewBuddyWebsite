@@ -2,10 +2,7 @@ import { ArtImage } from "@/components/art-image";
 import { contactEmail } from "@/lib/site";
 
 const founderParagraphs = [
-  "I'm Dan Kovac, and I set up every ReviewBuddy account myself.",
-  "I've spent 10 years in digital marketing and building websites. For years I ran a digital marketing agency, Roadmap Digital, doing SEO for small businesses.",
-  "Across all those clients, more reviews was one of the most influential things we could change. Getting them was the hard part. Owners meant to ask, then got stuck finding their Google review link or getting it in front of customers.",
-  "These days I'm a product manager at one of Australia's leading wagering companies. ReviewBuddy is the system I wish those clients had.",
+  "For years I ran a digital marketing agency, Roadmap Digital, doing SEO for small businesses. Across all those clients, getting more reviews was one of the things that made the biggest difference. Getting them was the hard part. We built ReviewBuddy so the asking actually gets done.",
 ];
 
 export function FounderNote() {
@@ -33,7 +30,7 @@ export function FounderNote() {
           </figure>
           <article className="fd-copy">
             <p className="eyebrow" id="about-dan">
-              Who&apos;s setting this up for you
+              Who&apos;s behind ReviewBuddy
             </p>
             <h2>Dan Kovac</h2>
             <p className="title">Founder, ReviewBuddy</p>
@@ -42,9 +39,6 @@ export function FounderNote() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <p className="founder-quote">
-              If you&apos;ve got a question, reply to any email from me. You&apos;ll get me.
-            </p>
             <div className="founder-signoff">
               <p className="founder-sign">Dan</p>
               <div className="founder-signoff-line">

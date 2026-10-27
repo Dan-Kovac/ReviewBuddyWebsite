@@ -6,7 +6,8 @@ import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, pricingSectionLink } from "@/lib/s
 
 /**
  * Sticky bottom bar on phones. Appears once the hero button leaves view,
- * and hides while the pricing block is on screen.
+ * and hides while pricing, the closing band, or the footer is on screen.
+ * Hiding uses the hidden class on a fixed bar, so the page does not shift.
  */
 export function StickyTrialBar() {
   const pathname = usePathname();
@@ -22,7 +23,8 @@ export function StickyTrialBar() {
     let heroVisible = true;
     let pricingVisible = false;
     let footerVisible = false;
-    const update = () => setShow(!heroVisible && !pricingVisible && !footerVisible);
+    let closingVisible = false;
+    const update = () => setShow(!heroVisible && !pricingVisible && !footerVisible && !closingVisible);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,9 +46,16 @@ export function StickyTrialBar() {
     if (pricing) observer.observe(pricing);
     const footer = document.querySelector("footer");
     if (footer) footerObserver.observe(footer);
+    const closing = document.getElementById("s7");
+    const closingObserver = new IntersectionObserver((entries) => {
+      closingVisible = entries.some((entry) => entry.isIntersecting);
+      update();
+    });
+    if (closing) closingObserver.observe(closing);
     return () => {
       observer.disconnect();
       footerObserver.disconnect();
+      closingObserver.disconnect();
     };
   }, []);
 
