@@ -278,7 +278,7 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(footer.getByText("44 108 955 374")).toBeVisible();
   await expect(footer.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
   await expect(footer.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
-  await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
+  await expect(page.getByText("Everyone gets the same link and the same choice of sites, happy or not. That's Google's rules.")).toBeVisible();
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
   await expect(page.getByText("Help guides has the full detail.")).toBeVisible();

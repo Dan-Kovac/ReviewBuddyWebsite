@@ -107,7 +107,7 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   const closing = await page.locator("#s7 .close-cta").evaluate((el) => getComputedStyle(el).color);
   expect(closing).toBe("rgb(11, 15, 20)");
   const closingSize = await page.locator("#s7 .close-cta").evaluate((el) => getComputedStyle(el).fontSize);
-  expect(closingSize).toBe("17px");
+  expect(closingSize).toBe("16px");
   expect(await headlineLines(page)).toEqual(["Build the trust", "before they call"]);
 
   const caption = await page.locator("#s-how figcaption").last().evaluate((el) => {

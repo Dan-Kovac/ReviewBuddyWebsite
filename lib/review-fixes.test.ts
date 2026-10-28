@@ -50,7 +50,7 @@ test("published pages use the reviewed spellings and the real legal entity", () 
   assert.equal(terms.includes("Draft"), false);
   assert.match(privacy, /Google Ads/);
   assert.match(privacy, /Meta pixel/);
-  assert.match(home, /Those are Google&apos;s rules and Australian consumer law/);
+  assert.match(home, /Everyone gets the same link and the same choice of sites, happy or not\. That&apos;s Google&apos;s rules\./);
   assert.match(breakdown, /plain-English/);
   assert.equal(breakdown.includes("plain English"), false);
   assert.match(llms, /\/privacy/);

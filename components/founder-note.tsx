@@ -29,10 +29,7 @@ export function FounderNote() {
           <div className="fd-rest">
             <div className="letter founder-letter">
               <p>{founderLead}</p>
-              <p>
-                If you&apos;ve got a question, call me on{" "}
-                <a href={contactPhoneHref}>{contactPhone}</a>.
-              </p>
+              <p>If you&apos;ve got a question, call me.</p>
             </div>
             <div className="founder-signoff">
               <p className="founder-sign">
@@ -43,10 +40,9 @@ export function FounderNote() {
                 <p>Made in Melbourne by Roadmap Labs.</p>
               </div>
             </div>
-            <p className="mail">
-              <a className="link" href={`mailto:${contactEmail}`}>
-                {contactEmail}
-              </a>
+            <p className="founder-contact">
+              <a href={contactPhoneHref}>{contactPhone}</a>
+              <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
             </p>
           </div>
         </div>

@@ -25,18 +25,15 @@ export const metadata = pageMetadata({
 const howSteps = [
   {
     title: "Ask every customer",
-    detail:
-      "One review link and a QR code, for your invoice, van or email. Your customer opens it, picks Google or Facebook, and leaves their review.",
+    detail: "One link and QR code. Your customer taps it, picks Google or Facebook, and reviews.",
   },
   {
     title: "Follow up once",
-    detail:
-      "On Growth, the request goes out after each job, with one polite reminder. Anyone who's already left a review won't be hassled. On Starter, you send the link yourself.",
+    detail: "On Growth it goes out after every job. On Starter, you send the link yourself.",
   },
   {
     title: "Shown on your website",
-    detail:
-      "New reviews show up in a widget on your website, matched to your site. People see them before they call.",
+    detail: "New reviews show in a widget on your website, so people see them before they call.",
   },
 ] as const;
 
@@ -52,13 +49,19 @@ const youDo = [
   "Put the link or QR code on your invoices, van or cards",
 ];
 
-function SectionCta({ location }: { location: string }) {
+function SectionCta({ location, quiet = false }: { location: string; quiet?: boolean }) {
   return (
     <div className="section-cta">
       <TrialButton variant="gold" location={location} className="w-full lg:w-auto">
         {CTA_LABEL}
       </TrialButton>
-      <p className="micro">{STICKY_TRIAL_TEXT}</p>
+      {quiet ? (
+        <p className="how-quiet">
+          See where you stand first with a <Link href="/free-review-breakdown">free review breakdown</Link>
+        </p>
+      ) : (
+        <p className="micro">{STICKY_TRIAL_TEXT}</p>
+      )}
     </div>
   );
 }
@@ -125,7 +128,7 @@ export default function HomePage() {
               </TrialButton>
             </div>
           </div>
-          <p className="mx-auto mt-3 max-w-[34rem] text-sm leading-5 text-[var(--rb-on-brand-muted)]">{TRIAL_LINE}</p>
+          <p className="trial-line mx-auto mt-3 max-w-[34rem] text-sm leading-5 text-[var(--rb-on-brand-muted)]">{TRIAL_LINE}</p>
           <p className="hero-quiet">
             See where you stand first with a{" "}
             <Link href="/free-review-breakdown">free review breakdown</Link>
@@ -183,70 +186,74 @@ export default function HomePage() {
           </div>
           <div className="how-row">
             <div className="how-copy">
-              <p className="how-num step-num">01</p>
+              <span className="how-num step-num">01</span>
               <h3>{howSteps[0].title}</h3>
               <p>{howSteps[0].detail}</p>
             </div>
-            <figure className="art shot-frame">
-              <ArtImage
-                desktop={{
-                  webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
-                  png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
-                  width: 1520,
-                  height: 1314,
-                }}
-                mobile={{
-                  webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
-                  png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
-                  width: 1080,
-                  height: 930,
-                }}
-                alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
-              />
+            <figure className="art how-shot">
+              <div className="shot-frame">
+                <ArtImage
+                  desktop={{
+                    webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
+                    png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
+                    width: 1520,
+                    height: 1314,
+                  }}
+                  mobile={{
+                    webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
+                    png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
+                    width: 440,
+                    height: 590,
+                  }}
+                  alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
+                />
+              </div>
               <figcaption>Sending a request from the app.</figcaption>
             </figure>
           </div>
           <div className="how-row flip">
             <div className="how-copy">
-              <p className="how-num step-num">02</p>
+              <span className="how-num step-num">02</span>
               <h3>{howSteps[1].title}</h3>
               <p>{howSteps[1].detail}</p>
             </div>
             <div className="follow-panel" aria-hidden="false">
-              <p className="follow-line">Day 0: review request sent</p>
+              <p className="follow-line">After the job: review request sent</p>
               <div className="follow-rule" aria-hidden="true" />
-              <p className="follow-line">Day 3: one polite reminder, if they haven&apos;t reviewed yet</p>
+              <p className="follow-line">Later: one polite reminder, only if they haven&apos;t reviewed yet</p>
             </div>
           </div>
           <div className="how-row">
             <div className="how-copy">
-              <p className="how-num step-num">03</p>
+              <span className="how-num step-num">03</span>
               <h3>{howSteps[2].title}</h3>
               <p>{howSteps[2].detail}</p>
             </div>
-            <figure className="art shot-frame">
-              <ArtImage
-                desktop={{
-                  webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
-                  png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
-                  width: 2400,
-                  height: 1210,
-                }}
-                mobile={{
-                  webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
-                  png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
-                  width: 1080,
-                  height: 1044,
-                }}
-                alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
-              />
+            <figure className="art how-shot">
+              <div className="shot-frame">
+                <ArtImage
+                  desktop={{
+                    webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
+                    png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
+                    width: 2400,
+                    height: 1210,
+                  }}
+                  mobile={{
+                    webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
+                    png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
+                    width: 1080,
+                    height: 1044,
+                  }}
+                  alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
+                />
+              </div>
               <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
             </figure>
           </div>
           <p className="rules-line">
-            Everyone gets the same link and the same choice of sites, whatever they thought of the job. Those are Google&apos;s rules and Australian consumer law.
+            Everyone gets the same link and the same choice of sites, happy or not. That&apos;s Google&apos;s rules.
           </p>
-          <SectionCta location="how-it-works" />
+          <SectionCta location="how-it-works" quiet />
         </div>
       </section>
 
@@ -329,6 +336,7 @@ export default function HomePage() {
             <HelpGuidesLink className="link help m-only" />
           </div>
         </div>
+      </section>
       <section id="s7" className="close-sec">
         <div className="shell">
           <div className="cl">
@@ -359,7 +367,6 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </section>
       </section>
       <StickyTrialBar />
       <JsonLd data={faqJsonLd(homeFaqs)} />
