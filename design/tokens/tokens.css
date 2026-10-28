@@ -29,7 +29,6 @@
   --rb-app-line: #E6E8EB;
   --rb-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --rb-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --rb-font-hand: 'Caveat', 'Comic Sans MS', cursive;
   --rb-font-display-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 96;
   --rb-font-display-weight: 600;
 }
@@ -62,7 +61,6 @@
   --rb-app-line: #E7E3DA;
   --rb-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --rb-font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --rb-font-hand: 'Caveat', 'Comic Sans MS', cursive;
   --rb-font-display-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 96;
   --rb-font-display-weight: 600;
 }
@@ -95,7 +93,6 @@
   --rb-app-line: #E5E8EC;
   --rb-font-display: 'Fraunces', Georgia, serif;
   --rb-font-body: 'Inter', system-ui, sans-serif;
-  --rb-font-hand: 'Caveat', cursive;
   --rb-font-display-settings: 'SOFT' 50, 'WONK' 0, 'opsz' 96;
   --rb-font-display-weight: 600;
 }
@@ -128,7 +125,6 @@
   --rb-app-line: #E6E0D6;
   --rb-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
   --rb-font-body: 'DM Sans', system-ui, sans-serif;
-  --rb-font-hand: 'Caveat', cursive;
   --rb-font-display-settings: normal;
   --rb-font-display-weight: 700;
 }

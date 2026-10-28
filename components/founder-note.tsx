@@ -1,3 +1,4 @@
+import { Signature } from "@/components/signature";
 import Image from "next/image";
 import { contactEmail } from "@/lib/site";
 
@@ -31,7 +32,9 @@ export function FounderNote() {
               ))}
             </div>
             <div className="founder-signoff">
-              <p className="founder-sign">Dan</p>
+              <p className="founder-sign">
+                <Signature />
+              </p>
               <div className="founder-signoff-line">
                 <p>Dan Kovac, founder.</p>
                 <p>Made in Melbourne by Roadmap Labs.</p>

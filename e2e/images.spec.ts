@@ -158,21 +158,19 @@ test("the blog index is noindex and stays out of the sitemap", async ({ page }) 
   expect(xml).not.toMatch(/<loc>https:\/\/reviewbuddy\.com\.au\/blog<\/loc>/);
 });
 
-test("the home page has one Caveat signature beside the founder sign-off", async ({ page }) => {
+test("the home page has one SVG signature beside the founder sign-off", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "once, at 390, 768 and 1440");
   for (const width of [390, 768, 1440]) {
     await page.setViewportSize({ width, height: width === 1440 ? 900 : 844 });
     await page.goto("/", { waitUntil: "networkidle" });
     const signs = page.locator(".founder-sign");
     await expect(signs).toHaveCount(1);
-    await expect(signs).toHaveText("Dan");
-    const type = await signs.evaluate((el) => {
-      const style = getComputedStyle(el);
-      return { family: style.fontFamily, size: style.fontSize, weight: style.fontWeight };
-    });
-    expect(type.size).toBe("40px");
-    expect(type.weight).toBe("600");
-    expect(type.family.toLowerCase()).toContain("caveat");
+    const svg = signs.getByRole("img", { name: "Dan" });
+    await expect(svg).toHaveCount(1);
+    const svgBox = await svg.boundingBox();
+    expect(Math.round(svgBox!.height), `signature height at ${width}`).toBe(40);
+    const fontsLoaded = await page.evaluate(() => [...document.fonts].map((f) => f.family.toLowerCase()));
+    expect(fontsLoaded.some((f) => f.includes("caveat")), "no Caveat font").toBe(false);
 
     const sign = await signs.boundingBox();
     const line = await page.locator(".founder-signoff-line").boundingBox();

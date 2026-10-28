@@ -2,9 +2,11 @@
 @import "../design/tokens/tokens.css";
 
 :root {
-  --rb-font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --rb-font-body: var(--font-inter), system-ui, sans-serif;
-  --rb-font-hand: var(--font-caveat), cursive;
+  --rb-font-display: var(--font-geist), Arial, system-ui, sans-serif;
+  --rb-font-body: var(--font-geist), Arial, system-ui, sans-serif;
+  --rb-font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --rb-font-display-settings: normal;
+  --rb-font-display-weight: 600;
   --background: var(--rb-surface);
   --foreground: var(--rb-text);
   --ink: var(--rb-text);
@@ -126,8 +128,13 @@ dialog::backdrop {
   }
 }
 
+/* Callouts on visuals: body font, not handwriting. */
 .font-callout {
-  font-family: var(--font-caveat), "Segoe Print", cursive;
+  font-family: var(--rb-font-body);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--rb-text);
 }
 
 .rise,
@@ -467,8 +474,11 @@ footer .eyebrow,
 }
 
 .hand {
-  font-family: var(--rb-font-hand);
-  font-weight: 600;
+  font-family: var(--rb-font-body);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--rb-text);
 }
 
 .band {
@@ -894,12 +904,16 @@ footer .eyebrow,
 }
 
 .founder-sign {
-  font-family: var(--rb-font-hand);
-  font-weight: 600;
-  font-size: 34px;
-  color: var(--rb-brand);
+  color: var(--rb-text);
   margin-top: 12px;
-  line-height: 1;
+  line-height: 0;
+}
+
+/* Static outline of Dan's signature (design/assets/signature). */
+.founder-sign svg {
+  display: block;
+  height: 40px;
+  width: auto;
 }
 
 .founder-signoff {
@@ -1512,3 +1526,15 @@ footer {
   .pl,
   .acc .panel { transition: none; }
 }
+
+/* Type option A: Geist throughout, Geist Mono for prices and step numerals. */
+.display { line-height: 1.03; letter-spacing: -0.035em; }
+h1 { line-height: 1.03; letter-spacing: -0.03em; }
+h2 { letter-spacing: -0.02em; }
+.wordmark,
+.step-num {
+  font-family: var(--rb-font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.wordmark { letter-spacing: -0.04em; }
