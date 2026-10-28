@@ -188,6 +188,38 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   expect(duration).toBe("0s");
 });
 
+test("the founder letter and sign-off end on more than one word", async ({ page }) => {
+  test.skip(test.info().project.name !== "mobile", "the 390 widow from QA N-1");
+
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const lines = page.locator("#s4 .letter p, #s4 .founder-signoff-line p");
+  await expect(lines.first()).toBeVisible();
+  for (const line of await lines.all()) {
+    await expect(line).toHaveCSS("text-wrap", "pretty");
+    const words = await line.evaluate((el) => {
+      const found: { text: string; top: number }[] = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let node = walker.nextNode();
+      while (node) {
+        const value = node.textContent ?? "";
+        for (const match of value.matchAll(/\S+/g)) {
+          const range = document.createRange();
+          range.setStart(node, match.index!);
+          range.setEnd(node, match.index! + match[0].length);
+          const rect = range.getBoundingClientRect();
+          if (rect.width > 0) found.push({ text: match[0], top: Math.round(rect.top) });
+        }
+        node = walker.nextNode();
+      }
+      return found;
+    });
+    if (words.length < 2) continue;
+    const bottom = Math.max(...words.map((word) => word.top));
+    const lastLine = words.filter((word) => Math.abs(word.top - bottom) < 4).map((word) => word.text);
+    expect(lastLine.length, `one-word last line: ${lastLine.join(" ")}`).toBeGreaterThan(1);
+  }
+});
+
 test("help and pricing show the moved questions", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "once");
   await page.goto("/help", { waitUntil: "domcontentloaded" });

@@ -1261,7 +1261,8 @@ footer .eyebrow,
   display: grid;
   gap: 16px;
 }
-#s4 .letter p { text-wrap: pretty; }
+#s4 .letter p,
+#s4 .founder-signoff-line p { text-wrap: pretty; }
 .founder-home .founder-sign {
   font-size: 40px;
   line-height: 1;
