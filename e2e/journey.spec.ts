@@ -71,7 +71,9 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
-  await expect(page.getByText("worth $500")).toHaveCount(0);
+  const homeText = await page.locator("body").innerText();
+  expect(homeText).toContain("worth at least $500");
+  expect(homeText.replaceAll("worth at least $500", "")).not.toContain("$500");
   await expect(page.getByText("Roadmap Digital")).toBeVisible();
   await expect(page.getByText("Made in Melbourne by Roadmap Labs.").first()).toBeVisible();
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);

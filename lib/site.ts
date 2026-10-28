@@ -89,7 +89,7 @@ export function planById(id: PlanId): Plan {
   return found;
 }
 
-export const SETUP_LINE = "Setup is free on both plans.";
+export const SETUP_LINE = "Setup is free on both plans, and it's worth at least $500.";
 export const BOTH_PLANS_LINE = "Both plans come with free setup and no contract.";
 export const CTA_LABEL = "Try it free for 7 days";
 export const CLOSING_LINE = "Pick a plan and we'll set it up for you. If it's not for you, cancel from your account.";
