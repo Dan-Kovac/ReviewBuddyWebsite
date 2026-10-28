@@ -74,7 +74,7 @@ export const plans: readonly Plan[] = [
     recommended: true,
     includes: [
       "Everything in Starter",
-      "An automatic review request after each job, with one polite reminder",
+      "An automatic review request after each job, with one polite reminder if they haven't reviewed yet",
       "Your past customers asked too",
     ],
     offerDescription: offerDescription("growth"),

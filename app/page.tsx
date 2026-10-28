@@ -43,7 +43,7 @@ const howSteps = [
   {
     title: "A polite follow-up",
     detail:
-      "On Growth, the review email goes out after each job without you lifting a finger, and anyone who hasn't got to it gets one polite reminder. On Starter, you send the link yourself.",
+      "On Growth, the review email goes out after each job without you lifting a finger. Anyone who hasn't got to it gets one polite reminder, and anyone who's already left a review won't be hassled. On Starter, you send the link yourself.",
   },
   {
     title: "Shown on your website",
