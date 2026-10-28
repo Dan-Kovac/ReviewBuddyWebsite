@@ -30,12 +30,6 @@ The site builds and renders with no `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
 
 Public contact is `hello@reviewbuddy.com.au`. The footer ABN is `44 108 955 374`. The ABR entity name, used on the legal pages, is `KOVAC, DANIEL DEAN`. The registered business name is `Review Buddy`. `GST_REGISTERED` in `lib/flags.ts` is false, so prices are not shown as including GST. Set it to true after the ABN is registered for GST, and update the price lines in `public/llms.txt` to say `incl GST`.
 
-Free setup spots (`/api/spots` and the bar near the hero and pricing):
-
-- `STRIPE_SECRET_KEY` counts active and trialing subscriptions on Starter `price_1UUJke2VeLXnEu5vfFWYnp0Y` and Growth `price_1UUJlp2VeLXnEu5vB6hQdpL0`. The key stays on the server.
-- The count is cached for about 10 minutes.
-- If the key is missing, or Stripe cannot be read, the bar is hidden. The site does not show a default such as 200 of 200. A preview without the key therefore shows no spots line.
-
 ## Develop
 
 ```bash
