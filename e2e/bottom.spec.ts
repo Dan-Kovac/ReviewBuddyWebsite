@@ -66,7 +66,23 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await page.keyboard.press(" ");
   await expect(buttons.nth(1)).toHaveAttribute("aria-expanded", "false");
 
-  await expect(page.locator("#s4 img")).toHaveAttribute("alt", "");
+  const founder = page.locator("#s4 img");
+  await expect(founder).toHaveAttribute("alt", "Dan Kovac, founder of ReviewBuddy");
+  const founderFrame = await founder.evaluate((img: HTMLImageElement) => {
+    const box = img.getBoundingClientRect();
+    return {
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight,
+      width: box.width,
+      height: box.height,
+      objectFit: getComputedStyle(img).objectFit,
+    };
+  });
+  expect(founderFrame.naturalWidth).toBeGreaterThan(0);
+  expect(founderFrame.naturalHeight).toBeGreaterThan(0);
+  expect(founderFrame.naturalWidth / founderFrame.naturalHeight).toBeCloseTo(4 / 5, 2);
+  expect(founderFrame.width / founderFrame.height).toBeCloseTo(4 / 5, 2);
+  expect(founderFrame.objectFit).toBe("cover");
   await expect(page.locator("#s4 h2")).toHaveText("Dan Kovac");
   await expect(page.locator("#s4 .founder-quote")).toHaveCount(0);
   await expect(page.locator("#s4")).not.toContainText("If you've got a question, reply to any email from me.");
@@ -108,13 +124,10 @@ test("the home bottom half matches the build spec", async ({ page }) => {
     await expect(source).toHaveAttribute("width", "1080");
     await expect(source).toHaveAttribute("height", "933");
   }
-  const portraitSources = page.locator("#s4 picture source[media]");
-  await expect(portraitSources).toHaveCount(2);
-  for (const source of await portraitSources.all()) {
-    await expect(source).toHaveAttribute("srcset", /founder-portrait-monogram-desktop/);
-    await expect(source).toHaveAttribute("width", "960");
-    await expect(source).toHaveAttribute("height", "1200");
-  }
+  await expect(page.locator("#s4 picture source")).toHaveCount(0);
+  await expect(founder).toHaveAttribute("src", /dan-kovac-founder\.jpg/);
+  await expect(founder).toHaveAttribute("width", "480");
+  await expect(founder).toHaveAttribute("height", "600");
 
   const footerEmail = page.getByRole("contentinfo").getByRole("link", { name: "hello@reviewbuddy.com.au" });
   const underline = await footerEmail.evaluate((el) => getComputedStyle(el).textDecorationLine);
@@ -167,9 +180,14 @@ test("the home bottom half matches the build spec", async ({ page }) => {
       expect(current, `desktop art at ${width}`).toContain("widget-builder-desktop");
     }
     expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
-    const portraitSrc = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => img.currentSrc);
-    expect(portraitSrc, `founder art at ${width}`).toContain("founder-portrait-monogram-desktop");
-    expect(portraitSrc, `founder art at ${width}`).not.toContain("founder-portrait-monogram-mobile");
+    const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => {
+      const box = img.getBoundingClientRect();
+      return { src: img.currentSrc, naturalWidth: img.naturalWidth, width: box.width, height: box.height };
+    });
+    expect(portrait.src, `founder art at ${width}`).toContain("dan-kovac-founder.jpg");
+    expect(portrait.src, `founder art at ${width}`).not.toContain("founder-portrait-monogram");
+    expect(portrait.naturalWidth, `founder loaded at ${width}`).toBeGreaterThan(0);
+    expect(portrait.width / portrait.height, `founder frame at ${width}`).toBeCloseTo(4 / 5, 2);
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -243,7 +261,11 @@ test("help and pricing show the moved questions", async ({ page }) => {
   const locations = page.locator("section", { has: page.getByRole("heading", { name: "More than one location" }) });
   await expect(locations).toContainText("and we'll work out what suits.");
   await expect(locations).not.toContainText("I'll work out");
-  await expect(page.getByText("We set it up for you and send you your review email to approve.")).toBeVisible();
+  await expect(
+    page.getByText("We set it up for you in about 2 business days, then send you your review email to approve.", {
+      exact: true,
+    }),
+  ).toBeVisible();
 });
 
 test("the sticky trial bar hides while the closing band is in view", async ({ page }) => {

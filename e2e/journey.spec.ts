@@ -1,6 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
 import { waitForLazyImages } from "./lazy-images";
+import { legalUpdated } from "../lib/abn";
 import {
+  contactPhone,
+  contactPhoneHref,
   defaultGrowthSignupUrl,
   defaultStarterSignupUrl,
   loginUrl,
@@ -63,8 +66,24 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText("and no contract.")).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByText("0411 701 078")).toHaveCount(0);
-  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
+  const phoneRow = page.getByRole("contentinfo").locator("dt", { hasText: /^Phone$/ }).locator("xpath=..");
+  await expect(phoneRow.locator("dt")).toHaveText("Phone");
+  await expect(phoneRow.locator("dd")).toHaveText(contactPhone);
+  await expect(phoneRow.getByRole("link", { name: contactPhone, exact: true })).toHaveAttribute("href", contactPhoneHref);
+  await expect(page.locator(`a[href='${contactPhoneHref}']`)).toHaveCount(1);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(1);
+  expect(contactPhone).toBe("0411 701 078");
+  expect(contactPhoneHref).toBe("tel:+61411701078");
+  const visiblePhones = (await page.locator("body").innerText()).match(/\b(?:\+61[\d\s]{8,}|0\d[\d\s]{8,})\b/g) ?? [];
+  expect(visiblePhones).toEqual([contactPhone]);
+  const ldBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const telephone = ldBlocks
+    .flatMap((text) => {
+      const data = JSON.parse(text) as { "@graph"?: { "@type"?: string; telephone?: string }[]; "@type"?: string; telephone?: string };
+      return data["@graph"] ?? [data];
+    })
+    .find((item) => item["@type"] === "Organization")?.telephone;
+  expect(telephone).toBe(contactPhone);
   await expect(page.getByText(/Free until/)).toHaveCount(0);
   await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
   await expect(page.getByText("Cancel with one email")).toHaveCount(0);
@@ -72,8 +91,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
   const homeText = await page.locator("body").innerText();
-  expect(homeText).toContain("worth at least $500");
-  expect(homeText.replaceAll("worth at least $500", "")).not.toContain("$500");
+  expect(homeText.match(/worth(?:\s+at\s+least)?\s+\$500/g)).toEqual(["worth at least $500"]);
+  expect(homeText.replaceAll("worth at least $500", "")).not.toMatch(/\$500|valued at|worth over/);
   await expect(page.getByText("Roadmap Digital")).toBeVisible();
   await expect(page.getByText("Made in Melbourne by Roadmap Labs.").first()).toBeVisible();
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
@@ -300,7 +319,9 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(page.getByText("ongoing coaching")).toHaveCount(0);
   await expect(page.getByText(/first week/)).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();
-  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+  expect(legalUpdated).toBe("28 October 2026");
+  await expect(page.getByText(`Last updated: ${legalUpdated}`, { exact: true })).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}.`, { exact: true })).toBeVisible();
 
   await page.goto("/privacy");
   const privacyText = await page.locator("article").innerText();
@@ -309,7 +330,8 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   expect(privacyText).not.toContain("text messages");
   await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Cookies, analytics and advertising" })).toBeVisible();
-  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}`, { exact: true })).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}.`, { exact: true })).toBeVisible();
 
   await page.goto("/free-review-breakdown");
   await expect(page.getByText(/plain-English/)).toBeVisible();
