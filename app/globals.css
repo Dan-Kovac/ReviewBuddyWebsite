@@ -1253,6 +1253,7 @@ footer .eyebrow,
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  object-position: center top;
 }
 .fd-copy { grid-column: 6 / span 7; }
 .fd-copy h2 { margin-top: 12px; }
@@ -1280,7 +1281,7 @@ footer .eyebrow,
 
 @media (min-width: 1024px) {
   .fd { align-items: center; }
-  #s4 .fd-art picture { display: grid; }
+  #s4 .fd-art { display: grid; }
   .fd-art img {
     width: min(100%, 352px);
     max-height: 440px;

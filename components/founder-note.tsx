@@ -1,4 +1,4 @@
-import { ArtImage } from "@/components/art-image";
+import Image from "next/image";
 import { contactEmail } from "@/lib/site";
 
 const founderParagraphs = [
@@ -10,22 +10,13 @@ export function FounderNote() {
     <section id="s4" className="sec" aria-labelledby="about-dan">
       <div className="shell">
         <div className="g12 fd founder-home">
-          <figure className="art fd-art art-at-768">
-            <ArtImage
-              mobileMax={767}
-              desktop={{
-                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.webp",
-                png: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.png",
-                width: 960,
-                height: 1200,
-              }}
-              mobile={{
-                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.webp",
-                png: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.png",
-                width: 960,
-                height: 1200,
-              }}
-              alt=""
+          <figure className="art fd-art">
+            <Image
+              src="/img/sections/dan-kovac-founder.jpg"
+              alt="Dan Kovac, founder of ReviewBuddy"
+              width={480}
+              height={600}
+              sizes="(min-width: 1024px) 352px, 320px"
             />
           </figure>
           <article className="fd-copy">
