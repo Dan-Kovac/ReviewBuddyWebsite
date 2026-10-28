@@ -436,6 +436,9 @@ export default function HomePage() {
                 <Tick />
                 <span>{SETUP_LINE}</span>
               </p>
+              <p className="setup-time">
+                It takes about 2 business days. By then your account is set up and connected, and your review widget is on your website.
+              </p>
             </div>
           </div>
         </div>

@@ -1207,6 +1207,7 @@ footer .eyebrow,
   font-weight: 600;
 }
 .fair-strip .tick { margin-top: 0; }
+.card-you .setup-time { margin-top: 16px; }
 
 .dz {
   background: var(--rb-brand);
