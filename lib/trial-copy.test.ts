@@ -89,11 +89,13 @@ test("published trial copy does not promise a card, a reminder email, or Stripe"
   assert.equal(copy.includes("usually means another paid tool"), false);
 });
 
-test("other review sites are hedged the same way on home and for plumbers", () => {
+test("other review sites are hedged the same way on pricing and for plumbers", () => {
   const home = homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer;
+  const priced = pricingFaqs.find((faq) => faq.question === "What if I want to stop?")!.answer;
   const plumber = plumberFaqs.find((faq) => faq.question === "I use other review sites too. Can those reviews show?")!.answer;
-  assert.match(home, /Other review sites can show in your widget if they connect\./);
-  assert.match(home, /Email us the sites you use and we'll check\./);
+  assert.equal(home.includes("Email us the sites you use"), false);
+  assert.match(priced, /Other review sites can show in your widget if they connect\./);
+  assert.match(priced, /Email us the sites you use and we'll check\./);
   assert.match(plumber, /if they connect/);
   assert.match(plumber, /Email us the sites you use and we'll check\./);
   assert.equal(home.includes("Service Seeking"), false);

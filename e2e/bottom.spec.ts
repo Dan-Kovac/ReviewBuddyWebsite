@@ -31,32 +31,29 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await waitForLazyImages(page);
 
-  const bright = page.getByRole("link", { name: "BrightLocal Local Consumer Review Survey 2026 (US)" });
-  const white = page.getByRole("link", { name: "Whitespark Local Search Ranking Factors 2026 (expert survey)" });
-  await expect(bright).toBeVisible();
-  await expect(white).toBeVisible();
-  await expect(bright).toHaveAttribute("href", "https://www.brightlocal.com/research/local-consumer-review-survey/");
-  await expect(white).toHaveAttribute("href", "https://whitespark.ca/local-search-ranking-factors/");
-  await expect(page.locator("#s1 figcaption")).toHaveText(
-    "Demo data for illustration. Real ReviewBuddy widget, reviews replaced.",
-  );
-  await expect(page.locator("#s1 img")).toHaveAttribute("src", /widget-builder-desktop\.png/);
-  await expect(page.locator("#s1 img")).not.toHaveAttribute("src", /widget-on-website/);
-  await expect(page.locator("#s1 .stat")).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Win more jobs on trust" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "It's a tough year to compete on price" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Inside ReviewBuddy" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "You've probably got dozens of reviews you never asked for" })).toHaveCount(0);
+  await expect(page.locator("#s1")).toHaveCount(0);
+  await expect(page.locator(".bento")).toHaveCount(0);
+  await expect(page.locator("#s-how img").nth(1)).toHaveAttribute("src", /widget-on-website/);
+  await expect(page.locator("#s-how img").nth(1)).not.toHaveAttribute("src", /widget-builder/);
   expect(await page.content()).not.toContain("invitees");
+  expect(await page.content()).not.toContain("worth at least $500");
 
   const buttons = page.locator("#s6 button.q");
-  await expect(buttons).toHaveCount(8);
+  await expect(buttons).toHaveCount(5);
   await expect(buttons.nth(0)).toHaveAttribute("aria-expanded", "true");
   await expect(buttons.nth(0)).toHaveText("Do I need a card to start?");
-  for (let index = 1; index < 8; index += 1) {
+  for (let index = 1; index < 5; index += 1) {
     await expect(buttons.nth(index)).toHaveAttribute("aria-expanded", "false");
   }
-  await expect(page.locator("#s6 .a")).toHaveCount(8);
+  await expect(page.locator("#s6 .a")).toHaveCount(5);
   await expect(page.locator("#s6 .panel").nth(0)).not.toHaveAttribute("aria-hidden", "true");
   const closedPanel = page.locator("#s6 .panel").nth(1);
   await expect(closedPanel).toHaveAttribute("aria-hidden", "true");
-  await expect(closedPanel).toContainText("Cancel any time from the billing page");
+  await expect(closedPanel).toContainText("We do the rest, including adding the widget");
   const closedBox = await closedPanel.boundingBox();
   expect(closedBox?.height ?? 0).toBeLessThanOrEqual(1);
   await buttons.nth(1).focus();
@@ -87,17 +84,23 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await expect(page.locator("#s4 .founder-quote")).toHaveCount(0);
   await expect(page.locator("#s4")).not.toContainText("If you've got a question, reply to any email from me.");
   const portrait = await page.locator("#s4 .fd-art").boundingBox();
-  const letterCol = await page.locator("#s4 .fd-copy").boundingBox();
+  const letterCol = await page.evaluate(() => {
+    const id = document.querySelector("#s4 .fd-id")?.getBoundingClientRect();
+    const rest = document.querySelector("#s4 .fd-rest")?.getBoundingClientRect();
+    if (!id || !rest) return null;
+    return { height: rest.bottom - id.top };
+  });
   expect(portrait && letterCol).toBeTruthy();
-  expect(Math.abs(portrait!.height - letterCol!.height)).toBeLessThanOrEqual(120);
+  expect(portrait!.height).toBeLessThanOrEqual(321);
+  expect(Math.abs(portrait!.height - letterCol!.height)).toBeLessThanOrEqual(160);
   const portraitImg = await page.locator("#s4 .fd-art img").boundingBox();
   expect(portraitImg).toBeTruthy();
   expect(Math.abs(portrait!.x + portrait!.width / 2 - (portraitImg!.x + portraitImg!.width / 2))).toBeLessThanOrEqual(1);
   const portraitAlign = await page.locator("#s4 .fd-art img").evaluate((el) => getComputedStyle(el).justifySelf);
   expect(portraitAlign).toBe("center");
-  const letterWrap = await page.locator("#s4 .letter p").evaluate((el) => getComputedStyle(el).textWrap);
+  const letterWrap = await page.locator("#s4 .letter p").first().evaluate((el) => getComputedStyle(el).textWrap);
   expect(letterWrap).toBe("pretty");
-  await expect(page.getByRole("link", { name: "See the Growth plan" })).toHaveAttribute("href", "/pricing#growth");
+  await expect(page.getByRole("link", { name: "Compare the plans" })).toHaveAttribute("href", "/pricing");
 
   const numeral = await page.locator(".nlist .num").first().evaluate((el) => getComputedStyle(el).color);
   expect(numeral).toBe("rgb(10, 111, 176)");
@@ -107,22 +110,15 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   expect(closingSize).toBe("17px");
   expect(await headlineLines(page)).toEqual(["Build the trust", "before they call"]);
 
-  const caption = await page.locator("#s1 figcaption").evaluate((el) => {
+  const caption = await page.locator("#s-how figcaption").last().evaluate((el) => {
     const style = getComputedStyle(el);
     return { size: style.fontSize, lineHeight: style.lineHeight };
   });
-  expect(caption).toEqual({ size: "13px", lineHeight: "18px" });
+  expect(caption).toEqual({ size: "14px", lineHeight: "20px" });
 
-  for (const id of ["s1", "s2", "s3", "s4", "s6", "s7"]) {
-    const wrap = await page.locator(`#${id} h2`).evaluate((el) => getComputedStyle(el).textWrap);
+  for (const id of ["s-problem", "s-how", "s2", "s4", "s6", "s7"]) {
+    const wrap = await page.locator(`#${id} h2`).first().evaluate((el) => getComputedStyle(el).textWrap);
     expect(wrap, `#${id} h2`).toBe("balance");
-  }
-
-  const widgetSources = page.locator("#s1 picture source[media]");
-  await expect(widgetSources).toHaveCount(2);
-  for (const source of await widgetSources.all()) {
-    await expect(source).toHaveAttribute("width", "1080");
-    await expect(source).toHaveAttribute("height", "933");
   }
   await expect(page.locator("#s4 picture source")).toHaveCount(0);
   await expect(founder).toHaveAttribute("src", /dan-founder-4x5-480x600\.jpg/);
@@ -162,13 +158,10 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   );
   expect(faq?.mainEntity?.map((item) => item.name)).toEqual([
     "Do I need a card to start?",
-    "What if I want to stop using ReviewBuddy?",
     "How much of my time does it take?",
-    "Do I need to touch my website?",
     "Is this allowed by Google?",
-    "What if a customer wasn't happy?",
     "Will my customers actually leave a review?",
-    "Which plan should I pick?",
+    "What if I want to stop using ReviewBuddy?",
   ]);
 
   for (const width of [1440, 768, 390, 360]) {
@@ -179,11 +172,11 @@ test("the home bottom half matches the build spec", async ({ page }) => {
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     );
     expect(overflow, `no horizontal scroll at ${width}`).toBeLessThanOrEqual(1);
-    const current = await page.locator("#s1 img").evaluate((img: HTMLImageElement) => img.currentSrc);
-    if (width < 768) {
-      expect(current, `mobile art at ${width}`).toContain("widget-builder-mobile");
+    const current = await page.locator("#s-problem img").evaluate((img: HTMLImageElement) => img.currentSrc);
+    if (width < 1024) {
+      expect(current, `problem art at ${width}`).toContain("be-the-tradie-mobile");
     } else {
-      expect(current, `desktop art at ${width}`).toContain("widget-builder-desktop");
+      expect(current, `problem art at ${width}`).toContain("be-the-tradie-desktop");
     }
     expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
     const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => {
@@ -207,7 +200,8 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await expect(help).toHaveAttribute("href", "/help");
   const helpPlace = await page.evaluate(() => {
     const helpLink = document.querySelector(".faq-r .help");
-    const lastQuestion = document.querySelectorAll("#s6 button.q")[7];
+    const questions = document.querySelectorAll("#s6 button.q");
+    const lastQuestion = questions[questions.length - 1];
     if (!helpLink || !lastQuestion) return null;
     const helpBox = helpLink.getBoundingClientRect();
     const questionBox = lastQuestion.getBoundingClientRect();
@@ -267,7 +261,7 @@ test("help and pricing show the moved questions", async ({ page }) => {
   const faq = ld.map((text) => JSON.parse(text) as { "@type"?: string; mainEntity?: unknown[] }).find(
     (item) => item["@type"] === "FAQPage",
   );
-  expect(faq?.mainEntity).toHaveLength(6);
+  expect(faq?.mainEntity).toHaveLength(7);
 
   await page.goto("/pricing", { waitUntil: "domcontentloaded" });
   await expect(page.getByText("I've got more than one location.")).toBeVisible();

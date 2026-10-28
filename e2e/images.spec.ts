@@ -168,7 +168,7 @@ test("the home page has one SVG signature beside the founder sign-off", async ({
     const svg = signs.getByRole("img", { name: "Dan" });
     await expect(svg).toHaveCount(1);
     const svgBox = await svg.boundingBox();
-    expect(Math.round(svgBox!.height), `signature height at ${width}`).toBe(40);
+    expect(Math.round(svgBox!.height), `signature height at ${width}`).toBe(width >= 1024 ? 40 : 32);
     const fonts = await page.evaluate(() => {
       const root = getComputedStyle(document.documentElement);
       const family = (name: string) => root.getPropertyValue(name).replace(/['"]/g, "").trim().toLowerCase();

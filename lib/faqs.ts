@@ -5,6 +5,16 @@ export type Faq = {
   answer: string;
 };
 
+/** Full stop answer for /pricing. Home uses the shorter version. */
+export const fullStopAnswer =
+  "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, we can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email us the sites you use and we'll check.";
+
+export const whichPlanAnswer =
+  "If you'll reliably hand over the link or QR code after every job, Starter is enough. If you know it'll slip when you're flat out, Growth does the asking for you.";
+
+export const unhappyCustomerAnswer =
+  "They can still leave a public review. Every customer gets the same link and the same choice of sites, whatever they thought of the job. Google's rules require that, and so does Australian consumer law. On the same page there's an optional box to tell you privately instead. If something wasn't right, you hear about it straight away and can ring them and fix it. And if a 3-star review does land, reply to it calmly. Google says a mix of reviews often looks more trustworthy than a perfect score.";
+
 export const homeFaqs: Faq[] = [
   {
     question: "Do I need a card to start?",
@@ -12,28 +22,14 @@ export const homeFaqs: Faq[] = [
       "No. You get 7 days to try it first. If you want to keep going, add a card in the app before day 8. If you don't, your account pauses: review requests and syncing stop, and you pay nothing. Add a card in the app later and you pick up where you left off.",
   },
   {
-    question: "What if I want to stop using ReviewBuddy?",
-    answer:
-      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, we can't promise the ReviewBuddy link or the widget on your website will keep working. If you want to keep showing reviews on your site, you'd need another provider. Google doesn't offer a widget that shows all your reviews (its own data feed only gives five). Other review sites can show in your widget if they connect. Email us the sites you use and we'll check.",
-  },
-  {
     question: "How much of my time does it take?",
     answer:
-      "About as long as it takes to give us access to your Google profile and website. We set it up for you. On Growth, the asking happens without you.",
-  },
-  {
-    question: "Do I need to touch my website?",
-    answer: "No. We add the widget for you and match it to your site.",
+      "About as long as it takes to give us access to your Google profile and website. We do the rest, including adding the widget to your website. On Growth, the asking happens without you.",
   },
   {
     question: "Is this allowed by Google?",
     answer:
-      "Yes. Google encourages businesses to ask for reviews and gives you a link and QR code to do it. What it doesn't allow is paying for reviews, fake reviews, pressuring people on the spot, or only asking the customers you think are happy. ReviewBuddy asks everyone the same way.",
-  },
-  {
-    question: "What if a customer wasn't happy?",
-    answer:
-      "They can still leave a public review. Every customer gets the same link and the same choice of sites, whatever they thought of the job. Google's rules require that, and so does Australian consumer law. On the same page there's an optional box to tell you privately instead. If something wasn't right, you hear about it straight away and can ring them and fix it. And if a 3-star review does land, reply to it calmly. Google says a mix of reviews often looks more trustworthy than a perfect score.",
+      "Yes. Google encourages businesses to ask for reviews and gives you a link and QR code to do it. What it doesn't allow is paying for reviews, fake reviews, pressuring people on the spot, or only asking the customers you think are happy. ReviewBuddy asks everyone the same way. An unhappy customer can still leave a public review, or use the optional box to tell you privately, so you can ring them and fix it.",
   },
   {
     question: "Will my customers actually leave a review?",
@@ -41,9 +37,9 @@ export const homeFaqs: Faq[] = [
       "Not all of them, and nobody can promise a number. But most people who skip a review do it because nobody asked or it was a hassle. ReviewBuddy fixes both: it makes asking for one part of every job, and the link takes them straight to your review sites. They'll still need to be signed in to Google to leave a Google review, and most people's phones already are.",
   },
   {
-    question: "Which plan should I pick?",
+    question: "What if I want to stop using ReviewBuddy?",
     answer:
-      "If you'll reliably hand over the link or QR code after every job, Starter is enough. If you know it'll slip when you're flat out, Growth does the asking for you.",
+      "Cancel any time from the billing page in your account. No notice period, no contract. You keep access until the end of your billing period. Your reviews stay on Google and the other sites, because they're yours. Once your account ends, we can't promise the ReviewBuddy link or the widget on your website will keep working. Help guides has the full detail.",
   },
 ];
 
@@ -76,16 +72,20 @@ export const helpFaqs: Faq[] = [
     question: "I've got more than one location.",
     answer: "Email us at hello@reviewbuddy.com.au and we'll work out what suits.",
   },
+  {
+    question: "What if a customer wasn't happy?",
+    answer: unhappyCustomerAnswer,
+  },
 ];
 
 export const pricingFaqs: Faq[] = [
   {
     question: "What if I want to stop?",
-    answer: homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer,
+    answer: fullStopAnswer,
   },
   {
     question: "Which plan should I pick?",
-    answer: homeFaqs.find((faq) => faq.question === "Which plan should I pick?")!.answer,
+    answer: whichPlanAnswer,
   },
   {
     question: "I've got more than one location.",

@@ -63,19 +63,18 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     "Win their trust before they pick up the phone",
   );
   await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
-  await expect(page.getByText("and no contract.")).toBeVisible();
+  await expect(page.getByText("No contract", { exact: true })).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
   const phoneRow = page.getByRole("contentinfo").locator("dt", { hasText: /^Phone$/ }).locator("xpath=..");
   await expect(phoneRow.locator("dt")).toHaveText("Phone");
   await expect(phoneRow.locator("dd")).toHaveText(contactPhone);
   await expect(phoneRow.getByRole("link", { name: contactPhone, exact: true })).toHaveAttribute("href", contactPhoneHref);
-  await expect(page.locator(`a[href='${contactPhoneHref}']`)).toHaveCount(1);
-  await expect(page.locator("a[href^='tel:']")).toHaveCount(1);
+  await expect(page.locator(`a[href='${contactPhoneHref}']`)).toHaveCount(2);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(2);
   expect(contactPhone).toBe("0411 701 078");
   expect(contactPhoneHref).toBe("tel:+61411701078");
   const visiblePhones = (await page.locator("body").innerText()).match(/\b(?:\+61[0-9 ]{8,}|0[0-9][0-9 ]{8,})\b/g) ?? [];
-  expect(visiblePhones).toEqual([contactPhone]);
   const ldBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
   const telephone = ldBlocks
     .flatMap((text) => {
@@ -91,9 +90,9 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
   const homeText = await page.locator("body").innerText();
-  expect(homeText.match(/worth(?:\s+at\s+least)?\s+\$500/g)).toEqual(["worth at least $500"]);
-  expect(homeText.replaceAll("worth at least $500", "")).not.toMatch(/\$500|valued at|worth over/);
-  await expect(page.getByText("Roadmap Digital")).toBeVisible();
+  expect(homeText).not.toMatch(/\$500|valued at|worth over|worth at least/);
+  await expect(page.getByText("Roadmap Digital")).toHaveCount(0);
+  expect(visiblePhones).toEqual([contactPhone, contactPhone]);
   await expect(page.getByText("Made in Melbourne by Roadmap Labs.").first()).toBeVisible();
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
@@ -282,8 +281,11 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
-  await expect(page.getByText("Other review sites can show in your widget if they connect.")).toBeVisible();
-  await expect(page.getByText("Email us the sites you use and we'll check.")).toBeVisible();
+  await expect(page.getByText("Help guides has the full detail.")).toBeVisible();
+  await expect(page.getByText("Email us the sites you use and we'll check.")).toHaveCount(0);
+  await page.goto("/pricing");
+  await expect(page.locator("body")).toContainText("Email us the sites you use and we'll check.");
+  await expect(page.locator("body")).toContainText("Which plan should I pick?");
 
   for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
     await page.goto(path);

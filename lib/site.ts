@@ -77,7 +77,7 @@ export const plans: readonly Plan[] = [
     includes: [
       "Everything in Starter",
       "An automatic review request after each job, with one polite reminder if they haven't reviewed yet",
-      "Your past customers asked too",
+      "We'll ask your past customers too, from a list you send us",
     ],
     offerDescription: offerDescription("growth"),
   },
@@ -91,7 +91,7 @@ export function planById(id: PlanId): Plan {
   return found;
 }
 
-export const SETUP_LINE = "Setup is free on both plans, and it's worth at least $500.";
+export const SETUP_LINE = "Setup is free on both plans.";
 export const BOTH_PLANS_LINE = "Both plans come with free setup and no contract.";
 export const CTA_LABEL = "Try it free for 7 days";
 export const CLOSING_LINE = "Pick a plan and we'll set it up for you. If it's not for you, cancel from your account.";
@@ -104,10 +104,10 @@ export const GUARANTEE_BADGE = "";
 
 /** Facts under the hero. None of these repeat the trial line. */
 export const TRUST_BAR = [
-  "Free setup",
-  "No contract, no notice period",
-  "Everyone asked the same way, by Google's rules",
   "From $49 a month",
+  "No contract",
+  "Asked by Google's rules",
+  "Works with Google and Facebook",
 ] as const;
 
 export const headerLinks = [

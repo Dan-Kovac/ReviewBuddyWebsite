@@ -1,35 +1,38 @@
 import { Signature } from "@/components/signature";
 import Image from "next/image";
-import { contactEmail } from "@/lib/site";
+import { contactEmail, contactPhone, contactPhoneHref } from "@/lib/site";
 
-const founderParagraphs = [
-  "For years I ran a digital marketing agency, Roadmap Digital, doing SEO for small businesses. Across all those clients, getting more reviews was one of the things that made the biggest difference. Getting them was the hard part. We built ReviewBuddy so the asking actually gets done.",
-];
+const founderLead =
+  "We built ReviewBuddy so the asking actually gets done, and we set up every account ourselves.";
 
 export function FounderNote() {
   return (
     <section id="s4" className="sec" aria-labelledby="about-dan">
       <div className="shell">
-        <div className="g12 fd founder-home">
+        <div className="fd founder-home">
           <figure className="art fd-art">
             <Image
               src="/img/sections/dan-founder-4x5-480x600.jpg"
               alt="Dan Kovac, founder of ReviewBuddy"
               width={480}
               height={600}
-              sizes="(min-width: 1024px) 352px, 320px"
+              sizes="(min-width: 1024px) 256px, (min-width: 768px) 144px, 128px"
             />
           </figure>
-          <article className="fd-copy">
+          <div className="fd-id">
             <p className="eyebrow" id="about-dan">
               Who&apos;s behind ReviewBuddy
             </p>
             <h2>Dan Kovac</h2>
             <p className="title">Founder, ReviewBuddy</p>
+          </div>
+          <div className="fd-rest">
             <div className="letter founder-letter">
-              {founderParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              <p>{founderLead}</p>
+              <p>
+                If you&apos;ve got a question, call me on{" "}
+                <a href={contactPhoneHref}>{contactPhone}</a>.
+              </p>
             </div>
             <div className="founder-signoff">
               <p className="founder-sign">
@@ -45,7 +48,7 @@ export function FounderNote() {
                 {contactEmail}
               </a>
             </p>
-          </article>
+          </div>
         </div>
       </div>
     </section>

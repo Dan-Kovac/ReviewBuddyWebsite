@@ -73,7 +73,7 @@ export default function TermsPage() {
 
         <h2 className={h2}>Free trial</h2>
         <p>
-          New customers get a 7-day free trial and free setup, done by us. The setup is worth at least $500, and we do not charge for it. No
+          New customers get a 7-day free trial. Setup is free on both plans. No
           card is needed to start. You register in the app and get 7 days of
           full access. Add a card in the app before day 8 to keep going. If you
           do not add a card, the account pauses: review requests and syncing
