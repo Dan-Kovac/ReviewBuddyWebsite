@@ -74,7 +74,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.locator("a[href^='tel:']")).toHaveCount(1);
   expect(contactPhone).toBe("0411 701 078");
   expect(contactPhoneHref).toBe("tel:+61411701078");
-  const visiblePhones = (await page.locator("body").innerText()).match(/\b(?:\+61[\d\s]{8,}|0\d[\d\s]{8,})\b/g) ?? [];
+  const visiblePhones = (await page.locator("body").innerText()).match(/\b(?:\+61[0-9 ]{8,}|0[0-9][0-9 ]{8,})\b/g) ?? [];
   expect(visiblePhones).toEqual([contactPhone]);
   const ldBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
   const telephone = ldBlocks

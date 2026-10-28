@@ -138,11 +138,17 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   expect(doCard && youCard).toBeTruthy();
   expect(Math.abs(doCard!.height - youCard!.height)).toBeLessThanOrEqual(1);
 
-  const emailDt = await page.locator("footer dt", { hasText: "Email" }).boundingBox();
-  const emailDd = await page.locator("footer dd").first().boundingBox();
-  expect(emailDt && emailDd).toBeTruthy();
-  expect(emailDt!.y + emailDt!.height).toBeLessThanOrEqual(emailDd!.y + 1);
-  expect(Math.abs(emailDt!.x - emailDd!.x)).toBeLessThan(8);
+  const emailStack = await page.evaluate(() => {
+    const label = [...document.querySelectorAll("footer dt")].find((el) => el.textContent?.trim() === "Email");
+    const value = label?.parentElement?.querySelector("dd");
+    if (!label || !value) return null;
+    const labelBox = label.getBoundingClientRect();
+    const valueBox = value.getBoundingClientRect();
+    return { labelBottom: labelBox.y + labelBox.height, valueTop: valueBox.y, dx: Math.abs(labelBox.x - valueBox.x) };
+  });
+  expect(emailStack).toBeTruthy();
+  expect(emailStack!.labelBottom).toBeLessThanOrEqual(emailStack!.valueTop + 1);
+  expect(emailStack!.dx).toBeLessThan(8);
 
   const desktopHelp = page.locator(".faq-l .help");
   const mobileHelp = page.locator(".faq-r .help");
@@ -191,14 +197,24 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  });
   await expect(page.locator(".faq-l .help")).toBeHidden();
   const help = page.locator(".faq-r .help");
   await expect(help).toBeVisible();
   await expect(help).toHaveAttribute("href", "/help");
-  const helpBox = await help.boundingBox();
-  const lastQuestion = await page.locator("#s6 button.q").nth(7).boundingBox();
-  expect(helpBox && lastQuestion).toBeTruthy();
-  expect(helpBox!.y).toBeGreaterThan(lastQuestion!.y + lastQuestion!.height - 1);
+  const helpPlace = await page.evaluate(() => {
+    const helpLink = document.querySelector(".faq-r .help");
+    const lastQuestion = document.querySelectorAll("#s6 button.q")[7];
+    if (!helpLink || !lastQuestion) return null;
+    const helpBox = helpLink.getBoundingClientRect();
+    const questionBox = lastQuestion.getBoundingClientRect();
+    return { helpY: helpBox.y, questionBottom: questionBox.y + questionBox.height };
+  });
+  expect(helpPlace).toBeTruthy();
+  expect(helpPlace!.helpY).toBeGreaterThan(helpPlace!.questionBottom - 1);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload({ waitUntil: "domcontentloaded" });
