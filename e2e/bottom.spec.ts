@@ -125,7 +125,7 @@ test("the home bottom half matches the build spec", async ({ page }) => {
     await expect(source).toHaveAttribute("height", "933");
   }
   await expect(page.locator("#s4 picture source")).toHaveCount(0);
-  await expect(founder).toHaveAttribute("src", /dan-kovac-founder\.jpg/);
+  await expect(founder).toHaveAttribute("src", /dan-founder-4x5-480x600\.jpg/);
   await expect(founder).toHaveAttribute("width", "480");
   await expect(founder).toHaveAttribute("height", "600");
 
@@ -190,7 +190,7 @@ test("the home bottom half matches the build spec", async ({ page }) => {
       const box = img.getBoundingClientRect();
       return { src: img.currentSrc, naturalWidth: img.naturalWidth, width: box.width, height: box.height };
     });
-    expect(portrait.src, `founder art at ${width}`).toContain("dan-kovac-founder.jpg");
+    expect(portrait.src, `founder art at ${width}`).toContain("dan-founder-4x5-480x600.jpg");
     expect(portrait.src, `founder art at ${width}`).not.toContain("founder-portrait-monogram");
     expect(portrait.naturalWidth, `founder loaded at ${width}`).toBeGreaterThan(0);
     expect(portrait.width / portrait.height, `founder frame at ${width}`).toBeCloseTo(4 / 5, 2);

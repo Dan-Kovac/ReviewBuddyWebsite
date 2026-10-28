@@ -12,7 +12,7 @@ export function FounderNote() {
         <div className="g12 fd founder-home">
           <figure className="art fd-art">
             <Image
-              src="/img/sections/dan-kovac-founder.jpg"
+              src="/img/sections/dan-founder-4x5-480x600.jpg"
               alt="Dan Kovac, founder of ReviewBuddy"
               width={480}
               height={600}
