@@ -23,6 +23,8 @@ export type { SignupEnv } from "./signup-url";
 export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
+export const contactPhone = "0411 701 078";
+export const contactPhoneHref = "tel:+61411701078";
 
 export type PlanId = "starter" | "growth";
 

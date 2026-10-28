@@ -5,6 +5,8 @@ import {
   FOOTER_LINE,
   confirmedAbnDisplay,
   contactEmail,
+  contactPhone,
+  contactPhoneHref,
   footerLinks,
   loginUrl,
 } from "@/lib/site";
@@ -47,6 +49,12 @@ export function SiteFooter() {
               <dt>Email</dt>
               <dd>
                 <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd>
+                <a href={contactPhoneHref}>{contactPhone}</a>
               </dd>
             </div>
             {abn ? (
