@@ -1597,7 +1597,7 @@ h2 { letter-spacing: -0.02em; }
   overflow: hidden;
 }
 .shot-frame img { border-radius: 0; }
-.how-shot figcaption {
+.demo-shot figcaption {
   margin: 8px 0 0;
   padding: 0;
   text-align: left;

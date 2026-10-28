@@ -190,7 +190,7 @@ export default function HomePage() {
               <h3>{howSteps[0].title}</h3>
               <p>{howSteps[0].detail}</p>
             </div>
-            <figure className="art how-shot">
+            <figure className="art demo-shot">
               <div className="shot-frame">
                 <ArtImage
                   desktop={{
@@ -229,7 +229,7 @@ export default function HomePage() {
               <h3>{howSteps[2].title}</h3>
               <p>{howSteps[2].detail}</p>
             </div>
-            <figure className="art how-shot">
+            <figure className="art demo-shot">
               <div className="shot-frame">
                 <ArtImage
                   desktop={{
