@@ -169,8 +169,26 @@ test("the home page has one SVG signature beside the founder sign-off", async ({
     await expect(svg).toHaveCount(1);
     const svgBox = await svg.boundingBox();
     expect(Math.round(svgBox!.height), `signature height at ${width}`).toBe(40);
-    const fontsLoaded = await page.evaluate(() => [...document.fonts].map((f) => f.family.toLowerCase()));
-    expect(fontsLoaded.some((f) => f.includes("caveat")), "no Caveat font").toBe(false);
+    const fonts = await page.evaluate(() => {
+      const root = getComputedStyle(document.documentElement);
+      const family = (name: string) => root.getPropertyValue(name).replace(/['"]/g, "").trim().toLowerCase();
+      const loaded = [...document.fonts].filter((font) => font.status === "loaded").map((font) => font.family.toLowerCase());
+      return {
+        geist: family("--font-geist"),
+        mono: family("--font-geist-mono"),
+        body: getComputedStyle(document.body).fontFamily.toLowerCase(),
+        heading: getComputedStyle(document.querySelector("h1")!).fontFamily.toLowerCase(),
+        loaded,
+      };
+    });
+    expect(fonts.geist, "Geist is the body face").not.toBe("");
+    expect(fonts.body, "body uses Geist").toContain(fonts.geist);
+    expect(fonts.heading, "headings use Geist").toContain(fonts.geist);
+    expect(fonts.loaded.some((family) => family.includes(fonts.geist)), "Geist has loaded").toBe(true);
+    expect(fonts.loaded.some((family) => family.includes("caveat")), "no Caveat font").toBe(false);
+    expect(fonts.loaded.some((family) => family.includes("fraunces")), "no Fraunces font").toBe(false);
+    const numeral = await page.locator(".step-num").first().evaluate((el) => getComputedStyle(el).fontFamily.toLowerCase());
+    expect(numeral, "step numerals use Geist Mono").toContain(fonts.mono);
 
     const sign = await signs.boundingBox();
     const line = await page.locator(".founder-signoff-line").boundingBox();
