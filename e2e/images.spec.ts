@@ -181,14 +181,18 @@ test("the home page has one SVG signature beside the founder sign-off", async ({
         loaded,
       };
     });
-    expect(fonts.geist, "Geist is the body face").not.toBe("");
-    expect(fonts.body, "body uses Geist").toContain(fonts.geist);
-    expect(fonts.heading, "headings use Geist").toContain(fonts.geist);
-    expect(fonts.loaded.some((family) => family.includes(fonts.geist)), "Geist has loaded").toBe(true);
+    const firstFamily = (stack: string) => stack.split(",")[0].trim();
+    const geist = firstFamily(fonts.geist);
+    const mono = firstFamily(fonts.mono);
+    expect(geist, "Geist is the body face").toBe("geist");
+    expect(firstFamily(fonts.body), "body uses Geist").toBe(geist);
+    expect(firstFamily(fonts.heading), "headings use Geist").toBe(geist);
+    expect(fonts.loaded.some((family) => firstFamily(family) === geist), "Geist has loaded").toBe(true);
     expect(fonts.loaded.some((family) => family.includes("caveat")), "no Caveat font").toBe(false);
     expect(fonts.loaded.some((family) => family.includes("fraunces")), "no Fraunces font").toBe(false);
     const numeral = await page.locator(".step-num").first().evaluate((el) => getComputedStyle(el).fontFamily.toLowerCase());
-    expect(numeral, "step numerals use Geist Mono").toContain(fonts.mono);
+    expect(mono, "Geist Mono is available").toBe("geistmono");
+    expect(firstFamily(numeral), "step numerals use Geist Mono").toBe(mono);
 
     const sign = await signs.boundingBox();
     const line = await page.locator(".founder-signoff-line").boundingBox();
