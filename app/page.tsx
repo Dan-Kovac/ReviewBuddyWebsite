@@ -111,8 +111,8 @@ export default function HomePage() {
                   fill="none"
                   stroke="currentColor"
                   className="text-[var(--rb-accent)]"
-                  strokeWidth="3.2"
                   strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
                 />
               </svg>
             </span>{" "}
