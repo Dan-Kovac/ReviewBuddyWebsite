@@ -56,7 +56,7 @@ test("no-card mode is on and the trial line is the settled sentence", () => {
   assert.equal(TRIAL_REMINDER, false);
   assert.equal(
     NO_CARD_TRIAL_LINE,
-    "7-day free trial, no card needed. Add a card before day 8 to keep going.",
+    "7-day free trial, no card needed.",
   );
   assert.equal(resolveTrialLine(CARD_UPFRONT, TRIAL_REMINDER), NO_CARD_TRIAL_LINE);
   assert.equal(resolveTrialLine(false, false), NO_CARD_TRIAL_LINE);

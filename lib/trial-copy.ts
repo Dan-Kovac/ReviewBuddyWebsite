@@ -5,8 +5,7 @@ import { CARD_UPFRONT } from "./flags";
  * "Require Payment Before Signup" is OFF.
  * Flip CARD_UPFRONT in lib/flags.ts to publish CARD_REQUIRED_TRIAL_LINE instead.
  */
-export const NO_CARD_TRIAL_LINE =
-  "7-day free trial, no card needed. Add a card before day 8 to keep going.";
+export const NO_CARD_TRIAL_LINE = "7-day free trial, no card needed.";
 
 /**
  * Used when CARD_UPFRONT is true. A card is taken on the Embed My Reviews
@@ -38,4 +37,4 @@ export const BILLING_LINE =
   "Cancel any time from the billing page in your account. No contract, no notice period.";
 
 export const PRICING_SUB =
-  "Try either plan free for 7 days. Cancel any time from the billing page in your account, no notice needed. Prices are in Australian dollars.";
+  "Try either plan free for 7 days. Cancel any time from the billing page in your account, no notice needed.";

@@ -60,9 +60,9 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   expect(policy).toContain("microphone=()");
   expect(policy).toContain("geolocation=()");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Win their trust before they pick up the phone",
+    "Win your customers' trust before they even call you (and stop competing on price)",
   );
-  await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
+  await expect(page.getByText("7-day free trial, no card needed.").first()).toBeVisible();
   await expect(page.getByText("No contract", { exact: true })).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
@@ -161,7 +161,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
   await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
   await expect(
-    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first(),
+    page.getByText("7-day free trial, no card needed.").first(),
   ).toBeVisible();
   await expect(page.getByText("billing page in your account").first()).toBeVisible();
   await expect(page.getByText("Day 0")).toBeVisible();

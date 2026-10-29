@@ -54,7 +54,7 @@ export const plans: readonly Plan[] = [
     priceAmount: "$49",
     pricePeriod: "a month",
     priceLabel: monthlyPriceLabel("$49 a month"),
-    tagline: "You do the asking.",
+    tagline: "A simple system to get more reviews",
     subHeading: "Your review link, QR code and a review widget on your website.",
     includes: [
       "Your review link and QR code",
@@ -106,8 +106,8 @@ export const GUARANTEE_BADGE = "";
 export const TRUST_BAR = [
   "From $49 a month",
   "No contract",
-  "Asked by Google's rules",
-  "Works with Google and Facebook",
+  "Google Compliant",
+  "Works with Google and all major review platforms",
 ] as const;
 
 export const headerLinks = [

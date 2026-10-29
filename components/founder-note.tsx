@@ -2,8 +2,11 @@ import { Signature } from "@/components/signature";
 import Image from "next/image";
 import { contactEmail, contactPhone, contactPhoneHref } from "@/lib/site";
 
-const founderLead =
-  "We built ReviewBuddy so the asking actually gets done, and we set up every account ourselves.";
+const founderParagraphs = [
+  "I ran a digital marketing agency for 10 years. We ran big SEO and Google Ads campaigns, but nothing we did beat a business that had a steady system for getting reviews.",
+  "Reviews build trust. They're a big part of how Google decides who to show to prospects in the search, and they give you a feedback loop that pushes you to get better every day.",
+  "ReviewBuddy helps Australian tradies get more reviews with a simple, semi-automated system. The benefits compound over time, and I'd love to set you up for free so you can see why I'm so keen on it.",
+] as const;
 
 export function FounderNote() {
   return (
@@ -28,8 +31,9 @@ export function FounderNote() {
           </div>
           <div className="fd-rest">
             <div className="letter founder-letter">
-              <p>{founderLead}</p>
-              <p>If you&apos;ve got a question, call me.</p>
+              {founderParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
             <div className="founder-signoff">
               <p className="founder-sign">

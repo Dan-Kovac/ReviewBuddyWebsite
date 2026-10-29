@@ -33,7 +33,7 @@ const howSteps = [
   },
   {
     title: "Shown on your website",
-    detail: "New reviews show in a widget on your website, so people see them before they call.",
+    detail: "New reviews show in a widget on your website, boosting the conversion rate of your website traffic.",
   },
 ] as const;
 
@@ -41,7 +41,7 @@ const weDo = [
   "Connect your Google profile and other review sites",
   "Build your review link and QR code",
   "Put the widget on your website, matched to your colours",
-  "Write your review email for you to approve",
+  "Write your review email for you to approve and send to existing clients",
 ];
 
 const youDo = [
@@ -101,8 +101,8 @@ export default function HomePage() {
       <section className="site-hero">
         <div className="wrap mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)]">
           <p className="eyebrow text-[var(--rb-accent)]">Google reviews for Australian tradies</p>
-          <h1 className="display mx-auto mt-4 max-w-[19ch] text-balance">
-            Win their{" "}
+          <h1 className="display mx-auto mt-4 max-w-[18em] text-balance">
+            Win your customers&apos;{" "}
             <span className="trust-word">
               trust
               <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
@@ -116,10 +116,10 @@ export default function HomePage() {
                 />
               </svg>
             </span>{" "}
-            before they pick up the phone
+            before they even call you (and stop competing on price)
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            ReviewBuddy asks every customer for a Google review after the job and shows them on your website. We set it all up.
+            ReviewBuddy ensures you generate reviews after every job you complete, ensuring you get more and more quality leads into your business.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
@@ -261,7 +261,7 @@ export default function HomePage() {
 
       <section id="s2" className="sec s2 bg-[var(--rb-surface)]">
         <div className="shell">
-          <h2>We set it up for you, and you keep doing the work</h2>
+          <h2>We set it up for you, so the system works for you before you even pay a cent</h2>
           <div className="g12 s2-grid">
             <div className="card-do">
               <h3>What we do</h3>
