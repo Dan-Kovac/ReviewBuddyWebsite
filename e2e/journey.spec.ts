@@ -64,6 +64,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   );
   await expect(page.getByText("7-day free trial, no card needed.").first()).toBeVisible();
   await expect(page.getByText("No contract", { exact: true })).toBeVisible();
+  await expect(page.getByText("Works with Google & most major review platforms", { exact: true })).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
   const phoneRow = page.getByRole("contentinfo").locator("dt", { hasText: /^Phone$/ }).locator("xpath=..");

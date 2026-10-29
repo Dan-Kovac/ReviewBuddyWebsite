@@ -107,7 +107,7 @@ export const TRUST_BAR = [
   "From $49 a month",
   "No contract",
   "Google Compliant",
-  "Works with Google and all major review platforms",
+  "Works with Google & most major review platforms",
 ] as const;
 
 export const headerLinks = [
