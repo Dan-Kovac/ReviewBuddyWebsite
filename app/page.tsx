@@ -184,68 +184,60 @@ export default function HomePage() {
             <p className="eyebrow">How it works</p>
             <h2 className="mt-3">Three steps, all set up for you</h2>
           </div>
-          <div className="how-row">
-            <div className="how-copy">
-              <span className="how-num step-num">01</span>
-              <h3>{howSteps[0].title}</h3>
-              <p>{howSteps[0].detail}</p>
-            </div>
-            <figure className="art demo-shot">
-              <div className="shot-frame">
-                <ArtImage
-                  desktop={{
-                    webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
-                    png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
-                    width: 1520,
-                    height: 1314,
-                  }}
-                  mobile={{
-                    webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
-                    png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
-                    width: 440,
-                    height: 590,
-                  }}
-                  alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
-                />
+          <div className="how-grid">
+            <figure className="how-card">
+              <div className="how-frame">
+                <picture>
+                  <source srcSet="/img/screens/reviewbuddy-send-review-request-desktop-v2.webp" type="image/webp" />
+                  <img
+                    src="/img/screens/reviewbuddy-send-review-request-desktop-v2.png"
+                    width={1520}
+                    height={1314}
+                    alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <div className="how-copy">
+                <span className="how-num step-num">01</span>
+                <h3>{howSteps[0].title}</h3>
+                <p>{howSteps[0].detail}</p>
               </div>
               <figcaption>Sending a request from the app.</figcaption>
             </figure>
-          </div>
-          <div className="how-row flip">
-            <div className="how-copy">
-              <span className="how-num step-num">02</span>
-              <h3>{howSteps[1].title}</h3>
-              <p>{howSteps[1].detail}</p>
-            </div>
-            <div className="follow-panel" aria-hidden="false">
-              <p className="follow-line">After the job: review request sent</p>
-              <div className="follow-rule" aria-hidden="true" />
-              <p className="follow-line">Later: one polite reminder, only if they haven&apos;t reviewed yet</p>
-            </div>
-          </div>
-          <div className="how-row">
-            <div className="how-copy">
-              <span className="how-num step-num">03</span>
-              <h3>{howSteps[2].title}</h3>
-              <p>{howSteps[2].detail}</p>
-            </div>
-            <figure className="art demo-shot">
-              <div className="shot-frame">
-                <ArtImage
-                  desktop={{
-                    webp: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp",
-                    png: "/img/screens/reviewbuddy-widget-on-website-desktop-v2.png",
-                    width: 2400,
-                    height: 1210,
-                  }}
-                  mobile={{
-                    webp: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.webp",
-                    png: "/img/screens/reviewbuddy-widget-on-website-mobile-v2.png",
-                    width: 1080,
-                    height: 1044,
-                  }}
-                  alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
-                />
+            <article className="how-card">
+              <div className="how-frame">
+                <div className="follow-panel">
+                  <p className="follow-line">After the job: review request sent</p>
+                  <div className="follow-rule" aria-hidden="true" />
+                  <p className="follow-line">Later: one polite reminder, only if they haven&apos;t reviewed yet</p>
+                </div>
+              </div>
+              <div className="how-copy">
+                <span className="how-num step-num">02</span>
+                <h3>{howSteps[1].title}</h3>
+                <p>{howSteps[1].detail}</p>
+              </div>
+            </article>
+            <figure className="how-card">
+              <div className="how-frame">
+                <picture>
+                  <source srcSet="/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp" type="image/webp" />
+                  <img
+                    src="/img/screens/reviewbuddy-widget-on-website-desktop-v2.png"
+                    width={2400}
+                    height={1210}
+                    alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              <div className="how-copy">
+                <span className="how-num step-num">03</span>
+                <h3>{howSteps[2].title}</h3>
+                <p>{howSteps[2].detail}</p>
               </div>
               <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
             </figure>

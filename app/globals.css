@@ -1600,8 +1600,48 @@ main p,
 
 .how-shell { padding-top: 72px; padding-bottom: 72px; }
 .how3-head { max-width: 720px; }
-.how-row { display: grid; gap: 24px; align-items: center; margin-top: 56px; }
-.how-row:first-of-type { margin-top: 48px; }
+.how-grid {
+  display: grid;
+  gap: 32px;
+  margin-top: 40px;
+}
+.how-card { min-width: 0; margin: 0; }
+.how-card figure { margin: 0; }
+.how-frame {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  border-radius: 16px;
+  background: #F5F7F9;
+  border: 1px solid #E6E8EB;
+  padding: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.how-frame picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.how-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.how-card figcaption {
+  margin: 12px 0 0;
+  padding: 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--rb-text-muted);
+}
+.how-copy { margin-top: 20px; }
 .how-copy .how-num {
   display: block;
   margin: 0;
@@ -1613,27 +1653,12 @@ main p,
   font-variant-numeric: tabular-nums;
 }
 .how-copy h3 { margin-top: 12px; font-size: 22px; line-height: 30px; font-weight: 600; }
-.how-copy p { margin-top: 8px; max-width: 440px; font-size: 18px; line-height: 28px; }
-.shot-frame {
-  margin: 0;
-  border-radius: 16px;
-  border: 1px solid #E6E8EB;
-  background: #fff;
-  overflow: hidden;
-}
-.shot-frame img { border-radius: 0; }
-.demo-shot figcaption {
-  margin: 8px 0 0;
-  padding: 0;
-  text-align: left;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--rb-text-muted);
-}
+.how-copy p { margin-top: 8px; max-width: none; font-size: 18px; line-height: 28px; }
 .follow-panel {
-  background: #F5F7F9;
-  border-radius: 20px;
-  padding: 40px;
+  width: 100%;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 .follow-line { margin: 0; font-weight: 500; font-size: 20px; line-height: 28px; color: var(--rb-text); }
 .follow-rule {
@@ -1685,9 +1710,7 @@ main p,
   .problem { grid-template-columns: 1fr 1fr; gap: 48px; }
   .how-shell { padding-top: 120px; padding-bottom: 120px; }
   .how3-head { margin-inline: auto; text-align: center; }
-  .how-row { grid-template-columns: 5fr 7fr; gap: 40px; margin-top: 96px; }
-  .how-row.flip { grid-template-columns: 7fr 5fr; }
-  .how-row.flip .how-copy { order: 2; }
+  .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 56px; }
   .rules-line, .section-cta { text-align: center; }
 }
 
