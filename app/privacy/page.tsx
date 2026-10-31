@@ -95,8 +95,7 @@ export default function PrivacyPage() {
           <strong className="text-ink">Billing.</strong> No card is taken on
           this website. If you add a card, you do it in the app, and Stripe
           processes the payment. We do not store your card number here. This
-          website can read from Stripe whether a Starter or Growth subscription
-          is active or still in its trial. That read is a count. It is not your name.
+          website does not read your subscription details from Stripe.
         </p>
         <p>
           <strong className="text-ink">Running the service.</strong> To set the
@@ -129,7 +128,7 @@ export default function PrivacyPage() {
         <p>We do not sell personal information. We share it with service providers who help us run ReviewBuddy, and only as needed:</p>
         <ul className="list-disc space-y-2 pl-5">
           <li>Embed My Reviews, which hosts sign-up, the app, the review link, the widget, review-request emails and the billing page in your account</li>
-          <li>Stripe, which processes card payments you add in the app, and which we query for subscription counts</li>
+          <li>Stripe, which processes card payments you add in the app</li>
           <li>Supabase, which stores breakdown requests and, when used, blog and help articles</li>
           <li>Resend, which emails a breakdown request to us when that email is configured</li>
           <li>Vercel, which hosts this website and provides the analytics described below</li>

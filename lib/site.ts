@@ -23,6 +23,8 @@ export type { SignupEnv } from "./signup-url";
 export const siteUrl = "https://reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
+export const contactPhone = "0411 701 078";
+export const contactPhoneHref = "tel:+61411701078";
 
 export type PlanId = "starter" | "growth";
 
@@ -52,7 +54,7 @@ export const plans: readonly Plan[] = [
     priceAmount: "$49",
     pricePeriod: "a month",
     priceLabel: monthlyPriceLabel("$49 a month"),
-    tagline: "You do the asking.",
+    tagline: "A simple system to get more reviews",
     subHeading: "Your review link, QR code and a review widget on your website.",
     includes: [
       "Your review link and QR code",
@@ -74,8 +76,8 @@ export const plans: readonly Plan[] = [
     recommended: true,
     includes: [
       "Everything in Starter",
-      "An automatic review request after each job, with one polite reminder",
-      "Your past customers asked too",
+      "An automatic review request after each job, with one polite reminder if they haven't reviewed yet",
+      "We'll ask your past customers too, from a list you send us",
     ],
     offerDescription: offerDescription("growth"),
   },
@@ -102,10 +104,10 @@ export const GUARANTEE_BADGE = "";
 
 /** Facts under the hero. None of these repeat the trial line. */
 export const TRUST_BAR = [
-  "Free setup",
-  "No contract, no notice period",
-  "Everyone asked the same way, by Google's rules",
   "From $49 a month",
+  "No contract",
+  "Google Compliant",
+  "Works with Google & most major review platforms",
 ] as const;
 
 export const headerLinks = [

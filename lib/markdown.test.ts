@@ -54,7 +54,9 @@ test("review follow-ups stay in the source", () => {
 
   const site = readFileSync(new URL("../lib/site.ts", import.meta.url), "utf8");
   const footer = readFileSync(new URL("../components/site-footer.tsx", import.meta.url), "utf8");
-  assert.match(founder, /Roadmap Digital/);
+  assert.equal(founder.includes("Roadmap Digital"), false);
+  assert.equal(founder.includes("For years I ran"), false);
+  assert.match(founder, /I ran a digital marketing agency for 10 years/);
   assert.match(founder, /Dan Kovac, founder\.<\/p>\s*<p>Made in Melbourne by Roadmap Labs\./);
   assert.equal(founder.includes("Built in Melbourne by Dan"), false);
   assert.match(site, /Made in Melbourne by Roadmap Labs/);

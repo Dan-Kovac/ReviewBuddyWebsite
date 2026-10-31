@@ -31,32 +31,42 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await waitForLazyImages(page);
 
-  const bright = page.getByRole("link", { name: "BrightLocal Local Consumer Review Survey 2026 (US)" });
-  const white = page.getByRole("link", { name: "Whitespark Local Search Ranking Factors 2026 (expert survey)" });
-  await expect(bright).toBeVisible();
-  await expect(white).toBeVisible();
-  await expect(bright).toHaveAttribute("href", "https://www.brightlocal.com/research/local-consumer-review-survey/");
-  await expect(white).toHaveAttribute("href", "https://whitespark.ca/local-search-ranking-factors/");
-  await expect(page.locator("#s1 figcaption")).toHaveText(
-    "Demo data for illustration. Real ReviewBuddy widget, reviews replaced.",
-  );
-  await expect(page.locator("#s1 img")).toHaveAttribute("src", /widget-builder-desktop\.png/);
-  await expect(page.locator("#s1 img")).not.toHaveAttribute("src", /widget-on-website/);
-  await expect(page.locator("#s1 .stat")).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Win more jobs on trust" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "It's a tough year to compete on price" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Inside ReviewBuddy" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "You've probably got dozens of reviews you never asked for" })).toHaveCount(0);
+  await expect(page.locator("#s1")).toHaveCount(0);
+  await expect(page.locator(".bento")).toHaveCount(0);
+  await expect(page.locator(".how-card")).toHaveCount(0);
+  await expect(page.getByText("Worried about price?", { exact: true })).toBeVisible();
+  await expect(page.getByText("Request sent", { exact: true })).toBeVisible();
+  await expect(page.getByText("Reviews coming in", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ask every customer" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Follow up once" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Shown on your website" })).toBeVisible();
+  const explainer = page.locator("#s-how img");
+  await expect(explainer).toHaveCount(1);
+  await expect(explainer).toHaveAttribute("src", /reviewbuddy-key-image-desktop-2400-v3\.png/);
+  await expect(explainer).toHaveAttribute("width", "2400");
+  await expect(explainer).toHaveAttribute("height", "1432");
+  await expect(explainer).not.toHaveAttribute("src", /widget-builder/);
+  await expect(page.locator(".storyboard img").first()).toHaveAttribute("src", /send-review-request/);
+  await expect(page.locator(".storyboard img").nth(1)).toHaveAttribute("src", /widget-on-website/);
   expect(await page.content()).not.toContain("invitees");
+  expect(await page.content()).not.toContain("worth at least $500");
 
   const buttons = page.locator("#s6 button.q");
-  await expect(buttons).toHaveCount(8);
+  await expect(buttons).toHaveCount(5);
   await expect(buttons.nth(0)).toHaveAttribute("aria-expanded", "true");
   await expect(buttons.nth(0)).toHaveText("Do I need a card to start?");
-  for (let index = 1; index < 8; index += 1) {
+  for (let index = 1; index < 5; index += 1) {
     await expect(buttons.nth(index)).toHaveAttribute("aria-expanded", "false");
   }
-  await expect(page.locator("#s6 .a")).toHaveCount(8);
+  await expect(page.locator("#s6 .a")).toHaveCount(5);
   await expect(page.locator("#s6 .panel").nth(0)).not.toHaveAttribute("aria-hidden", "true");
   const closedPanel = page.locator("#s6 .panel").nth(1);
   await expect(closedPanel).toHaveAttribute("aria-hidden", "true");
-  await expect(closedPanel).toContainText("Cancel any time from the billing page");
+  await expect(closedPanel).toContainText("We do the rest, including adding the widget");
   const closedBox = await closedPanel.boundingBox();
   expect(closedBox?.height ?? 0).toBeLessThanOrEqual(1);
   await buttons.nth(1).focus();
@@ -66,47 +76,67 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await page.keyboard.press(" ");
   await expect(buttons.nth(1)).toHaveAttribute("aria-expanded", "false");
 
-  await expect(page.locator("#s4 img")).toHaveAttribute("alt", "");
+  const founder = page.locator("#s4 img");
+  await expect(founder).toHaveAttribute("alt", "Dan Kovac, founder of ReviewBuddy");
+  const founderFrame = await founder.evaluate((img: HTMLImageElement) => {
+    const box = img.getBoundingClientRect();
+    return {
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight,
+      width: box.width,
+      height: box.height,
+      objectFit: getComputedStyle(img).objectFit,
+    };
+  });
+  expect(founderFrame.naturalWidth).toBeGreaterThan(0);
+  expect(founderFrame.naturalHeight).toBeGreaterThan(0);
+  expect(founderFrame.naturalWidth / founderFrame.naturalHeight).toBeCloseTo(4 / 5, 2);
+  expect(founderFrame.width / founderFrame.height).toBeCloseTo(4 / 5, 2);
+  expect(founderFrame.objectFit).toBe("cover");
   await expect(page.locator("#s4 h2")).toHaveText("Dan Kovac");
   await expect(page.locator("#s4 .founder-quote")).toHaveCount(0);
   await expect(page.locator("#s4")).not.toContainText("If you've got a question, reply to any email from me.");
   const portrait = await page.locator("#s4 .fd-art").boundingBox();
-  const letterCol = await page.locator("#s4 .fd-copy").boundingBox();
+  const letterCol = await page.evaluate(() => {
+    const id = document.querySelector("#s4 .fd-id")?.getBoundingClientRect();
+    const rest = document.querySelector("#s4 .fd-rest")?.getBoundingClientRect();
+    if (!id || !rest) return null;
+    return { height: rest.bottom - id.top };
+  });
   expect(portrait && letterCol).toBeTruthy();
-  expect(Math.abs(portrait!.height - letterCol!.height)).toBeLessThanOrEqual(120);
-  await expect(page.getByRole("link", { name: "See the Growth plan" })).toHaveAttribute("href", "/pricing#growth");
+  expect(portrait!.height).toBeLessThanOrEqual(321);
+  expect(Math.abs(portrait!.height - letterCol!.height)).toBeLessThanOrEqual(160);
+  const portraitImg = await page.locator("#s4 .fd-art img").boundingBox();
+  expect(portraitImg).toBeTruthy();
+  expect(Math.abs(portrait!.x + portrait!.width / 2 - (portraitImg!.x + portraitImg!.width / 2))).toBeLessThanOrEqual(1);
+  const portraitAlign = await page.locator("#s4 .fd-art img").evaluate((el) => getComputedStyle(el).justifySelf);
+  expect(portraitAlign).toBe("center");
+  const letterWrap = await page.locator("#s4 .letter p").first().evaluate((el) => getComputedStyle(el).textWrap);
+  expect(letterWrap).toBe("pretty");
+  await expect(page.getByRole("link", { name: "Compare the plans" })).toHaveAttribute("href", "/pricing");
 
   const numeral = await page.locator(".nlist .num").first().evaluate((el) => getComputedStyle(el).color);
   expect(numeral).toBe("rgb(10, 111, 176)");
   const closing = await page.locator("#s7 .close-cta").evaluate((el) => getComputedStyle(el).color);
   expect(closing).toBe("rgb(11, 15, 20)");
   const closingSize = await page.locator("#s7 .close-cta").evaluate((el) => getComputedStyle(el).fontSize);
-  expect(closingSize).toBe("17px");
+  expect(closingSize).toBe("16px");
   expect(await headlineLines(page)).toEqual(["Build the trust", "before they call"]);
 
-  const caption = await page.locator("#s1 figcaption").evaluate((el) => {
+  const caption = await page.locator("#s-how figcaption").last().evaluate((el) => {
     const style = getComputedStyle(el);
     return { size: style.fontSize, lineHeight: style.lineHeight };
   });
-  expect(caption).toEqual({ size: "13px", lineHeight: "18px" });
+  expect(caption).toEqual({ size: "14px", lineHeight: "20px" });
 
-  for (const id of ["s1", "s2", "s3", "s4", "s6", "s7"]) {
-    const wrap = await page.locator(`#${id} h2`).evaluate((el) => getComputedStyle(el).textWrap);
+  for (const id of ["s-problem", "s-how", "s2", "s4", "s6", "s7"]) {
+    const wrap = await page.locator(`#${id} h2`).first().evaluate((el) => getComputedStyle(el).textWrap);
     expect(wrap, `#${id} h2`).toBe("balance");
   }
-
-  const widgetSources = page.locator("#s1 picture source[media]");
-  await expect(widgetSources).toHaveCount(2);
-  for (const source of await widgetSources.all()) {
-    await expect(source).toHaveAttribute("width", "1080");
-    await expect(source).toHaveAttribute("height", "933");
-  }
-  const portraitSources = page.locator("#s4 picture source[media]");
-  await expect(portraitSources).toHaveCount(2);
-  for (const source of await portraitSources.all()) {
-    await expect(source).toHaveAttribute("width", "1080");
-    await expect(source).toHaveAttribute("height", "864");
-  }
+  await expect(page.locator("#s4 picture source")).toHaveCount(0);
+  await expect(founder).toHaveAttribute("src", /dan-founder-4x5-480x600\.jpg/);
+  await expect(founder).toHaveAttribute("width", "480");
+  await expect(founder).toHaveAttribute("height", "600");
 
   const footerEmail = page.getByRole("contentinfo").getByRole("link", { name: "hello@reviewbuddy.com.au" });
   const underline = await footerEmail.evaluate((el) => getComputedStyle(el).textDecorationLine);
@@ -117,11 +147,17 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   expect(doCard && youCard).toBeTruthy();
   expect(Math.abs(doCard!.height - youCard!.height)).toBeLessThanOrEqual(1);
 
-  const emailDt = await page.locator("footer dt", { hasText: "Email" }).boundingBox();
-  const emailDd = await page.locator("footer dd").first().boundingBox();
-  expect(emailDt && emailDd).toBeTruthy();
-  expect(emailDt!.y + emailDt!.height).toBeLessThanOrEqual(emailDd!.y + 1);
-  expect(Math.abs(emailDt!.x - emailDd!.x)).toBeLessThan(8);
+  const emailStack = await page.evaluate(() => {
+    const label = [...document.querySelectorAll("footer dt")].find((el) => el.textContent?.trim() === "Email");
+    const value = label?.parentElement?.querySelector("dd");
+    if (!label || !value) return null;
+    const labelBox = label.getBoundingClientRect();
+    const valueBox = value.getBoundingClientRect();
+    return { labelBottom: labelBox.y + labelBox.height, valueTop: valueBox.y, dx: Math.abs(labelBox.x - valueBox.x) };
+  });
+  expect(emailStack).toBeTruthy();
+  expect(emailStack!.labelBottom).toBeLessThanOrEqual(emailStack!.valueTop + 1);
+  expect(emailStack!.dx).toBeLessThan(8);
 
   const desktopHelp = page.locator(".faq-l .help");
   const mobileHelp = page.locator(".faq-r .help");
@@ -135,13 +171,10 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   );
   expect(faq?.mainEntity?.map((item) => item.name)).toEqual([
     "Do I need a card to start?",
-    "What if I want to stop using ReviewBuddy?",
     "How much of my time does it take?",
-    "Do I need to touch my website?",
     "Is this allowed by Google?",
-    "What if a customer wasn't happy?",
     "Will my customers actually leave a review?",
-    "Which plan should I pick?",
+    "What if I want to stop using ReviewBuddy?",
   ]);
 
   for (const width of [1440, 768, 390, 360]) {
@@ -152,35 +185,80 @@ test("the home bottom half matches the build spec", async ({ page }) => {
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     );
     expect(overflow, `no horizontal scroll at ${width}`).toBeLessThanOrEqual(1);
-    const current = await page.locator("#s1 img").evaluate((img: HTMLImageElement) => img.currentSrc);
-    if (width < 768) {
-      expect(current, `mobile art at ${width}`).toContain("widget-builder-mobile");
+    const current = await page.locator("#s-problem img").evaluate((img: HTMLImageElement) => img.currentSrc);
+    if (width < 1024) {
+      expect(current, `problem art at ${width}`).toContain("be-the-tradie-mobile");
     } else {
-      expect(current, `desktop art at ${width}`).toContain("widget-builder-desktop");
+      expect(current, `problem art at ${width}`).toContain("be-the-tradie-desktop");
     }
     expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
-    const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => img.currentSrc);
-    if (width < 768) {
-      expect(portrait).toContain("founder-portrait-monogram-mobile");
-    } else {
-      expect(portrait).toContain("founder-portrait-monogram-desktop");
-    }
+    const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => {
+      const box = img.getBoundingClientRect();
+      return { src: img.currentSrc, naturalWidth: img.naturalWidth, width: box.width, height: box.height };
+    });
+    expect(portrait.src, `founder art at ${width}`).toContain("dan-founder-4x5-480x600.jpg");
+    expect(portrait.src, `founder art at ${width}`).not.toContain("founder-portrait-monogram");
+    expect(portrait.naturalWidth, `founder loaded at ${width}`).toBeGreaterThan(0);
+    expect(portrait.width / portrait.height, `founder frame at ${width}`).toBeCloseTo(4 / 5, 2);
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  });
   await expect(page.locator(".faq-l .help")).toBeHidden();
   const help = page.locator(".faq-r .help");
   await expect(help).toBeVisible();
   await expect(help).toHaveAttribute("href", "/help");
-  const helpBox = await help.boundingBox();
-  const lastQuestion = await page.locator("#s6 button.q").nth(7).boundingBox();
-  expect(helpBox && lastQuestion).toBeTruthy();
-  expect(helpBox!.y).toBeGreaterThan(lastQuestion!.y + lastQuestion!.height - 1);
+  const helpPlace = await page.evaluate(() => {
+    const helpLink = document.querySelector(".faq-r .help");
+    const questions = document.querySelectorAll("#s6 button.q");
+    const lastQuestion = questions[questions.length - 1];
+    if (!helpLink || !lastQuestion) return null;
+    const helpBox = helpLink.getBoundingClientRect();
+    const questionBox = lastQuestion.getBoundingClientRect();
+    return { helpY: helpBox.y, questionBottom: questionBox.y + questionBox.height };
+  });
+  expect(helpPlace).toBeTruthy();
+  expect(helpPlace!.helpY).toBeGreaterThan(helpPlace!.questionBottom - 1);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload({ waitUntil: "domcontentloaded" });
   const duration = await page.locator("#s6 .panel").first().evaluate((el) => getComputedStyle(el).transitionDuration);
   expect(duration).toBe("0s");
+});
+
+test("the founder letter and sign-off end on more than one word", async ({ page }) => {
+  test.skip(test.info().project.name !== "mobile", "the 390 widow from QA N-1");
+
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const lines = page.locator("#s4 .letter p, #s4 .founder-signoff-line p");
+  await expect(lines.first()).toBeVisible();
+  for (const line of await lines.all()) {
+    await expect(line).toHaveCSS("text-wrap", "pretty");
+    const words = await line.evaluate((el) => {
+      const found: { text: string; top: number }[] = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let node = walker.nextNode();
+      while (node) {
+        const value = node.textContent ?? "";
+        for (const match of value.matchAll(/\S+/g)) {
+          const range = document.createRange();
+          range.setStart(node, match.index!);
+          range.setEnd(node, match.index! + match[0].length);
+          const rect = range.getBoundingClientRect();
+          if (rect.width > 0) found.push({ text: match[0], top: Math.round(rect.top) });
+        }
+        node = walker.nextNode();
+      }
+      return found;
+    });
+    if (words.length < 2) continue;
+    const bottom = Math.max(...words.map((word) => word.top));
+    const lastLine = words.filter((word) => Math.abs(word.top - bottom) < 4).map((word) => word.text);
+    expect(lastLine.length, `one-word last line: ${lastLine.join(" ")}`).toBeGreaterThan(1);
+  }
 });
 
 test("help and pricing show the moved questions", async ({ page }) => {
@@ -196,13 +274,21 @@ test("help and pricing show the moved questions", async ({ page }) => {
   const faq = ld.map((text) => JSON.parse(text) as { "@type"?: string; mainEntity?: unknown[] }).find(
     (item) => item["@type"] === "FAQPage",
   );
-  expect(faq?.mainEntity).toHaveLength(6);
+  expect(faq?.mainEntity).toHaveLength(7);
 
   await page.goto("/pricing", { waitUntil: "domcontentloaded" });
   await expect(page.getByText("I've got more than one location.")).toBeVisible();
   await expect(page.locator("body")).toContainText(
     "Email us at hello@reviewbuddy.com.au and we'll work out what suits.",
   );
+  const locations = page.locator("section", { has: page.getByRole("heading", { name: "More than one location" }) });
+  await expect(locations).toContainText("and we'll work out what suits.");
+  await expect(locations).not.toContainText("I'll work out");
+  await expect(
+    page.getByText("We set it up for you in about 2 business days, then send you your review email to approve.", {
+      exact: true,
+    }),
+  ).toBeVisible();
 });
 
 test("the sticky trial bar hides while the closing band is in view", async ({ page }) => {

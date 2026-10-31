@@ -11,10 +11,10 @@
 
 ## Offer and prices
 
-- 7-day free trial, no card needed. Add a card before day 8 to keep going.
+- 7-day free trial, no card needed.
 - If you haven't added a card by day 8, the account pauses. Review requests and syncing stop until a card is added in the app.
 - Cancel any time from the billing page in the account. Access stays until the end of the billing period.
-- Starter: $49 a month, AUD. You do the asking.
+- Starter: $49 a month, AUD. A simple system to get more reviews.
 - Growth: $75 a month, AUD. The asking happens without you.
 - Try Starter free for 7 days goes to Embed My Reviews registration with plan 5. Try Growth free for 7 days goes to plan 6. The trial is not stored on this website.
 

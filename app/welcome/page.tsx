@@ -23,7 +23,7 @@ export default function WelcomePage() {
         Your 7-day free trial has started. Check your email for your login.
       </p>
       <p className="mt-4 text-lg leading-8 text-muted">
-        <EmailText text="Add a card in the app before day 8 if you want to keep going. If you've got a question, email hello@reviewbuddy.com.au." />
+        <EmailText text="Add a card in the app before day 8 if you want to keep going. Questions? Email hello@reviewbuddy.com.au or call Dan on 0411 701 078." />
       </p>
       <Suspense fallback={null}>
         <WelcomeTracker />

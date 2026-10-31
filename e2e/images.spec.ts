@@ -98,10 +98,10 @@ test("the hero shows the demo-data line at 390", async ({ page }) => {
   const note = hero.getByText("Demo data for illustration. Not real customers or reviews.", { exact: true });
   await expect(note).toBeVisible();
   const noteBox = await note.boundingBox();
-  const stageBox = await hero.locator(".stage").boundingBox();
+  const storyBox = await hero.locator(".storyboard").boundingBox();
   expect(noteBox).toBeTruthy();
-  expect(stageBox).toBeTruthy();
-  expect(noteBox!.y).toBeGreaterThanOrEqual(stageBox!.y);
+  expect(storyBox).toBeTruthy();
+  expect(noteBox!.y).toBeGreaterThanOrEqual(storyBox!.y);
 });
 
 test("the last footer link is clickable at 390", async ({ page }) => {
@@ -127,22 +127,23 @@ test("the last footer link is clickable at 390", async ({ page }) => {
   await last.click({ trial: true });
 });
 
-test("the tablet hero shares one centre line and the key image stays in frame", async ({ page }) => {
+test("the tablet hero shares one centre line and the explainer stays in frame", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "once, at a 768 viewport");
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto("/", { waitUntil: "networkidle" });
   const h1 = await page.getByRole("heading", { level: 1 }).boundingBox();
   const lead = await page.locator(".site-hero .lead").boundingBox();
   const cta = await page.locator(".site-hero [data-hero-cta] a").boundingBox();
-  const image = await page.locator(".site-hero .stage img").boundingBox();
+  const image = await page.locator("#s-how img").boundingBox();
   expect(h1 && lead && cta && image).toBeTruthy();
   const centre = (box: { x: number; width: number }) => box.x + box.width / 2;
   expect(Math.abs(centre(h1!) - centre(lead!))).toBeLessThanOrEqual(2);
   expect(Math.abs(centre(h1!) - centre(cta!))).toBeLessThanOrEqual(2);
-  expect(image!.height).toBeLessThan(1024 * 1.2);
+  expect(image!.x).toBeGreaterThanOrEqual(-1);
+  expect(image!.x + image!.width).toBeLessThanOrEqual(769);
   const ratio = image!.width / image!.height;
-  expect(ratio).toBeGreaterThan(1080 / 2040 - 0.02);
-  expect(ratio).toBeLessThan(1080 / 2040 + 0.02);
+  expect(ratio).toBeGreaterThan(1080 / 3498 - 0.02);
+  expect(ratio).toBeLessThan(1080 / 3498 + 0.02);
 });
 
 test("the blog index is noindex and stays out of the sitemap", async ({ page }) => {
@@ -158,21 +159,41 @@ test("the blog index is noindex and stays out of the sitemap", async ({ page }) 
   expect(xml).not.toMatch(/<loc>https:\/\/reviewbuddy\.com\.au\/blog<\/loc>/);
 });
 
-test("the home page has one Caveat signature beside the founder sign-off", async ({ page }) => {
+test("the home page has one SVG signature beside the founder sign-off", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "once, at 390, 768 and 1440");
   for (const width of [390, 768, 1440]) {
     await page.setViewportSize({ width, height: width === 1440 ? 900 : 844 });
     await page.goto("/", { waitUntil: "networkidle" });
     const signs = page.locator(".founder-sign");
     await expect(signs).toHaveCount(1);
-    await expect(signs).toHaveText("Dan");
-    const type = await signs.evaluate((el) => {
-      const style = getComputedStyle(el);
-      return { family: style.fontFamily, size: style.fontSize, weight: style.fontWeight };
+    const svg = signs.getByRole("img", { name: "Dan" });
+    await expect(svg).toHaveCount(1);
+    const svgBox = await svg.boundingBox();
+    expect(Math.round(svgBox!.height), `signature height at ${width}`).toBe(width >= 1024 ? 40 : 32);
+    const fonts = await page.evaluate(() => {
+      const root = getComputedStyle(document.documentElement);
+      const family = (name: string) => root.getPropertyValue(name).replace(/['"]/g, "").trim().toLowerCase();
+      const loaded = [...document.fonts].filter((font) => font.status === "loaded").map((font) => font.family.toLowerCase());
+      return {
+        geist: family("--font-geist"),
+        mono: family("--font-geist-mono"),
+        body: getComputedStyle(document.body).fontFamily.toLowerCase(),
+        heading: getComputedStyle(document.querySelector("h1")!).fontFamily.toLowerCase(),
+        loaded,
+      };
     });
-    expect(type.size).toBe("40px");
-    expect(type.weight).toBe("600");
-    expect(type.family.toLowerCase()).toContain("caveat");
+    const firstFamily = (stack: string) => stack.split(",")[0].trim();
+    const geist = firstFamily(fonts.geist);
+    const mono = firstFamily(fonts.mono);
+    expect(geist, "Geist is the body face").toBe("geist");
+    expect(firstFamily(fonts.body), "body uses Geist").toBe(geist);
+    expect(firstFamily(fonts.heading), "headings use Geist").toBe(geist);
+    expect(fonts.loaded.some((family) => firstFamily(family) === geist), "Geist has loaded").toBe(true);
+    expect(fonts.loaded.some((family) => family.includes("caveat")), "no Caveat font").toBe(false);
+    expect(fonts.loaded.some((family) => family.includes("fraunces")), "no Fraunces font").toBe(false);
+    const numeral = await page.locator(".step-num").first().evaluate((el) => getComputedStyle(el).fontFamily.toLowerCase());
+    expect(mono, "Geist Mono is available").toBe("geistmono");
+    expect(firstFamily(numeral), "step numerals use Geist Mono").toBe(mono);
 
     const sign = await signs.boundingBox();
     const line = await page.locator(".founder-signoff-line").boundingBox();
