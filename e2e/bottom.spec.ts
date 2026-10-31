@@ -37,8 +37,21 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "You've probably got dozens of reviews you never asked for" })).toHaveCount(0);
   await expect(page.locator("#s1")).toHaveCount(0);
   await expect(page.locator(".bento")).toHaveCount(0);
-  await expect(page.locator("#s-how img").nth(1)).toHaveAttribute("src", /widget-on-website/);
-  await expect(page.locator("#s-how img").nth(1)).not.toHaveAttribute("src", /widget-builder/);
+  await expect(page.locator(".how-card")).toHaveCount(0);
+  await expect(page.getByText("Worried about price?", { exact: true })).toBeVisible();
+  await expect(page.getByText("Request sent", { exact: true })).toBeVisible();
+  await expect(page.getByText("Reviews coming in", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ask every customer" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Follow up once" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Shown on your website" })).toBeVisible();
+  const explainer = page.locator("#s-how img");
+  await expect(explainer).toHaveCount(1);
+  await expect(explainer).toHaveAttribute("src", /reviewbuddy-key-image-desktop-2400-v3\.png/);
+  await expect(explainer).toHaveAttribute("width", "2400");
+  await expect(explainer).toHaveAttribute("height", "1432");
+  await expect(explainer).not.toHaveAttribute("src", /widget-builder/);
+  await expect(page.locator(".storyboard img").first()).toHaveAttribute("src", /send-review-request/);
+  await expect(page.locator(".storyboard img").nth(1)).toHaveAttribute("src", /widget-on-website/);
   expect(await page.content()).not.toContain("invitees");
   expect(await page.content()).not.toContain("worth at least $500");
 

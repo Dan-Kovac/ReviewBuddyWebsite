@@ -98,10 +98,10 @@ test("the hero shows the demo-data line at 390", async ({ page }) => {
   const note = hero.getByText("Demo data for illustration. Not real customers or reviews.", { exact: true });
   await expect(note).toBeVisible();
   const noteBox = await note.boundingBox();
-  const stageBox = await hero.locator(".stage").boundingBox();
+  const storyBox = await hero.locator(".storyboard").boundingBox();
   expect(noteBox).toBeTruthy();
-  expect(stageBox).toBeTruthy();
-  expect(noteBox!.y).toBeGreaterThanOrEqual(stageBox!.y);
+  expect(storyBox).toBeTruthy();
+  expect(noteBox!.y).toBeGreaterThanOrEqual(storyBox!.y);
 });
 
 test("the last footer link is clickable at 390", async ({ page }) => {
@@ -127,22 +127,23 @@ test("the last footer link is clickable at 390", async ({ page }) => {
   await last.click({ trial: true });
 });
 
-test("the tablet hero shares one centre line and the key image stays in frame", async ({ page }) => {
+test("the tablet hero shares one centre line and the explainer stays in frame", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "once, at a 768 viewport");
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto("/", { waitUntil: "networkidle" });
   const h1 = await page.getByRole("heading", { level: 1 }).boundingBox();
   const lead = await page.locator(".site-hero .lead").boundingBox();
   const cta = await page.locator(".site-hero [data-hero-cta] a").boundingBox();
-  const image = await page.locator(".site-hero .stage img").boundingBox();
+  const image = await page.locator("#s-how img").boundingBox();
   expect(h1 && lead && cta && image).toBeTruthy();
   const centre = (box: { x: number; width: number }) => box.x + box.width / 2;
   expect(Math.abs(centre(h1!) - centre(lead!))).toBeLessThanOrEqual(2);
   expect(Math.abs(centre(h1!) - centre(cta!))).toBeLessThanOrEqual(2);
-  expect(image!.height).toBeLessThan(1024 * 1.2);
+  expect(image!.x).toBeGreaterThanOrEqual(-1);
+  expect(image!.x + image!.width).toBeLessThanOrEqual(769);
   const ratio = image!.width / image!.height;
-  expect(ratio).toBeGreaterThan(1080 / 2040 - 0.02);
-  expect(ratio).toBeLessThan(1080 / 2040 + 0.02);
+  expect(ratio).toBeGreaterThan(1080 / 3498 - 0.02);
+  expect(ratio).toBeLessThan(1080 / 3498 + 0.02);
 });
 
 test("the blog index is noindex and stays out of the sitemap", async ({ page }) => {

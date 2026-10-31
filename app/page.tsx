@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { preload } from "react-dom";
 import { ArtImage } from "@/components/art-image";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { FounderNote } from "@/components/founder-note";
+import { HeroStory } from "@/components/hero-story";
 import { Tick } from "@/components/tick";
 import { JsonLd } from "@/components/json-ld";
 import { KeyImage } from "@/components/key-image";
@@ -80,22 +80,6 @@ function HelpGuidesLink({ className }: { className: string }) {
 const shell = "mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)] py-[var(--rb-section-y)]";
 
 export default function HomePage() {
-  preload("/img/reviewbuddy-key-image-mobile-hero-800-v3.webp", {
-    as: "image",
-    fetchPriority: "high",
-    media: "(max-width: 1023px)",
-    type: "image/webp",
-    imageSrcSet:
-      "/img/reviewbuddy-key-image-mobile-hero-800-v3.webp 800w, /img/reviewbuddy-key-image-mobile-hero-v3.webp 1080w",
-    imageSizes: "calc(100vw - 60px)",
-  });
-  preload("/img/reviewbuddy-key-image-desktop-2400-v3.webp", {
-    as: "image",
-    fetchPriority: "high",
-    media: "(min-width: 1024px)",
-    type: "image/webp",
-  });
-
   return (
     <>
       <section className="site-hero">
@@ -138,10 +122,7 @@ export default function HomePage() {
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <div className="stage">
-            <KeyImage priority />
-          </div>
-          <p className="hero-demo lg:hidden">Demo data for illustration. Not real customers or reviews.</p>
+          <HeroStory />
         </div>
       </section>
 
@@ -184,64 +165,22 @@ export default function HomePage() {
             <p className="eyebrow">How it works</p>
             <h2 className="mt-3">Three steps, all set up for you</h2>
           </div>
-          <div className="how-grid">
-            <figure className="how-card">
-              <div className="how-frame">
-                <picture>
-                  <source srcSet="/img/screens/reviewbuddy-send-review-request-desktop-v2.webp" type="image/webp" />
-                  <img
-                    src="/img/screens/reviewbuddy-send-review-request-desktop-v2.png"
-                    width={1520}
-                    height={1314}
-                    alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-              <div className="how-copy">
-                <span className="how-num step-num">01</span>
-                <h3>{howSteps[0].title}</h3>
-                <p>{howSteps[0].detail}</p>
-              </div>
-              <figcaption>Sending a request from the app.</figcaption>
-            </figure>
-            <article className="how-card">
-              <div className="how-frame">
-                <div className="follow-panel">
-                  <p className="follow-line">After the job: review request sent</p>
-                  <div className="follow-rule" aria-hidden="true" />
-                  <p className="follow-line">Later: one polite reminder, only if they haven&apos;t reviewed yet</p>
-                </div>
-              </div>
-              <div className="how-copy">
-                <span className="how-num step-num">02</span>
-                <h3>{howSteps[1].title}</h3>
-                <p>{howSteps[1].detail}</p>
-              </div>
-            </article>
-            <figure className="how-card">
-              <div className="how-frame">
-                <picture>
-                  <source srcSet="/img/screens/reviewbuddy-widget-on-website-desktop-v2.webp" type="image/webp" />
-                  <img
-                    src="/img/screens/reviewbuddy-widget-on-website-desktop-v2.png"
-                    width={2400}
-                    height={1210}
-                    alt="The ReviewBuddy widget on a website, showing a rating, a review count and demo reviews. The reviewer names and review text are demo data."
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-              <div className="how-copy">
-                <span className="how-num step-num">03</span>
-                <h3>{howSteps[2].title}</h3>
-                <p>{howSteps[2].detail}</p>
-              </div>
-              <figcaption>The widget on a website. Demo data for illustration. Not real customers or reviews.</figcaption>
-            </figure>
-          </div>
+          <figure className="how-look">
+            <KeyImage />
+            <figcaption>
+              <ol className="how-steps">
+                {howSteps.map((step, index) => (
+                  <li key={step.title}>
+                    <span className="how-num step-num">{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.detail}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </figcaption>
+          </figure>
           <p className="rules-line">
             Everyone gets the same link and the same choice of sites, happy or not. That&apos;s Google&apos;s rules.
           </p>
