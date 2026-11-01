@@ -26,7 +26,7 @@ export function HeroStory() {
             <span className="story-mark step-num">02</span>
           </div>
           <p className="story-label">Request sent</p>
-          <div className="story-panel">
+          <div className="story-panel story-request">
             <figure className="story-shot">
               <picture>
                 <source srcSet="/img/screens/reviewbuddy-send-review-request-desktop-v2.webp" type="image/webp" />

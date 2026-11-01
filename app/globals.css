@@ -613,7 +613,7 @@ footer .eyebrow,
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   column-gap: 14px;
-  row-gap: 10px;
+  row-gap: 12px;
   align-items: start;
   min-width: 0;
 }
@@ -672,25 +672,40 @@ footer .eyebrow,
 }
 
 .story-panel {
+  position: relative;
   grid-column: 2;
   grid-row: 2;
+  width: 100%;
+  height: auto;
   min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  box-shadow: none;
+  background: #fff;
 }
 
 .story-caption {
   grid-column: 2;
   grid-row: 3;
   margin: 0;
+  min-height: 2.6em;
   font-size: 14px;
   line-height: 20px;
   color: var(--rb-on-brand-muted);
 }
 
 .story-worry {
-  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 22px;
+  border-radius: 16px;
   background: #141B24;
-  border: 1px solid color-mix(in srgb, #38B6FF 32%, transparent);
-  padding: 28px 22px 24px;
 }
 
 .story-quote {
@@ -714,22 +729,51 @@ footer .eyebrow,
 }
 
 .story-shot {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   margin: 0;
-  border-radius: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
-  background: #f3f5f7;
-  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  background: #fff;
+  box-shadow: none;
 }
 
+.story-shot picture,
 .story-shot img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  max-width: none;
+  border-radius: 0;
+}
+
+.story-shot img {
+  object-fit: cover;
+  object-position: 50% 0%;
 }
 
 .story-reviews img {
-  aspect-ratio: 1080 / 1044;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.story-request {
+  background: #f5f6f8;
+}
+
+.story-request .story-shot {
+  background: #f5f6f8;
+}
+
+.story-request .story-shot img {
+  object-fit: contain;
+  object-position: 50% 50%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .story-callout {
@@ -1151,6 +1195,7 @@ footer .eyebrow,
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 22px;
+    align-items: start;
   }
 
   .storyboard::before {
@@ -1180,9 +1225,12 @@ footer .eyebrow,
     content: none;
   }
 
+  .story-worry {
+    padding: 0 28px;
+  }
+
   .story-label,
-  .story-panel,
-  .story-caption {
+  .story-panel {
     min-height: 0;
   }
 
@@ -1190,16 +1238,13 @@ footer .eyebrow,
     align-self: stretch;
     display: block;
     width: 100%;
-    margin: 14px 0 16px;
+    margin: 0 0 12px;
     text-align: left;
   }
 
   .story-caption {
     margin-top: 12px;
-  }
-
-  .story-reviews img {
-    aspect-ratio: 2400 / 1210;
+    min-height: 2.6em;
   }
 
   .key-image {
@@ -1765,6 +1810,13 @@ footer {
 h1 { line-height: 1.03; letter-spacing: -0.03em; }
 .site-hero h1 { line-height: 1.08; }
 h2 { letter-spacing: -0.02em; }
+
+@media (max-width: 1023px) {
+  .site-hero h1 {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+}
 .wordmark,
 .step-num {
   font-family: var(--rb-font-mono);
