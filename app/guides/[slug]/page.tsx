@@ -6,11 +6,11 @@ import { pageMetadata } from "@/lib/metadata";
 
 // Cache Components requires generateStaticParams to return at least one slug.
 // This value is not a guide. The page 404s, and it is not linked or listed.
-const buildPlaceholder = "__placeholder__";
+const emptyBuildSlug = "unused-slug";
 
 export function generateStaticParams() {
   const articles = publishedGuides();
-  if (articles.length === 0) return [{ slug: buildPlaceholder }];
+  if (articles.length === 0) return [{ slug: emptyBuildSlug }];
   return articles.map((guide) => ({ slug: guide.slug }));
 }
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const Content = guideArticles[slug];
-  if (slug === buildPlaceholder || !Content) notFound();
+  if (slug === emptyBuildSlug || !Content) notFound();
 
   return (
     <GuideArticle guide={guideBySlug(slug)}>

@@ -5,6 +5,7 @@ import { GST_REGISTERED } from "./flags.ts";
 import {
   GST_NOT_REGISTERED_TERMS,
   fromPriceLine,
+  homeMetaDescription,
   gstCardNote,
   gstTermsParagraph,
   monthlyPriceLabel,
@@ -21,9 +22,18 @@ test("GST wording follows the registration flag", () => {
   assert.equal(fromPriceLine(false), "From $49 a month");
   assert.equal(gstTermsParagraph(false), GST_NOT_REGISTERED_TERMS);
   assert.match(gstTermsParagraph(true), /incl GST/);
-  assert.equal(priceFaqAnswer(false).startsWith("No."), true);
+  assert.equal(priceFaqAnswer(false), "No GST is charged.");
+  assert.match(priceFaqAnswer(true), /incl GST/);
   assert.equal(valueAddedTaxIncluded(false), false);
   assert.equal(valueAddedTaxIncluded(true), true);
+  assert.equal(
+    homeMetaDescription(false),
+    "ReviewBuddy asks every customer for a Google review and shows your reviews on your website. Set up for you. 7-day free trial, no card needed.",
+  );
+  assert.equal(
+    homeMetaDescription(true),
+    "ReviewBuddy asks every customer for a Google review and shows your reviews on your website. Set up for you. 7-day free trial. A card is needed to start.",
+  );
 });
 
 test("published copy does not say prices include GST", () => {

@@ -12,13 +12,13 @@ export const metadata = pageMetadata({
 
 export default function GuidesPage() {
   const articles = publishedGuides();
-  // No placeholder guide pages while no guides are published.
+  // The index stays unpublished while the guide list is empty.
   if (articles.length === 0) {
     notFound();
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
+    <div className="page-shell py-24 lg:py-32">
       <p className="text-sm font-semibold tracking-wide text-muted">Guides</p>
       <h1 className="display mt-4 max-w-3xl text-balance">
         Guides

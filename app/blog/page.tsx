@@ -1,16 +1,19 @@
 import { PostCards, CategoryHeading } from "@/components/cms-cards";
+import { EmailText } from "@/components/email-text";
 import { getCategories, getPublishedPosts, toCards } from "@/lib/cms";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Blog | ReviewBuddy",
   description:
-    "Plain-English guides on getting more Google reviews, handling the bad ones and showing reviews on your website. Written for Australian tradies.",
+    "Plain-English guides for Australian tradies on getting more Google reviews and showing them on your website.",
   path: "/blog",
+  noindex: true,
 });
 
-const EMPTY_MESSAGE =
-  "New articles are on the way. If you need something now, email hello@reviewbuddy.com.au.";
+const EMPTY_MESSAGE = (
+  <EmailText text="There aren't any guides up yet. If you've got a question about reviews, email hello@reviewbuddy.com.au and I'll answer it." />
+);
 
 async function BlogIndex() {
   const [categories, posts] = await Promise.all([
@@ -43,14 +46,13 @@ async function BlogIndex() {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
-      <p className="text-sm font-semibold tracking-wide text-muted">Blog</p>
-      <h1 className="display mt-4 max-w-3xl text-balance">
-        More reviews, more jobs
+    <div className="page-shell py-24 lg:py-32">
+      <p className="eyebrow">Blog</p>
+      <h1 className="display mt-4 max-w-[var(--rb-text-max)] text-balance">
+        Guides to getting more reviews
       </h1>
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-        Plain-English guides on getting more Google reviews, handling the
-        bad ones and showing them off on your website.
+      <p className="mt-6 max-w-[var(--rb-text-max)] text-lg leading-8 text-muted">
+        Plain-English guides for Australian tradies on getting more Google reviews and putting them to work on your website.
       </p>
       {orderedNames.length === 0 ? (
         <PostCards
@@ -71,8 +73,8 @@ async function BlogIndex() {
             </section>
           ))}
           {uncategorised.length > 0 ? (
-            <section aria-label="More articles">
-              <CategoryHeading name="More articles" />
+            <section aria-label="Other guides">
+              <CategoryHeading name="Other guides" />
               <PostCards
                 posts={uncategorised}
                 hrefFor={(post) => `/blog/${post.slug}`}

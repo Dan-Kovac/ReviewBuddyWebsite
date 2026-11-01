@@ -13,11 +13,11 @@ import { pageMetadata } from "@/lib/metadata";
 import { extractHowTo, renderMarkdown, stripMarkdown } from "@/lib/markdown";
 import { JsonLd } from "@/components/json-ld";
 
-const buildPlaceholder = "__placeholder__";
+const emptyBuildSlug = "unused-slug";
 
 export async function generateStaticParams() {
   const docs = await getPublishedPosts("doc");
-  if (docs.length === 0) return [{ slug: buildPlaceholder }];
+  if (docs.length === 0) return [{ slug: emptyBuildSlug }];
   return docs.slice(0, 20).map((doc) => ({ slug: doc.slug }));
 }
 
@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (slug === buildPlaceholder) return {};
+  if (slug === emptyBuildSlug) return {};
   const doc = await getPostBySlug("doc", slug);
   if (!doc) return {};
   return pageMetadata({
@@ -44,7 +44,7 @@ export default async function HelpDocPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug === buildPlaceholder) notFound();
+  if (slug === emptyBuildSlug) notFound();
 
   const doc = await getPostBySlug("doc", slug);
   if (!doc) notFound();

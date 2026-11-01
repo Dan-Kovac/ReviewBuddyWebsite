@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { siteName, siteUrl } from "@/lib/site";
 
+export const shareImageAlt =
+  "ReviewBuddy: more Google reviews for Australian tradies, shown on your website";
+
 export function pageMetadata({
   title,
   description,
@@ -19,7 +22,7 @@ export function pageMetadata({
     url: `${siteUrl}/opengraph-image`,
     width: 1200,
     height: 630,
-    alt: "ReviewBuddy. Google reviews on your website.",
+    alt: shareImageAlt,
   };
 
   return {

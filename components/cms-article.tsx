@@ -37,7 +37,7 @@ export function CmsArticle({
   heroImageUrl?: string | null;
 }) {
   return (
-    <article className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 md:py-24">
+    <article className="mx-auto w-full max-w-3xl px-[var(--rb-gutter)] py-16 md:py-24">
       <p className="text-sm text-muted">
         <Link href={sectionHref} className="font-semibold text-ink underline">
           {sectionLabel}

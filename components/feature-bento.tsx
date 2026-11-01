@@ -1,104 +1,69 @@
-const ui = "/img/reviewbuddy-app-reviews-ui-clean-2400.webp";
+import { ArtImage } from "@/components/art-image";
 
-type Crop = {
-  ratio: string;
-  size: string;
-  shiftX: string;
-  shiftY: string;
-  framed: boolean;
+const sources = {
+  desktop: {
+    webp: "/img/screens/reviewbuddy-review-sources-desktop-v2.webp",
+    png: "/img/screens/reviewbuddy-review-sources-desktop-v2.png",
+    width: 2400,
+    height: 1456,
+  },
+  mobile: {
+    webp: "/img/screens/reviewbuddy-review-sources-mobile-v2.webp",
+    png: "/img/screens/reviewbuddy-review-sources-mobile-v2.png",
+    width: 1080,
+    height: 720,
+  },
 };
 
-/**
- * Same crop as the design's background-size / background-position on the
- * 1000×663 UI export, applied to a lazy image so the file stays off the
- * hero's critical path.
- *
- * background-position percentages are of the overflow, not the image.
- * Margin percentages are of the container width, which is what the shift uses.
- */
-function crop(w: number, h: number, posX: number, posY: number, framed: boolean): Crop {
-  const x = (posX / 100) * (1000 - w);
-  const y = (posY / 100) * (663 - h);
-  return {
-    ratio: `${w} / ${h}`,
-    size: `${(1000 / w) * 100}%`,
-    shiftX: `${-(x / w) * 100}%`,
-    shiftY: `${-(y / w) * 100}%`,
-    framed,
-  };
-}
-
-const crops = {
-  list: crop(700, 250, 6.67, 42.37, false),
-  ask: crop(266, 46, 98.91, 6.16, true),
-  reply: crop(187, 79, 96.56, 45.38, true),
-  sentiment: crop(214, 79, 37.91, 45.38, true),
-  location: crop(300, 158, 57.57, 52.48, true),
+const send = {
+  desktop: {
+    webp: "/img/screens/reviewbuddy-send-review-request-desktop-v2.webp",
+    png: "/img/screens/reviewbuddy-send-review-request-desktop-v2.png",
+    width: 1520,
+    height: 1314,
+  },
+  mobile: {
+    webp: "/img/screens/reviewbuddy-send-review-request-mobile-v2.webp",
+    png: "/img/screens/reviewbuddy-send-review-request-mobile-v2.png",
+    width: 1080,
+    height: 930,
+  },
 };
-
-function Shot({ crop: frame }: { crop: Crop }) {
-  return (
-    <div
-      className={frame.framed ? "shot shot-framed" : "shot"}
-      style={{ aspectRatio: frame.ratio }}
-      role="img"
-      aria-label="A crop of the ReviewBuddy Reviews screen."
-    >
-      {/* Native img so the crop lazy-loads. next/image cannot apply this position crop. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={ui}
-        alt=""
-        width={1000}
-        height={663}
-        loading="lazy"
-        decoding="async"
-        style={{ width: frame.size, marginLeft: frame.shiftX, marginTop: frame.shiftY }}
-      />
-    </div>
-  );
-}
 
 export function FeatureBento() {
   return (
     <div className="bento">
       <article className="bento-card bento-lead">
         <div className="bento-copy">
-          <h3>Every review, every site, one list</h3>
-          <p>Google, hipages and your other connected sites, side by side. Search, filter and tag.</p>
-        </div>
-        <Shot crop={crops.list} />
-      </article>
-      <article className="bento-card">
-        <div className="bento-copy">
-          <h3>Ask in one click</h3>
-          <p>Send review invites straight from the app.</p>
-        </div>
-        <Shot crop={crops.ask} />
-      </article>
-      <article className="bento-card">
-        <div className="bento-copy">
-          <h3>Reply faster, with AI help</h3>
-          <p>Draft a reply in seconds. You check it before it goes.</p>
-          <p className="bento-note">
-            Replies from the app are for Google and Facebook. For hipages, you copy the draft and paste it yourself.
+          <h3>Every review in one list</h3>
+          <p>
+            Google, Facebook and the other review sites you connect, side by side. Search, filter and tag them in one place.
           </p>
         </div>
-        <Shot crop={crops.reply} />
+        <div className="shot shot-framed">
+          <ArtImage
+            desktop={sources.desktop}
+            mobile={sources.mobile}
+            alt="Review sites for Demo Plumbing Co. The business name is demo data."
+          />
+        </div>
+        <p className="bento-note">Review sites for Demo Plumbing Co. Demo data for illustration. Not real customers or reviews.</p>
       </article>
       <article className="bento-card">
         <div className="bento-copy">
-          <h3>Sentiment at a glance</h3>
-          <p>See how each review reads, not just the stars.</p>
+          <h3>Ask from the app</h3>
+          <p>
+            Send a review request straight from ReviewBuddy, or copy your link to send it your own way.
+          </p>
         </div>
-        <Shot crop={crops.sentiment} />
-      </article>
-      <article className="bento-card">
-        <div className="bento-copy">
-          <h3>More than one location</h3>
-          <p>Each review is tagged with the location it belongs to.</p>
+        <div className="shot shot-framed">
+          <ArtImage
+            desktop={send.desktop}
+            mobile={send.mobile}
+            alt="The ReviewBuddy Send Review Request screen, with empty fields for a customer name and contact, and buttons for sending by email or copying the link. No customer is filled in."
+          />
         </div>
-        <Shot crop={crops.location} />
+        <p className="bento-note">Sending a request from the app.</p>
       </article>
     </div>
   );

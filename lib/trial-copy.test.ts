@@ -7,6 +7,7 @@ import { CARD_UPFRONT, TRIAL_REMINDER } from "./flags.ts";
 import { cancellingGuide } from "./help-guides.ts";
 import {
   BILLING_LINE,
+  CARD_REQUIRED_TRIAL_LINE,
   NO_CARD_TRIAL_LINE,
   PRICING_SUB,
   resolveTrialLine,
@@ -59,8 +60,10 @@ test("no-card mode is on and the trial line is the settled sentence", () => {
   );
   assert.equal(resolveTrialLine(CARD_UPFRONT, TRIAL_REMINDER), NO_CARD_TRIAL_LINE);
   assert.equal(resolveTrialLine(false, false), NO_CARD_TRIAL_LINE);
-  assert.throws(() => resolveTrialLine(true, false), /not published/);
+  assert.equal(resolveTrialLine(true, false), CARD_REQUIRED_TRIAL_LINE);
+  assert.equal(CARD_REQUIRED_TRIAL_LINE.toLowerCase().includes("no card"), false);
   assert.throws(() => resolveTrialLine(false, true), /unconfirmed/);
+  assert.throws(() => resolveTrialLine(true, true), /unconfirmed/);
 });
 
 test("billing and cancel copy uses the billing page in the account", () => {
@@ -86,13 +89,16 @@ test("published trial copy does not promise a card, a reminder email, or Stripe"
   assert.equal(copy.includes("usually means another paid tool"), false);
 });
 
-test("the home FAQ hedges Service Seeking the same way as the plumbers FAQ", () => {
+test("other review sites are hedged the same way on home and for plumbers", () => {
   const home = homeFaqs.find((faq) => faq.question === "What if I want to stop using ReviewBuddy?")!.answer;
-  const plumber = plumberFaqs.find((faq) => faq.question.includes("Service Seeking"))!.answer;
-  assert.match(home, /Service Seeking can show in your widget if it connects\./);
-  assert.match(home, /Email me the sites you use and I'll check\./);
+  const plumber = plumberFaqs.find((faq) => faq.question === "I use other review sites too. Can those reviews show?")!.answer;
+  assert.match(home, /Other review sites can show in your widget if they connect\./);
+  assert.match(home, /Email us the sites you use and we'll check\./);
   assert.match(plumber, /if they connect/);
-  assert.match(plumber, /Email me the sites you use and I'll check\./);
+  assert.match(plumber, /Email us the sites you use and we'll check\./);
+  assert.equal(home.includes("Service Seeking"), false);
+  assert.equal(plumber.includes("Service Seeking"), false);
+  assert.equal(plumber.includes("hipages"), false);
 });
 
 test("plans no longer carry the stale Stripe product ids", () => {

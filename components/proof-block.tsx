@@ -2,7 +2,7 @@ import { proofItems } from "@/lib/proof";
 
 /**
  * Home page proof. Renders nothing until lib/proof.ts holds real, approved
- * items, so no placeholder or invented content is ever public.
+ * items, so nothing invented is ever public.
  */
 export function ProofBlock() {
   if (proofItems.length === 0) {
