@@ -1,57 +1,54 @@
-import { ArtImage } from "@/components/art-image";
-import { contactEmail } from "@/lib/site";
+import { Signature } from "@/components/signature";
+import Image from "next/image";
+import { contactEmail, contactPhone, contactPhoneHref } from "@/lib/site";
 
 const founderParagraphs = [
-  "For years I ran a digital marketing agency, Roadmap Digital, doing SEO for small businesses. Across all those clients, getting more reviews was one of the things that made the biggest difference. Getting them was the hard part. We built ReviewBuddy so the asking actually gets done.",
-];
+  "I ran a digital marketing agency for 10 years. We ran big SEO and Google Ads campaigns, but nothing we did beat a business that had a steady system for getting reviews.",
+  "Reviews build trust. They're a big part of how Google decides who to show to prospects in the search, and they give you a feedback loop that pushes you to get better every day.",
+  "ReviewBuddy helps Australian tradies get more reviews with a simple, semi-automated system. The benefits compound over time, and I'd love to set you up for free so you can see why I'm so keen on it.",
+] as const;
 
 export function FounderNote() {
   return (
     <section id="s4" className="sec" aria-labelledby="about-dan">
       <div className="shell">
-        <div className="g12 fd founder-home">
-          <figure className="art fd-art art-at-768">
-            <ArtImage
-              mobileMax={767}
-              desktop={{
-                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.webp",
-                png: "/img/sections/reviewbuddy-founder-portrait-monogram-desktop.png",
-                width: 960,
-                height: 1200,
-              }}
-              mobile={{
-                webp: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.webp",
-                png: "/img/sections/reviewbuddy-founder-portrait-monogram-mobile.png",
-                width: 1080,
-                height: 864,
-              }}
-              alt=""
+        <div className="fd founder-home">
+          <figure className="art fd-art">
+            <Image
+              src="/img/sections/dan-founder-4x5-480x600.jpg"
+              alt="Dan Kovac, founder of ReviewBuddy"
+              width={480}
+              height={600}
+              sizes="(min-width: 1024px) 256px, (min-width: 768px) 144px, 128px"
             />
           </figure>
-          <article className="fd-copy">
+          <div className="fd-id">
             <p className="eyebrow" id="about-dan">
               Who&apos;s behind ReviewBuddy
             </p>
             <h2>Dan Kovac</h2>
             <p className="title">Founder, ReviewBuddy</p>
+          </div>
+          <div className="fd-rest">
             <div className="letter founder-letter">
               {founderParagraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
             <div className="founder-signoff">
-              <p className="founder-sign">Dan</p>
+              <p className="founder-sign">
+                <Signature />
+              </p>
               <div className="founder-signoff-line">
                 <p>Dan Kovac, founder.</p>
                 <p>Made in Melbourne by Roadmap Labs.</p>
               </div>
             </div>
-            <p className="mail">
-              <a className="link" href={`mailto:${contactEmail}`}>
-                {contactEmail}
-              </a>
+            <p className="founder-contact">
+              <a href={contactPhoneHref}>{contactPhone}</a>
+              <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
             </p>
-          </article>
+          </div>
         </div>
       </div>
     </section>

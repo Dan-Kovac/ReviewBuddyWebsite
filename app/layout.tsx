@@ -4,7 +4,7 @@ import { CtaAnalytics } from "@/components/cta-analytics";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { caveat, fraunces, frauncesItalic, inter } from "@/app/fonts";
+import { geist, geistMono } from "@/app/fonts";
 import { organizationJsonLd } from "@/lib/json-ld";
 import { homeMetaDescription } from "@/lib/gst";
 import { shareImageAlt } from "@/lib/metadata";
@@ -50,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en-AU"
       data-theme="reviewbuddy"
-      className={`${fraunces.variable} ${frauncesItalic.variable} ${inter.variable} ${caveat.variable} h-full scroll-smooth antialiased`}
+      className={`${geist.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-[var(--rb-surface)] font-sans text-ink">
         <JsonLd data={organizationJsonLd()} />

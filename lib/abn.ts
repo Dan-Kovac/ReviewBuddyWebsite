@@ -7,7 +7,7 @@ export const legalEntityName = "KOVAC, DANIEL DEAN";
 /** Registered business name on that same ABR record. The brand on the site is ReviewBuddy. */
 export const registeredBusinessName = "Review Buddy";
 
-export const legalUpdated = "25 October 2026";
+export const legalUpdated = "28 October 2026";
 
 export function confirmedAbnDisplay(value = abn): string | null {
   const digits = value.replace(/\s/g, "");

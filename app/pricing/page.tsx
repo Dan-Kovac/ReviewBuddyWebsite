@@ -158,7 +158,7 @@ export default function PricingPage() {
                 <a href={`mailto:${contactEmail}`} className="font-semibold text-ink underline">
                   {contactEmail}
                 </a>{" "}
-                and I&apos;ll work out what suits.
+                and we&apos;ll work out what suits.
               </p>
             </div>
           </div>

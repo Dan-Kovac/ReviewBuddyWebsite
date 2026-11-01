@@ -1,3 +1,4 @@
+import { Signature } from "@/components/signature";
 import { BreakdownForm } from "@/components/breakdown-form";
 import { JsonLd } from "@/components/json-ld";
 import { TrialButton } from "@/components/trial-button";
@@ -55,7 +56,9 @@ export default function FreeReviewBreakdownPage() {
                   </li>
                 ))}
               </ul>
-              <p className="founder-sign">Dan</p>
+              <p className="founder-sign">
+                <Signature />
+              </p>
               <h2 className="mt-12 text-3xl font-semibold tracking-tight text-ink">If you like what you see</h2>
               <p className="mt-4 text-base leading-7 text-muted">
                 If it&apos;s useful, try ReviewBuddy. The breakdown&apos;s yours either way.

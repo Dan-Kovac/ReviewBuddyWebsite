@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
             maxWidth: 920,
           }}
         >
-          Win their trust before they pick up the phone
+          Win their trust before your customer picks up the phone
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#5C6570" }}>
           {sharePriceLine()}

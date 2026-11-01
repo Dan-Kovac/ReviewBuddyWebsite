@@ -107,7 +107,7 @@ async function HelpIndex() {
         <div className="mt-6">
           <FaqList
             faqs={helpFaqs.filter((faq) =>
-              ["Can my team ask in person?", "Do you write reviews for me?"].includes(faq.question),
+              ["Can my team ask in person?", "Do you write reviews for me?", "What if a customer wasn't happy?"].includes(faq.question),
             )}
           />
         </div>

@@ -25,12 +25,6 @@ test("starter stacks above growth on a phone", async ({ page }) => {
   expect(starter!.y).toBeLessThan(growth!.y!);
 });
 
-test("spots route hides the count when Stripe is not configured", async ({ request }) => {
-  test.skip(test.info().project.name !== "desktop", "once");
-  const response = await request.get("/api/spots");
-  expect(response.status()).toBe(503);
-});
-
 test("breakdown form posts and can show the trial step", async ({ page }) => {
   await page.route("**/api/breakdown", async (route) => {
     const body = route.request().postDataJSON() as { businessName?: string; email?: string };

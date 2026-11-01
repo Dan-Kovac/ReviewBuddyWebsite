@@ -5,13 +5,10 @@ import { helpFaqs, homeFaqs, pricingFaqs } from "./faqs.ts";
 
 const homeOrder = [
   "Do I need a card to start?",
-  "What if I want to stop using ReviewBuddy?",
   "How much of my time does it take?",
-  "Do I need to touch my website?",
   "Is this allowed by Google?",
-  "What if a customer wasn't happy?",
   "Will my customers actually leave a review?",
-  "Which plan should I pick?",
+  "What if I want to stop using ReviewBuddy?",
 ];
 
 const helpOrder = [
@@ -21,14 +18,15 @@ const helpOrder = [
   "Can my team ask in person?",
   "Do you write reviews for me?",
   "I've got more than one location.",
+  "What if a customer wasn't happy?",
 ];
 
-test("home FAQs are the eight copy-v1 questions, in order", () => {
+test("home FAQs are the five questions, in order", () => {
   assert.deepEqual(
     homeFaqs.map((faq) => faq.question),
     homeOrder,
   );
-  const unhappy = homeFaqs.find((faq) => faq.question === "What if a customer wasn't happy?")!.answer;
+  const unhappy = helpFaqs.find((faq) => faq.question === "What if a customer wasn't happy?")!.answer;
   assert.equal(unhappy.includes("Plenty of people would rather do that than post about it."), false);
   assert.match(unhappy, /And if a 3-star review does land/);
   const will = homeFaqs.find((faq) => faq.question === "Will my customers actually leave a review?")!.answer;
@@ -40,7 +38,7 @@ test("home FAQs are the eight copy-v1 questions, in order", () => {
   }
 });
 
-test("help FAQs are the six moved questions, and /help renders them", () => {
+test("help FAQs are the seven questions, and /help renders them", () => {
   assert.deepEqual(
     helpFaqs.map((faq) => faq.question),
     helpOrder,
@@ -70,6 +68,6 @@ test("FAQ structured data uses the same question lists as the pages", () => {
   assert.match(jsonLd, /name: faq\.question/);
   assert.match(jsonLd, /text: faq\.answer/);
   assert.match(home, /faqJsonLd\(homeFaqs\)/);
-  assert.equal(homeFaqs.length, 8);
-  assert.equal(helpFaqs.length, 6);
+  assert.equal(homeFaqs.length, 5);
+  assert.equal(helpFaqs.length, 7);
 });

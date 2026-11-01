@@ -1,6 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
 import { waitForLazyImages } from "./lazy-images";
+import { legalUpdated } from "../lib/abn";
 import {
+  contactPhone,
+  contactPhoneHref,
   defaultGrowthSignupUrl,
   defaultStarterSignupUrl,
   loginUrl,
@@ -57,22 +60,40 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   expect(policy).toContain("microphone=()");
   expect(policy).toContain("geolocation=()");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Win their trust before they pick up the phone",
+    "Win your customers' trust before they even call you (and stop competing on price)",
   );
-  await expect(page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first()).toBeVisible();
-  await expect(page.getByText("and no contract.")).toBeVisible();
+  await expect(page.getByText("7-day free trial, no card needed.").first()).toBeVisible();
+  await expect(page.getByText("No contract", { exact: true })).toBeVisible();
+  await expect(page.getByText("Works with Google & most major review platforms", { exact: true })).toBeVisible();
   await expect(page.getByText("no notice needed").first()).toBeVisible();
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByText("0411 701 078")).toHaveCount(0);
-  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
+  const phoneRow = page.getByRole("contentinfo").locator("dt", { hasText: /^Phone$/ }).locator("xpath=..");
+  await expect(phoneRow.locator("dt")).toHaveText("Phone");
+  await expect(phoneRow.locator("dd")).toHaveText(contactPhone);
+  await expect(phoneRow.getByRole("link", { name: contactPhone, exact: true })).toHaveAttribute("href", contactPhoneHref);
+  await expect(page.locator(`a[href='${contactPhoneHref}']`)).toHaveCount(2);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(2);
+  expect(contactPhone).toBe("0411 701 078");
+  expect(contactPhoneHref).toBe("tel:+61411701078");
+  const visiblePhones = (await page.locator("body").innerText()).match(/\b(?:\+61[0-9 ]{8,}|0[0-9][0-9 ]{8,})\b/g) ?? [];
+  const ldBlocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const telephone = ldBlocks
+    .flatMap((text) => {
+      const data = JSON.parse(text) as { "@graph"?: { "@type"?: string; telephone?: string }[]; "@type"?: string; telephone?: string };
+      return data["@graph"] ?? [data];
+    })
+    .find((item) => item["@type"] === "Organization")?.telephone;
+  expect(telephone).toBe(contactPhone);
   await expect(page.getByText(/Free until/)).toHaveCount(0);
   await expect(page.getByText("We'll email you before you're charged")).toHaveCount(0);
   await expect(page.getByText("Cancel with one email")).toHaveCount(0);
   await expect(page.getByText(/card taken up front/i)).toHaveCount(0);
   await expect(page.getByText(/card up front/i)).toHaveCount(0);
   await expect(page.getByText(/Stripe/)).toHaveCount(0);
-  await expect(page.getByText("worth $500")).toHaveCount(0);
-  await expect(page.getByText("Roadmap Digital")).toBeVisible();
+  const homeText = await page.locator("body").innerText();
+  expect(homeText).not.toMatch(/\$500|valued at|worth over|worth at least/);
+  await expect(page.getByText("Roadmap Digital")).toHaveCount(0);
+  expect(visiblePhones).toEqual([contactPhone, contactPhone]);
   await expect(page.getByText("Made in Melbourne by Roadmap Labs.").first()).toBeVisible();
   await expect(page.getByText(/prevent negative reviews/i)).toHaveCount(0);
   await shot(page, "01-landing");
@@ -141,7 +162,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Try Starter free for 7 days" })).toHaveAttribute("href", starterSignup);
   await expect(page.getByRole("link", { name: "Try Growth free for 7 days" })).toHaveAttribute("href", growthSignup);
   await expect(
-    page.getByText("7-day free trial, no card needed. Add a card before day 8 to keep going.").first(),
+    page.getByText("7-day free trial, no card needed.").first(),
   ).toBeVisible();
   await expect(page.getByText("billing page in your account").first()).toBeVisible();
   await expect(page.getByText("Day 0")).toBeVisible();
@@ -258,11 +279,14 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(footer.getByText("44 108 955 374")).toBeVisible();
   await expect(footer.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
   await expect(footer.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
-  await expect(page.getByText("Those are Google's rules and Australian consumer law")).toBeVisible();
+  await expect(page.getByText("Everyone gets the same link and the same choice of sites, happy or not. That's Google's rules.")).toBeVisible();
 
   await page.getByText("What if I want to stop using ReviewBuddy?").click();
-  await expect(page.getByText("Other review sites can show in your widget if they connect.")).toBeVisible();
-  await expect(page.getByText("Email us the sites you use and we'll check.")).toBeVisible();
+  await expect(page.getByText("Help guides has the full detail.")).toBeVisible();
+  await expect(page.getByText("Email us the sites you use and we'll check.")).toHaveCount(0);
+  await page.goto("/pricing");
+  await expect(page.locator("body")).toContainText("Email us the sites you use and we'll check.");
+  await expect(page.locator("body")).toContainText("Which plan should I pick?");
 
   for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
     await page.goto(path);
@@ -298,7 +322,9 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   await expect(page.getByText("ongoing coaching")).toHaveCount(0);
   await expect(page.getByText(/first week/)).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Third-party services" })).toBeVisible();
-  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+  expect(legalUpdated).toBe("28 October 2026");
+  await expect(page.getByText(`Last updated: ${legalUpdated}`, { exact: true })).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}.`, { exact: true })).toBeVisible();
 
   await page.goto("/privacy");
   const privacyText = await page.locator("article").innerText();
@@ -307,7 +333,8 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   expect(privacyText).not.toContain("text messages");
   await expect(page.getByText("KOVAC, DANIEL DEAN (ABN 44 108 955 374)")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Cookies, analytics and advertising" })).toBeVisible();
-  await expect(page.getByText("Last updated: 25 October 2026.").last()).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}`, { exact: true })).toBeVisible();
+  await expect(page.getByText(`Last updated: ${legalUpdated}.`, { exact: true })).toBeVisible();
 
   await page.goto("/free-review-breakdown");
   await expect(page.getByText(/plain-English/)).toBeVisible();
