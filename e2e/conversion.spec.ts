@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { defaultStarterSignupUrl } from "../lib/site";
 
 test("pricing cards sit side by side at 1440", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "desktop width only");
@@ -44,6 +45,6 @@ test("breakdown form posts and can show the trial step", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("Got it");
   await expect(page.getByRole("status").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
     "href",
-    "/#pricing",
+    defaultStarterSignupUrl,
   );
 });

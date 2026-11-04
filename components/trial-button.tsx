@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { CTA_LABEL, pricingSectionLink, signupHref, type PlanId } from "@/lib/site";
+import { CTA_LABEL, signupHref, type PlanId } from "@/lib/site";
 
 const variants = {
   brand:
@@ -18,8 +18,8 @@ const variants = {
 
 /**
  * With a plan, this leaves for that plan's Embed My Reviews registration.
- * There is no Stripe step. Without a plan, this goes to the pricing section
- * on this page when it has one, and to the home pricing section otherwise.
+ * Without a plan, this leaves for Starter registration, the same address as
+ * the Starter plan button. There is no Stripe step. Same tab.
  * The header button is hidden on /welcome, which is the page after a trial starts.
  */
 export function TrialButton({
@@ -39,7 +39,7 @@ export function TrialButton({
   if ((location === "header" || location === "mobile-nav") && pathname === "/welcome") {
     return null;
   }
-  const href = plan ? signupHref(plan) : pricingSectionLink(pathname);
+  const href = signupHref(plan ?? "starter");
   const header = location === "header";
   const size = header
     ? "h-11 min-h-11 px-[18px] text-sm"
@@ -47,8 +47,7 @@ export function TrialButton({
   return (
     <a
       href={href}
-      data-signup={plan}
-      data-cta={plan ? undefined : "pricing"}
+      data-signup={plan ?? "starter"}
       data-location={location}
       className={`inline-flex items-center justify-center rounded-full text-center font-semibold ${size} ${variants[variant]} ${className}`}
     >

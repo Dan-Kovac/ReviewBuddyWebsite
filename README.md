@@ -17,7 +17,7 @@ This repository is the public site only. It does not deploy itself. Do not point
 
 ## Sign-up
 
-Try it free for 7 days goes to the pricing section so the visitor picks a plan. On the home page that is `/#pricing`. On `/pricing` and `/google-reviews-for-plumbers` it is `#pricing` on that page. Try Starter free for 7 days and Try Growth free for 7 days go straight to Embed My Reviews registration. There is no Stripe payment step. The app's own trial is 7 days with no card. The addresses live in `lib/signup-url.ts` and are re-exported from `lib/site.ts`. The header trial button is hidden on `/welcome`.
+Try it free for 7 days goes straight to Starter registration, the same address as Try Starter free for 7 days. Try Growth free for 7 days keeps its own registration link. There is no Stripe payment step. The app's own trial is 7 days with no card. The addresses live in `lib/signup-url.ts` and are re-exported from `lib/site.ts`. The header trial button is hidden on `/welcome`.
 
 - Starter: `https://1qbx.app.embedmyreviews.com/register?plan=5`
 - Growth: `https://1qbx.app.embedmyreviews.com/register?plan=6`

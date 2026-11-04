@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, pricingSectionLink } from "@/lib/site";
+import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, signupHref } from "@/lib/site";
 
 /**
  * Sticky bottom bar on phones. Appears once the hero button leaves view,
@@ -10,7 +9,6 @@ import { STICKY_CTA_LABEL, STICKY_TRIAL_TEXT, pricingSectionLink } from "@/lib/s
  * Hiding uses the hidden class on a fixed bar, so the page does not shift.
  */
 export function StickyTrialBar() {
-  const pathname = usePathname();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -64,8 +62,8 @@ export function StickyTrialBar() {
       <div className="flex items-center gap-3 border-t border-[var(--rb-line)] bg-[var(--rb-surface-raised)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[var(--rb-shadow-card)]">
         <p className="min-w-0 flex-1 text-sm font-semibold leading-5 text-[var(--rb-text)]">{STICKY_TRIAL_TEXT}</p>
         <a
-          href={pricingSectionLink(pathname)}
-          data-cta="pricing"
+          href={signupHref("starter")}
+          data-signup="starter"
           data-location="sticky"
           className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-[var(--rb-accent)] px-4 text-center text-base font-semibold text-[var(--rb-on-accent)]"
         >

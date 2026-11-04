@@ -42,7 +42,7 @@ test("blank or unsafe env values fall back to the app registration URL", () => {
   );
 });
 
-test("pages that already show pricing keep the trial link on that page", () => {
+test("the pricing block address stays on pages that already show pricing", () => {
   assert.equal(pricingSectionLink("/"), "/#pricing");
   assert.equal(pricingSectionLink("/pricing"), "#pricing");
   assert.equal(pricingSectionLink("/google-reviews-for-plumbers"), "#pricing");
