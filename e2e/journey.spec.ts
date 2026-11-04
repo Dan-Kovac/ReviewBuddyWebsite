@@ -7,7 +7,6 @@ import {
   defaultGrowthSignupUrl,
   defaultStarterSignupUrl,
   loginUrl,
-  pricingSectionHref,
 } from "../lib/site";
 
 const starterSignup = defaultStarterSignupUrl;
@@ -117,7 +116,7 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await expect(menu.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Help" })).toHaveCount(0);
     await expect(menu.getByRole("link", { name: "Log in" })).toHaveAttribute("href", loginUrl);
-    await expect(menu.getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute("href", pricingSectionHref);
+    await expect(menu.getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute("href", starterSignup);
     await shot(page, "02-menu");
     await page.getByRole("button", { name: "Close menu" }).click();
   } else {
@@ -128,19 +127,23 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
     await expect(nav.getByRole("link", { name: "Blog" })).toHaveCount(0);
     await expect(page.getByRole("banner").getByRole("link", { name: "Try it free for 7 days" })).toHaveAttribute(
       "href",
-      pricingSectionHref,
+      starterSignup,
     );
     await shot(page, "02-nav");
   }
 
-  const pricingCtas = page.locator("[data-cta='pricing']");
-  expect(await pricingCtas.count()).toBeGreaterThan(0);
-  for (let index = 0; index < (await pricingCtas.count()); index += 1) {
-    await expect(pricingCtas.nth(index)).toHaveAttribute("href", pricingSectionHref);
+  const heroCta = page.locator(".site-hero [data-hero-cta] a");
+  await expect(heroCta).toHaveCount(1);
+  await expect(heroCta).toHaveAttribute("href", starterSignup);
+  expect(await heroCta.getAttribute("target")).toBeNull();
+
+  const genericTrials = page.getByRole("link", { name: /^Try it free/ });
+  expect(await genericTrials.count()).toBeGreaterThan(0);
+  for (let index = 0; index < (await genericTrials.count()); index += 1) {
+    await expect(genericTrials.nth(index)).toHaveAttribute("href", starterSignup);
   }
 
-  await page.locator("[data-hero-cta] a").click();
-  await expect(page).toHaveURL(/#pricing$/);
+  await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect(page.locator("#pricing")).toBeInViewport();
   await shot(page, "03-pricing-section");
 
@@ -173,10 +176,10 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   await expect(page.getByText("Add a card in the app and you pick up where you left off.").first()).toBeVisible();
   await expect(page.getByText("Add a card any time")).toHaveCount(0);
   await expect(page.locator("#pricing")).toHaveCount(1);
-  const pricingPageCtas = page.locator("[data-cta='pricing']");
-  expect(await pricingPageCtas.count()).toBeGreaterThan(0);
-  for (let index = 0; index < (await pricingPageCtas.count()); index += 1) {
-    await expect(pricingPageCtas.nth(index)).toHaveAttribute("href", "#pricing");
+  const pricingPageTrials = page.getByRole("link", { name: /^Try it free/ });
+  expect(await pricingPageTrials.count()).toBeGreaterThan(0);
+  for (let index = 0; index < (await pricingPageTrials.count()); index += 1) {
+    await expect(pricingPageTrials.nth(index)).toHaveAttribute("href", starterSignup);
   }
   await shot(page, "04-pricing-page");
 
@@ -291,16 +294,21 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
   for (const path of ["/pricing", "/google-reviews-for-plumbers"]) {
     await page.goto(path);
     await expect(page.locator("#pricing")).toHaveCount(1);
-    const links = page.locator("[data-cta='pricing']");
+    const links = page.locator("[data-signup='starter']");
     expect(await links.count()).toBeGreaterThan(0);
     for (let index = 0; index < (await links.count()); index += 1) {
-      await expect(links.nth(index)).toHaveAttribute("href", "#pricing");
+      await expect(links.nth(index)).toHaveAttribute("href", starterSignup);
+    }
+    const growth = page.locator("[data-signup='growth']");
+    expect(await growth.count()).toBeGreaterThan(0);
+    for (let index = 0; index < (await growth.count()); index += 1) {
+      await expect(growth.nth(index)).toHaveAttribute("href", growthSignup);
     }
   }
   await page.goto("/pricing");
   await expect(page.locator("[data-location='pricing-locations']")).toHaveCount(0);
-  await page.locator("[data-location='pricing-band']").click();
-  await expect(page).toHaveURL(/\/pricing#pricing$/);
+  await expect(page.locator("[data-location='pricing-band']")).toHaveAttribute("href", starterSignup);
+  await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect(page.locator("#pricing")).toBeInViewport();
 
   await page.goto("/terms");
@@ -372,6 +380,23 @@ test("review fixes: spots, legal links, in-page pricing, welcome and 404", async
 
 const unfinished =
   /placeholder|coming soon|\bTODO\b|photo of dan|real photo|image coming soon|real screenshot/i;
+
+test("the home hero trial button links straight to Starter sign-up", async ({ page }) => {
+  const mobile = test.info().project.name === "mobile";
+  const width = mobile ? 390 : 1440;
+  const height = mobile ? 844 : 900;
+  await page.setViewportSize({ width, height });
+  await page.goto("/");
+  expect(page.viewportSize()?.width).toBe(width);
+
+  const hero = page.locator(".site-hero [data-hero-cta] a");
+  await expect(hero).toHaveCount(1);
+  await expect(hero).toBeVisible();
+  await expect(hero).toHaveText("Try it free for 7 days");
+  await expect(hero).toHaveAttribute("href", starterSignup);
+  expect(starterSignup).toBe("https://1qbx.app.embedmyreviews.com/register?plan=5");
+  expect(await hero.getAttribute("target")).toBeNull();
+});
 
 test("pages have no unfinished copy, header plumbers link, or Base44 icon", async ({ page }) => {
   const paths = ["/", "/pricing", "/google-reviews-for-plumbers", "/free-review-breakdown", "/privacy", "/terms"];

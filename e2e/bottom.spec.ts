@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { defaultStarterSignupUrl } from "../lib/site";
 import { waitForLazyImages } from "./lazy-images";
 
 async function headlineLines(page: Page) {
@@ -346,14 +347,36 @@ test("an open phone menu closes when a nav link or Try it free is tapped", async
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(menu()).toBeVisible();
-  await menu().getByRole("link", { name: "Try it free for 7 days" }).click();
-  await expect(page).toHaveURL(/\/#pricing$/);
+  const menuTrial = menu().getByRole("link", { name: "Try it free for 7 days" });
+  await expect(menuTrial).toHaveAttribute("href", defaultStarterSignupUrl);
+  await stayForExternalTrial(page);
+  await menuTrial.click();
+  await expect(page).toHaveURL(/\/$/);
   await expect(menu()).toHaveCount(0);
 
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(menu()).toBeVisible();
-  await page.getByRole("banner").getByRole("link", { name: "Try it free", exact: true }).click();
-  await expect(page).toHaveURL(/\/#pricing$/);
+  const headerTrial = page.getByRole("banner").getByRole("link", { name: "Try it free", exact: true });
+  await expect(headerTrial).toHaveAttribute("href", defaultStarterSignupUrl);
+  await stayForExternalTrial(page);
+  await headerTrial.click();
+  await expect(page).toHaveURL(/\/$/);
   await expect(menu()).toHaveCount(0);
 });
+
+/** Trial links leave for Starter registration. Keep the click on this page so the menu can close. */
+async function stayForExternalTrial(page: Page) {
+  await page.evaluate((signupUrl: string) => {
+    document.addEventListener(
+      "click",
+      (event) => {
+        const link = event.target instanceof Element ? event.target.closest("a") : null;
+        if (link?.getAttribute("href") === signupUrl) {
+          event.preventDefault();
+        }
+      },
+      true,
+    );
+  }, defaultStarterSignupUrl);
+}

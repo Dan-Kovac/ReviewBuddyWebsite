@@ -2,10 +2,10 @@
  * Trial registration and log-in addresses. This is the only file that chooses them.
  * lib/site.ts re-exports them.
  *
- * A general "Try it free for 7 days" button does not use these. It goes to the
- * pricing section so the visitor picks Starter or Growth first.
+ * A general "Try it free for 7 days" button uses the Starter registration URL,
+ * the same address as the Starter plan button: signupHref("starter").
+ * The Growth plan button keeps its own registration URL.
  *
- * Starter and Growth trial buttons go straight to Embed My Reviews registration.
  * There is no Stripe payment step. The app's own 7-day trial does not take a card.
  * Replace a link by editing the matching constant, or set the full URL in
  * NEXT_PUBLIC_SIGNUP_URL_STARTER or NEXT_PUBLIC_SIGNUP_URL_GROWTH.
@@ -23,12 +23,12 @@ export const defaultGrowthSignupUrl =
 
 export const defaultLoginUrl = "https://1qbx.app.embedmyreviews.com/login";
 
-/** Home pricing block. General trial buttons go here, not straight to a plan. */
+/** Home pricing block. Trial buttons do not use this. They go to registration. */
 export const pricingSectionHref = "/#pricing";
 
 const pagesWithPricing = new Set(["/pricing", "/google-reviews-for-plumbers"]);
 
-/** On a page that already has a pricing section, stay there. Everywhere else, go to the home section. */
+/** Hash on a page that already shows pricing. Everywhere else, the home pricing block. */
 export function pricingSectionLink(pathname: string): string {
   return pagesWithPricing.has(pathname) ? "#pricing" : pricingSectionHref;
 }
