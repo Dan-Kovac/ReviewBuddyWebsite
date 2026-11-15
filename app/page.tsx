@@ -103,7 +103,7 @@ export default function HomePage() {
             before they even call you (and stop competing on price)
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            ReviewBuddy ensures you generate reviews after every job you complete, ensuring you get more and more quality leads into your business.
+            ReviewBuddy ensures you generate reviews after every job you complete, bringing more and more quality leads into your business.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
