@@ -122,7 +122,7 @@ test("the home bottom half matches the build spec", async ({ page }) => {
   expect(closing).toBe("rgb(11, 15, 20)");
   const closingSize = await page.locator("#s7 .close-cta").evaluate((el) => getComputedStyle(el).fontSize);
   expect(closingSize).toBe("16px");
-  expect(await headlineLines(page)).toEqual(["Build the trust", "before they call"]);
+  expect(await headlineLines(page)).toEqual(["Get to 50 reviews.", "We'll get you there."]);
 
   const caption = await page.locator("#s-how figcaption").last().evaluate((el) => {
     const style = getComputedStyle(el);
@@ -192,7 +192,7 @@ test("the home bottom half matches the build spec", async ({ page }) => {
     } else {
       expect(current, `problem art at ${width}`).toContain("be-the-tradie-desktop");
     }
-    expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
+    expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Get to 50 reviews.", "We'll get you there."]);
     const portrait = await page.locator("#s4 img").evaluate((img: HTMLImageElement) => {
       const box = img.getBoundingClientRect();
       return { src: img.currentSrc, naturalWidth: img.naturalWidth, width: box.width, height: box.height };
@@ -286,9 +286,10 @@ test("help and pricing show the moved questions", async ({ page }) => {
   await expect(locations).toContainText("and we'll work out what suits.");
   await expect(locations).not.toContainText("I'll work out");
   await expect(
-    page.getByText("We set it up for you in about 2 business days, then send you your review email to approve.", {
-      exact: true,
-    }),
+    page.getByText(
+      "We set it up for you - about 2 business days, then send you your review email to approve. That leaves around 5 days with everything live before you decide.",
+      { exact: true },
+    ),
   ).toBeVisible();
 });
 
@@ -328,7 +329,7 @@ test("the sticky trial bar hides while the closing band is in view", async ({ pa
     });
     expect(covered, `closing button covered at ${width}`).toBe(false);
     await button.click({ trial: true });
-    expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Build the trust", "before they call"]);
+    expect(await headlineLines(page), `#s7 break at ${width}`).toEqual(["Get to 50 reviews.", "We'll get you there."]);
   }
 });
 

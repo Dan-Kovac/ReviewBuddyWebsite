@@ -1789,8 +1789,17 @@ footer {
   .acc .a { padding-right: 0; }
   .close-sec { padding: 96px 0; }
   #s4.sec { padding-top: 48px; padding-bottom: 48px; }
-  .cl { padding: 64px 24px; border-radius: var(--rb-radius-lg); }
-  .cl h2 { font-size: 40px; line-height: 50px; }
+  .cl {
+    padding: 64px 24px;
+    border-radius: var(--rb-radius-lg);
+    container-type: inline-size;
+  }
+  /* Both close-lines stay on one line. 40px fits once the card is about 442px
+     wide. Narrower than that, "We'll get you there." runs past the viewport. */
+  .cl h2 {
+    font-size: min(40px, calc(100cqi / 9.15));
+    line-height: 1.25;
+  }
   .cl .close-cta { width: 100%; }
   .d-only { display: none !important; }
   .m-only { display: inline-block; }
