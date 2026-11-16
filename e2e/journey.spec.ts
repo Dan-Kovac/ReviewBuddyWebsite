@@ -58,8 +58,8 @@ test("landing, pricing, trial handoff, blog and help", async ({ page }) => {
   expect(policy).toContain("camera=()");
   expect(policy).toContain("microphone=()");
   expect(policy).toContain("geolocation=()");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Win your customers' trust before they even call you (and stop competing on price)",
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    /Get to 50 Google reviews\s*\. We'll get you there in 90 days\./,
   );
   await expect(page.getByText("7-day free trial, no card needed.").first()).toBeVisible();
   await expect(page.getByText("No contract", { exact: true })).toBeVisible();
@@ -273,7 +273,7 @@ test("internal links resolve and external handoff URLs respond", async ({ page, 
 test("review fixes: spots, legal links, in-page pricing, welcome and 404", async ({ page, request }) => {
   await page.goto("/");
   await expect(page.getByText(/free setups left/)).toHaveCount(0);
-  await expect(page.getByText("No GST charged")).toHaveCount(0);
+  await expect(page.getByText("No GST charged", { exact: true })).toHaveCount(2);
   await expect(page.getByText("GST included")).toHaveCount(0);
   await expect(page.getByText("incl GST")).toHaveCount(0);
   await expect(page.getByText("[ABN to be added before launch]")).toHaveCount(0);
