@@ -33,7 +33,8 @@ const howSteps = [
   },
   {
     title: "Shown on your website",
-    detail: "New reviews show in a widget on your website, boosting the conversion rate of your website traffic.",
+    detail:
+      "New reviews show in a widget on your own website, matched to your colours. The proof sits where the decision happens, not on a profile you don't own.",
   },
 ] as const;
 
@@ -49,6 +50,9 @@ const youDo = [
   "Put the link or QR code on your invoices, van or cards",
 ];
 
+const ghostCta =
+  "inline-flex min-h-[52px] w-full items-center justify-center rounded-full border-[1.5px] border-[color-mix(in_srgb,var(--rb-on-brand)_40%,transparent)] bg-transparent px-6 text-center text-base font-semibold text-[var(--rb-on-brand)] hover:bg-[color-mix(in_srgb,var(--rb-on-brand)_8%,transparent)] lg:w-auto";
+
 function SectionCta({ location, quiet = false }: { location: string; quiet?: boolean }) {
   return (
     <div className="section-cta">
@@ -57,7 +61,7 @@ function SectionCta({ location, quiet = false }: { location: string; quiet?: boo
       </TrialButton>
       {quiet ? (
         <p className="how-quiet">
-          See where you stand first with a <Link href="/free-review-breakdown">free review breakdown</Link>
+          See how you stack up first with a <Link href="/free-review-breakdown">free review breakdown</Link>
         </p>
       ) : (
         <p className="micro">{STICKY_TRIAL_TEXT}</p>
@@ -86,9 +90,9 @@ export default function HomePage() {
         <div className="wrap mx-auto w-full max-w-[var(--rb-max-width)] px-[var(--rb-gutter)]">
           <p className="eyebrow text-[var(--rb-accent)]">Google reviews for Australian tradies</p>
           <h1 className="display mx-auto mt-4 max-w-[18em] text-balance">
-            Win your customers&apos;{" "}
+            Get to{" "}
             <span className="trust-word">
-              trust
+              50 Google reviews
               <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
                 <path
                   d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
@@ -99,11 +103,12 @@ export default function HomePage() {
                   vectorEffect="non-scaling-stroke"
                 />
               </svg>
-            </span>{" "}
-            before they even call you (and stop competing on price)
+            </span>
+            . We&apos;ll get you there in 90 days.
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
-            ReviewBuddy ensures you generate reviews after every job you complete, ensuring you get more and more quality leads into your business.
+            The typical Aussie trade business has 52. Get past 50 and you jump most of the tradies customers compare
+            you with - your rating does the selling before they call.
           </p>
           <div className="hero-actions">
             <div data-hero-cta="" className="w-full lg:w-auto">
@@ -111,12 +116,13 @@ export default function HomePage() {
                 {CTA_LABEL}
               </TrialButton>
             </div>
+            <div className="w-full lg:w-auto">
+              <Link href="/free-review-breakdown" className={ghostCta}>
+                See how you stack up - free report
+              </Link>
+            </div>
           </div>
           <p className="trial-line mx-auto mt-3 max-w-[34rem] text-sm leading-5 text-[var(--rb-on-brand-muted)]">{TRIAL_LINE}</p>
-          <p className="hero-quiet">
-            See where you stand first with a{" "}
-            <Link href="/free-review-breakdown">free review breakdown</Link>
-          </p>
           <ul className="trust-bar" aria-label="What you get">
             {TRUST_BAR.map((item) => (
               <li key={item}>{item}</li>
@@ -159,7 +165,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="s-how" className="bg-[var(--rb-surface-alt)]">
+      <section id="s-fit" className="bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <div className="mx-auto max-w-[var(--rb-text-max)]">
+            <p className="eyebrow">Who it&apos;s for</p>
+            <h2 className="mt-3">Built for tradies who win or lose jobs on Google</h2>
+            <div className="mt-6 grid gap-4 text-base leading-7 text-[var(--rb-text-muted)]">
+              <p>
+                ReviewBuddy is for you if customers compare you online before they call. Plumbers, sparkies, builders,
+                landscapers - if your next job starts with a Google search, your reviews decide whether the phone rings.
+              </p>
+              <p>
+                It&apos;s not for you if you&apos;re booked solid on word of mouth and don&apos;t want more calls.
+                We&apos;d rather tell you that now than take your money.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-how" className="bg-[var(--rb-surface)]">
         <div className="shell how-shell">
           <div className="how3-head">
             <p className="eyebrow">How it works</p>
@@ -184,11 +209,28 @@ export default function HomePage() {
           <p className="rules-line">
             Everyone gets the same link and the same choice of sites, happy or not. That&apos;s Google&apos;s rules.
           </p>
+          <p className="rules-line">
+            Most clients see their first new reviews within a couple of weeks of the link going out.
+          </p>
           <SectionCta location="how-it-works" quiet />
         </div>
       </section>
 
       <ProofBlock />
+
+      <section id="s-proof" className="bg-[var(--rb-surface-alt)]">
+        <div className={shell}>
+          <div className="mx-auto max-w-[var(--rb-text-max)] text-center">
+            <p className="eyebrow">The proof</p>
+            <h2 className="mt-3">We&apos;re new, and we&apos;d rather earn it than fake it</h2>
+            <p className="lead mt-4 text-[var(--rb-text-muted)]">
+              Our first customers are climbing to 50 reviews right now. Their words - with name, trade and suburb -
+              will sit on this page, and only ever their words.
+            </p>
+            <p className="mt-6 text-lg font-semibold">One extra job pays for a year of ReviewBuddy.</p>
+          </div>
+        </div>
+      </section>
 
       <section id="s2" className="sec s2 bg-[var(--rb-surface)]">
         <div className="shell">
@@ -239,6 +281,7 @@ export default function HomePage() {
             <PlanPair location="home-plans" />
           </div>
           <p className="per-day">About $1.60 a day for Starter, or about $2.50 a day for Growth.</p>
+          <p className="mt-4 text-center text-base font-semibold">One extra job pays for a year of ReviewBuddy.</p>
           <p className="mt-8 text-center text-base">
             <Link href="/pricing" className="font-semibold underline decoration-[var(--rb-brand)] decoration-2 underline-offset-4">
               Compare the plans
@@ -273,9 +316,9 @@ export default function HomePage() {
           <div className="cl">
             <h2>
               <span className="close-line">
-                Build the{" "}
+                Get to{" "}
                 <span className="trust-word">
-                  trust
+                  50 reviews
                   <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
                     <path
                       d="M2 8 C 25 3, 55 2, 98 5 M8 11 C 35 7, 70 7, 94 9"
@@ -286,15 +329,16 @@ export default function HomePage() {
                     />
                   </svg>
                 </span>
+                .
               </span>
-              <span className="close-line">before they call</span>
+              <span className="close-line">We&apos;ll get you there.</span>
             </h2>
             <p className="lead">{CLOSING_LINE}</p>
             <TrialButton variant="gold" location="home-final" className="close-cta px-8">
               {CTA_LABEL}
             </TrialButton>
             <p className="hero-quiet">
-              See where you stand first with a <Link href="/free-review-breakdown">free review breakdown</Link>
+              See how you stack up first with a <Link href="/free-review-breakdown">free review breakdown</Link>
             </p>
           </div>
         </div>
