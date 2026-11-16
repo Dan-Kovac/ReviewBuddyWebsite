@@ -103,8 +103,9 @@ export default function HomePage() {
                   vectorEffect="non-scaling-stroke"
                 />
               </svg>
-            </span>
-            . We&apos;ll get you there in 90 days.
+              .
+            </span>{" "}
+            We&apos;ll get you there in 90 days.
           </h1>
           <p className="lead mx-auto mt-5 max-w-[34rem] text-[var(--rb-on-brand-muted)]">
             The typical Aussie trade business has 52. Get past 50 and you jump most of the tradies customers compare
