@@ -45,7 +45,7 @@ export function pricingIntro(registered = GST_REGISTERED): string {
     "Starter gives you the link, QR code and website widget, and you do the asking. Growth does the asking for you, including your past customers.";
   return registered
     ? `${plans} Prices are in Australian dollars, incl GST.`
-    : `${plans} Prices are in Australian dollars.`;
+    : `${plans} Prices are in Australian dollars. No GST is charged.`;
 }
 
 export function pricingSubTail(registered = GST_REGISTERED): string {
