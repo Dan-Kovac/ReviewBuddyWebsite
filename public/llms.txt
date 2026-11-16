@@ -20,14 +20,14 @@
 
 ## Pages
 
-- [Home](https://reviewbuddy.com.au/): what ReviewBuddy is and how it works
-- [Pricing](https://reviewbuddy.com.au/pricing): both plans and a full comparison
-- [Blog](https://reviewbuddy.com.au/blog): articles, when published
-- [Help](https://reviewbuddy.com.au/help): help guides, including how to cancel
-- [Free review breakdown](https://reviewbuddy.com.au/free-review-breakdown): request a free look at where a business stands on Google
-- [Google reviews for plumbers](https://reviewbuddy.com.au/google-reviews-for-plumbers): how it works for plumbing businesses
-- [Privacy](https://reviewbuddy.com.au/privacy): how personal information is handled
-- [Terms](https://reviewbuddy.com.au/terms): the terms for the website and the service
+- [Home](https://www.reviewbuddy.com.au/): what ReviewBuddy is and how it works
+- [Pricing](https://www.reviewbuddy.com.au/pricing): both plans and a full comparison
+- [Blog](https://www.reviewbuddy.com.au/blog): articles, when published
+- [Help](https://www.reviewbuddy.com.au/help): help guides, including how to cancel
+- [Free review breakdown](https://www.reviewbuddy.com.au/free-review-breakdown): request a free look at where a business stands on Google
+- [Google reviews for plumbers](https://www.reviewbuddy.com.au/google-reviews-for-plumbers): how it works for plumbing businesses
+- [Privacy](https://www.reviewbuddy.com.au/privacy): how personal information is handled
+- [Terms](https://www.reviewbuddy.com.au/terms): the terms for the website and the service
 
 ## Contact
 

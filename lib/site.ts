@@ -20,7 +20,8 @@ export {
 } from "./signup-url";
 export type { SignupEnv } from "./signup-url";
 
-export const siteUrl = "https://reviewbuddy.com.au";
+/** Production origin. The apex host 308-redirects here, so every generated URL uses www. */
+export const siteUrl = "https://www.reviewbuddy.com.au";
 export const siteName = "ReviewBuddy";
 export const contactEmail = "hello@reviewbuddy.com.au";
 export const contactPhone = "0411 701 078";
