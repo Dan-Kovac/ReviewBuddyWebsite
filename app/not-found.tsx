@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { homeMetaDescription } from "@/lib/gst";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: { absolute: "Page not found | ReviewBuddy" },
-};
+// Absolute share-image URLs. A title-only metadata object lets Next fill
+// opengraph-image from the file convention, which on a preview deployment
+// uses the deployment host instead of metadataBase.
+export const metadata = pageMetadata({
+  title: "Page not found | ReviewBuddy",
+  description: homeMetaDescription(),
+  path: "/",
+});
 
 export default function NotFound() {
   return (
