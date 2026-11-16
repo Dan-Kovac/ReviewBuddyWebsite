@@ -1,4 +1,5 @@
 import { TrialButton } from "@/components/trial-button";
+import { gstCardNote } from "@/lib/gst";
 import type { Plan } from "@/lib/site";
 
 export function PlanCard({
@@ -34,6 +35,9 @@ export function PlanCard({
       <p className="mt-5 flex items-baseline gap-1.5">
         <span className="wordmark text-[56px] leading-none tracking-[-0.02em]">{plan.priceAmount}</span>
         <span className={featured ? "text-[var(--rb-on-brand-muted)]" : "text-[var(--rb-text-muted)]"}>{plan.pricePeriod}</span>
+      </p>
+      <p className={`mt-1 text-sm ${featured ? "text-[var(--rb-on-brand-muted)]" : "text-[var(--rb-text-muted)]"}`}>
+        {gstCardNote()}
       </p>
       <ul className="mt-6 grid gap-2.5 text-base leading-6">
         {plan.includes.map((item) => (
